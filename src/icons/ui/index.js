@@ -110,12 +110,12 @@ export const SubmittedCheckIcon = () => (
       height="88.5"
       rx="14.25"
       stroke="black"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
     <path
       d="M25.0713 47.4684L39.7878 60.4284L64.9284 29.5713"
       stroke="black"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
   </svg>
 )

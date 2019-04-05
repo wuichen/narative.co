@@ -245,6 +245,8 @@ function ShapeShifter() {
    * On each move and up we reset the globals.
    */
   function updateGlobalSettings(event) {
+    if (!shape.current) return
+
     b = shape.current.getBoundingClientRect()
     x = event.clientX - b.left
     y = event.clientY - b.top
