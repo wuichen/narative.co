@@ -185,14 +185,14 @@ const Slash = () => (
       <path
         d="M329.998 436.561L45 637.141V734.469L329.984 534.782L329.998 436.561Z"
         stroke="url(#paint0_linear)"
-        stroke-width="12"
+        strokeWidth="12"
       />
     </g>
     <g filter="url(#filter1_dd)">
       <path
         d="M329.998 379.319L45 178.816V81.528L329.984 281.14L329.998 379.319Z"
         stroke="white"
-        stroke-width="12"
+        strokeWidth="12"
       />
     </g>
     <rect
@@ -234,7 +234,7 @@ const Slash = () => (
       height="0.5"
       fill="#7A8085"
       stroke="#93C3EA"
-      stroke-width="0.5"
+      strokeWidth="0.5"
     />
     <rect
       x="42.25"
@@ -243,7 +243,7 @@ const Slash = () => (
       height="0.5"
       fill="#7A8085"
       stroke="#93C3EA"
-      stroke-width="0.5"
+      strokeWidth="0.5"
     />
     <rect
       x="336.771"
@@ -253,7 +253,7 @@ const Slash = () => (
       transform="rotate(90 336.771 73.2706)"
       fill="#7A8085"
       stroke="#93C3EA"
-      stroke-width="0.54123"
+      strokeWidth="0.54123"
     />
     <rect
       x="38.7706"
@@ -263,7 +263,7 @@ const Slash = () => (
       transform="rotate(90 38.7706 73.2706)"
       fill="#7A8085"
       stroke="#93C3EA"
-      stroke-width="0.54123"
+      strokeWidth="0.54123"
     />
     <defs>
       <filter
@@ -273,9 +273,9 @@ const Slash = () => (
         width="327"
         height="351"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend
           mode="normal"
           in="SourceGraphic"
@@ -291,9 +291,9 @@ const Slash = () => (
         width="437"
         height="460.877"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
