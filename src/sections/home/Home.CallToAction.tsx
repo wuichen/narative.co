@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import styled from 'styled-components'
 import { Link, graphql, StaticQuery } from 'gatsby'
 
@@ -39,6 +39,20 @@ const imageQuery = graphql`
 
 function HomeCallToAction() {
   const { showContact, toggleContact } = useContext(ContactContext)
+  const buttonRef = useRef()
+
+  useEffect(() => {
+    function handleKeyUp(event: KeyboardEvent) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+        event.preventDefault()
+        toggleContact(event)
+      }
+    }
+
+    buttonRef.current.addEventListener('keyup', handleKeyUp)
+
+    return () => buttonRef.current.removeEventListener('keyup', handleKeyUp)
+  }, [])
 
   return (
     <StaticQuery
@@ -50,10 +64,10 @@ function HomeCallToAction() {
               <Frame narrow>
                 <Nav inView={visiblePercentage > 80}>
                   <LogoContainer>
-                    <Logo fill="rgba(255,255,255,0.25)" />
+                    <Logo fill="rgba(255,255,255,0.3)" aria-hidden="true" />
                   </LogoContainer>
                   <MobileLogoContainer>
-                    <MobileLogo />
+                    <MobileLogo aria-hidden="true" />
                   </MobileLogoContainer>
                   <NavLinks>
                     {ctaLinks.map(link => {
@@ -62,9 +76,10 @@ function HomeCallToAction() {
                           <NavLink
                             key={link.to}
                             to={link.to}
+                            tabIndex={-1}
                             onClick={event => {
                               event.preventDefault()
-                              toggleContact()
+                              toggleContact(event)
                             }}
                           >
                             {link.text}
@@ -73,7 +88,7 @@ function HomeCallToAction() {
                       }
 
                       return (
-                        <NavLink key={link.to} to={link.to}>
+                        <NavLink key={link.to} to={link.to} tabIndex={-1}>
                           {link.text}
                         </NavLink>
                       )
@@ -93,8 +108,13 @@ function HomeCallToAction() {
                   <MobileAction to="/contact">Get in touch</MobileAction>
                 </TextContainer>
                 <CallToAction onClick={toggleContact}>
-                  <CTAText animation={showContact}>
-                    Contact Us <ChevronDownIcon />
+                  <CTAText
+                    animation={showContact}
+                    onClick={toggleContact}
+                    ref={buttonRef}
+                    data-a11y="true"
+                  >
+                    Contact Us <ChevronDownIcon aria-hidden="true" />
                   </CTAText>
                 </CallToAction>
                 <MobileCopy>More about Narative</MobileCopy>
@@ -222,7 +242,7 @@ const TextBackground = styled.div`
   max-width: 680px;
 `
 
-const Text = styled.p`
+const Text = styled.h2`
   display: inline;
   font-family: ${p => p.theme.fontfamily.serif};
   font-weight: 700;
@@ -244,16 +264,19 @@ const Text = styled.p`
   `}
 `
 
-const CallToAction = styled.button`
+const CallToAction = styled.div`
+  display: flex;
+  justify-content: center;
   position: absolute;
   bottom: calc(-50vh + 75px);
   width: 100%;
   height: 50vh;
   background: #fff;
   border-top-left-radius: 20px;
-  border-topright-radius: 20px;
+  border-top-right-radius: 20px;
   text-align: center;
   color: #000;
+  cursor: pointer;
 
   ${mediaqueries.tablet`
     display: none;
@@ -273,18 +296,31 @@ const CallToAction = styled.button`
   }
 `
 
-const CTAText = styled.span`
+const CTAText = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
   top: 22px;
   font-weight: 600;
-  pointer-events: none;
+  max-height: 55px;
 
   opacity: ${p => (p.animation ? 0 : 1)};
   transition: opacity 0.3s linear ${p => (p.animation ? 0 : '0.4s')};
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    top: -10px;
+    width: 120%;
+    height: 55px;
+    border: 2px solid ${p => p.theme.colors.purple};
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
+  }
 `
 
 const ChevronDownIcon = () => (
@@ -368,6 +404,7 @@ const MobileLogo = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <title>Narative</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

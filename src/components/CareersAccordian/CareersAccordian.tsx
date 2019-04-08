@@ -57,15 +57,17 @@ function CareersAccordian() {
                   There are currently no available positions. But if you believe
                   you have something unique to bring to the team, get in touch
                   at{' '}
-                  <a href="mailto:careers@narative.co">careers@narative.co</a>.
-                  <HideOnMobile> We love meeting new people!</HideOnMobile>
+                  <Anchor href="mailto:careers@narative.co">
+                    careers@narative.co
+                  </Anchor>
+                  .<HideOnMobile> We love meeting new people!</HideOnMobile>
                 </span>
-                <button
+                <div
                   onClick={() => setCopied(true)}
                   style={{ justifySelf: 'flex-end' }}
                 >
                   <CopyToClipboard copyOnClick="careers@narative.co" />
-                </button>
+                </div>
               </AccordianCareersEmail>
             </AccordianContainer>
           )
@@ -87,7 +89,9 @@ function CareersAccordian() {
             <AccordianCareersEmail copied={copied}>
               <span style={{ display: copied ? 'none' : 'inline' }}>
                 Don't see a position you're looking for? Send us a message to{' '}
-                <a href="mailto:careers@narative.co">careers@narative.co</a>
+                <Anchor href="mailto:careers@narative.co">
+                  careers@narative.co
+                </Anchor>
               </span>
               <div
                 onClick={() => setCopied(true)}
@@ -315,4 +319,11 @@ const HideOnMobile = styled.span`
   ${mediaqueries.tablet`
     display: none; 
   `}
+`
+
+const Anchor = styled.a`
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `

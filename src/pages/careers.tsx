@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 
 import Layout from '@components/Layout'
 import SEO from '@components/SEO'
-import Footer from '@components/Navigation/Navigation.Footer'
 
 import CareersHero from '../sections/careers/Careers.Hero'
 import CareersBody from '../sections/careers/Careers.Body'
@@ -19,8 +18,12 @@ function CareersPage({ data, location }) {
     theme: 'light',
   }
 
+  const footerConfig = {
+    visible: true,
+  }
+
   return (
-    <Layout background={pageBackground} nav={navConfig}>
+    <Layout background={pageBackground} nav={navConfig} footer={footerConfig}>
       <SEO
         title={contentful.seo.title}
         description={contentful.seo.description}
@@ -29,7 +32,6 @@ function CareersPage({ data, location }) {
       />
       <CareersHero />
       <CareersBody />
-      <Footer />
     </Layout>
   )
 }

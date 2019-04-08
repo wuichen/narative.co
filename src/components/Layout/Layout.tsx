@@ -1,17 +1,21 @@
 import React from 'react'
-
 import { ThemeProvider } from 'styled-components'
-import { GlobalStyles, theme } from '@styles'
 
 import Container from '@components/Layout/Layout.Container'
 import { ContactProvider } from '@components/Contact/Contact.Context'
 import ContactSlideIn from '@components/Contact/Contact.SlideIn'
+
+import { GlobalStyles, theme } from '@styles'
 
 interface LayoutProps {
   background?: string
   nav: {
     fixed?: boolean
     offset?: boolean
+    theme?: string
+  }
+  footer: {
+    visible?: boolean
     theme?: string
   }
 }

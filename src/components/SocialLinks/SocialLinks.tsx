@@ -10,6 +10,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
     <SocialIconContainer
       target="_blank"
       rel="noopener"
+      data-a11y="true"
       aria-label="Link to Facebook"
       href={settings.urls.facebook}
     >
@@ -18,6 +19,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
     <SocialIconContainer
       target="_blank"
       rel="noopener"
+      data-a11y="true"
       aria-label="Link to Twitter"
       href={settings.urls.twitter}
     >
@@ -26,6 +28,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
     <SocialIconContainer
       target="_blank"
       rel="noopener"
+      data-a11y="true"
       aria-label="Link to Instagram"
       href={settings.urls.instagram}
     >
@@ -34,6 +37,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
     <SocialIconContainer
       target="_blank"
       rel="noopener"
+      data-a11y="true"
       aria-label="Link to LinkedIn"
       href={settings.urls.linkedin}
     >
@@ -45,6 +49,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
 export default SocialLinks
 
 const SocialIconContainer = styled.a`
+  position: relative;
   margin-left: 3.2rem;
   text-decoration: none;
 
@@ -54,6 +59,18 @@ const SocialIconContainer = styled.a`
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    top: -10%;
+    width: 200%;
+    height: 120%;
+    border: 2px solid ${p => p.theme.colors.purple};
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
   }
 
   ${mediaqueries.tablet`
