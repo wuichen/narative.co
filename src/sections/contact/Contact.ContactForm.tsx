@@ -12,6 +12,7 @@ import {
   Form,
   SocialLinks,
 } from '@components'
+import Hidden from '@components/Hidden'
 import mediaqueries from '@styles/media'
 import { apiCall, startAnimation } from '@utils'
 import { SubmittedCheckIcon } from '../../icons/ui'
@@ -184,7 +185,8 @@ const ContactByEmail = ({ animation }) => (
         >
           Prefer to send us an email instead?{' '}
           <button>
-            <address>contact@narative.co</address>
+            contact@narative.co{' '}
+            <Hidden>Copy contact@narative.co go clipboard.</Hidden>
           </button>
         </CopyToClipboard>
       </ContactWithEmailText>
@@ -236,6 +238,10 @@ const ContactWithEmailText = styled.div`
   button {
     text-decoration: underline;
     font-weight: 600;
+
+    &:focus {
+      color: ${p => p.theme.colors.purple};
+    }
   }
 `
 
@@ -260,8 +266,8 @@ const ContactWithEmail = styled.div`
   padding-top: 55px;
   margin-left: 265px;
 
-  transition: opacity 0.5s linear ${p => p.delay}ms,
-    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms;
+  transition: opacity 0.5s linear ${p => p.delay - 200}ms,
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay - 200}ms;
   opacity: ${p => (p.animation ? 1 : 0)};
   transform: ${p => (p.animation ? 'translateY(0)' : 'translateY(20px)')};
 

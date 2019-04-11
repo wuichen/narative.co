@@ -84,7 +84,7 @@ class Progress extends Component<IProgress, { value: number; headings: [] }> {
     const progressOffset = { transform: `translateY(${value - 100}%)` }
 
     return (
-      <Frame>
+      <Frame tabIndex={-1}>
         <Trackline aria-hidden="true" value={value} max={100}>
           <ProgressLine style={progressOffset} />
         </Trackline>
@@ -125,6 +125,8 @@ export default Progress
 
 const Frame = styled.div`
   position: relative;
+  outline: none;
+  user-select: none;
 `
 
 const Headings = styled.div`
@@ -146,7 +148,7 @@ const HeadingsHover = styled.div`
   }
 `
 
-const Heading = styled.span`
+const Heading = styled.a`
   position: absolute;
   cursor: pointer;
   top: ${p => p.offset}%;
@@ -160,7 +162,8 @@ const Heading = styled.span`
       : 0.25};
   transition: opacity 0.3s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 0.5;
   }
 `
