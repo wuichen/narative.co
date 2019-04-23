@@ -453,6 +453,18 @@ const Value = styled.div`
     color: ${p => (p.active ? '#fff' : p.theme.colors.grey)};
     transition: color 0.3s var(--ease-out-quad);
   }
+
+  ${mediaqueries.desktop_medium`
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  `}
+
+  @media screen and (max-height: 800px) {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
 `
 
 const Transform = styled.div`
