@@ -44,8 +44,8 @@ function HomeHero() {
               >
                 <TextContainer>
                   <Heading.h1>
-                    Narative builds brands, websites and products for
-                    growth-minded companies.
+                    Narative brands, builds and markets products on behalf of
+                    growth-minded companies
                   </Heading.h1>
                   <MainText>
                     We're a team with senior startup experience here to help
