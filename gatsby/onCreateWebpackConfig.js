@@ -16,7 +16,6 @@ module.exports = ({ actions, getConfig, stage }) => {
   })
 
   /**
-   * Removing cache-busting filenames to avoid Missing Resources /.
    * This is tailored specifically to Netlify as their deployment process suggests
    * avoiding all cache-busting filenames.
    *
