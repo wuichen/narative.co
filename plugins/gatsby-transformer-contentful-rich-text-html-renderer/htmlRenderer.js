@@ -58,22 +58,21 @@ module.exports.HTMLRendererOpts = {
         `
       }
 
-      if (image && image.en && contentfulId === 'articleImage') {
-        let { file, title, description } = image.en.fields
+      if (image && (image.en || image.sys) && contentfulId === 'articleImage') {
+        let fields = image.fields || image.en.fields
+        let { file, title, description } = fields
 
         // Sometimes the file and filename exist outside of a locale (I don't know why! Previews are an example)
         // So here we just reprogram file to either be _just_ file or the en locale version of file
         file = file.en || file
         // Same goes for the other values
         title = title.en || title
+        align = align.en || align
         description = (description && (description.en || description)) || null
 
         // Alt is either the title or the filename (if title is missing). Assumes en (wrong)
-        const alt = title || file.fileName
         const src = file.url
-        const className = align.en.toLowerCase()
-
-        // Caption is the description.
+        const className = align.toLowerCase()
         const caption = description
 
         // Make the img tag that will be returned either way
