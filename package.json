@@ -8,9 +8,9 @@
     "website"
   ],
   "scripts": {
-    "dev": "run-p dev:**",
-    "dev:app": "yarn clean && ./node_modules/.bin/gatsby develop --prefix-paths",
-    "dev:lambda": "netlify-lambda serve src/functions",
+    "start": "run-p start:**",
+    "start:app": "yarn clean && ./node_modules/.bin/gatsby develop --prefix-paths",
+    "start:lambda": "netlify-lambda serve src/functions",
     "build": "run-p build:**",
     "build:app": "./node_modules/.bin/gatsby build --prefix-paths",
     "build:lambda": "netlify-lambda build src/functions",

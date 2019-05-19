@@ -162,6 +162,16 @@ const Image = styled.div`
     }
   }
 
+  /* This is for article previews */
+  img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    object-position: left center !important;
+  }
+
   ${mediaqueries.tablet`
     display: none;
   `}

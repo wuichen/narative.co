@@ -22,6 +22,8 @@ import { IArticleNode } from '@typings'
  *  [..............], [.........]
  */
 const ArticlesPreview = ({ articles }: { articles: IArticleNode[] }) => {
+  if (!articles) return null
+
   return (
     <>
       <Grid>

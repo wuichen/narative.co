@@ -6,7 +6,7 @@ module.exports.urls = {
   authors: 'authors',
   articles: 'articles',
   netlify: {
-    previewContent: '/.netlify/functions/preview-content',
+    preview: '/.netlify/functions/preview',
   },
   linkedin: 'https://www.linkedin.com/company/narative',
   instagram: 'http://instagram.com/narative.co',
