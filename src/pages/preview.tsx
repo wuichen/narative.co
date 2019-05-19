@@ -78,7 +78,7 @@ const PreviewIndicator = styled.div`
 `
 
 const FadeIn = styled.div`
-  animation: fadein 0.4s ease-out;
+  animation: fadein 0.45s ease-out 0.1s;
 
   @keyframes fadein {
     from {
