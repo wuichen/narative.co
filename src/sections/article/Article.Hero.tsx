@@ -143,13 +143,12 @@ const ReadingTime = styled.div`
 `
 
 const Image = styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    right: -40%;
-    overflow: visible;
-}
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  right: -40%;
+  overflow: visible;
 
   & > div {
     top: 50%;
@@ -163,7 +162,7 @@ const Image = styled.div`
   }
 
   /* This is for article previews */
-  img {
+  & > img {
     position: absolute;
     top: 0;
     width: 100%;
