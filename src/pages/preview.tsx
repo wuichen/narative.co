@@ -15,18 +15,20 @@ function Preview(props) {
   const [article, setArticle] = useState()
   const [error, setError] = useState()
 
-  const entryId = new URL(props.location.href).searchParams.get('entry')
   const fauxProps = mergeDeepRight(props, {
     pageContext: { article, relateds: [] },
     pathContext: { article },
   })
 
   useEffect(() => {
+    const entryId = new URL(props.location.href).searchParams.get('entry')
     const endpoint = `${settings.urls.netlify.preview}?entry=${entryId}`
+
     const handleErrors = async response => {
       if (!response.ok) throw Error(await response.json())
       return response
     }
+
     // Fetch the endpoint passing the entry ID
     fetch(endpoint)
       .then(handleErrors)
