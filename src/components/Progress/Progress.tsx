@@ -12,7 +12,7 @@ export interface IProgress {
 
 class Progress extends Component<
   IProgress,
-  { value: number; headings: []; hasHinted: boolean }
+  { value: number; headings: []; hasHinted: boolean; topOfArticle: number }
 > {
   ticking = false
 
@@ -49,24 +49,25 @@ class Progress extends Component<
     const { height } = this.props
     const allHeadings = Array.from(document.querySelectorAll('h2')).reverse()
 
+    const introduciton = {
+      text: 'Introduction',
+      offset: 0,
+      offetPercentage: 0,
+    }
+
     const headings = allHeadings
       .map(heading => {
-        const offsetTop = heading.offsetTop
+        const offset = heading.offsetTop
         const text = heading.innerText
-        const headingOffset = (offsetTop / height) * 100
+        const offetPercentage = (offset / height) * 100
 
         return {
           text,
-          offset: offsetTop,
-          offetPercentage: headingOffset,
+          offset,
+          offetPercentage,
         }
       })
       .reverse()
-
-    const introduciton = {
-      text: '',
-      offetPercentage: 0,
-    }
 
     this.setState({ headings: [introduciton, ...headings] })
   }
@@ -92,13 +93,13 @@ class Progress extends Component<
   })
 
   render = () => {
-    const { value, headings, hasHinted } = this.state
+    const { value, headings } = this.state
 
     return (
-      <Frame tabIndex={-1} value={value} hasHinted={hasHinted}>
-        <Introduction onClick={() => scrollTo(0, 0)}>
-          <Arrow /> <IntoHeading>Introduction</IntoHeading>
-        </Introduction>
+      <Frame tabIndex={-1} value={value}>
+        {/* <Introduction>
+          <Arrow />
+        </Introduction> */}
         <ProgressBar>
           {headings.map((heading, index) => {
             const previousOffset = headings[index - 1]
@@ -139,7 +140,7 @@ class Progress extends Component<
                       scrollTo(0, heading.offset + this.props.offset)
                     }
                   >
-                    {heading.text}
+                    <Truncate>{heading.text}</Truncate>
                   </Heading>
                 </HeadingHover>
               </Frame>
@@ -171,7 +172,7 @@ const HeadingHover = styled.div`
 
 const Introduction = styled.div`
   position: absolute;
-  top: -30px;
+  top: -3px;
   left: -5px;
   opacity: 0;
   transition: opacity 0.3s linear;
@@ -210,15 +211,6 @@ const Frame = styled.div`
   &:hover ${HeadingHover}, &:hover ${Introduction} {
     opacity: 1;
   }
-
-  ${p =>
-    p.value < 4 &&
-    !p.hasHinted &&
-    `
-    ${HeadingHover} {
-      opacity: 1;
-    }
-  `}
 `
 
 const Chapter = styled.div`
@@ -237,6 +229,12 @@ const ChapterProgress = styled.div`
   top: 0;
 `
 
+const Truncate = styled.div`
+  width: 188px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
 const Heading = styled.h6`
   cursor: pointer;
   display: flex;
@@ -246,7 +244,7 @@ const Heading = styled.h6`
   padding-left: 18px;
   top: 0;
   bottom: 0;
-  width: 180px;
+
   color: ${p => p.theme.mode.text};
   opacity: ${p =>
     p.value > p.previousOffset && p.value > p.offset && p.value < p.nextOffset
@@ -263,8 +261,8 @@ const Heading = styled.h6`
 
 const Arrow = () => (
   <svg
-    width="11"
-    height="22"
+    width="9"
+    height="16"
     viewBox="0 0 9 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
