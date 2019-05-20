@@ -16,6 +16,7 @@ const client = contentful.createClient({
   accessToken: process.env.CONTENTFUL_PREVIEW_API_KEY,
   host: 'preview.contentful.com',
   environment: process.env.CONTENTFUL_ENVIRONMENT || 'master',
+  dynamic_antries: 'auto',
 })
 
 // Some static error codes
@@ -31,7 +32,7 @@ const ERROR_FORBIDDEN = {
 
 const ERROR_UNRETRIEVABLE = {
   statusCode: 400,
-  body: JSON.stringify('Could not retrieve you entry'),
+  body: JSON.stringify('Could not retrieve your entry'),
 }
 
 const ERROR_UNPROCESSABLE = {
@@ -95,8 +96,9 @@ export async function handler(event, context) {
 
   // Go to the API and get this entry
   try {
-    const entries = await client.getEntries(entryId, {
+    const entries = await client.getEntries({
       include: 10,
+      limit: 1000,
     })
     entry = entries.items.find(item => item.sys.id === entryId)
     model = entry.sys.contentType.sys.id
