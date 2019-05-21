@@ -77,8 +77,6 @@ module.exports.HTMLRendererOpts = {
         const className = align.toLowerCase()
         const caption = description
 
-        console.log({ description, showDescription, caption })
-
         // Make the img tag that will be returned either way
         const img = `<img src="${src}" alt="${caption}" class="image__${className}" />`
 
@@ -88,7 +86,6 @@ module.exports.HTMLRendererOpts = {
 
         // If there is a description, then we want to render that as a <caption>
         if (caption) {
-          console.log(figcaption)
           return `
           <figure>
             ${img}

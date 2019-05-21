@@ -115,6 +115,8 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
 export default HandleOverlap
 
 const Frame = styled.div`
+  user-select: ${p => (p.isOverlapping ? 'none' : 'initial')};
+  pointer-events: ${p => (p.isOverlapping ? 'none' : 'initial')};
   opacity: ${p => (p.isOverlapping ? 0 : 1)};
   transition: ${p => (p.isOverlapping ? 'opacity 0.15s' : 'opacity 0.3s')};
 `

@@ -12,11 +12,17 @@ export interface IProgress {
 
 class Progress extends Component<
   IProgress,
-  { value: number; headings: []; hasHinted: boolean; topOfArticle: number }
+  {
+    value: number
+    headings: []
+    hint: boolean
+    hasHinted: boolean
+    topOfArticle: number
+  }
 > {
   ticking = false
 
-  state = { value: 0, headings: [], hasHinted: false }
+  state = { value: 0, headings: [], hint: false, hasHinted: false }
 
   componentDidMount() {
     this.handleProgressHeadings()
@@ -38,10 +44,6 @@ class Progress extends Component<
       prevProps.height !== this.props.height
     ) {
       this.handleProgressHeadings()
-    }
-
-    if (this.state.hasHinted === false && this.state.value > 8) {
-      this.setState({ hasHinted: true })
     }
   }
 
@@ -73,19 +75,38 @@ class Progress extends Component<
   }
 
   onScroll = throttle((event: Event) => {
+    const { offset, height } = this.props
+    const { hasHinted } = this.state
+
     if (!this.ticking) {
       // RAF and make our progress calculation
       // on callback of the setState clear the thread
       window.requestAnimationFrame(() => {
         const percentComplete =
-          ((window.scrollY - this.props.offset) /
-            (this.props.height - this.props.offset)) *
-          100
+          ((window.scrollY - offset) / (height - offset)) * 100
 
         this.setState(
           { value: clamp(+percentComplete.toFixed(2), -2, 104) },
           () => (this.ticking = false)
         )
+
+        /**
+         * Toggling the hint of the progress headings at the start of the
+         * article. Once the user has scrolled into view past the article hero
+         * we want to display the hover state for just under 3 seconds.
+         */
+        if (!hasHinted && window.scrollY > offset - 60) {
+          this.setState({
+            hint: true,
+          })
+
+          setTimeout(() => {
+            this.setState({
+              hint: false,
+              hasHinted: true,
+            })
+          }, 2600)
+        }
       })
       // Prevent further scrolls triggers
       this.ticking = true
@@ -93,13 +114,14 @@ class Progress extends Component<
   })
 
   render = () => {
-    const { value, headings } = this.state
+    const { value, headings, hint } = this.state
 
+    console.log(this.state.hint)
     return (
-      <Frame tabIndex={-1} value={value}>
-        {/* <Introduction>
+      <Frame tabIndex={-1} value={value} hint={hint}>
+        <Introduction>
           <Arrow />
-        </Introduction> */}
+        </Introduction>
         <ProgressBar>
           {headings.map((heading, index) => {
             const previousOffset = headings[index - 1]
@@ -125,7 +147,7 @@ class Progress extends Component<
                   previousOffset={previousOffset}
                   nextOffset={nextOffset}
                   onClick={() =>
-                    scrollTo(0, heading.offset + this.props.offset)
+                    scrollTo(0, heading.offset + this.props.offset + 65)
                   }
                 >
                   <ChapterProgress style={individualOFfset} />
@@ -137,7 +159,7 @@ class Progress extends Component<
                     previousOffset={previousOffset}
                     nextOffset={nextOffset}
                     onClick={() =>
-                      scrollTo(0, heading.offset + this.props.offset)
+                      scrollTo(0, heading.offset + this.props.offset + 65)
                     }
                   >
                     <Truncate>{heading.text}</Truncate>
@@ -172,32 +194,13 @@ const HeadingHover = styled.div`
 
 const Introduction = styled.div`
   position: absolute;
-  top: -3px;
-  left: -5px;
+  top: -7px;
+  left: -4px;
   opacity: 0;
-  transition: opacity 0.3s linear;
+  transition: opacity 0.2s linear;
 
   svg path {
     fill: ${p => p.theme.mode.text};
-  }
-`
-
-const IntoHeading = styled.h6`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 0;
-  padding-left: 22px;
-  top: 8px;
-  bottom: 0;
-  width: 180px;
-  font-weight: 400;
-  color: ${p => p.theme.mode.text};
-  opacity: 0.25;
-
-  &:hover {
-    opacity: 0.5;
   }
 `
 
@@ -211,6 +214,14 @@ const Frame = styled.div`
   &:hover ${HeadingHover}, &:hover ${Introduction} {
     opacity: 1;
   }
+
+  ${p =>
+    p.hint &&
+    `
+    ${HeadingHover} {
+      opacity: 1;
+    }
+  `}
 `
 
 const Chapter = styled.div`

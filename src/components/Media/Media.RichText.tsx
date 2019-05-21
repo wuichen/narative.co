@@ -86,7 +86,7 @@ const Content = styled.article`
     font-size: 2.2rem;
     line-height: 1.45;
     margin-bottom: 2rem;
-    padding-top: 45px;
+    padding-top: 105px;
 
     ${mediaqueries.desktop_up`
       font-size: 3.2rem;
@@ -140,7 +140,7 @@ const Content = styled.article`
       margin-bottom: 60px;
 
       ${mediaqueries.tablet`
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         font-size: 18px;
       `}
     }
@@ -174,7 +174,7 @@ const Content = styled.article`
   }
 
   blockquote.pull__quote {
-    margin: 35px auto 65px;
+    margin: 30px auto 65px;
     line-height: 1.25;
     max-width: 780px;
     color: ${p => p.theme.mode.text};
@@ -184,7 +184,7 @@ const Content = styled.article`
     ${transitionColor};
 
     ${mediaqueries.tablet`
-      margin: 0 auto 35px;
+      margin: 0 auto 30px;
       padding: 20px;
     `}
   }
@@ -201,7 +201,7 @@ const Content = styled.article`
 
     li {
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: 5px;
 
       ${mediaqueries.tablet`
           padding-left: 20px;
@@ -255,8 +255,8 @@ const Content = styled.article`
 
   p {
     ${articleWidth};
-    margin-bottom: 35px;
-    line-height: 1.6;
+    margin-bottom: 30px;
+    line-height: 1.55;
     font-size: 22px;
     color: ${p => p.theme.mode.text};
 
@@ -270,7 +270,7 @@ const Content = styled.article`
     position: relative;
     max-width: 100%;
     z-index: 0;
-    margin: 40px auto 65px;
+    margin: 30px auto 55px;
     border-radius: 5px;
 
     ${mediaqueries.tablet`
@@ -337,7 +337,7 @@ const Content = styled.article`
   hr {
     width: 250px;
     height: 1px;
-    margin: 35px auto;
+    margin: 30px auto;
     opacity: 0.33;
   }
 
