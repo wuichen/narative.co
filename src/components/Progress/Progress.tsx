@@ -116,10 +116,9 @@ class Progress extends Component<
   render = () => {
     const { value, headings, hint } = this.state
 
-    console.log(this.state.hint)
     return (
       <Frame tabIndex={-1} value={value} hint={hint}>
-        <Introduction>
+        <Introduction onClick={() => scrollTo(0, 0)}>
           <Arrow />
         </Introduction>
         <ProgressBar>
@@ -194,10 +193,8 @@ const HeadingHover = styled.div`
 
 const Introduction = styled.div`
   position: absolute;
-  top: -7px;
+  top: -30px;
   left: -4px;
-  opacity: 0;
-  transition: opacity 0.2s linear;
 
   svg path {
     fill: ${p => p.theme.mode.text};
@@ -211,7 +208,7 @@ const Frame = styled.div`
   outline: none;
   user-select: none;
 
-  &:hover ${HeadingHover}, &:hover ${Introduction} {
+  &:hover ${HeadingHover} {
     opacity: 1;
   }
 

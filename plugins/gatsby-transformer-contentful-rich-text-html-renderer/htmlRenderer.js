@@ -1,4 +1,7 @@
 const { BLOCKS, INLINES } = require('@contentful/rich-text-types')
+const documentToHtmlString = require('@contentful/rich-text-html-renderer')
+  .documentToHtmlString
+
 // Options used in the documentToHtmlString renderer
 const highlightCode = require('./prism/highlight-code.js')
 var Prism = require('prismjs')
@@ -9,9 +12,9 @@ module.exports.HTMLRendererOpts = {
     [INLINES.HYPERLINK]: node => {
       // Adding external links default to links in articles
       if (node.nodeType === 'hyperlink') {
-        return `<a href=${node.data.uri} target="_blank" rel="noopener">${
-          node.content[0].value
-        }</a>`
+        return `<a href=${
+          node.data.uri
+        } target="_blank" rel="noopener">${documentToHtmlString(node)}</a>`
       }
     },
     [BLOCKS.EMBEDDED_ENTRY]: node => {
