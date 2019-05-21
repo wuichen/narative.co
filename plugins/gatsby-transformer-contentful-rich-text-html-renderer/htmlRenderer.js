@@ -68,6 +68,8 @@ module.exports.HTMLRendererOpts = {
         // Same goes for the other values
         title = title.en || title
         align = align.en || align
+        showDescription =
+          (showDescription && showDescription.en) || showDescription
         description = (description && (description.en || description)) || null
 
         // Alt is either the title or the filename (if title is missing). Assumes en (wrong)
@@ -75,14 +77,18 @@ module.exports.HTMLRendererOpts = {
         const className = align.toLowerCase()
         const caption = description
 
+        console.log({ description, showDescription, caption })
+
         // Make the img tag that will be returned either way
         const img = `<img src="${src}" alt="${caption}" class="image__${className}" />`
+
         const figcaption = `<figcaption>${
-          showDescription && showDescription.en ? caption : ''
+          showDescription ? caption : ''
         }</figcaption>`
 
         // If there is a description, then we want to render that as a <caption>
-        if (caption && caption.en !== '') {
+        if (caption) {
+          console.log(figcaption)
           return `
           <figure>
             ${img}
