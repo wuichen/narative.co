@@ -8,6 +8,8 @@ var Prism = require('prismjs')
 require('prismjs/plugins/keep-markup/prism-keep-markup.js')
 
 function htmlEntities(str) {
+  if (typeof str !== 'string') return str
+
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -127,7 +129,7 @@ module.exports.HTMLRendererOpts = {
       const src = file.url
 
       // Caption is the description.
-      const caption = description
+      const caption = htmlEntities(description)
 
       // Make the img tag that will be returned either way
       const img = `<img src="${src}" alt="${alt}" />`
