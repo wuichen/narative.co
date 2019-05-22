@@ -7,6 +7,14 @@ const highlightCode = require('./prism/highlight-code.js')
 var Prism = require('prismjs')
 require('prismjs/plugins/keep-markup/prism-keep-markup.js')
 
+function htmlEntities(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 module.exports.HTMLRendererOpts = {
   renderNode: {
     [INLINES.HYPERLINK]: node => {
@@ -78,7 +86,7 @@ module.exports.HTMLRendererOpts = {
         // Alt is either the title or the filename (if title is missing). Assumes en (wrong)
         const src = file.url
         const className = align.toLowerCase()
-        const caption = description
+        const caption = htmlEntities(description)
 
         // Make the img tag that will be returned either way
         const img = `<img src="${src}" alt="${caption}" class="image__${className}" />`
