@@ -7,9 +7,9 @@ import ScrollIndicator from '@components/ScrollIndicator'
 import Media from '@components/Media/Media.Img'
 import Pill from '@components/Pill'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
+import Transitions from '@components/Transitions'
 
 import mediaqueries from '@styles/media'
-import transitions from '@styles/transitions'
 import { Section } from '@components'
 import { startAnimation } from '@utils'
 
@@ -26,19 +26,12 @@ const imageQuery = graphql`
 `
 
 function ArticlesHero() {
-  const [animation, setAnimation] = useState('')
   const [current, setCurrent] = useState(0)
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const text = useRef()
 
   useEffect(() => {
-    if (animation !== 'start') {
-      startAnimation(() => {
-        setAnimation('start')
-      })
-    }
-
     if (imageLoaded) {
       /**
        * handleTyping Effect
@@ -66,17 +59,19 @@ function ArticlesHero() {
           <HeroSection relative>
             <ContentContainer>
               <div />
-              <TextContainer animation={animation}>
-                <Pill text="Articles" />
-                <Heading.h2 styles="h1">
-                  Perspectives on technology, design and business from the team
-                  at Narative.
-                </Heading.h2>
-                <MainText>
-                  Because the only thing we love more than doing what we do is
-                  sharing what we do.
-                </MainText>
-              </TextContainer>
+              <Transitions.CSS.FadeIn>
+                <TextContainer>
+                  <Pill text="Articles" />
+                  <Heading.h2 styles="h1">
+                    Perspectives on technology, design and business from the
+                    team at Narative.
+                  </Heading.h2>
+                  <MainText>
+                    Because the only thing we love more than doing what we do is
+                    sharing what we do.
+                  </MainText>
+                </TextContainer>
+              </Transitions.CSS.FadeIn>
               <ScrollIndicator />
             </ContentContainer>
             <HeroImage>
@@ -190,7 +185,6 @@ const ContentContainer = styled.div`
 
 const TextContainer = styled.div`
   max-width: 570px;
-  ${transitions.fadeIn};
 
   ${mediaqueries.phablet`
     position: relative;

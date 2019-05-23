@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
@@ -10,10 +10,9 @@ import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Media from '@components/Media/Media.Img'
 import ScrollIndicator from '@components/ScrollIndicator'
 import Pill from '@components/Pill'
+import Transitions from '@components/Transitions'
 
-import { startAnimation } from '@utils'
 import mediaqueries from '@styles/media'
-import transitions from '@styles/transitions'
 
 import LabsPreview from '../sections/labs/Labs.Preview'
 
@@ -43,17 +42,8 @@ function LabsPage({ data, location }) {
     visible: true,
   }
 
-  // Fade in the text as we do on all the headings
-  const [animation, setAnimation] = useState('')
-
   // Start the bulb up animation once the image has laoded
   const [showScreen, setShowScreen] = useState(false)
-
-  useEffect(() => {
-    startAnimation(() => {
-      setAnimation('start')
-    })
-  }, [])
 
   // Inlining our products to get the right variables we need in scope!
   const products = [
@@ -116,17 +106,19 @@ function LabsPage({ data, location }) {
           <HeroSection>
             <ContentContainer>
               <div />
-              <TextContainer animation={animation}>
-                <Pill text="Labs" />
-                <Heading.h2 styles="h1">
-                  Whether with our clients or all by ourselves, we're always
-                  busy building something new.
-                </Heading.h2>
-                <MainText>
-                  Take a peek at the products we're creating in-house at
-                  Narative.
-                </MainText>
-              </TextContainer>
+              <Transitions.CSS.FadeIn>
+                <TextContainer>
+                  <Pill text="Labs" />
+                  <Heading.h2 styles="h1">
+                    Whether with our clients or all by ourselves, we're always
+                    busy building something new.
+                  </Heading.h2>
+                  <MainText>
+                    Take a peek at the products we're creating in-house at
+                    Narative.
+                  </MainText>
+                </TextContainer>
+              </Transitions.CSS.FadeIn>
               <ScrollIndicator />
             </ContentContainer>
 
@@ -275,7 +267,6 @@ const HeroImageMobile = styled(HeroImage)`
 
 const TextContainer = styled.div`
   max-width: 560px;
-  ${transitions.fadeIn};
 
   ${mediaqueries.phablet`
     position: relative;
