@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 
 import { ButtonArrow, Section, Heading } from '@components'
@@ -7,10 +7,13 @@ import ShapeShifter from '@components/ShapeShifter'
 import IntersectionObserver from '@components/IntersectionObserver'
 import Transitions from '@components/Transitions'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
+import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
 
 function HomeHero() {
+  const { toggleContact } = useContext(ContactContext)
+
   return (
     <LayoutHeroMobile>
       <HomeHeroContainer id="home-hero">
@@ -28,7 +31,7 @@ function HomeHero() {
                       We're a team with senior startup experience here to help
                       your business take the next step.
                     </MainText>
-                    <ButtonArrow text="Get in touch" />
+                    <ButtonArrow onClick={toggleContact} text="Get in touch" />
                   </TextContainer>
                   <ShapeShifter />
                 </ContentContainer>
