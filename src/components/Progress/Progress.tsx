@@ -138,6 +138,11 @@ class Progress extends Component<
               height: 100 * multiplier + '%',
             }
 
+            const isActive =
+              value > previousOffset &&
+              value > heading.offetPercentage &&
+              value < nextOffset
+
             return (
               <Frame key={heading.text}>
                 <Chapter
@@ -153,15 +158,16 @@ class Progress extends Component<
                 </Chapter>
                 <HeadingHover>
                   <Heading
-                    value={value}
-                    offset={heading.offetPercentage}
-                    previousOffset={previousOffset}
-                    nextOffset={nextOffset}
+                    isActive={isActive}
                     onClick={() =>
                       scrollTo(0, heading.offset + this.props.offset + 65)
                     }
                   >
-                    <Truncate>{heading.text}</Truncate>
+                    <Truncate>
+                      <HeadingBackground isActive={isActive}>
+                        {heading.text}
+                      </HeadingBackground>
+                    </Truncate>
                   </Heading>
                 </HeadingHover>
               </Frame>
@@ -249,6 +255,7 @@ const ChapterProgress = styled.div`
 
 const Truncate = styled.div`
   width: 188px;
+  padding: 4px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -264,16 +271,36 @@ const Heading = styled.h6`
   bottom: 0;
 
   color: ${p => p.theme.mode.text};
-  opacity: ${p =>
-    p.value > p.previousOffset && p.value > p.offset && p.value < p.nextOffset
-      ? '1 !important'
-      : 0.25};
+  opacity: ${p => (p.isActive ? '1 !important' : 0.25)};
   font-weight: 400;
   transition: opacity 0.3s;
 
   &:hover,
   &:focus {
     opacity: 0.5;
+  }
+
+  &:hover ${HeadingBackground} {
+    opacity: 0.4;
+  }
+`
+
+const HeadingBackground = styled.span`
+  position: relative;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 115%;
+    max-width: 198px;
+    height: 130%;
+    border-radius: 5px;
+    background: ${p => p.theme.mode.background};
+    opacity: ${p => (p.isActive ? 0.4 : 1)};
+    left: -7.5%;
+    top: -15%;
+    position: absolute;
+    z-index: -1;
   }
 `
 

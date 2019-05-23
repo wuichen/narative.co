@@ -176,6 +176,7 @@ const Content = styled(RichText).attrs<{ textHighlightColor: string }>({})`
   position: relative;
   padding: 160px 0 35px;
   background: ${p => p.theme.mode.background};
+  transition: background 0.2s linear;
 
   ${mediaqueries.tablet`
     padding: 60px 0 0;

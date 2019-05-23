@@ -207,11 +207,10 @@ const MoonMask = styled.div`
   top: -8px;
   height: 24px;
   width: 24px;
-  border: 2px solid #000;
   border-radius: 50%;
-  transition: transform 0.45s ease;
   border: 0;
-  background: #fff;
+  background: ${p => p.theme.mode.background};
   transform: translate(${p => (p.isDarkMode ? '14px, -14px' : '0, 0')});
   opacity: ${p => (p.isDarkMode ? 0 : 1)};
+  transition: background 0.2s linear, transform 0.45s ease;
 `
