@@ -161,6 +161,8 @@ export default ArticleTextHighlight
 function ReferralLink({ disabled, generateFn, children }) {
   function handleClick(event) {
     event.preventDefault()
+    if (disabled) return
+
     window.open(
       generateFn(),
       '',
@@ -169,7 +171,11 @@ function ReferralLink({ disabled, generateFn, children }) {
   }
 
   return (
-    <MenuShare href={generateFn()} onClick={handleClick} disabled={disabled}>
+    <MenuShare
+      href={disabled ? '' : generateFn()}
+      onClick={handleClick}
+      disabled={disabled}
+    >
       {children}
     </MenuShare>
   )
