@@ -34,6 +34,8 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
     show: false,
   })
 
+  const share = generateShare(text, author.name)
+
   useEffect(() => {
     const events: string[] = ['keydown', 'keyup', 'mouseup', 'resize']
 
@@ -118,8 +120,7 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
     const tweetLimit = 280
     const otherCharactersInTweet = ' —  ' // 3 spaces, 1 emdash
     const url = window.location.href
-    const name = `${author.firstName} ${author.lastName}`
-    const tweet = text + name + url + otherCharactersInTweet
+    const tweet = text + author.name + url + otherCharactersInTweet
 
     setCanTweet(tweet.length <= tweetLimit)
   }, [text])
@@ -136,16 +137,10 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
       mode={mode}
     >
       <MenuText>Share: </MenuText>
-      <ReferralLink
-        disabled={!canTweet}
-        generateFn={() => generateTwitterLink(text)}
-      >
+      <ReferralLink disabled={!canTweet} share={share.twitter}>
         <TwitterIcon />
       </ReferralLink>
-      <ReferralLink
-        disabled={false}
-        generateFn={() => generateLinkedinLink(text)}
-      >
+      <ReferralLink disabled={false} share={share.linkedin}>
         <LinkedInIcon />
       </ReferralLink>
       <MenuDivider />
@@ -158,13 +153,13 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
 
 export default ArticleTextHighlight
 
-function ReferralLink({ disabled, generateFn, children }) {
+function ReferralLink({ disabled, share, children }) {
   function handleClick(event) {
     event.preventDefault()
     if (disabled) return
 
     window.open(
-      generateFn(),
+      share,
       '',
       'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
     )
@@ -172,7 +167,7 @@ function ReferralLink({ disabled, generateFn, children }) {
 
   return (
     <MenuShare
-      href={disabled ? '' : generateFn()}
+      href={disabled ? '' : share}
       onClick={handleClick}
       disabled={disabled}
     >
@@ -181,18 +176,15 @@ function ReferralLink({ disabled, generateFn, children }) {
   )
 }
 
-function generateTwitterLink(shareText: string) {
-  if (!shareText) return
+function generateShare(shareText: string, author: string) {
+  if (!shareText) return {}
+
   const url = encodeURIComponent(window.location.href)
 
-  return `https://twitter.com/intent/tweet?text="${shareText}" — Dennis Brotzky ${url}`
-}
-
-function generateLinkedinLink(shareText: string) {
-  if (!shareText) return
-  const url = encodeURIComponent(window.location.href)
-
-  return `http://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${shareText}&title=${shareText}&source=Narative`
+  return {
+    twitter: `https://twitter.com/intent/tweet?text="${shareText}" — ${author} ${url}`,
+    linkedin: `http://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${shareText}&title=${shareText}&source=Narative`,
+  }
 }
 
 const popUpwards = keyframes`
