@@ -34,7 +34,7 @@ module.exports.HTMLRendererOpts = {
       let { text } = node.data.target.fields
       const contentfulId = node.data.target.sys.contentType.sys.id
 
-      if (contentfulId === 'highlight') {
+      if (contentfulId === 'highlight' && typeof text === 'string') {
         md.renderer.rules.paragraph_open = () => '<highlight>'
         md.renderer.rules.paragraph_close = () => '</highlight>'
 
