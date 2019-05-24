@@ -30,7 +30,14 @@ module.exports.HTMLRendererOpts = {
     [BLOCKS.EMBEDDED_ENTRY]: node => {
       if (!node.data.target.fields) return null
 
-      let { align, showDescription, image, text, id } = node.data.target.fields
+      let {
+        align,
+        showDescription,
+        withShadow,
+        image,
+        text,
+        id,
+      } = node.data.target.fields
       const contentfulId = node.data.target.sys.contentType.sys.id
 
       if (contentfulId === 'code') {
@@ -81,6 +88,8 @@ module.exports.HTMLRendererOpts = {
         // Same goes for the other values
         title = title.en || title
         align = align.en || align
+
+        withShadow = (withShadow && withShadow.en) || withShadow
         showDescription =
           (showDescription && showDescription.en) || showDescription
         description = (description && (description.en || description)) || null
@@ -91,7 +100,9 @@ module.exports.HTMLRendererOpts = {
         const caption = htmlEntities(description)
 
         // Make the img tag that will be returned either way
-        const img = `<img src="${src}" alt="${caption}" class="image__${className}" />`
+        const img = `<img src="${src}" alt="${caption}" class="image__${className} ${
+          withShadow ? 'image__with_shadow' : ''
+        }" />`
 
         const figcaption = `<figcaption>${
           showDescription ? caption : ''

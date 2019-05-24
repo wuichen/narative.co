@@ -19,12 +19,18 @@ const transform = node => {
   }
 }
 
-const RichText: React.SFC<IRichText> = ({ content, contentRef, ...props }) => {
+const RichText: React.SFC<IRichText> = ({
+  content,
+  contentRef,
+  children,
+  ...props
+}) => {
   const html = ReactHtmlParser(content, { transform })
 
   return (
     <Content ref={contentRef} {...props}>
       {html}
+      {children}
     </Content>
   )
 }
@@ -46,14 +52,25 @@ const articleWidth = css`
     padding: 0 20px;
   `};
 `
+const selectionColor = css`
+  ::selection {
+    background: #c9e1f4; /* WebKit/Blink Browsers */
+  }
+
+  ::-moz-selection {
+    background: #c9e1f4; /* Gecko Browsers */
+  }
+`
 
 const transitionColor = css`
   transition: color 0.3s ease;
 `
 
 const Content = styled.article`
+  position: relative;
   display: flex;
   flex-direction: column;
+  ${selectionColor}
 
   h1,
   h2,
@@ -260,8 +277,15 @@ const Content = styled.article`
     font-size: 22px;
     color: ${p => p.theme.mode.text};
 
+
     b {
       font-weight: 800;
+    }
+
+    u {
+      cursor: pointer;
+      text-decoration: none;
+      background: rgba(233, 218, 172, 0.3);
     }
   }
 
@@ -276,6 +300,10 @@ const Content = styled.article`
     ${mediaqueries.tablet`
       margin: 20px auto 45px;
     `}
+  }
+
+  img.image__with_shadow {
+    box-shadow: 0px 15px 60px rgba(0, 0, 0, 0.15);
   }
 
   img.image__regular {
