@@ -182,12 +182,14 @@ function ReferralLink({ disabled, generateFn, children }) {
 }
 
 function generateTwitterLink(shareText: string) {
+  if (!shareText) return
   const url = encodeURIComponent(window.location.href)
 
   return `https://twitter.com/intent/tweet?text="${shareText}" — Dennis Brotzky ${url}`
 }
 
 function generateLinkedinLink(shareText: string) {
+  if (!shareText) return
   const url = encodeURIComponent(window.location.href)
 
   return `http://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${shareText}&title=${shareText}&source=Narative`
