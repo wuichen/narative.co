@@ -19,10 +19,9 @@ const MENU_WIDTH: number = 225
 const MENU_HEIGHT: number = 46
 
 function ArticleHighlight({ author, mode }: MenuFloatProps) {
-  const menuRef = useRef(null)
-  const [text, setText] = useState('')
-  const [focus, setFocus] = useState(false)
-  const [canTweet, setCanTweet] = useState(true)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const [text, setText] = useState<string>('')
+  const [canTweet, setCanTweet] = useState<boolean>(true)
   const [{ y, show }, setPosition] = useState<MenuFloatState>({
     y: 0,
     show: false,
@@ -31,30 +30,36 @@ function ArticleHighlight({ author, mode }: MenuFloatProps) {
   const share = generateShare(text, author.name)
 
   useEffect(() => {
-    const highlights = Array.from(document.getElementsByTagName('highlight'))
+    const highlights: Element[] = Array.from(
+      document.getElementsByTagName('highlight')
+    )
 
     highlights.forEach(highlight => {
       function handleMouseOver() {
-        setPosition({
-          y: highlight.offsetTop - MENU_HEIGHT - 5,
-          show: true,
-        })
+        const y: number = highlight.offsetTop - MENU_HEIGHT - 5
+        setPosition({ y, show: true })
+
+        const tweetLimit = 280
+        const otherCharactersInTweet = ' —  ' // 3 spaces, 1 emdash
+        const url = window.location.href
+        const tweet =
+          highlight.innerText + author.name + url + otherCharactersInTweet
+
         setText(highlight.innerText)
+        setCanTweet(tweet.length <= tweetLimit)
       }
 
       function handleMouseOut(event) {
         const { relatedTarget } = event
-
-        // If it's a child or the current menufloat, don't close
-        if (
+        const isStillHoveringMenu: boolean =
           relatedTarget === menuRef.current ||
           menuRef.current.contains(relatedTarget)
-        ) {
-          return
-        }
+
+        // If it's a child or the current menufloat, don't close
+        if (isStillHoveringMenu) return
 
         setPosition({ y: 0, show: false })
-        setText(0)
+        setText('')
       }
 
       highlight.addEventListener('mouseover', handleMouseOver)
@@ -82,22 +87,11 @@ function ArticleHighlight({ author, mode }: MenuFloatProps) {
    * Setting the ability to tweet. If the user highlights more than the allowed
    * characters we need to give them feedback that it's too long to tweet.
    */
-  useEffect(() => {
-    const tweetLimit = 280
-    const otherCharactersInTweet = ' —  ' // 3 spaces, 1 emdash
-    const url = window.location.href
-    const tweet = text + author.name + url + otherCharactersInTweet
-
-    setCanTweet(tweet.length <= tweetLimit)
-  }, [text])
+  useEffect(() => {}, [text])
 
   return (
     <MenuFloat
       style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        margin: '0 auto',
         top: `${y}px`,
         display: show ? 'flex' : 'none',
         pointerEvents: show ? 'initial' : 'none',
@@ -162,6 +156,9 @@ const MenuFloat = styled.div<{ mode?: string }>`
   z-index: 9999;
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   padding: 7px 11px 7px 19px;
   color: #73737d;
   background: ${p => (p.mode === 'dark' ? '#fafafa' : p.theme.colors.bg)};
