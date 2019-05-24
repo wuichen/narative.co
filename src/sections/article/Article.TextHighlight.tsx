@@ -12,14 +12,19 @@ interface MenuFloatState {
   show: boolean
 }
 
+interface MenuFloatProps {
+  author: number
+  mode?: string
+}
+
 /**
  * Values we get to be able to ensure the positionting context are correct!
  * Padding is derviced from the CSS value in Editor
  */
 const MENU_WIDTH: number = 225
-const MENU_HEIGHT: number = 44
+const MENU_HEIGHT: number = 46
 
-function ArticleTextHighlight({ author }) {
+function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
   const [text, setText] = useState('')
   const [focus, setFocus] = useState(false)
   const [canTweet, setCanTweet] = useState(true)
@@ -128,6 +133,7 @@ function ArticleTextHighlight({ author }) {
         display: show && focus ? 'flex' : 'none',
         pointerEvents: show && focus ? 'initial' : 'none',
       }}
+      mode={mode}
     >
       <MenuText>Share: </MenuText>
       <ReferralLink
@@ -204,20 +210,20 @@ const popUpwards = keyframes`
   }
 `
 
-const MenuFloat = styled.div`
+const MenuFloat = styled.div<{ mode?: string }>`
   position: absolute;
   align-items: center;
   z-index: 1;
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
-  padding: 7px 12px 7px 17px;
+  padding: 7px 11px 7px 19px;
   color: #73737d;
-  background: #fafafa;
+  background: ${p => (p.mode === 'dark' ? '#fafafa' : p.theme.colors.bg)};
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: left 75ms ease-out, right 75ms ease-out;
+  transition: left 75ms ease-out, right 75ms ease-out, background 200ms;
   animation: ${popUpwards} 200ms forwards;
 
   &::after {
@@ -231,8 +237,11 @@ const MenuFloat = styled.div`
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-top: 8px solid #fafafa;
+    border-top: 8px solid
+      ${p => (p.mode === 'dark' ? '#fafafa' : p.theme.colors.bg)};
+    transition: border-color 200ms;
   }
+
   &::before {
     content: '';
     position: absolute;
@@ -245,6 +254,13 @@ const MenuFloat = styled.div`
     border-left: 9px solid transparent;
     border-right: 9px solid transparent;
     border-top: 9px solid rgba(255, 255, 255, 0.2);
+    transition: border-color 200ms;
+  }
+
+  svg {
+    path {
+      fill: ${p => (p.mode === 'light' ? '#fff' : '#000')};
+    }
   }
 `
 
@@ -260,7 +276,7 @@ const MenuShare = styled.a`
 
   svg {
     path {
-      fill: ${p => (p.disabled ? '#F89797' : 'initial')};
+      fill: ${p => (p.disabled ? '#F89797' : '')};
     }
   }
 `

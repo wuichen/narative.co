@@ -286,6 +286,10 @@ const Content = styled.article`
       cursor: pointer;
       text-decoration: none;
       background: rgba(233, 218, 172, 0.3);
+
+      &:hover {
+        background: rgba(233, 218, 172, 0.5);
+      }
     }
   }
 
