@@ -72,6 +72,23 @@ const Content = styled.article`
   flex-direction: column;
   ${selectionColor}
 
+  highlight {
+    display: inline;
+    cursor: pointer;
+    text-decoration: none;
+    background: rgba(233, 218, 172, 0.3);
+    transition: background 250ms;
+
+    &:hover {
+      background: rgba(233, 218, 172, 0.4);
+    }
+
+    & > p {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+  }
+
   h1,
   h2,
   h3,
@@ -280,16 +297,6 @@ const Content = styled.article`
 
     b {
       font-weight: 800;
-    }
-
-    u {
-      cursor: pointer;
-      text-decoration: none;
-      background: rgba(233, 218, 172, 0.3);
-
-      &:hover {
-        background: rgba(233, 218, 172, 0.5);
-      }
     }
   }
 

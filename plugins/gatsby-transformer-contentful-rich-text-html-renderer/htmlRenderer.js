@@ -1,6 +1,7 @@
 const { BLOCKS, INLINES } = require('@contentful/rich-text-types')
 const documentToHtmlString = require('@contentful/rich-text-html-renderer')
   .documentToHtmlString
+var md = require('markdown-it')()
 
 // Options used in the documentToHtmlString renderer
 const highlightCode = require('./prism/highlight-code.js')
@@ -25,6 +26,20 @@ module.exports.HTMLRendererOpts = {
         return `<a href=${
           node.data.uri
         } target="_blank" rel="noopener">${documentToHtmlString(node)}</a>`
+      }
+    },
+    [INLINES.EMBEDDED_ENTRY]: node => {
+      if (!node.data.target.fields) return null
+
+      let { text } = node.data.target.fields
+      const contentfulId = node.data.target.sys.contentType.sys.id
+
+      if (contentfulId === 'highlight') {
+        md.renderer.rules.paragraph_open = () => '<highlight>'
+        md.renderer.rules.paragraph_close = () => '</highlight>'
+
+        const html = md.render(text)
+        return `${html}</highlight>`
       }
     },
     [BLOCKS.EMBEDDED_ENTRY]: node => {

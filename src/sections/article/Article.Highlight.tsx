@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
-import {
-  getHighlightedTextPositioning,
-  getSelectionDimensions,
-  getSelectionText,
-} from '@utils'
+import React, { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components'
 
 interface MenuFloatState {
-  x: number
   y: number
   show: boolean
 }
@@ -24,12 +18,12 @@ interface MenuFloatProps {
 const MENU_WIDTH: number = 225
 const MENU_HEIGHT: number = 46
 
-function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
+function ArticleHighlight({ author, mode }: MenuFloatProps) {
+  const menuRef = useRef(null)
   const [text, setText] = useState('')
   const [focus, setFocus] = useState(false)
   const [canTweet, setCanTweet] = useState(true)
-  const [{ x, y, show }, setPosition] = useState<MenuFloatState>({
-    x: 0,
+  const [{ y, show }, setPosition] = useState<MenuFloatState>({
     y: 0,
     show: false,
   })
@@ -37,71 +31,43 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
   const share = generateShare(text, author.name)
 
   useEffect(() => {
-    const events: string[] = ['keydown', 'keyup', 'mouseup', 'resize']
+    const highlights = Array.from(document.getElementsByTagName('highlight'))
 
-    function handleMenuFloatSettings() {
-      /**
-       * Why is there a setTimeout here?
-       * There is an issue with clicking on highlited text and the browsers ability
-       * to calcualte the correct ranges. If you highlight text, then click on it,
-       * the window.selection values will give the previous ranges instead of the current!
-       */
-      setTimeout(() => {
-        const article = document.getElementsByTagName('article')[0]
-        const paragraphOffset = document.getElementsByTagName('p')[0].offsetLeft
+    highlights.forEach(highlight => {
+      function handleMouseOver() {
+        setPosition({
+          y: highlight.offsetTop - MENU_HEIGHT - 5,
+          show: true,
+        })
+        setText(highlight.innerText)
+      }
 
-        if (!article) return
+      function handleMouseOut(event) {
+        const { relatedTarget } = event
 
-        const articleBox = article.getBoundingClientRect() as DOMRect
-
-        const { width, height } = getSelectionDimensions()
-        const { x, y } = getHighlightedTextPositioning()
-
-        /**
-         * Get the X and Y offsets of the editors Left and Top positions
-         * If the height is great than 20 (the user has highlighted more than 2 rows of text)
-         * then start the position from the left most edge so we can center the bar in
-         * the middle of the text area
-         */
-        const offset: { x: number; y: number } = {
-          x: height > 29 ? paragraphOffset : x,
-          y: y - articleBox.y,
+        // If it's a child or the current menufloat, don't close
+        if (
+          relatedTarget === menuRef.current ||
+          menuRef.current.contains(relatedTarget)
+        ) {
+          return
         }
 
-        setPosition({
-          x: offset.x + width / 2 - MENU_WIDTH / 2,
-          y: offset.y - MENU_HEIGHT - 5,
-          show: width > 1,
-        })
+        setPosition({ y: 0, show: false })
+        setText(0)
+      }
 
-        setText(getSelectionText())
-      }, 0)
-    }
+      highlight.addEventListener('mouseover', handleMouseOver)
+      highlight.addEventListener('mouseout', handleMouseOut)
+      menuRef.current.addEventListener('mouseout', handleMouseOut)
 
-    // attach all events
-    events.forEach(event =>
-      window.addEventListener(event, handleMenuFloatSettings)
-    )
-
-    return () => {
-      // remove all events after mount
-      events.forEach(event =>
-        window.removeEventListener(event, handleMenuFloatSettings)
-      )
-    }
+      return () => {
+        highlight.removeEventListener('mouseover', handleMouseOver)
+        highlight.removeEventListener('mouseout', handleMouseOut)
+        menuRef.current.removeEventListener('mouseout', handleMouseOut)
+      }
+    })
   }, [])
-
-  /**
-   * Small workaround to set the focus once the x and y positiosn are set.
-   * If this is not here the user would see a quick flash of the floating bar
-   * in its old position and then animating to the new location. We don't want that.
-   */
-  useEffect(() => {
-    setTimeout(() => {
-      const { width } = getSelectionDimensions()
-      setFocus(width > 1)
-    }, 0)
-  }, [show])
 
   function handleCopyClick() {
     const tempInput = document.createElement('input')
@@ -129,12 +95,15 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
     <MenuFloat
       style={{
         position: 'absolute',
-        left: `${x}px`,
+        left: 0,
+        right: 0,
+        margin: '0 auto',
         top: `${y}px`,
-        display: show && focus ? 'flex' : 'none',
-        pointerEvents: show && focus ? 'initial' : 'none',
+        display: show ? 'flex' : 'none',
+        pointerEvents: show ? 'initial' : 'none',
       }}
       mode={mode}
+      ref={menuRef}
     >
       <MenuText>Share: </MenuText>
       <ReferralLink disabled={!canTweet} share={share.twitter}>
@@ -151,7 +120,7 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
   )
 }
 
-export default ArticleTextHighlight
+export default ArticleHighlight
 
 function ReferralLink({ disabled, share, children }) {
   function handleClick(event) {
@@ -187,33 +156,10 @@ function generateShare(shareText: string, author: string) {
   }
 }
 
-const popUpwards = keyframes`
-  0% {
-    transform:matrix(.97,0,0,1,0,12);
-    opacity:0
-  }
-  20% {
-    transform:matrix(.99,0,0,1,0,2);
-    opacity:.7
-  }
-  40% {
-    transform:matrix(1,0,0,1,0,-1);
-    opacity:1
-  }
-  70% {
-    transform:matrix(1,0,0,1,0,0);
-    opacity:1
-  }
-  100% {
-    transform:matrix(1,0,0,1,0,0);
-    opacity:1
-  }
-`
-
 const MenuFloat = styled.div<{ mode?: string }>`
   position: absolute;
   align-items: center;
-  z-index: 1;
+  z-index: 9999;
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
   padding: 7px 11px 7px 19px;
@@ -222,9 +168,18 @@ const MenuFloat = styled.div<{ mode?: string }>`
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: left 75ms ease-out, right 75ms ease-out, background 200ms;
-  animation: ${popUpwards} 200ms forwards;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 150%;
+    width: 120%;
+    top: -25%;
+    left: -10%;
+    border-radius: 5px;
+    z-index: -1;
+  }
 
   &::after {
     content: '';
@@ -239,21 +194,6 @@ const MenuFloat = styled.div<{ mode?: string }>`
     border-right: 8px solid transparent;
     border-top: 8px solid
       ${p => (p.mode === 'dark' ? '#fafafa' : p.theme.colors.bg)};
-    transition: border-color 200ms;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    bottom: -9px;
-    width: 0;
-    height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-top: 9px solid rgba(255, 255, 255, 0.2);
     transition: border-color 200ms;
   }
 
