@@ -59,7 +59,7 @@ function LabsPage({ data, location }) {
           <div>
             <LinkToProduct
               target="_blank"
-              data-a11y="true"
+              data-a11y="false"
               href="https://feyapp.com"
             >
               <GlobeIcon aria-hidden="true" />
@@ -67,7 +67,7 @@ function LabsPage({ data, location }) {
             </LinkToProduct>
             <LinkToProduct
               target="_blank"
-              data-a11y="true"
+              data-a11y="false"
               href="https://narative.co/design/open/fey"
             >
               <FigmaIcon aria-hidden="true" /> View in Figma

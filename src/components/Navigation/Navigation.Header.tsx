@@ -169,13 +169,13 @@ class Navigation extends Component<{}, NavigationState> {
                 {previousPath && showPreviousPath && (
                   <LogoBack
                     onClick={() => window.history.back()}
-                    data-a11y="true"
+                    data-a11y="false"
                   >
                     <BackChevron />
                   </LogoBack>
                 )}
                 <LogoMask>
-                  <LogoContainer to="/" aria-label="Back home" data-a11y="true">
+                  <LogoContainer to="/" aria-label="Back home" data-a11y="false">
                     <Logo fill={fill} />
                   </LogoContainer>
                 </LogoMask>
@@ -186,7 +186,7 @@ class Navigation extends Component<{}, NavigationState> {
                     air-expanded={active}
                     aria-haspopup="true"
                     aria-controls="menu-list"
-                    data-a11y="true"
+                    data-a11y="false"
                   >
                     <LeftToggle
                       active={active}
@@ -237,7 +237,7 @@ const NavItems = ({ active, handleClick, handleOutsideClick }) => {
               toggleContact(event)
               handleOutsideClick()
             }}
-            data-a11y="true"
+            data-a11y="false"
             getProps={({ isPartiallyCurrent }) =>
               isPartiallyCurrent ? { ['data-active']: 'true' } : null
             }
@@ -258,7 +258,7 @@ const NavItems = ({ active, handleClick, handleOutsideClick }) => {
           as={Link}
           tabIndex={active ? 0 : -1}
           onClick={event => handleClick(event, nav.to)}
-          data-a11y="true"
+          data-a11y="false"
           getProps={({ isPartiallyCurrent }) =>
             isPartiallyCurrent ? { ['data-active']: 'true' } : null
           }

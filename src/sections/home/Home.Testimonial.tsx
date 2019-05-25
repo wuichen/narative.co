@@ -32,12 +32,12 @@ const HomeTestimonial = () => (
           efficient, they’re incredible human beings who truly care about the
           work they touch.”
         </Blockquote>
-        <StyledLink to="/articles/building-the-new-hopper-com" data-a11y="true">
-          <HopperIcon aria-hidden="true" data-a11y="true" />
+        <StyledLink to="/articles/building-the-new-hopper-com" data-a11y="false">
+          <HopperIcon aria-hidden="true" data-a11y="false" />
           More on Hopper
         </StyledLink>
-        <StyledLink to="/articles" data-a11y="true">
-          <BookIcon aria-hidden="true" data-a11y="true" />
+        <StyledLink to="/articles" data-a11y="false">
+          <BookIcon aria-hidden="true" data-a11y="false" />
           All articles
         </StyledLink>
       </div>

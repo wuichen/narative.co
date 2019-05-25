@@ -109,7 +109,7 @@ class CareersImages extends Component {
           <GalleryControl
             disabled={activeIndex === 0}
             onClick={this.handlePrevClick}
-            data-a11y="true"
+            data-a11y="false"
             left
           >
             <ChevronLeft />
@@ -117,7 +117,7 @@ class CareersImages extends Component {
           <GalleryControl
             disabled={activeIndex === this.props.images.length / 2 - 1}
             onClick={this.handleNextClick}
-            data-a11y="true"
+            data-a11y="false"
             right
           >
             <ChevronRight />

@@ -2,6 +2,7 @@ const { BLOCKS, INLINES } = require('@contentful/rich-text-types')
 const documentToHtmlString = require('@contentful/rich-text-html-renderer')
   .documentToHtmlString
 var md = require('markdown-it')()
+const icons = require('./icons')
 
 // Options used in the documentToHtmlString renderer
 const highlightCode = require('./prism/highlight-code.js')
@@ -134,6 +135,37 @@ module.exports.HTMLRendererOpts = {
         } else {
           return img
         }
+      }
+
+      if (contentfulId === 'callToAction') {
+        const {
+          heading,
+          subheading,
+          primaryCallToAction,
+          secondaryCallToAction,
+        } = node.data.target.fields
+
+        function createLink(link) {
+          const { text, url, icon, target } = link.fields
+          // target === true means its an internal link
+          const t = target ? '_self' : '_blank'
+          const i = icons[icon]
+
+          return text ? `<a href="${url}" target="${t}">${i + text}</a>` : ''
+        }
+
+        return `
+          <div class="call-to-action">
+            <div class="call-to-action__content">
+              <h3>${heading}</h3>
+              ${subheading && `<p>${subheading}</p>`}
+              <div class="call-to-action__links">
+                ${createLink(primaryCallToAction)}
+                ${createLink(secondaryCallToAction)}
+              </div>
+            </div>
+          </div>
+          `
       }
     },
     [BLOCKS.EMBEDDED_ASSET]: (node, next) => {

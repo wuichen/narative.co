@@ -30,6 +30,10 @@ const themes = {
           bg: '#fafafa',
         },
       },
+      cta: {
+        background: '#fafafa',
+        border: 'rgba(0,0,0,0.1)',
+      },
       preview: {
         bg: '#fff',
       },
@@ -53,6 +57,10 @@ const themes = {
           incomplete: '#1B1B1B',
           bg: 'rgba(0,0,0,0.92)',
         },
+      },
+      cta: {
+        background: 'rgba(29, 33, 40, 0.6)',
+        border: 'rgba(255,255,255,0.06)',
       },
       preview: {
         bg: '#1D2128',

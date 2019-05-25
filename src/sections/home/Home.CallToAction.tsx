@@ -112,7 +112,7 @@ function HomeCallToAction() {
                     animation={showContact}
                     onClick={toggleContact}
                     ref={buttonRef}
-                    data-a11y="true"
+                    data-a11y="false"
                   >
                     Contact Us <ChevronDownIcon aria-hidden="true" />
                   </CTAText>

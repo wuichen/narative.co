@@ -73,6 +73,7 @@ exports.plugins = [
       pixelId: '2183075648607369',
     },
   },
+  'gatsby-plugin-catch-links',
 
   // These are our local plugins that can be found within ./plugins
   'gatsby-transformer-enhance-contentful',

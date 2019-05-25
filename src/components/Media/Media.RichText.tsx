@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { TwitterTweetEmbed } from 'react-twitter-embed'
 import styled, { css } from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import mediaqueries, { media } from '@styles/media'
 
 import { IRichText } from '@typings'
 
@@ -53,31 +53,132 @@ const articleWidth = css`
   `};
 `
 const selectionColor = css`
-  ::selection {
+  &::selection {
     background: #c9e1f4; /* WebKit/Blink Browsers */
   }
 
-  ::-moz-selection {
+  &::-moz-selection {
     background: #c9e1f4; /* Gecko Browsers */
   }
 `
 
 const transitionColor = css`
-  transition: color 0.3s ease;
+  transition: color 0.25s ease;
 `
 
-const Content = styled.article`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  ${selectionColor}
+const callToAction = css`
+  .call-to-action {
+    width: 100%;
+    max-width: 1140px;
+    margin: 30px auto 65px;
+    padding: 65px;
+    background: ${p => p.theme.mode.cta.background};
+    transition: background 0.25s;
 
+    p {
+      position: relative;
+      padding-bottom: 35px;
+      color: ${p => p.theme.colors.moon};
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 125px;
+        height: 1px;
+        background: ${p => p.theme.mode.cta.border};
+      }
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+
+      &:first-child {
+        margin-right: 55px;
+      }
+
+      svg {
+        margin-right: 13px;
+
+        path {
+          fill: ${p => p.theme.mode.links};
+        }
+      }
+    }
+
+    &__content {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    ${mediaqueries.tablet`
+      background: ${p => p.theme.mode.preview.bg}
+      box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      margin: 20px 20px 55px;
+      padding: 0;
+      width: auto;
+
+      h3 {
+        padding: 50px 24px 0;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      p {
+        margin-bottom: 50px;
+        padding: 0 24px;
+        text-align: center;
+        font-size: 18px;
+
+        &::after {
+          content: none;
+        }
+      }
+
+      &__links {
+        display: flex;
+        flex-direction: row-reverse;
+        border-top: 1px solid  ${p => p.theme.mode.cta.border};
+      }
+
+      a {
+        display: flex;
+        flex: 1;
+        height: 58px;
+        font-size: 18px;
+        text-decoration: none;
+
+        svg {
+          display: none;
+        }
+
+        &:first-child {
+          margin-right: 0;
+        }
+
+        &:nth-child(2) {
+          font-weight: 400;
+          color: ${p => p.theme.colors.moon};
+          border-right: 1px solid  ${p => p.theme.mode.cta.border};
+        }
+      }
+    `}
+  }
+`
+
+const highlight = css`
   highlight {
     display: inline;
     cursor: pointer;
     text-decoration: none;
     background: rgba(233, 218, 172, 0.3);
-    transition: background 250ms;
+    transition: background 0.25s;
 
     &:hover {
       background: rgba(233, 218, 172, 0.4);
@@ -88,6 +189,17 @@ const Content = styled.article`
       margin-bottom: 0;
     }
   }
+`
+
+const Content = styled.article`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  ${selectionColor}
+
+  /* Custom Components form Contentful */
+  ${callToAction}
+  ${highlight}
 
   h1,
   h2,

@@ -33,7 +33,7 @@ export default ({
     onClick={onClick}
     color={color}
     role="button"
-    data-a11y="true"
+    data-a11y="false"
   >
     {isSubmitting ? (
       <Spinner />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 interface MenuFloatState {
   y: number
@@ -35,7 +35,10 @@ function ArticleHighlight({ author, mode }: MenuFloatProps) {
     )
 
     highlights.forEach(highlight => {
+      let timeout
+
       function handleMouseOver() {
+        clearTimeout(timeout)
         const y: number = highlight.offsetTop - MENU_HEIGHT - 5
         setPosition({ y, show: true })
 
@@ -58,8 +61,10 @@ function ArticleHighlight({ author, mode }: MenuFloatProps) {
         // If it's a child or the current menufloat, don't close
         if (isStillHoveringMenu) return
 
-        setPosition({ y: 0, show: false })
-        setText('')
+        timeout = setTimeout(() => {
+          setPosition({ y: 0, show: false })
+          setText('')
+        }, 250)
       }
 
       highlight.addEventListener('mouseover', handleMouseOver)
@@ -150,6 +155,29 @@ function generateShare(shareText: string, author: string) {
   }
 }
 
+const popUpwards = keyframes`
+  0% {
+    transform:matrix(.97,0,0,1,0,12);
+    opacity:0
+  }
+  20% {
+    transform:matrix(.99,0,0,1,0,2);
+    opacity:.7
+  }
+  40% {
+    transform:matrix(1,0,0,1,0,-1);
+    opacity:1
+  }
+  70% {
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+  100% {
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+`
+
 const MenuFloat = styled.div<{ mode?: string }>`
   position: absolute;
   align-items: center;
@@ -166,6 +194,7 @@ const MenuFloat = styled.div<{ mode?: string }>`
   font-size: 18px;
   font-weight: 600;
   transition: left 75ms ease-out, right 75ms ease-out, background 200ms;
+  animation: ${popUpwards} 200ms forwards;
 
   &::before {
     content: '';

@@ -48,7 +48,7 @@ const GridItem = ({
   const hasOverflow = narrow && article.title.length > 35
 
   return (
-    <ArticleLink to={`/articles/${article.slug}`} data-a11y="true">
+    <ArticleLink to={`/articles/${article.slug}`} data-a11y="false">
       <Item>
         <Image background={article.backgroundColor}>
           <Media src={article.backgroundImage.fluid} />

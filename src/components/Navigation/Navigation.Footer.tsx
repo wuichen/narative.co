@@ -32,7 +32,7 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
       <Frame color={color}>
         <CopyRight>© {new Date().getFullYear()} Narative Studio Inc.</CopyRight>
         <Left color={color}>
-          <LogoContainer to="/" data-a11y="true">
+          <LogoContainer to="/" data-a11y="false">
             <Logo fill={color} onlySymbol />
           </LogoContainer>
           <SocialIconsFooter>
@@ -51,7 +51,7 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
                     toggleContact(event)
                   }}
                   to={link.to}
-                  data-a11y="true"
+                  data-a11y="false"
                   getProps={({ isPartiallyCurrent }) =>
                     isPartiallyCurrent ? { ['data-active']: 'true' } : null
                   }
@@ -66,7 +66,7 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
                 key={link.to}
                 color={color}
                 to={link.to}
-                data-a11y="true"
+                data-a11y="false"
                 getProps={({ isPartiallyCurrent }) =>
                   isPartiallyCurrent ? { ['data-active']: 'true' } : null
                 }
