@@ -96,7 +96,7 @@ const Mask = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  background: rgba(17, 18, 22, 0.4);
+  background: rgba(17, 18, 22, 0.2);
   pointer-events: ${p => (p.isActive ? 'initial' : 'none')};
   opacity: ${p => (p.isActive ? 1 : 0)};
   transition: opacity ${p => (p.isActive ? '0.7s' : '0')}

@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { TwitterTweetEmbed } from 'react-twitter-embed'
 import styled, { css } from 'styled-components'
+import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries, { media } from '@styles/media'
+import mediaqueries from '@styles/media'
 
 import { IRichText } from '@typings'
 
 // Specifically handling Twitter embeds that get passed from our htmls htmlRenderer
-const transform = node => {
+function handleTransform(node) {
   if (node.name === 'twitter' && node.attribs.twitterid) {
     return (
       <TwitterTweetEmbed
@@ -19,13 +20,33 @@ const transform = node => {
   }
 }
 
-const RichText: React.SFC<IRichText> = ({
+/**
+ * We're able to create a Call To Action embedded entry within Contentful, which allows
+ * the author to embed links to our contact page. Since we have a Contact slidein modal
+ * it's better to override the default functionality with a dynamic togglecontact
+ */
+function handleContactUs() {
+  const { toggleContact } = useContext(ContactContext)
+
+  useEffect(() => {
+    const links = Array.from(document.querySelectorAll('article a'))
+
+    links.forEach(link => {
+      if (link.pathname === '/contact') {
+        link.addEventListener('click', toggleContact, false)
+      }
+    })
+  }, [])
+}
+
+function RichText({
   content,
   contentRef,
   children,
   ...props
-}) => {
-  const html = ReactHtmlParser(content, { transform })
+}: React.SFC<IRichText>) {
+  const html = ReactHtmlParser(content, { handleTransform })
+  handleContactUs()
 
   return (
     <Content ref={contentRef} {...props}>

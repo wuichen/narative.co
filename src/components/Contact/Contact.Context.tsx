@@ -12,6 +12,7 @@ export function ContactProvider({ children }: { children: ReactChild }) {
   const [showContact, setShowContact] = useState(false)
 
   function toggleContact(event: Event) {
+    event.preventDefault()
     event.stopPropagation()
     const { width } = getWindowDimensions()
     const tablet = getBreakpointFromTheme('tablet')
