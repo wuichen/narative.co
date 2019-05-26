@@ -136,8 +136,8 @@ class Article extends Component<ArticleProps, PostState> {
           <ArticleControls toggleMode={toggleMode} mode={mode} />
         </MobileControls>
         <Content contentRef={this.contentSectionRef} content={article.body}>
-          <ArticleShare author={article.author} mode={mode} />
-          <ArticleHighlight author={article.author} mode={mode} />
+          <ArticleShare article={article} mode={mode} />
+          <ArticleHighlight article={article} mode={mode} />
         </Content>
         <Gradient>
           <Meta>

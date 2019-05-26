@@ -103,7 +103,7 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
     _cleanNodes
   )(qArticles)
 
-  articles = [...articles, articles[0], articles[1]]
+  articles = [...articles]
 
   /**
    * /authors/<author slug>

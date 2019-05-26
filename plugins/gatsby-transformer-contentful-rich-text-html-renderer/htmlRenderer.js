@@ -146,12 +146,15 @@ module.exports.HTMLRendererOpts = {
         } = node.data.target.fields
 
         function createLink(link) {
-          const { text, url, icon, target } = link.fields
-          // target === true means its an internal link
-          const t = target ? '_self' : '_blank'
-          const i = icons[icon]
+          if (link.fields) {
+            const { text, url, icon } = link.fields
+            const i = icons[icon]
 
-          return text ? `<a href="${url}" target="${t}">${i + text}</a>` : ''
+            return text
+              ? `<a href="${url}" target="_blank">${i + text}</a>`
+              : ''
+          }
+          return ''
         }
 
         return `

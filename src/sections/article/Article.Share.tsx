@@ -24,7 +24,9 @@ interface MenuFloatProps {
 const MENU_WIDTH: number = 225
 const MENU_HEIGHT: number = 46
 
-function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
+function ArticelShare({ article, mode }: MenuFloatProps) {
+  const { author, shortUrl } = article
+
   const [text, setText] = useState('')
   const [focus, setFocus] = useState(false)
   const [canTweet, setCanTweet] = useState(true)
@@ -34,7 +36,7 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
     show: false,
   })
 
-  const share = generateShare(text, author.name)
+  const share = generateShare(text, author.name, shortUrl)
 
   useEffect(() => {
     const events: string[] = ['keydown', 'keyup', 'mouseup', 'resize']
@@ -119,7 +121,7 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
   useEffect(() => {
     const tweetLimit = 280
     const otherCharactersInTweet = ' —  ' // 3 spaces, 1 emdash
-    const url = window.location.href
+    const url = `ntve.co/${shortUrl}`
     const tweet = text + author.name + url + otherCharactersInTweet
 
     setCanTweet(tweet.length <= tweetLimit)
@@ -151,7 +153,7 @@ function ArticleTextHighlight({ author, mode }: MenuFloatProps) {
   )
 }
 
-export default ArticleTextHighlight
+export default ArticelShare
 
 function ReferralLink({ disabled, share, children }) {
   function handleClick(event) {
@@ -176,10 +178,9 @@ function ReferralLink({ disabled, share, children }) {
   )
 }
 
-function generateShare(shareText: string, author: string) {
+function generateShare(shareText: string, author: string, shortUrl: string) {
   if (!shareText) return {}
-
-  const url = encodeURIComponent(window.location.href)
+  const url = `ntve.co/${shortUrl}`
 
   return {
     twitter: `https://twitter.com/intent/tweet?text="${shareText}" — ${author} ${url}`,
