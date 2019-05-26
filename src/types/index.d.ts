@@ -43,6 +43,12 @@ interface IAuthor {
   }
 }
 
+export interface IPaginator {
+  pageCount: number
+  index: number
+  pathPrefix: string
+}
+
 export interface IAsset {
   file: {
     url: string
