@@ -39,7 +39,7 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
 
   onScroll = () => {
     // Elements we want to include for the overlap
-    const ctas = Array.from(document.getElementsByClassName('call-to-action'))
+    const ctas = Array.from(document.getElementsByClassName('CallToAction'))
     const images = Array.from(document.querySelectorAll('img'))
 
     const nodesToNotOverlap = [...ctas, ...images]

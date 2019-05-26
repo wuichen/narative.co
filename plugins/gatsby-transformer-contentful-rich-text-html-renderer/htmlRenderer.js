@@ -158,11 +158,11 @@ module.exports.HTMLRendererOpts = {
         }
 
         return `
-          <div class="call-to-action">
-            <div class="call-to-action__content">
+          <div class="CallToAction">
+            <div class="CallToAction__content">
               <h3>${heading}</h3>
               ${subheading && `<p>${subheading}</p>`}
-              <div class="call-to-action__links">
+              <div class="CallToAction__links">
                 ${createLink(primaryCallToAction)}
                 ${createLink(secondaryCallToAction)}
               </div>

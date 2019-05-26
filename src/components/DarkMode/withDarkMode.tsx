@@ -33,6 +33,7 @@ const themes = {
       cta: {
         background: '#fafafa',
         border: 'rgba(0,0,0,0.1)',
+        corner: '#000',
       },
       preview: {
         bg: '#fff',
@@ -61,6 +62,7 @@ const themes = {
       cta: {
         background: 'rgba(29, 33, 40, 0.6)',
         border: 'rgba(255,255,255,0.06)',
+        corner: '#fff',
       },
       preview: {
         bg: '#1D2128',
@@ -86,6 +88,19 @@ function withDarkMode(WrappedComponent) {
       const mode = this.state.mode === 'dark' ? 'light' : 'dark'
 
       this.setState({ mode }, () => localStorage.setItem('mode', mode))
+
+      /**
+       * Workaround for a chrome bug. Manually update the stops to have
+       * the corect colors.
+       */
+      setTimeout(() => {
+        const stops = document.querySelectorAll('stop')
+        stops.forEach(stop => {
+          const style = getComputedStyle(stop)
+          const opacity = style.getPropertyValue('opacity')
+          stop.style.opacity = opacity === '1' ? '0.99' : '1'
+        })
+      }, 0)
     }
 
     render() {
