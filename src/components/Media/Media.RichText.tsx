@@ -175,6 +175,11 @@ const callToAction = css`
       padding: 0;
       width: auto;
 
+      &__left,
+      &__right {
+        display: none;
+      }
+
       h3 {
         padding: 50px 24px 0;
         margin-bottom: 15px;
