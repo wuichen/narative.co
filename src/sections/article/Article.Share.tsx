@@ -120,7 +120,7 @@ function ArticelShare({ article, mode }: MenuFloatProps) {
    */
   useEffect(() => {
     const tweetLimit = 280
-    const otherCharactersInTweet = ' —  ' // 3 spaces, 1 emdash
+    const otherCharactersInTweet = '""—  ' // 2 quotes, 1 emdash, 2 spaces
     const url = `ntve.co/${shortUrl}`
     const tweet = text + author.name + url + otherCharactersInTweet
 
