@@ -34,10 +34,12 @@ function ContactSlideIn() {
 
   return (
     <Frame tabIndex={showContact ? 0 : -1} aria-hidden={!showContact}>
+      {' '}
+      <Mask isActive={showContact} onClick={toggleContact} />
       <CloseContainer
         onClick={toggleContact}
         animation={showContact}
-        data-a11y="true"
+        data-a11y="false"
       >
         <ExIcon />
         <Hidden>Close Contact Form</Hidden>
@@ -86,9 +88,23 @@ const Frame = styled.div`
   z-index: 11;
 `
 
+const Mask = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 18, 22, 0.2);
+  pointer-events: ${p => (p.isActive ? 'initial' : 'none')};
+  opacity: ${p => (p.isActive ? 1 : 0)};
+  transition: opacity ${p => (p.isActive ? '0.7s' : '0')}
+    ${p => (p.isActive ? '0.3s' : '')};
+`
+
 const SlideInContainer = styled.div`
   width: 100vw;
-  overflow-y: hidden;
   height: calc(100vh - 40px);
   top: 0px;
   right: 0px;

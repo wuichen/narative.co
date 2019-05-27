@@ -32,21 +32,30 @@ const ArticlesGrid = ({ articles }: { articles: IArticleNode[] }) => {
         <GridItem article={articles[0]} />
         <GridItem article={articles[1]} narrow />
       </Grid>
-      <Grid reverse>
-        <GridItem article={articles[2]} narrow />
-        <GridItem article={articles[3]} />
-      </Grid>
-      <HorizontalRule>
-        <h2>From our clients</h2>
-      </HorizontalRule>
-      <Testimonial />
-      <HorizontalRule>
-        <h2>More from Narative</h2>
-      </HorizontalRule>
-      <Grid>
-        <GridItem article={articles[4]} />
-        <GridItem article={articles[5]} narrow />
-      </Grid>
+
+      {articles[2] && (
+        <Grid reverse>
+          <GridItem article={articles[2]} narrow />
+          <GridItem article={articles[3]} />
+        </Grid>
+      )}
+
+      {articles[4] && (
+        <>
+          <HorizontalRule>
+            <h2>From our clients</h2>
+          </HorizontalRule>
+          <Testimonial />
+
+          <HorizontalRule>
+            <h2>More from Narative</h2>
+          </HorizontalRule>
+          <Grid>
+            <GridItem article={articles[4]} />
+            <GridItem article={articles[5]} narrow />
+          </Grid>
+        </>
+      )}
 
       {articles[6] && (
         <Grid>
@@ -66,7 +75,7 @@ const GridItem = ({ article, narrow }) => {
   const hasOverflow = narrow && article.title.length > 35
 
   return (
-    <ArticleLink to={`/articles/${article.slug}`} data-a11y="true">
+    <ArticleLink to={`/articles/${article.slug}`} data-a11y="false">
       <Item>
         <Image background={article.backgroundColor} narrow={narrow}>
           <Media src={article.backgroundImage.fluid} />

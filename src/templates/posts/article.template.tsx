@@ -25,6 +25,8 @@ import ArticleHero from '../../sections/article/Article.Hero'
 import ArticleControls from '../../sections/article/Article.Controls'
 import ArticlePreview from '../../sections/article/Article.Preview'
 import ArticleMicrodata from '../../sections/article/Article.Microdata'
+import ArticleShare from '../../sections/article/Article.Share'
+import ArticleHighlight from '../../sections/article/Article.Highlight'
 
 import { IDetailPage } from '@typings'
 
@@ -133,7 +135,10 @@ class Article extends Component<ArticleProps, PostState> {
         <MobileControls>
           <ArticleControls toggleMode={toggleMode} mode={mode} />
         </MobileControls>
-        <Content contentRef={this.contentSectionRef} content={article.body} />
+        <Content contentRef={this.contentSectionRef} content={article.body}>
+          <ArticleShare article={article} mode={mode} />
+          <ArticleHighlight article={article} mode={mode} />
+        </Content>
         <Gradient>
           <Meta>
             <div>Posted on {article.publicationDate}</div>

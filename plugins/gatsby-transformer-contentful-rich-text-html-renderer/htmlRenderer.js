@@ -1,6 +1,8 @@
 const { BLOCKS, INLINES } = require('@contentful/rich-text-types')
 const documentToHtmlString = require('@contentful/rich-text-html-renderer')
   .documentToHtmlString
+var md = require('markdown-it')()
+const icons = require('./icons')
 
 // Options used in the documentToHtmlString renderer
 const highlightCode = require('./prism/highlight-code.js')
@@ -27,10 +29,31 @@ module.exports.HTMLRendererOpts = {
         } target="_blank" rel="noopener">${documentToHtmlString(node)}</a>`
       }
     },
+    [INLINES.EMBEDDED_ENTRY]: node => {
+      if (!node.data.target.fields) return null
+
+      let { text } = node.data.target.fields
+      const contentfulId = node.data.target.sys.contentType.sys.id
+
+      if (contentfulId === 'highlight' && typeof text === 'string') {
+        md.renderer.rules.paragraph_open = () => '<highlight>'
+        md.renderer.rules.paragraph_close = () => '</highlight>'
+
+        const html = md.render(text)
+        return `${html}</highlight>`
+      }
+    },
     [BLOCKS.EMBEDDED_ENTRY]: node => {
       if (!node.data.target.fields) return null
 
-      let { align, showDescription, image, text, id } = node.data.target.fields
+      let {
+        align,
+        showDescription,
+        withShadow,
+        image,
+        text,
+        id,
+      } = node.data.target.fields
       const contentfulId = node.data.target.sys.contentType.sys.id
 
       if (contentfulId === 'code') {
@@ -81,6 +104,8 @@ module.exports.HTMLRendererOpts = {
         // Same goes for the other values
         title = title.en || title
         align = align.en || align
+
+        withShadow = (withShadow && withShadow.en) || withShadow
         showDescription =
           (showDescription && showDescription.en) || showDescription
         description = (description && (description.en || description)) || null
@@ -91,7 +116,9 @@ module.exports.HTMLRendererOpts = {
         const caption = htmlEntities(description)
 
         // Make the img tag that will be returned either way
-        const img = `<img src="${src}" alt="${caption}" class="image__${className}" />`
+        const img = `<img src="${src}" alt="${caption}" class="image__${className} ${
+          withShadow ? 'image__with_shadow' : ''
+        }" />`
 
         const figcaption = `<figcaption>${
           showDescription ? caption : ''
@@ -108,6 +135,40 @@ module.exports.HTMLRendererOpts = {
         } else {
           return img
         }
+      }
+
+      if (contentfulId === 'callToAction') {
+        const {
+          heading,
+          subheading,
+          primaryCallToAction,
+          secondaryCallToAction,
+        } = node.data.target.fields
+
+        function createLink(link) {
+          if (link.fields) {
+            const { text, url, icon } = link.fields
+            const i = icons[icon]
+
+            return text
+              ? `<a href="${url}" target="_blank">${i + text}</a>`
+              : ''
+          }
+          return ''
+        }
+
+        return `
+          <div class="CallToAction">
+            <div class="CallToAction__content">
+              <h3>${heading}</h3>
+              ${subheading && `<p>${subheading}</p>`}
+              <div class="CallToAction__links">
+                ${createLink(primaryCallToAction)}
+                ${createLink(secondaryCallToAction)}
+              </div>
+            </div>
+          </div>
+          `
       }
     },
     [BLOCKS.EMBEDDED_ASSET]: (node, next) => {

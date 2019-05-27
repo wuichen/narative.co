@@ -39,7 +39,7 @@ class CopyToClipboard extends Component<
       <CopyIconContainer
         copied={copied}
         onClick={() => this.copyToClipboardOnClick(copyOnClick)}
-        data-a11y="true"
+        data-a11y="false"
       >
         {copied ? (
           <CopyIconText>

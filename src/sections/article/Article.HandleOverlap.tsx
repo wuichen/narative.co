@@ -37,46 +37,34 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
     window.removeEventListener('resize', this.onScroll)
   }
 
-  onScroll = throttle(() => {
-    if (!this.ticking) {
-      // RAF and make our progress calculation
-      // on callback of the setState clear the thread
-      window.requestAnimationFrame(() => {
-        const images = [].slice.call(document.querySelectorAll('img'))
-        const noImagesAreVisible = !images.some(this.isVisible)
+  onScroll = () => {
+    // Elements we want to include for the overlap
+    const ctas = Array.from(document.getElementsByClassName('CallToAction'))
+    const images = Array.from(document.querySelectorAll('img'))
 
-        images.forEach(
-          (image: HTMLElement): void | null => {
-            if (noImagesAreVisible) {
-              return this.setState(
-                {
-                  isOverlapping: this.collide(this.asideRef.current, image),
-                },
-                () => (this.ticking = false)
-              )
-            }
-            /**
-             * If the image is not in the viewport don't fire state events for it,
-             * otherwise we run into issues with multiple images on the page.
-             */
-            if (!this.isVisible(image)) {
-              this.ticking = false
-              return null
-            }
+    const nodesToNotOverlap = [...ctas, ...images]
+    const noNodesAreVisible = !nodesToNotOverlap.some(this.isVisible)
 
-            this.setState(
-              {
-                isOverlapping: this.collide(this.asideRef.current, image),
-              },
-              () => (this.ticking = false)
-            )
-          }
-        )
-      })
-      // Prevent further scrolls triggers
-      this.ticking = true
-    }
-  }, 16)
+    nodesToNotOverlap.forEach(
+      (node: HTMLElement): void | null => {
+        const isOverlapping = this.collide(this.asideRef.current, node)
+
+        if (noNodesAreVisible) {
+          return this.setState({ isOverlapping })
+        }
+        /**
+         * If the node is not in the viewport don't fire state events for it,
+         * otherwise we run into issues with multiple nodes on the page.
+         */
+        if (!this.isVisible(node)) {
+          this.ticking = false
+          return null
+        }
+
+        this.setState({ isOverlapping })
+      }
+    )
+  }
 
   // Is the current element within the window's frame? That's all we care about!
   isVisible = (element: HTMLElement): boolean => {
@@ -90,10 +78,10 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
    * we've added is a small BUFFER because we don't want it to disppear as it touches.
    * We prefer to start the fade out a few pixels before!
    */
-  collide = (fixedElement: HTMLElement, image: HTMLElement): boolean => {
-    const BUFFER = 35
+  collide = (fixedElement: HTMLElement, node: HTMLElement): boolean => {
+    const BUFFER = 40
     const rect1 = fixedElement.getBoundingClientRect()
-    const rect2 = image.getBoundingClientRect()
+    const rect2 = node.getBoundingClientRect()
 
     return !(
       rect1.top - BUFFER > rect2.bottom ||

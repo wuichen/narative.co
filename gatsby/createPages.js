@@ -93,7 +93,7 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
   const qArticles = await graphql(gql.articles, opts)
 
   // Clean the data returned by GraphQL
-  const articles = pipe(
+  let articles = pipe(
     _checkQueryIntegrity,
     // Merge the results of our 2 queries (new and legacy) together
     // e.g. [{...node}, {...node}, {...node}, ...]
@@ -102,6 +102,8 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
     // e.g. [{...cleanNode}, {...cleanNode}, {...cleanNode}, ...]
     _cleanNodes
   )(qArticles)
+
+  articles = [...articles]
 
   /**
    * /authors/<author slug>
