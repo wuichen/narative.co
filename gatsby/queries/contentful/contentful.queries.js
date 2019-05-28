@@ -146,6 +146,7 @@ const articleNode = `
   canonical
   featured
   publicationDate(formatString: "MMM. D, YYYY")
+  updatedAt(formatString: "MMM. D, YYYY")
   ${heroImageryField}
   author {
     ${authorFields}
