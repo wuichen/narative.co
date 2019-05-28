@@ -153,7 +153,11 @@ module.exports.HTMLRendererOpts = {
 
         function createLink(link) {
           if (link.fields) {
-            const { text, url, icon } = link.fields
+            let { text, url, icon } = link.fields
+            text = text.en || text
+            url = url.en || url
+            icon = icon.en || icon
+
             const i = icons[icon]
 
             return text
