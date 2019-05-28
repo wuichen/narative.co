@@ -1,3 +1,5 @@
+const globalHistory = require('@reach/router').globalHistory
+
 function handleAccessibilityFocus() {
   const elementsWithA11yFocus = Array.from(
     document.querySelectorAll('[data-a11y]')
@@ -25,4 +27,10 @@ function handleAccessibilityFocus() {
 
 module.exports = () => {
   handleAccessibilityFocus()
+  /**
+   * This is a workaround for a bug in Gatsby
+   *
+   * See https://github.com/gatsbyjs/gatsby/issues/8357 for more details
+   */
+  globalHistory._onTransitionComplete()
 }

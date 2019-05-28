@@ -175,7 +175,11 @@ class Navigation extends Component<{}, NavigationState> {
                   </LogoBack>
                 )}
                 <LogoMask>
-                  <LogoContainer to="/" aria-label="Back home" data-a11y="false">
+                  <LogoContainer
+                    to="/"
+                    aria-label="Back home"
+                    data-a11y="false"
+                  >
                     <Logo fill={fill} />
                   </LogoContainer>
                 </LogoMask>
