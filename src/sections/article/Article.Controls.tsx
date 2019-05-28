@@ -9,9 +9,9 @@ import mediaqueries from '@styles/media'
  * and copying the link. This is component to handle that!
  */
 
-export default ({ mode, toggleMode }) => (
+export default ({ mode, toggleMode, shortUrl }) => (
   <>
-    <ShareButton mode={mode} />
+    <ShareButton mode={mode} shortUrl={shortUrl} />
     <DarkModeSelect toggleMode={toggleMode} mode={mode} />
   </>
 )
@@ -31,7 +31,7 @@ class ShareButton extends Component {
 
     const tempInput = document.createElement('input')
     document.body.appendChild(tempInput)
-    tempInput.setAttribute('value', window.location.href)
+    tempInput.setAttribute('value', `ntve.co/${this.props.shortUrl}`)
     tempInput.select()
     document.execCommand('copy')
     document.body.removeChild(tempInput)

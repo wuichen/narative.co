@@ -130,7 +130,11 @@ class Article extends Component<ArticleProps, PostState> {
           <Progress {...scrollInfo} {...scrollInfo} />
         </Aside>
         <Aside right {...scrollInfo}>
-          <ArticleControls toggleMode={toggleMode} mode={mode} />
+          <ArticleControls
+            toggleMode={toggleMode}
+            mode={mode}
+            shortUrl={article.shortUrl}
+          />
         </Aside>
         <MobileControls>
           <ArticleControls toggleMode={toggleMode} mode={mode} />
