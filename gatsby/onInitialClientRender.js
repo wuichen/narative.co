@@ -27,9 +27,9 @@ function handleAccessibilityFocus() {
 
 module.exports = () => {
   handleAccessibilityFocus()
+
   /**
    * This is a workaround for a bug in Gatsby
-   *
    * See https://github.com/gatsbyjs/gatsby/issues/8357 for more details
    */
   globalHistory._onTransitionComplete()

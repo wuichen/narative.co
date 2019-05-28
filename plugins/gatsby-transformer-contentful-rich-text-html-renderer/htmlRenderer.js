@@ -138,12 +138,18 @@ module.exports.HTMLRendererOpts = {
       }
 
       if (contentfulId === 'callToAction') {
-        const {
+        let {
           heading,
           subheading,
           primaryCallToAction,
           secondaryCallToAction,
         } = node.data.target.fields
+
+        heading = heading.en || heading
+        subheading = subheading.en || subheading
+        primaryCallToAction = primaryCallToAction.en || primaryCallToAction
+        secondaryCallToAction =
+          secondaryCallToAction.en || secondaryCallToAction
 
         function createLink(link) {
           if (link.fields) {
