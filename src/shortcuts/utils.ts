@@ -95,7 +95,7 @@ export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
 
   // Add the custom modifier keys to the regular keys
   if (customKeys.length) {
-    keys.unshift(...customKeys)
+    keys.unshift(customKeys[0])
   }
 
   // Reset customKeys back to an empty list
@@ -103,10 +103,9 @@ export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
     keys.length === 2 ||
     !keys.some((key: string) => customKeys.includes(key))
   ) {
-    customKeys.length = 0
+    customKeys = []
   }
 
-  console.log(keys)
   return keys.length > 0 ? keys : null
 }
 

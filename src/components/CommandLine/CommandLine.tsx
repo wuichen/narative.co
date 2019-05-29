@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
+import React from 'react'
+import styled, { keyframes, css } from 'styled-components'
 
 import CommandLineOptions from './CommandLineOptions'
 import Logo from '../Logo'
 import { CloseIcon } from '../../icons/ui'
-import { ShortcutContext } from '../../shortcuts/context'
+import { useReduxState } from '../../store'
 
 interface Position {
   symbol: string
@@ -57,10 +57,13 @@ const options = [
 ]
 
 function CommandLine({ positions }: CommandLineProps) {
-  const { shortcut } = useContext(ShortcutContext)
-  console.log(shortcut)
+  const [{ shortcuts }] = useReduxState(state => ({
+    shortcuts: state.shortcuts,
+  }))
+
+  console.log(shortcuts.name)
   return (
-    <Frame>
+    <Frame show={shortcuts.name === 'OPEN_COMMAND_LINE'}>
       <Header>
         <LogoContainer>
           <Logo onlySymbol />
@@ -79,6 +82,14 @@ function CommandLine({ positions }: CommandLineProps) {
 
 export default CommandLine
 
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translate(-50%, -49%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+`
+
+const animation = css`
+  animation: ${fadeIn} 0.3s forwards;
+`
 const Frame = styled.div`
   z-index: 2147483647;
   position: fixed;
@@ -90,6 +101,9 @@ const Frame = styled.div`
   width: 712px;
   background: #14151a;
   border-radius: 5px;
+  opacity: 0;
+
+  ${p => p.show && animation}
 `
 
 const Header = styled.header`

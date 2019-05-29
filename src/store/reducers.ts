@@ -1,15 +1,9 @@
 import { combineReducers } from 'redux'
 
-// import authentication from './authentication/reducer'
-// import positions from './positions/reducer'
-// import view from './view/reducer'
-// import tradingview from './tradingview/reducer'
+import shortcuts from './shortcuts/reducer'
 
 const reducers = combineReducers({
-  // authentication,
-  // positions,
-  // view,
-  // tradingview,
+  shortcuts,
 })
 
 export default reducers

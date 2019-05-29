@@ -4,7 +4,7 @@ import { shortcutMatchesShortcut, eventToShortcut } from './utils'
 import shortcuts from './shortcuts'
 import { Feature } from './types'
 
-export default function initShortcuts() {
+export default function initShortcuts(store) {
   const api = {
     // Getting and setting shortcuts
     getShortcutKeys() {
@@ -45,31 +45,31 @@ export default function initShortcuts() {
      */
     handleShortcutFeature(feature: { name: string }, data?: any) {
       switch (feature.name) {
-        case 'ESCAPE': {
-          console.log('fired')
+        case 'OPEN_COMMAND_LINE': {
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          break
+        }
+        case 'GO_TO_HOME': {
+          navigate('/')
           break
         }
         case 'GO_TO_CAREERS': {
-          console.log('fired')
           navigate('/careers')
           break
         }
         case 'GO_TO_LABS': {
-          console.log('fired')
           navigate('/labs')
           break
         }
         case 'GO_TO_ARTICLES': {
-          console.log('fired')
           navigate('/articles')
           break
         }
         case 'CONTACT_US': {
-          console.log('fired')
           break
         }
         case 'ESCAPE': {
-          console.log('fired')
+          store.dispatch({ type: 'ESCAPE' })
           break
         }
 

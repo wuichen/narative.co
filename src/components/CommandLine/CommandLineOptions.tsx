@@ -8,7 +8,7 @@ import { GoToIcon, CreateIcon } from '../../icons/ui'
 import { useActiveListItem } from '@utils'
 
 function handleShortcutSelection(shortcut: { name: string }) {
-  console.log('fired')
+  console.log('handleShortcutSelection')
   // shortcuts.handleShortcutFeature(shortcut)
 }
 

@@ -33,6 +33,9 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
   useEffect(() => {
     const shortcuts = initShortcuts(store)
     document.addEventListener('keydown', shortcuts.handleKeydownEvent)
+
+    return () =>
+      document.removeEventListener('keydown', shortcuts.handleKeydownEvent)
   }, [])
 
   return (
@@ -42,7 +45,7 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
           <>
             <GlobalStyles />
             <Container {...rest}>{children}</Container>
-            {/* <CommandLine /> */}
+            <CommandLine />
             <ContactSlideIn />
           </>
         </ContactProvider>
