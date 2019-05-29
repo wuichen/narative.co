@@ -119,3 +119,68 @@ export const SubmittedCheckIcon = () => (
     />
   </svg>
 )
+
+export const CloseIcon = ({ fill = '#868F97' }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+      fill={fill}
+    />
+  </svg>
+)
+
+export const CreateIcon = ({ fill = '#479FFA' }) => (
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4 7H1C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5H4C4.55228 5 5 5.44772 5 6C5 6.55228 4.55228 7 4 7Z"
+      fill={fill}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 6C12 5.44772 11.5523 5 11 5H8C7.44772 5 7 5.44772 7 6C7 6.55228 7.44772 7 8 7H11C11.5523 7 12 6.55228 12 6Z"
+      fill={fill}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M7 11V8C7 7.44772 6.55228 7 6 7C5.44772 7 5 7.44772 5 8V11C5 11.5523 5.44772 12 6 12C6.55228 12 7 11.5523 7 11Z"
+      fill={fill}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M7 4V1C7 0.447715 6.55228 0 6 0C5.44772 0 5 0.447715 5 1V4C5 4.55228 5.44772 5 6 5C6.55228 5 7 4.55228 7 4Z"
+      fill={fill}
+    />
+  </svg>
+)
+
+export const GoToIcon = ({ fill = '#868F97' }) => (
+  <svg
+    width="10"
+    height="7"
+    viewBox="0 0 10 7"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6.37273 0V2.625H0V4.375H6.37273V7L10 3.5L6.37273 0Z"
+      fill={fill}
+    />
+  </svg>
+)
