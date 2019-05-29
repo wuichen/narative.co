@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import styled, { keyframes } from 'styled-components'
 import OutsideClickHandler from 'react-outside-click-handler'
 
@@ -12,7 +13,6 @@ import { scrollable } from '@utils'
 interface Position {
   symbol: string
   name: string
-  feature: string
   label: string
   keys: string[]
 }
@@ -21,50 +21,85 @@ interface CommandLineProps {
   positions?: Position[]
 }
 
-const options = [
+const defaultList = [
   {
     symbol: 'GoToIcon',
     name: 'CONTACT',
-    feature: 'string',
     label: 'Contact',
     keys: ['C'],
   },
   {
     symbol: 'GoToIcon',
+    name: 'COMMAND_LINE_READ',
+    label: 'Read',
+    keys: ['shift', 'R'],
+  },
+  {
+    symbol: 'GoToIcon',
     name: 'GO_TO_HOME',
-    feature: 'GO_TO_HOME',
     label: 'Go to Home',
     keys: ['G', 'H'],
   },
   {
     symbol: 'GoToIcon',
     name: 'GO_TO_ARTICLES',
-    feature: 'GO_TO_ARTICLES',
     label: 'Go to Articles',
     keys: ['G', 'A'],
   },
   {
     symbol: 'GoToIcon',
     name: 'GO_TO_CAREERS',
-    feature: 'GO_TO_CAREERS',
     label: 'Go to Careers',
     keys: ['G', 'C'],
   },
   {
     symbol: 'GoToIcon',
     name: 'GO_TO_LABS',
-    feature: 'GO_TO_LABS',
     label: 'Go to Labs',
     keys: ['G', 'L'],
   },
+  {
+    symbol: 'GoToIcon',
+    name: 'GO_TO_FEY',
+    label: 'Go to Fey',
+    keys: ['G', 'F'],
+  },
 ]
 
+const articlesQuery = graphql`
+  query GetArticles {
+    allContentfulArticle(sort: { fields: [publicationDate], order: DESC }) {
+      edges {
+        node {
+          title
+          slug
+        }
+      }
+    }
+  }
+`
+
+function createReadingList(articles) {
+  return articles.map((article, index) => ({
+    symbol: 'ArticleIcon',
+    name: 'GO_TO_ARTICLE',
+    label: article.node.title,
+    slug: article.node.slug,
+  }))
+}
+
 function CommandLine({ positions }: CommandLineProps) {
+  const {
+    allContentfulArticle: { edges: articles },
+  } = useStaticQuery(articlesQuery)
+  const readingList = createReadingList(articles)
+
   const [{ name }] = useReduxState(state => ({
     name: state.shortcuts.name,
   }))
 
-  const open = name === 'OPEN_COMMAND_LINE'
+  const open = name && name.includes('COMMAND_LINE')
+  const list = name === 'COMMAND_LINE_DEFAULT' ? defaultList : readingList
 
   useEffect(() => {
     if (open) {
@@ -92,7 +127,7 @@ function CommandLine({ positions }: CommandLineProps) {
             <CloseIcon />
           </CloseButton>
         </Header>
-        <CommandLineOptions options={options} />
+        <CommandLineOptions list={list} name={name} />
       </Frame>
     </OutsideClickHandler>
   )

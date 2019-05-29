@@ -27,8 +27,10 @@ function initShortcuts(store) {
         return shortcutMatchesShortcut(shortcut, feature.keys)
       })
 
-      console.log(noInputIsFocused)
-      if (matchedFeature && noInputIsFocused) {
+      if (
+        (matchedFeature && noInputIsFocused) ||
+        (matchedFeature && matchedFeature.name === 'ESCAPE')
+      ) {
         // Temp logging to make it clear what is matched
         console.log(
           `Pressed ${shortcut.join(' + ')} and matched ${matchedFeature.name}`
@@ -54,7 +56,11 @@ function initShortcuts(store) {
      */
     handleShortcutFeature(feature: { name: string }, data?: any) {
       switch (feature.name) {
-        case 'OPEN_COMMAND_LINE': {
+        case 'COMMAND_LINE_DEFAULT': {
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          break
+        }
+        case 'COMMAND_LINE_READ': {
           store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
@@ -75,6 +81,16 @@ function initShortcuts(store) {
         }
         case 'GO_TO_ARTICLES': {
           navigate('/articles')
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          break
+        }
+        case 'GO_TO_ARTICLE': {
+          navigate(`/articles/${feature.slug}`)
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          break
+        }
+        case 'GO_TO_FEY': {
+          window.open('http://feyapp.com', '_blank')
           store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }

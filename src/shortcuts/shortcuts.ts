@@ -5,9 +5,14 @@
 
 const narativeShortcuts = [
   {
-    name: 'OPEN_COMMAND_LINE',
+    name: 'COMMAND_LINE_DEFAULT',
     keys: ['meta', 'K'],
     label: 'Open Command Line',
+  },
+  {
+    name: 'COMMAND_LINE_READ',
+    keys: ['shift', 'R'],
+    label: 'Read',
   },
   {
     name: 'CONTACT',
@@ -33,6 +38,11 @@ const narativeShortcuts = [
     name: 'GO_TO_ARTICLES',
     keys: ['G', 'A'],
     label: 'Go to Articles',
+  },
+  {
+    name: 'GO_TO_FEY',
+    keys: ['G', 'F'],
+    label: 'Go to Fey',
   },
   {
     name: 'ESCAPE',

@@ -7,7 +7,7 @@ function LayoutBlur({ children }: { children: Element[] }) {
     shortcuts: state.shortcuts,
   }))
 
-  const open = shortcuts.name === 'OPEN_COMMAND_LINE'
+  const open = shortcuts.name && shortcuts.name.includes('COMMAND_LINE')
   const styles = open
     ? { background: 'rgba(8, 8, 11, 0.05)', filter: 'blur(4px)' }
     : {}

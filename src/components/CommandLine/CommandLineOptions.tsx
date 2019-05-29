@@ -5,50 +5,96 @@ import shortcuts from '../../shortcuts'
 
 import { keyToSymbol } from '../../shortcuts/shortcuts'
 import { GoToIcon, CreateIcon } from '../../icons/ui'
-import { useActiveListItem } from '@utils'
 
 function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(shortcut)
 }
 
-function calculateListOffset(activeCommand: number, results: any[]) {
-  if (results.length > 3 && activeCommand === results.length - 1) {
-    return (activeCommand - 3) * -64 - 10
-  }
-
-  if (results.length > 3 && activeCommand > 1) {
-    return (activeCommand - 2) * -64
-  }
-
-  return 0
-}
-
 interface CommandProps {
   ideas?: any[]
+  name: string
 }
 
-function CommandLineOptions({ options = [] }: CommandProps) {
-  const fuseOptions = {
-    threshold: 0.3,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 20,
-    minMatchCharLength: 2,
-    keys: ['label'],
+function useActiveListItem(initial: number, list: any[], name: string): number {
+  const [active, setActive] = useState<number>(initial)
+  const length: number = list.length
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      switch (event.key) {
+        case 'ArrowUp':
+          setActive(currentActive => {
+            if (currentActive === 0) return length - 1
+
+            return currentActive - 1
+          })
+          break
+        case 'ArrowDown':
+          setActive(currentActive => {
+            if (currentActive === length - 1) return 0
+
+            return currentActive + 1
+          })
+          break
+        default:
+          return
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [length])
+
+  useEffect(() => {
+    setActive(0)
+  }, [name])
+
+  if (active >= length) {
+    setActive(length - 1)
   }
 
-  const list = [...options].filter(item => item.label)
-  const fuse = new Fuse(list, fuseOptions)
+  return active > 0 ? active : 0
+}
 
+const fuseOptions = {
+  threshold: 0.3,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 20,
+  minMatchCharLength: 2,
+  keys: ['label'],
+}
+
+function CommandLineOptions({ list = [], name }: CommandProps) {
+  const filteredList = list.filter(item => item.label)
+  const fuse = new Fuse(filteredList, fuseOptions)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
   const [value, setValue] = useState('')
-  const inputRef = useRef(null)
+
   const results = value ? fuse.search(value) : list
-  const activeCommand = useActiveListItem(0, results)
-  const offset = calculateListOffset(activeCommand, results)
+  const activeCommand = useActiveListItem(0, results, name)
+  const placeholder =
+    name === 'COMMAND_LINE_READ' ? 'Choose your article' : 'Type your command'
 
   useEffect(() => {
     inputRef.current.focus()
   }, [inputRef])
+
+  if (listRef.current) {
+    if (activeCommand > 3) {
+      listRef.current.scrollTo({ top: (activeCommand - 3) * 61 })
+    } else {
+      listRef.current.scrollTo({ top: 0 })
+    }
+  }
+
+  useEffect(() => {
+    setValue('')
+  }, [list])
 
   return (
     <>
@@ -61,29 +107,29 @@ function CommandLineOptions({ options = [] }: CommandProps) {
         <StyledInput
           ref={inputRef}
           type="text"
-          placeholder="Type your command"
+          placeholder={placeholder}
           value={value}
           onChange={event => {
             setValue(event.target.value)
           }}
         />
       </Form>
-      <List>
+      <List ref={listRef}>
         {results.map((shortcut: any, index) => {
           const highlight = index === activeCommand
 
           return (
             <Shortcut
-              style={{ transform: `translateY(${offset}px)` }}
               key={shortcut.label + index}
               highlight={highlight}
               onClick={() => handleShortcutSelection(results[index])}
             >
               {labelToHighlighted(shortcut.label, highlight)}
               <ShortcutKeys>
-                {shortcut.keys.map((key: any) => (
-                  <div key={keyToSymbol(key)}>{keyToSymbol(key)}</div>
-                ))}
+                {shortcut.keys &&
+                  shortcut.keys.map((key: any) => (
+                    <div key={keyToSymbol(key)}>{keyToSymbol(key)}</div>
+                  ))}
               </ShortcutKeys>
             </Shortcut>
           )
@@ -101,11 +147,12 @@ const labelToHighlighted = (
 ): ReactElement => {
   const shortcutActionDefinitions = [
     { key: 'Contact', Icon: CreateIcon },
+    { key: 'Read', Icon: GoToIcon },
     { key: 'Close', Icon: GoToIcon },
     { key: 'Go to', Icon: GoToIcon },
   ]
 
-  const fallback = { key: 'Fallback', Icon: GoToIcon }
+  const fallback = { key: label, Icon: GoToIcon }
 
   const { key, Icon } =
     shortcutActionDefinitions.find(({ key }) => label.includes(key)) || fallback
@@ -154,6 +201,7 @@ const List = styled.ul`
   list-style: none;
   height: 246px;
   overflow-y: scroll;
+  overflow-x: hidden;
 `
 
 const Shortcut = styled.li<{ highlight: boolean }>`
@@ -162,9 +210,14 @@ const Shortcut = styled.li<{ highlight: boolean }>`
   justify-content: space-between;
   background: ${p => (p.highlight ? 'rgba(17, 18, 22, 0.5)' : 'transparent')};
   padding: 0 24px;
-  height: 64px;
+  height: 61px;
   font-size: 18px;
   color: ${p => p.theme.colors.moon};
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(17, 18, 22, 0.5);
+  }
 `
 
 const ShortcutKeys = styled.div`
