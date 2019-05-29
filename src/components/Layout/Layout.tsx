@@ -42,8 +42,8 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
           <>
             <GlobalStyles />
             <Container {...rest}>{children}</Container>
-            <CommandLine />
-            {/* <ContactSlideIn /> */}
+            {/* <CommandLine /> */}
+            <ContactSlideIn />
           </>
         </ContactProvider>
       </ThemeProvider>
