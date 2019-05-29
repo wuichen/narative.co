@@ -4,7 +4,9 @@ import { shortcutMatchesShortcut, eventToShortcut } from './utils'
 import shortcuts from './shortcuts'
 import { Feature } from './types'
 
-export default function initShortcuts(store) {
+import { store } from '../store'
+
+function initShortcuts(store) {
   const api = {
     // Getting and setting shortcuts
     getShortcutKeys() {
@@ -13,13 +15,20 @@ export default function initShortcuts(store) {
 
     // Listening to shortcut events
     handleKeydownEvent(event: KeyboardEvent) {
+      const activeElement = document.activeElement
+      const inputs = ['input', 'select', 'button', 'textarea']
+      const noInputIsFocused =
+        activeElement &&
+        inputs.indexOf(activeElement.tagName.toLowerCase()) === -1
+
       const shortcut = eventToShortcut(event)
 
       const matchedFeature = shortcuts.find((feature: Feature) => {
         return shortcutMatchesShortcut(shortcut, feature.keys)
       })
 
-      if (matchedFeature) {
+      console.log(noInputIsFocused)
+      if (matchedFeature && noInputIsFocused) {
         // Temp logging to make it clear what is matched
         console.log(
           `Pressed ${shortcut.join(' + ')} and matched ${matchedFeature.name}`
@@ -51,21 +60,26 @@ export default function initShortcuts(store) {
         }
         case 'GO_TO_HOME': {
           navigate('/')
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
         case 'GO_TO_CAREERS': {
           navigate('/careers')
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
         case 'GO_TO_LABS': {
           navigate('/labs')
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
         case 'GO_TO_ARTICLES': {
           navigate('/articles')
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
-        case 'CONTACT_US': {
+        case 'CONTACT': {
+          store.dispatch({ type: 'SHORTCUT', payload: feature })
           break
         }
         case 'ESCAPE': {
@@ -82,3 +96,5 @@ export default function initShortcuts(store) {
 
   return api
 }
+
+export default initShortcuts(store)

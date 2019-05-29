@@ -3,36 +3,36 @@
  * that controls what keys are listened for on the keydown event listener
  */
 
-const feyShortcuts = [
+const narativeShortcuts = [
   {
     name: 'OPEN_COMMAND_LINE',
     keys: ['meta', 'K'],
     label: 'Open Command Line',
   },
   {
+    name: 'CONTACT',
+    keys: ['C'],
+    label: 'Contact',
+  },
+  {
     name: 'GO_TO_HOME',
-    keys: ['H'],
+    keys: ['G', 'H'],
     label: 'Go to Home',
   },
   {
     name: 'GO_TO_CAREERS',
-    keys: ['C'],
+    keys: ['G', 'C'],
     label: 'Go to Careers',
   },
   {
     name: 'GO_TO_LABS',
-    keys: ['L'],
+    keys: ['G', 'L'],
     label: 'Go to Labs',
   },
   {
     name: 'GO_TO_ARTICLES',
-    keys: ['A'],
+    keys: ['G', 'A'],
     label: 'Go to Articles',
-  },
-  {
-    name: 'CONTACT',
-    keys: ['X'],
-    label: 'Contact',
   },
   {
     name: 'ESCAPE',
@@ -41,9 +41,9 @@ const feyShortcuts = [
   },
 ]
 
-export default feyShortcuts
+export default narativeShortcuts
 
-export const feyShortcutsList = feyShortcuts
+export const narativeShortcutsList = narativeShortcuts
 
 export const isMacLike = () =>
   navigator && navigator.platform

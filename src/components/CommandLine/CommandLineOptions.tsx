@@ -1,15 +1,14 @@
-import React, { useState, ReactElement } from 'react'
+import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
-// import { shortcuts } from '../../index'
+import shortcuts from '../../shortcuts'
 
 import { keyToSymbol } from '../../shortcuts/shortcuts'
 import { GoToIcon, CreateIcon } from '../../icons/ui'
 import { useActiveListItem } from '@utils'
 
 function handleShortcutSelection(shortcut: { name: string }) {
-  console.log('handleShortcutSelection')
-  // shortcuts.handleShortcutFeature(shortcut)
+  shortcuts.handleShortcutFeature(shortcut)
 }
 
 function calculateListOffset(activeCommand: number, results: any[]) {
@@ -42,9 +41,14 @@ function CommandLineOptions({ options = [] }: CommandProps) {
   const fuse = new Fuse(list, fuseOptions)
 
   const [value, setValue] = useState('')
+  const inputRef = useRef(null)
   const results = value ? fuse.search(value) : list
   const activeCommand = useActiveListItem(0, results)
   const offset = calculateListOffset(activeCommand, results)
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [inputRef])
 
   return (
     <>
@@ -55,7 +59,7 @@ function CommandLineOptions({ options = [] }: CommandProps) {
         }}
       >
         <StyledInput
-          autoFocus={true}
+          ref={inputRef}
           type="text"
           placeholder="Type your command"
           value={value}
@@ -96,12 +100,9 @@ const labelToHighlighted = (
   highlight?: boolean
 ): ReactElement => {
   const shortcutActionDefinitions = [
-    { key: 'Create', Icon: CreateIcon },
-    { key: 'Queue', Icon: GoToIcon },
-    { key: 'Save', Icon: GoToIcon },
-    { key: 'Open', Icon: GoToIcon },
+    { key: 'Contact', Icon: CreateIcon },
     { key: 'Close', Icon: GoToIcon },
-    { key: 'Add', Icon: GoToIcon },
+    { key: 'Go to', Icon: GoToIcon },
   ]
 
   const fallback = { key: 'Fallback', Icon: GoToIcon }
@@ -109,7 +110,7 @@ const labelToHighlighted = (
   const { key, Icon } =
     shortcutActionDefinitions.find(({ key }) => label.includes(key)) || fallback
 
-  const fill: string = highlight ? '#479FFA' : '#868F97'
+  const fill: string = highlight ? '#6166DC' : '#DADADA'
 
   return (
     <Label>
@@ -139,7 +140,8 @@ const Regular = styled.div<{ highlight: boolean | undefined }>`
 `
 
 const Highlight = styled.div<{ highlight: boolean | undefined }>`
-  color: ${p => (p.highlight ? 'red' : p.theme.colors.moon)};
+  color: ${p => (p.highlight ? p.theme.colors.purple : p.theme.colors.moon)};
+  font-weight: 600;
 `
 
 const Form = styled.form`
@@ -158,7 +160,7 @@ const Shortcut = styled.li<{ highlight: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${p => (p.highlight ? '#1C1D22' : 'transparent')};
+  background: ${p => (p.highlight ? 'rgba(17, 18, 22, 0.5)' : 'transparent')};
   padding: 0 24px;
   height: 64px;
   font-size: 18px;
@@ -193,16 +195,16 @@ const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   font-size: 36px;
-  color: #fff;
+  color: ${p => p.theme.colors.moon};
   border: none;
-  caret-color: ${p => 'red'};
+  caret-color: ${p => p.theme.colors.purple};
 
   ::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.15);
     font-weight: 200;
   }
   ::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.15);
     font-weight: 200;
   }
 `

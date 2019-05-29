@@ -3,13 +3,15 @@ import { ThemeProvider } from 'styled-components'
 import { StoreContext } from 'redux-react-hook'
 import { ContactProvider } from '@components/Contact/Contact.Context'
 
+import LayoutBlur from '@components/Layout/Layout.Blur'
+
 import ContactSlideIn from '@components/Contact/Contact.SlideIn'
 import Container from '@components/Layout/Layout.Container'
 import CommandLine from '@components/CommandLine'
 
 import { GlobalStyles, theme } from '@styles'
 import { store } from '../../store'
-import initShortcuts from '../../shortcuts'
+import shortcuts from '../../shortcuts'
 
 interface LayoutProps {
   background?: string
@@ -31,11 +33,14 @@ interface LayoutProps {
  */
 const Layout = ({ children, ...rest }: LayoutProps) => {
   useEffect(() => {
-    const shortcuts = initShortcuts(store)
-    document.addEventListener('keydown', shortcuts.handleKeydownEvent)
+    document.addEventListener('keydown', shortcuts.handleKeydownEvent, true)
 
     return () =>
-      document.removeEventListener('keydown', shortcuts.handleKeydownEvent)
+      document.removeEventListener(
+        'keydown',
+        shortcuts.handleKeydownEvent,
+        true
+      )
   }, [])
 
   return (
@@ -43,10 +48,12 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
       <ThemeProvider theme={theme}>
         <ContactProvider>
           <>
-            <GlobalStyles />
-            <Container {...rest}>{children}</Container>
-            <CommandLine />
+            <LayoutBlur>
+              <GlobalStyles />
+              <Container {...rest}>{children}</Container>
+            </LayoutBlur>
             <ContactSlideIn />
+            <CommandLine />
           </>
         </ContactProvider>
       </ThemeProvider>
