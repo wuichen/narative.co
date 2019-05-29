@@ -102,7 +102,9 @@ const Frame = styled.div`
   background: #14151a;
   border-radius: 5px;
   opacity: 0;
-
+  pointer-events: ${p => (p.show ? 'initial' : 'none')};
+  user-select: ${p => (p.show ? 'initial' : 'none')};
+  visibility: ${p => (p.show ? 'initial' : 'hidden')};
   ${p => p.show && animation}
 `
 
