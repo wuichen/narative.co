@@ -6,8 +6,9 @@ import OutsideClickHandler from 'react-outside-click-handler'
 import CommandLineOptions from './CommandLineOptions'
 
 import shortcuts from '../../shortcuts'
+import { narativeShortcutsList } from '../../shortcuts/shortcuts'
 import { useReduxState } from '../../store'
-import { CloseIcon } from '../../icons/ui'
+import { CloseIcon, ViewIcon } from '../../icons/ui'
 import { scrollable } from '@utils'
 
 interface Position {
@@ -20,51 +21,6 @@ interface Position {
 interface CommandLineProps {
   positions?: Position[]
 }
-
-const defaultList = [
-  {
-    symbol: 'GoToIcon',
-    name: 'CONTACT',
-    label: 'Contact',
-    keys: ['C'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'COMMAND_LINE_READ',
-    label: 'Read',
-    keys: ['shift', 'R'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'GO_TO_HOME',
-    label: 'Go to Home',
-    keys: ['G', 'H'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'GO_TO_ARTICLES',
-    label: 'Go to Articles',
-    keys: ['G', 'A'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'GO_TO_CAREERS',
-    label: 'Go to Careers',
-    keys: ['G', 'C'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'GO_TO_LABS',
-    label: 'Go to Labs',
-    keys: ['G', 'L'],
-  },
-  {
-    symbol: 'GoToIcon',
-    name: 'GO_TO_FEY',
-    label: 'Go to Fey',
-    keys: ['G', 'F'],
-  },
-]
 
 const articlesQuery = graphql`
   query GetArticles {
@@ -83,8 +39,9 @@ function createReadingList(articles) {
   return articles.map((article, index) => ({
     symbol: 'ArticleIcon',
     name: 'GO_TO_ARTICLE',
-    label: article.node.title,
+    label: [`${article.node.title}`],
     slug: article.node.slug,
+    icon: ViewIcon,
   }))
 }
 
@@ -99,7 +56,8 @@ function CommandLine({ positions }: CommandLineProps) {
   }))
 
   const open = name && name.includes('COMMAND_LINE')
-  const list = name === 'COMMAND_LINE_DEFAULT' ? defaultList : readingList
+  const list =
+    name === 'COMMAND_LINE_DEFAULT' ? narativeShortcutsList : readingList
 
   useEffect(() => {
     if (open) {

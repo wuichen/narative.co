@@ -1,3 +1,13 @@
+import {
+  GoToIcon,
+  MailIcon,
+  LightbulbIcon,
+  SlashIcon,
+  FeyIcon,
+  LaptopIcon,
+  BookIcon,
+} from '../icons/ui'
+
 /**
  * All Fey shortcuts are defined here. This is the master document
  * that controls what keys are listened for on the keydown event listener
@@ -7,53 +17,64 @@ const narativeShortcuts = [
   {
     name: 'COMMAND_LINE_DEFAULT',
     keys: ['meta', 'K'],
-    label: 'Open Command Line',
-  },
-  {
-    name: 'COMMAND_LINE_READ',
-    keys: ['shift', 'R'],
-    label: 'Read',
+    label: ['Open ', 'Command Line'],
+    icon: GoToIcon,
   },
   {
     name: 'CONTACT',
     keys: ['C'],
-    label: 'Contact',
+    label: ['', 'Contact'],
+    icon: MailIcon,
+  },
+  {
+    name: 'COMMAND_LINE_READ',
+    keys: ['shift', 'A'],
+    label: ['', 'Read'],
+    icon: BookIcon,
   },
   {
     name: 'GO_TO_HOME',
     keys: ['G', 'H'],
-    label: 'Go to Home',
+    label: ['Go to ', 'Home'],
+    icon: SlashIcon,
   },
   {
     name: 'GO_TO_CAREERS',
     keys: ['G', 'C'],
-    label: 'Go to Careers',
+    label: ['Go to ', 'Careers'],
+    icon: LightbulbIcon,
   },
   {
     name: 'GO_TO_LABS',
     keys: ['G', 'L'],
-    label: 'Go to Labs',
+    label: ['Go to', ' Labs'],
+    icon: LaptopIcon,
   },
   {
     name: 'GO_TO_ARTICLES',
     keys: ['G', 'A'],
-    label: 'Go to Articles',
+    label: ['Go to ', 'Articles'],
+    icon: BookIcon,
   },
   {
     name: 'GO_TO_FEY',
     keys: ['G', 'F'],
-    label: 'Go to Fey',
+    label: ['Go to ', ' Fey'],
+    icon: FeyIcon,
   },
   {
     name: 'ESCAPE',
     keys: ['escape'],
-    label: 'Close Command Line',
+    label: ['Close ', 'Command Line'],
+    icon: GoToIcon,
   },
 ]
 
 export default narativeShortcuts
 
-export const narativeShortcutsList = narativeShortcuts
+export const narativeShortcutsList = narativeShortcuts.filter(
+  shortcut => shortcut.name !== 'COMMAND_LINE_DEFAULT'
+)
 
 export const isMacLike = () =>
   navigator && navigator.platform

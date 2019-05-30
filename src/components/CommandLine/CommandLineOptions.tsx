@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import shortcuts from '../../shortcuts'
 
 import { keyToSymbol } from '../../shortcuts/shortcuts'
-import { GoToIcon, CreateIcon } from '../../icons/ui'
+import { GoToIcon } from '../../icons/ui'
 
 function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(shortcut)
@@ -59,16 +59,19 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
 }
 
 const fuseOptions = {
-  threshold: 0.3,
+  threshold: 0.1,
   location: 0,
   distance: 100,
   maxPatternLength: 20,
   minMatchCharLength: 2,
-  keys: ['label'],
+  keys: ['search'],
 }
 
 function CommandLineOptions({ list = [], name }: CommandProps) {
-  const filteredList = list.filter(item => item.label)
+  const filteredList = list
+    .filter(item => item.label)
+    .map(item => ({ ...item, search: item.label.join('') }))
+
   const fuse = new Fuse(filteredList, fuseOptions)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -120,11 +123,11 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
 
           return (
             <Shortcut
-              key={shortcut.label + index}
+              key={shortcut.search}
               highlight={highlight}
               onClick={() => handleShortcutSelection(results[index])}
             >
-              {labelToHighlighted(shortcut.label, highlight)}
+              {labelToHighlighted(shortcut.label, shortcut.icon, highlight)}
               <ShortcutKeys>
                 {shortcut.keys &&
                   shortcut.keys.map((key: any) => (
@@ -143,28 +146,18 @@ export default CommandLineOptions
 
 const labelToHighlighted = (
   label: string,
+  icon: React.ReactElement,
   highlight?: boolean
 ): ReactElement => {
-  const shortcutActionDefinitions = [
-    { key: 'Contact', Icon: CreateIcon },
-    { key: 'Read', Icon: GoToIcon },
-    { key: 'Close', Icon: GoToIcon },
-    { key: 'Go to', Icon: GoToIcon },
-  ]
-
-  const fallback = { key: label, Icon: GoToIcon }
-
-  const { key, Icon } =
-    shortcutActionDefinitions.find(({ key }) => label.includes(key)) || fallback
-
-  const fill: string = highlight ? '#6166DC' : '#DADADA'
+  const fill: string = highlight ? '#6166DC' : '#73737D'
+  const Icon = icon
 
   return (
     <Label>
       <Icon fill={fill} />
       <LabelText>
-        <Regular highlight={highlight}>{key}</Regular>
-        <Highlight highlight={highlight}>{label.split(key)[1]}</Highlight>
+        <Regular highlight={highlight}>{label[0]}</Regular>
+        <Highlight highlight={highlight}>{label[1]}</Highlight>
       </LabelText>
     </Label>
   )
@@ -187,7 +180,7 @@ const Regular = styled.div<{ highlight: boolean | undefined }>`
 `
 
 const Highlight = styled.div<{ highlight: boolean | undefined }>`
-  color: ${p => (p.highlight ? p.theme.colors.purple : p.theme.colors.moon)};
+  color: ${p => (p.highlight ? '#fff' : p.theme.colors.moon)};
   font-weight: 600;
 `
 

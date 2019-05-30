@@ -9,11 +9,11 @@ import logger from 'redux-logger'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-let middleware: any = [logger]
+let middleware: any = []
 
 // Add any middleware you want to only be in development
 if (isDev) {
-  middleware = [...middleware]
+  middleware = [logger]
 }
 
 /**
