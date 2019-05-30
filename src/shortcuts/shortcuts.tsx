@@ -1,5 +1,6 @@
 import * as icons from '../icons/ui'
 import * as constants from './constants'
+import { controlOrMetaKey } from './utils'
 
 /**
  * All Narative shortcuts are defined here. This is the master document
@@ -8,7 +9,7 @@ import * as constants from './constants'
 const shortcuts = [
   {
     name: constants.COMMAND_LINE_DEFAULT,
-    keys: ['meta', 'K'],
+    keys: [controlOrMetaKey(), 'K'],
     label: ['Open ', 'Command Line'],
     icon: icons.GoToIcon,
   },
