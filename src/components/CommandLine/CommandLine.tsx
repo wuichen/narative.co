@@ -18,10 +18,6 @@ interface Position {
   keys: string[]
 }
 
-interface CommandLineProps {
-  positions?: Position[]
-}
-
 const articlesQuery = graphql`
   query GetArticles {
     allContentfulArticle(sort: { fields: [publicationDate], order: DESC }) {
@@ -36,7 +32,7 @@ const articlesQuery = graphql`
 `
 
 function createReadingList(articles) {
-  return articles.map((article, index) => ({
+  return articles.map(article => ({
     symbol: 'ArticleIcon',
     name: 'GO_TO_ARTICLE',
     label: [`${article.node.title}`],
@@ -45,7 +41,7 @@ function createReadingList(articles) {
   }))
 }
 
-function CommandLine({ positions }: CommandLineProps) {
+function CommandLine() {
   const {
     allContentfulArticle: { edges: articles },
   } = useStaticQuery(articlesQuery)

@@ -23,13 +23,13 @@ const narativeShortcuts = [
   {
     name: 'CONTACT',
     keys: ['C'],
-    label: ['', 'Contact'],
+    label: ['', 'Contact us'],
     icon: MailIcon,
   },
   {
     name: 'COMMAND_LINE_READ',
     keys: ['shift', 'A'],
-    label: ['', 'Read'],
+    label: ['Read', 'Articles'],
     icon: BookIcon,
   },
   {

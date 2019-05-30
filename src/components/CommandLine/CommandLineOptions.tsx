@@ -1,18 +1,17 @@
 import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
-import shortcuts from '../../shortcuts'
 
+import shortcuts from '../../shortcuts'
 import { keyToSymbol } from '../../shortcuts/shortcuts'
-import { GoToIcon } from '../../icons/ui'
+
+interface CommandProps {
+  list?: any[]
+  name: string
+}
 
 function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(shortcut)
-}
-
-interface CommandProps {
-  ideas?: any[]
-  name: string
 }
 
 function useActiveListItem(initial: number, list: any[], name: string): number {
@@ -58,16 +57,16 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
   return active > 0 ? active : 0
 }
 
-const fuseOptions = {
-  threshold: 0.1,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 20,
-  minMatchCharLength: 2,
-  keys: ['search'],
-}
-
 function CommandLineOptions({ list = [], name }: CommandProps) {
+  const fuseOptions = {
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 20,
+    minMatchCharLength: 2,
+    keys: ['search'],
+  }
+
   const filteredList = list
     .filter(item => item.label)
     .map(item => ({ ...item, search: item.label.join('') }))
@@ -156,7 +155,9 @@ const labelToHighlighted = (
     <Label>
       <Icon fill={fill} />
       <LabelText>
-        <Regular highlight={highlight}>{label[0]}</Regular>
+        <Regular highlight={highlight} label={label[0]}>
+          {label[0]}
+        </Regular>
         <Highlight highlight={highlight}>{label[1]}</Highlight>
       </LabelText>
     </Label>
@@ -176,7 +177,7 @@ const LabelText = styled.div`
 
 const Regular = styled.div<{ highlight: boolean | undefined }>`
   color: ${p => (p.highlight ? '#fff' : p.theme.colors.moon)};
-  margin-right: 5px;
+  ${p => p.label && `margin-right: 5px`};
 `
 
 const Highlight = styled.div<{ highlight: boolean | undefined }>`
@@ -240,7 +241,7 @@ const StyledInput = styled.input`
   height: 44px;
   width: 100%;
   background: transparent;
-  font-size: 36px;
+  font-size: 32px;
   color: ${p => p.theme.colors.moon};
   border: none;
   caret-color: ${p => p.theme.colors.purple};
