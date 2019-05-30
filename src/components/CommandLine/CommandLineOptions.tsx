@@ -80,7 +80,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
   const activeCommand = useActiveListItem(0, results, name)
   const listStyles = { height: `${results.length * 61}px` }
   const placeholder =
-    name === 'COMMAND_LINE_READ' ? 'Choose your article' : 'Type your command'
+    name === 'COMMAND_LINE_READ' ? 'Search articles' : 'Search commands'
 
   useEffect(() => {
     inputRef.current.focus()
@@ -240,7 +240,7 @@ const Symbol = styled.div`
   border-radius: 2.5px;
   padding: 1px 4px;
   color: #000;
-  background: #fff;
+  background: ${p => p.theme.colors.moon};
 
   &:not(:last-child) {
     margin-right: 8px;
