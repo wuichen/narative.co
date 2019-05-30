@@ -1,4 +1,4 @@
-// Re-exporting all actions, selectors, and hooks
+// Re-exporting for ease of use
 import reducers from './reducers'
 import { useReduxState } from './hooks'
 
@@ -23,6 +23,8 @@ if (isDev) {
  * @param preloadedState any {}
  */
 function configureStore(preloadedState: {}) {
+  console.log({ reducers, preloadedState, middleware })
+  console.log('fired')
   const store = createStore(
     reducers,
     preloadedState,
@@ -38,9 +40,13 @@ function configureStore(preloadedState: {}) {
     }
   }
 
+  console.log(store)
   return store
 }
 
 const store = configureStore({})
 
-export { store, useReduxState }
+console.log(store)
+export { useReduxState, configureStore }
+
+export default store

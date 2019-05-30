@@ -1,18 +1,28 @@
 import { navigate } from 'gatsby'
 
-import { shortcutMatchesShortcut, eventToShortcut } from './utils'
+import settings from '../settings'
+import store from '../store'
 import shortcuts from './shortcuts'
 import * as constants from './constants'
+import { shortcutMatchesShortcut, eventToShortcut, keyToSymbol } from './utils'
+
 import { Feature } from './types'
-import settings from '../settings'
 
-import { store } from '../store'
+export { constants, keyToSymbol }
 
-function initShortcuts(store) {
+export default (store => {
   const api = {
-    // Getting and setting shortcuts
-    getShortcutKeys() {
+    getShortcuts() {
       return shortcuts
+    },
+
+    // Used in Command Line to not show some options
+    getShortcutsFiltered() {
+      const blacklist = [constants.COMMAND_LINE_DEFAULT, constants.ESCAPE]
+
+      return shortcuts.filter(
+        shortcut => !blacklist.some(item => item === shortcut.name)
+      )
     },
 
     // Listening to shortcut events
@@ -46,6 +56,7 @@ function initShortcuts(store) {
         return api.handleShortcutFeature(matchedFeature)
       }
 
+      // Hook in and add a check for custom Backspace events
       api.handleBackToDefault(event)
     },
 
@@ -58,7 +69,7 @@ function initShortcuts(store) {
      *
      * @param feature String
      */
-    handleShortcutFeature(feature: { name: string }, data?: any) {
+    handleShortcutFeature(feature: { name: string }) {
       switch (feature.name) {
         // Our different Command Line variants
         case constants.COMMAND_LINE_DEFAULT: {
@@ -139,15 +150,19 @@ function initShortcuts(store) {
 
     handleBackToDefault(event: KeyboardEvent) {
       if (event.key === 'Backspace') {
-        const val = document.getElementById('CommandLineInput').value
-        if (val === '') {
-          return api.handleShortcutFeature({ name: 'COMMAND_LINE_DEFAULT' })
+        const input = document.getElementById(
+          'CommandLineInput'
+        ) as HTMLInputElement
+        const isInputEmpty = input.value === ''
+
+        if (isInputEmpty) {
+          return api.handleShortcutFeature({
+            name: constants.COMMAND_LINE_DEFAULT,
+          })
         }
       }
     },
   }
 
   return api
-}
-
-export default initShortcuts(store)
+})(store)

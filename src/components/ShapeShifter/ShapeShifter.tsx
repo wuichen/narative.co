@@ -117,7 +117,9 @@ function ShapeShifter() {
   useEffect(() => {
     const $shape = shape.current
     setAnimate(true)
-    createMirrorMask()
+    setTimeout(() => {
+      createMirrorMask()
+    }, 0)
 
     if (isSafari || isFireFox) return
 

@@ -1,13 +1,7 @@
+import * as icons from '../icons/ui'
+
 // The shortcut is our JSON-ifiable representation of a shortcut combination
 type Shortcut = string[] | any
-
-export const isMacLike = () =>
-  navigator && navigator.platform
-    ? !!navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
-    : false
-export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
-export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
-export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
 
 export const isShortcutTaken = (arr1: string[], arr2: string[]): boolean =>
   JSON.stringify(arr1) === JSON.stringify(arr2)
@@ -17,7 +11,7 @@ let customKeys: string[] = []
 
 export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
   /**
-   * Within Fey we use other modifier keys beyond the classic ⌘, meta, and ⌥.
+   * Within Narative we use other modifier keys beyond the classic ⌘, meta, and ⌥.
    * They must be defined within the list of customModifierKeys otherwise we
    * don't know when to listen to multiple keys
    */
@@ -131,4 +125,53 @@ export const eventMatchesShortcut = (
 // Display the shortcut as a human readable string
 export const shortcutToHumanString = (shortcut: Shortcut): string => {
   return shortcut.map(keyToSymbol).join(' ')
+}
+
+export const isMacLike = () =>
+  navigator && navigator.platform
+    ? !!navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
+    : false
+export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
+export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
+export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
+
+export const keyToSymbol = (key: string) => {
+  if (key === 'alt') {
+    return optionOrAltSymbol()
+  }
+  if (key === 'control') {
+    return '⌃'
+  }
+  if (key === 'meta') {
+    return '⌘'
+  }
+  if (key === 'shift') {
+    return icons.ShiftIcon
+  }
+  if (key === 'Enter' || key === 'Backspace' || key === 'Esc') {
+    return ''
+  }
+  if (key === 'escape') {
+    return 'Esc'
+  }
+  if (key === ' ') {
+    return 'SPACE'
+  }
+  if (key === 'ArrowUp') {
+    return '↑'
+  }
+  if (key === 'ArrowDown') {
+    return '↓'
+  }
+  if (key === 'ArrowLeft') {
+    return '←'
+  }
+  if (key === 'ArrowRight') {
+    return '→'
+  }
+  if (key === 'i') {
+    return key
+  }
+
+  return key.toUpperCase()
 }

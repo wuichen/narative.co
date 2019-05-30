@@ -2,8 +2,7 @@ import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
 
-import shortcuts from '../../shortcuts'
-import { keyToSymbol } from '../../shortcuts/shortcuts'
+import shortcuts, { keyToSymbol } from '../../shortcuts'
 
 interface CommandProps {
   list?: any[]

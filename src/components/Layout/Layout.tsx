@@ -10,7 +10,7 @@ import Container from '@components/Layout/Layout.Container'
 import CommandLine from '@components/CommandLine'
 
 import { GlobalStyles, theme } from '@styles'
-import { store } from '../../store'
+import store from '../../store'
 import shortcuts from '../../shortcuts'
 
 interface LayoutProps {
@@ -33,14 +33,10 @@ interface LayoutProps {
  */
 const Layout = ({ children, ...rest }: LayoutProps) => {
   useEffect(() => {
-    document.addEventListener('keydown', shortcuts.handleKeydownEvent, true)
+    document.addEventListener('keydown', shortcuts.handleKeydownEvent)
 
     return () =>
-      document.removeEventListener(
-        'keydown',
-        shortcuts.handleKeydownEvent,
-        true
-      )
+      document.removeEventListener('keydown', shortcuts.handleKeydownEvent)
   }, [])
 
   return (

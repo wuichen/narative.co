@@ -2,10 +2,10 @@ import * as icons from '../icons/ui'
 import * as constants from './constants'
 
 /**
- * All Fey shortcuts are defined here. This is the master document
+ * All Narative shortcuts are defined here. This is the master document
  * that controls what keys are listened for on the keydown event listener
  */
-const narativeShortcuts = [
+const shortcuts = [
   {
     name: constants.COMMAND_LINE_DEFAULT,
     keys: ['meta', 'K'],
@@ -84,58 +84,4 @@ const narativeShortcuts = [
   },
 ]
 
-export default narativeShortcuts
-
-const blacklist = [constants.COMMAND_LINE_DEFAULT, constants.ESCAPE]
-export const shortcutList = narativeShortcuts.filter(
-  shortcut => !blacklist.some(item => item === shortcut.name)
-)
-
-export const isMacLike = () =>
-  navigator && navigator.platform
-    ? !!navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
-    : false
-export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
-export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
-export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
-
-export const keyToSymbol = (key: string) => {
-  if (key === 'alt') {
-    return optionOrAltSymbol()
-  }
-  if (key === 'control') {
-    return '⌃'
-  }
-  if (key === 'meta') {
-    return '⌘'
-  }
-  if (key === 'shift') {
-    return icons.ShiftIcon
-  }
-  if (key === 'Enter' || key === 'Backspace' || key === 'Esc') {
-    return ''
-  }
-  if (key === 'escape') {
-    return 'Esc'
-  }
-  if (key === ' ') {
-    return 'SPACE'
-  }
-  if (key === 'ArrowUp') {
-    return '↑'
-  }
-  if (key === 'ArrowDown') {
-    return '↓'
-  }
-  if (key === 'ArrowLeft') {
-    return '←'
-  }
-  if (key === 'ArrowRight') {
-    return '→'
-  }
-  if (key === 'i') {
-    return key
-  }
-
-  return key.toUpperCase()
-}
+export default shortcuts

@@ -5,9 +5,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 import CommandLineOptions from './CommandLineOptions'
 
-import shortcuts from '../../shortcuts'
-import * as constants from '../../shortcuts/constants'
-import { shortcutList } from '../../shortcuts/shortcuts'
+import shortcuts, { constants } from '../../shortcuts'
 import { useReduxState } from '../../store'
 import { CloseIcon, ViewIcon, BookIcon } from '../../icons/ui'
 import { scrollable } from '@utils'
@@ -52,6 +50,26 @@ function createReadingList(articles) {
   ]
 }
 
+function CommandLineHeading({ isDefault }) {
+  return isDefault ? (
+    <>
+      <Logo />
+      <Heading>Narative Command</Heading>
+    </>
+  ) : (
+    <BackButton
+      onClick={() =>
+        shortcuts.handleShortcutFeature({
+          name: constants.COMMAND_LINE_DEFAULT,
+        })
+      }
+    >
+      <BackArrow />
+      <Heading>Back</Heading>
+    </BackButton>
+  )
+}
+
 function CommandLine() {
   const [{ name }] = useReduxState(state => ({
     name: state.shortcuts.name,
@@ -61,6 +79,7 @@ function CommandLine() {
 
   const open = name && name.includes('COMMAND_LINE')
   const isDefault = name === constants.COMMAND_LINE_DEFAULT
+  const list = isDefault ? shortcuts.getShortcutsFiltered() : readingList
   const close = () =>
     shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
 
@@ -77,23 +96,7 @@ function CommandLine() {
       <Frame>
         <Header>
           <LogoContainer>
-            {isDefault ? (
-              <>
-                <Logo />
-                <Heading>Narative Command</Heading>
-              </>
-            ) : (
-              <BackButton
-                onClick={() =>
-                  shortcuts.handleShortcutFeature({
-                    name: constants.COMMAND_LINE_DEFAULT,
-                  })
-                }
-              >
-                <BackArrow />
-                <Heading>Back</Heading>
-              </BackButton>
-            )}
+            <CommandLineHeading isDefault={isDefault} />
           </LogoContainer>
           <CloseButton onClick={close}>
             <CloseButton onClick={close}>
@@ -101,11 +104,7 @@ function CommandLine() {
             </CloseButton>
           </CloseButton>
         </Header>
-        {isDefault ? (
-          <CommandLineOptions key="default" list={shortcutList} name={name} />
-        ) : (
-          <CommandLineOptions key="reading" list={readingList} name={name} />
-        )}
+        <CommandLineOptions key={name} list={list} name={name} />
       </Frame>
     </OutsideClickHandler>
   )
