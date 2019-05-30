@@ -1,3 +1,13 @@
+/**
+ * Huge shoutout to Storybook as the core architecture of our shortcuts
+ * is based off of their source. Storybook is a development environment
+ * for UI components. It allows you to browse a component library, view
+ * the different states of each component, and interactively develop and
+ * test components.
+ *
+ * https://github.com/storybooks/storybook
+ */
+
 import { navigate } from 'gatsby'
 
 import settings from '../settings'

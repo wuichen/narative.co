@@ -1,14 +1,26 @@
+/**
+ * Huge shoutout to Storybook as the core architecture of our shortcuts
+ * is based off of their source. Storybook is a development environment
+ * for UI components. It allows you to browse a component library, view
+ * the different states of each component, and interactively develop and
+ * test components.
+ *
+ * https://github.com/storybooks/storybook
+ */
+
 import * as icons from '../icons/ui'
 
 // The shortcut is our JSON-ifiable representation of a shortcut combination
 type Shortcut = string[] | any
 
+// Storybook
 export const isShortcutTaken = (arr1: string[], arr2: string[]): boolean =>
   JSON.stringify(arr1) === JSON.stringify(arr2)
 
 // This is outside the scoe of eventToShortcut() on purpose!
 let customKeys: string[] = []
 
+// Modified from Storybook
 export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
   /**
    * Within Narative we use other modifier keys beyond the classic ⌘, meta, and ⌥.
@@ -103,6 +115,7 @@ export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
   return keys.length > 0 ? keys : null
 }
 
+// Modified from Storybook
 export const shortcutMatchesShortcut = (
   inputShortcut: Shortcut,
   shortcut: Shortcut
@@ -137,10 +150,12 @@ export const isMacLike = () => {
   return true
 }
 
+// Fantastic utilities form stroybook
 export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
 export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
 export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
 
+// Modified utilities form stroybook
 export const keyToSymbol = (key: string) => {
   if (key === 'alt') {
     return optionOrAltSymbol()
