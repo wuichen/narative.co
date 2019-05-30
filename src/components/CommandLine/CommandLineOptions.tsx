@@ -112,6 +112,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
           placeholder={placeholder}
           value={value}
           id="CommandLineInput"
+          autoComplete="Off"
           onChange={event => {
             setValue(event.target.value)
           }}
