@@ -59,9 +59,9 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
 
 function CommandLineOptions({ list = [], name }: CommandProps) {
   const fuseOptions = {
-    threshold: 0.4,
+    threshold: 0.3,
     location: 0,
-    distance: 100,
+    distance: 140,
     maxPatternLength: 20,
     minMatchCharLength: 2,
     keys: ['search'],
@@ -79,6 +79,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
 
   const results = value ? fuse.search(value) : list
   const activeCommand = useActiveListItem(0, results, name)
+  const listStyles = { height: `${results * 61}px` }
   const placeholder =
     name === 'COMMAND_LINE_READ' ? 'Choose your article' : 'Type your command'
 
@@ -118,7 +119,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
           }}
         />
       </Form>
-      <List ref={listRef}>
+      <List ref={listRef} style={listStyles}>
         {results.map((shortcut: any, index) => {
           const highlight = index === activeCommand
 

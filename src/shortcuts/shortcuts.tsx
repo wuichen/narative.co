@@ -76,7 +76,6 @@ const narativeShortcuts = [
     external: true,
     icon: icons.LinkedInIcon,
   },
-
   {
     name: constants.ESCAPE,
     keys: ['escape'],
@@ -87,8 +86,9 @@ const narativeShortcuts = [
 
 export default narativeShortcuts
 
+const blacklist = [constants.COMMAND_LINE_DEFAULT, constants.ESCAPE]
 export const shortcutList = narativeShortcuts.filter(
-  shortcut => shortcut.name !== 'COMMAND_LINE_DEFAULT'
+  shortcut => !blacklist.some(item => item === shortcut.name)
 )
 
 export const isMacLike = () =>

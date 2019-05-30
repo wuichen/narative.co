@@ -45,7 +45,7 @@ function createReadingList(articles) {
       symbol: 'ArticleIcon',
       name: constants.GO_TO_ARTICLE,
       label: [`${article.node.title}`],
-      slug: article.node.slug,
+      path: article.node.slug,
       featured: article.node.featured,
       icon: ViewIcon,
     })),
@@ -125,7 +125,7 @@ const Frame = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-  height: 419px;
+  height: 418px;
   width: 712px;
 
   background: rgba(29, 33, 40, 0.97);
@@ -137,6 +137,7 @@ const Frame = styled.div`
 
   will-change: opacity, transform;
   animation: ${fadeIn} 0.25s forwards;
+  overflow: hidden;
 `
 
 const Header = styled.header`

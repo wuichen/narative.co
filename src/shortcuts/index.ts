@@ -92,7 +92,7 @@ function initShortcuts(store) {
           break
         }
         case constants.GO_TO_ARTICLE: {
-          navigate(`/articles/${feature.slug}`)
+          navigate(`/articles/${feature.path}`)
           store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
