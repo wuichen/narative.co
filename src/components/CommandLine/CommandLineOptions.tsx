@@ -201,7 +201,7 @@ const List = styled.ul`
   position: relative;
   list-style: none;
   height: 244px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 `
 
