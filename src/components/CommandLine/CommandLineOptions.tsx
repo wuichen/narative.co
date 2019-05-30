@@ -212,6 +212,10 @@ const Shortcut = styled.li<{ highlight: boolean }>`
   &:hover {
     background: rgba(17, 18, 22, 0.5);
   }
+
+  svg {
+    width: 10px;
+  }
 `
 
 const ShortcutKeys = styled.div`
