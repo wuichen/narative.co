@@ -172,7 +172,7 @@ const Label = styled.div`
 const LabelText = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 14px;
 `
 
 const Regular = styled.div<{ highlight: boolean | undefined }>`
@@ -214,7 +214,8 @@ const Shortcut = styled.li<{ highlight: boolean }>`
   }
 
   svg {
-    width: 10px;
+    position: relative;
+    left: -3px;
   }
 `
 
