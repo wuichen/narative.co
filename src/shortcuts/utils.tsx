@@ -127,10 +127,16 @@ export const shortcutToHumanString = (shortcut: Shortcut): string => {
   return shortcut.map(keyToSymbol).join(' ')
 }
 
-export const isMacLike = () =>
-  navigator && navigator.platform
-    ? !!navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
-    : false
+export const isMacLike = () => {
+  if (typeof window !== 'undefined') {
+    return navigator && navigator.platform
+      ? !!navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
+      : false
+  }
+
+  return true
+}
+
 export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
 export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
 export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
