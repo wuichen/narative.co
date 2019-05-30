@@ -79,7 +79,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
 
   const results = value ? fuse.search(value) : list
   const activeCommand = useActiveListItem(0, results, name)
-  const listStyles = { height: `${results * 61}px` }
+  const listStyles = { height: `${results.length * 61}px` }
   const placeholder =
     name === 'COMMAND_LINE_READ' ? 'Choose your article' : 'Type your command'
 
@@ -119,7 +119,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
           }}
         />
       </Form>
-      <List ref={listRef} style={listStyles}>
+      <List ref={listRef}>
         {results.map((shortcut: any, index) => {
           const highlight = index === activeCommand
 
@@ -201,7 +201,7 @@ const Form = styled.form`
 const List = styled.ul`
   position: relative;
   list-style: none;
-  height: 246px;
+  height: 244px;
   overflow-y: scroll;
   overflow-x: hidden;
 `
