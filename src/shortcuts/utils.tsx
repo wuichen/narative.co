@@ -143,7 +143,7 @@ export const keyToSymbol = (key: string) => {
     return '⌃'
   }
   if (key === 'meta') {
-    return '⌘'
+    return controlOrMetaSymbol()
   }
   if (key === 'shift') {
     return icons.ShiftIcon
