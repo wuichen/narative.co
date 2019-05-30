@@ -99,6 +99,9 @@ class Navigation extends Component<{}, NavigationState> {
     if (key === 'Escape') {
       this.handleOutsideClick()
     }
+    if (key === 'g') {
+      this.handleToggleClick()
+    }
   }
 
   handleToggleClick = () => {

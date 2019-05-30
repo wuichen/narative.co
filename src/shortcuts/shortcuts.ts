@@ -12,7 +12,6 @@ import {
  * All Fey shortcuts are defined here. This is the master document
  * that controls what keys are listened for on the keydown event listener
  */
-
 const narativeShortcuts = [
   {
     name: 'COMMAND_LINE_DEFAULT',
@@ -33,12 +32,6 @@ const narativeShortcuts = [
     icon: BookIcon,
   },
   {
-    name: 'GO_TO_HOME',
-    keys: ['G', 'H'],
-    label: ['Go to ', 'Home'],
-    icon: SlashIcon,
-  },
-  {
     name: 'GO_TO_CAREERS',
     keys: ['G', 'C'],
     label: ['Go to ', 'Careers'],
@@ -49,6 +42,12 @@ const narativeShortcuts = [
     keys: ['G', 'L'],
     label: ['Go to', ' Labs'],
     icon: LaptopIcon,
+  },
+  {
+    name: 'GO_TO_HOME',
+    keys: ['G', 'H'],
+    label: ['Go to ', 'Home'],
+    icon: SlashIcon,
   },
   {
     name: 'GO_TO_ARTICLES',
