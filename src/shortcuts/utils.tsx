@@ -128,49 +128,6 @@ export const eventMatchesShortcut = (
   return shortcutMatchesShortcut(eventToShortcut(e), shortcut)
 }
 
-/**
- * keyToSymbol()
- *
- * This allows us to easily generate the visuals for shortcuts when
- * displaying it in the UI!
- */
-export const keyToSymbol = (key: string): string => {
-  if (key === 'alt') {
-    return optionOrAltSymbol()
-  }
-  if (key === 'control') {
-    return '⌃'
-  }
-  if (key === 'meta') {
-    return '⌘'
-  }
-  if (key === 'shift') {
-    return '⇧​'
-  }
-  if (key === 'Enter' || key === 'Backspace' || key === 'Esc') {
-    return ''
-  }
-  if (key === 'escape') {
-    return ''
-  }
-  if (key === ' ') {
-    return 'SPACE'
-  }
-  if (key === 'ArrowUp') {
-    return '↑'
-  }
-  if (key === 'ArrowDown') {
-    return '↓'
-  }
-  if (key === 'ArrowLeft') {
-    return '←'
-  }
-  if (key === 'ArrowRight') {
-    return '→'
-  }
-  return key.toUpperCase()
-}
-
 // Display the shortcut as a human readable string
 export const shortcutToHumanString = (shortcut: Shortcut): string => {
   return shortcut.map(keyToSymbol).join(' ')

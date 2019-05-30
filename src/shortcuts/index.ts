@@ -2,7 +2,9 @@ import { navigate } from 'gatsby'
 
 import { shortcutMatchesShortcut, eventToShortcut } from './utils'
 import shortcuts from './shortcuts'
+import * as constants from './constants'
 import { Feature } from './types'
+import settings from '../settings'
 
 import { store } from '../store'
 
@@ -43,6 +45,8 @@ function initShortcuts(store) {
 
         return api.handleShortcutFeature(matchedFeature)
       }
+
+      api.handleBackToDefault(event)
     },
 
     /**
@@ -56,56 +60,89 @@ function initShortcuts(store) {
      */
     handleShortcutFeature(feature: { name: string }, data?: any) {
       switch (feature.name) {
-        case 'COMMAND_LINE_DEFAULT': {
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+        // Our different Command Line variants
+        case constants.COMMAND_LINE_DEFAULT: {
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'COMMAND_LINE_READ': {
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+        case constants.COMMAND_LINE_READ: {
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_HOME': {
+
+        // Go to page in Narative
+        case constants.GO_TO_HOME: {
           navigate('/')
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_CAREERS': {
+        case constants.GO_TO_CAREERS: {
           navigate('/careers')
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_LABS': {
+        case constants.GO_TO_LABS: {
           navigate('/labs')
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_ARTICLES': {
+        case constants.GO_TO_ARTICLES: {
           navigate('/articles')
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_ARTICLE': {
+        case constants.GO_TO_ARTICLE: {
           navigate(`/articles/${feature.slug}`)
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'GO_TO_FEY': {
-          window.open('http://feyapp.com', '_blank')
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+
+        // Go to Fey
+        case constants.GO_TO_FEY: {
+          window.open('https://feyapp.com', '_blank')
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'CONTACT': {
-          store.dispatch({ type: 'SHORTCUT', payload: feature })
+
+        // Social
+        case constants.GO_TO_TWITTER: {
+          window.open(settings.urls.twitter, '_blank')
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
-        case 'ESCAPE': {
-          store.dispatch({ type: 'ESCAPE' })
+        case constants.GO_TO_LINKEDIN: {
+          window.open(settings.urls.linkedin, '_blank')
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
+          break
+        }
+        case constants.GO_TO_INSTAGRAM: {
+          window.open(settings.urls.instagram, '_blank')
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
+          break
+        }
+
+        // Single key commands
+        case constants.CONTACT: {
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
+          break
+        }
+        case constants.ESCAPE: {
+          store.dispatch({ type: constants.ESCAPE })
           break
         }
 
         default:
           console.log(`Found no matching shortcut features for ${feature.name}`)
           break
+      }
+    },
+
+    handleBackToDefault(event: KeyboardEvent) {
+      if (event.key === 'Backspace') {
+        const val = document.getElementById('CommandLineInput').value
+        if (val === '') {
+          return api.handleShortcutFeature({ name: 'COMMAND_LINE_DEFAULT' })
+        }
       }
     },
   }

@@ -19,6 +19,10 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
   const length: number = list.length
 
   useEffect(() => {
+    setActive(0)
+  }, [name])
+
+  useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case 'ArrowUp':
@@ -46,10 +50,6 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
     }
   }, [length])
 
-  useEffect(() => {
-    setActive(0)
-  }, [name])
-
   if (active >= length) {
     setActive(length - 1)
   }
@@ -59,7 +59,7 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
 
 function CommandLineOptions({ list = [], name }: CommandProps) {
   const fuseOptions = {
-    threshold: 0.1,
+    threshold: 0.4,
     location: 0,
     distance: 100,
     maxPatternLength: 20,
@@ -111,6 +111,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
           type="text"
           placeholder={placeholder}
           value={value}
+          id="CommandLineInput"
           onChange={event => {
             setValue(event.target.value)
           }}
@@ -129,9 +130,14 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
               {labelToHighlighted(shortcut.label, shortcut.icon, highlight)}
               <ShortcutKeys>
                 {shortcut.keys &&
-                  shortcut.keys.map((key: any) => (
-                    <div key={keyToSymbol(key)}>{keyToSymbol(key)}</div>
-                  ))}
+                  shortcut.keys.map((key: any) => {
+                    let symbol = keyToSymbol(key)
+                    if (typeof symbol === 'function') symbol = symbol()
+
+                    return <Symbol key={key}>{symbol}</Symbol>
+                  })}
+                {shortcut.featured && <Featured>Featured</Featured>}
+                {shortcut.external && <ExternalIcon />}
               </ShortcutKeys>
             </Shortcut>
           )
@@ -209,10 +215,6 @@ const Shortcut = styled.li<{ highlight: boolean }>`
   color: ${p => p.theme.colors.moon};
   cursor: pointer;
 
-  &:hover {
-    background: rgba(17, 18, 22, 0.5);
-  }
-
   svg {
     position: relative;
     left: -3px;
@@ -224,21 +226,28 @@ const ShortcutKeys = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 11px;
+`
 
-  div {
-    display: flex;
-    justify-content: center;
-    height: 16px;
-    min-width: 16px;
-    text-align: center;
-    border-radius: 2.5px;
-    padding: 1px 4px;
-    color: #000;
-    background: #fff;
+const Symbol = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  min-width: 16px;
+  text-align: center;
+  border-radius: 2.5px;
+  padding: 1px 4px;
+  color: #000;
+  background: #fff;
 
-    &:not(:last-child) {
-      margin-right: 8px;
-    }
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  svg {
+    position: absolute;
+    left: 3px;
   }
 `
 
@@ -260,3 +269,32 @@ const StyledInput = styled.input`
     font-weight: 200;
   }
 `
+
+const Featured = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 16px;
+  padding: 1px 4px;
+  border-radius: 2.5px;
+  background: ${p => p.theme.colors.gold};
+  color: #000;
+  font-size: 10px;
+  text-align: center;
+`
+
+const ExternalIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M14.2222 14.2222H1.77778V1.77778H8V0H1.77778C0.791111 0 0 0.8 0 1.77778V14.2222C0 15.2 0.791111 16 1.77778 16H14.2222C15.2 16 16 15.2 16 14.2222V8H14.2222V14.2222ZM9.77778 0V1.77778H12.9689L4.23111 10.5156L5.48444 11.7689L14.2222 3.03111V6.22222H16V0H9.77778Z"
+      fill="#73737D"
+    />
+  </svg>
+)

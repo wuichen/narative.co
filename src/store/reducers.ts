@@ -1,9 +1,19 @@
 import { combineReducers } from 'redux'
+import { SHORTCUT, ESCAPE } from '../shortcuts/constants'
 
-import shortcuts from './shortcuts/reducer'
+function shortcutsReducer(state = {}, action: any) {
+  switch (action.type) {
+    case SHORTCUT:
+      return { ...state, ...action.payload }
+    case ESCAPE:
+      return {}
+    default:
+      return state
+  }
+}
 
 const reducers = combineReducers({
-  shortcuts,
+  shortcuts: shortcutsReducer,
 })
 
 export default reducers

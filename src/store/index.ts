@@ -1,5 +1,4 @@
 // Re-exporting all actions, selectors, and hooks
-import * as actions from './actions'
 import reducers from './reducers'
 import { useReduxState } from './hooks'
 
@@ -44,4 +43,4 @@ function configureStore(preloadedState: {}) {
 
 const store = configureStore({})
 
-export { actions, store, useReduxState }
+export { store, useReduxState }

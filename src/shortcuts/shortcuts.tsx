@@ -1,12 +1,5 @@
-import {
-  GoToIcon,
-  MailIcon,
-  LightbulbIcon,
-  SlashIcon,
-  FeyIcon,
-  LaptopIcon,
-  BookIcon,
-} from '../icons/ui'
+import * as icons from '../icons/ui'
+import * as constants from './constants'
 
 /**
  * All Fey shortcuts are defined here. This is the master document
@@ -14,64 +7,87 @@ import {
  */
 const narativeShortcuts = [
   {
-    name: 'COMMAND_LINE_DEFAULT',
+    name: constants.COMMAND_LINE_DEFAULT,
     keys: ['meta', 'K'],
     label: ['Open ', 'Command Line'],
-    icon: GoToIcon,
+    icon: icons.GoToIcon,
   },
   {
-    name: 'CONTACT',
+    name: constants.CONTACT,
     keys: ['C'],
     label: ['', 'Contact us'],
-    icon: MailIcon,
+    icon: icons.MailIcon,
   },
   {
-    name: 'COMMAND_LINE_READ',
+    name: constants.COMMAND_LINE_READ,
     keys: ['shift', 'A'],
     label: ['Read', 'Articles'],
-    icon: BookIcon,
+    icon: icons.BookIcon,
   },
   {
-    name: 'GO_TO_CAREERS',
+    name: constants.GO_TO_CAREERS,
     keys: ['G', 'C'],
     label: ['Go to ', 'Careers'],
-    icon: LightbulbIcon,
+    icon: icons.LightbulbIcon,
   },
   {
-    name: 'GO_TO_LABS',
+    name: constants.GO_TO_LABS,
     keys: ['G', 'L'],
     label: ['Go to', ' Labs'],
-    icon: LaptopIcon,
+    icon: icons.LaptopIcon,
   },
   {
-    name: 'GO_TO_HOME',
+    name: constants.GO_TO_HOME,
     keys: ['G', 'H'],
     label: ['Go to ', 'Home'],
-    icon: SlashIcon,
+    icon: icons.SlashIcon,
   },
   {
-    name: 'GO_TO_ARTICLES',
+    name: constants.GO_TO_ARTICLES,
     keys: ['G', 'A'],
     label: ['Go to ', 'Articles'],
-    icon: BookIcon,
+    icon: icons.BookIcon,
   },
   {
-    name: 'GO_TO_FEY',
-    keys: ['G', 'F'],
-    label: ['Go to ', ' Fey'],
-    icon: FeyIcon,
+    name: constants.GO_TO_FEY,
+    keys: [],
+    label: ['Go to ', ' Feyapp.com'],
+    external: true,
+    icon: icons.FeyIcon,
   },
   {
-    name: 'ESCAPE',
+    name: constants.GO_TO_TWITTER,
+    keys: [],
+    label: ['Go to ', ' Twitter'],
+    external: true,
+    icon: icons.TwitterIcon,
+  },
+  {
+    name: constants.GO_TO_INSTAGRAM,
+    keys: [],
+    label: ['Go to ', ' Instagram'],
+    external: true,
+    icon: icons.InstagramIcon,
+  },
+  {
+    name: constants.GO_TO_LINKEDIN,
+    keys: [],
+    label: ['Go to ', ' LinkedIn'],
+    external: true,
+    icon: icons.LinkedInIcon,
+  },
+
+  {
+    name: constants.ESCAPE,
     keys: ['escape'],
     label: ['Close ', 'Command Line'],
-    icon: GoToIcon,
+    icon: icons.GoToIcon,
   },
 ]
 
 export default narativeShortcuts
 
-export const narativeShortcutsList = narativeShortcuts.filter(
+export const shortcutList = narativeShortcuts.filter(
   shortcut => shortcut.name !== 'COMMAND_LINE_DEFAULT'
 )
 
@@ -83,7 +99,7 @@ export const controlOrMetaSymbol = () => (isMacLike() ? '⌘' : 'ctrl')
 export const controlOrMetaKey = () => (isMacLike() ? 'meta' : 'control')
 export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt')
 
-export const keyToSymbol = (key: string): string => {
+export const keyToSymbol = (key: string) => {
   if (key === 'alt') {
     return optionOrAltSymbol()
   }
@@ -94,7 +110,7 @@ export const keyToSymbol = (key: string): string => {
     return '⌘'
   }
   if (key === 'shift') {
-    return '⇧​'
+    return icons.ShiftIcon
   }
   if (key === 'Enter' || key === 'Backspace' || key === 'Esc') {
     return ''
