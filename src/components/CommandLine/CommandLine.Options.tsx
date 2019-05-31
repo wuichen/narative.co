@@ -2,7 +2,7 @@ import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
 
-import shortcuts, { keyToSymbol } from '../../shortcuts'
+import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
 
 interface CommandProps {
   list?: any[]
@@ -10,7 +10,8 @@ interface CommandProps {
 }
 
 function handleShortcutSelection(shortcut: { name: string }) {
-  shortcuts.handleShortcutFeature(shortcut)
+  const enhancedShortcut = { ...shortcut, source: constants.COMMAND_LINE }
+  shortcuts.handleShortcutFeature(enhancedShortcut)
 }
 
 function useActiveListItem(initial: number, list: any[], name: string): number {
@@ -124,7 +125,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
 
           return (
             <Shortcut
-              key={shortcut.search}
+              key={shortcut.name}
               highlight={highlight}
               onClick={() => handleShortcutSelection(results[index])}
             >

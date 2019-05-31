@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SHORTCUT, ESCAPE } from '../shortcuts/constants'
+import { SHORTCUT, SHORTCUT_TIP, ESCAPE } from '../shortcuts/constants'
 
 /**
  * There's only a single reducer for our shortcuts at the moment.
@@ -9,6 +9,8 @@ import { SHORTCUT, ESCAPE } from '../shortcuts/constants'
 function shortcutsReducer(state = {}, action: any) {
   switch (action.type) {
     case SHORTCUT:
+      return { ...state, ...action.payload }
+    case SHORTCUT_TIP:
       return { ...state, ...action.payload }
     case ESCAPE:
       return {}

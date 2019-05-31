@@ -25,31 +25,34 @@ const NavigationMobile = ({
 }: {
   active: boolean
   navigateOut: (Event, string) => void
-}) => (
-  <Frame active={active}>
-    <SocialIconsHeader active={active}>
-      <SocialLinks fill="#fff" />
-    </SocialIconsHeader>
-    <HorizontalRule active={active} />
-    <MobileLinks active={active}>
-      {footerLinks.map((link, index) => (
-        <StyledLink
-          active={active}
-          key={link.to}
-          index={index}
-          to={link.to}
-          onClick={event => navigateOut(event, link.to)}
-          getProps={({ isPartiallyCurrent }) =>
-            isPartiallyCurrent ? { ['data-active']: 'true' } : null
-          }
-        >
-          {link.text}
-        </StyledLink>
-      ))}
-    </MobileLinks>
-  </Frame>
-)
+}) => {
+  const isActive = active ? active : undefined
 
+  return (
+    <Frame active={isActive}>
+      <SocialIconsHeader active={isActive}>
+        <SocialLinks fill="#fff" />
+      </SocialIconsHeader>
+      <HorizontalRule active={isActive} />
+      <MobileLinks active={isActive}>
+        {footerLinks.map((link, index) => (
+          <StyledLink
+            active={isActive}
+            key={link.to}
+            index={index}
+            to={link.to}
+            onClick={event => navigateOut(event, link.to)}
+            getProps={({ isPartiallyCurrent }) =>
+              isPartiallyCurrent ? { ['data-active']: 'true' } : null
+            }
+          >
+            {link.text}
+          </StyledLink>
+        ))}
+      </MobileLinks>
+    </Frame>
+  )
+}
 export default NavigationMobile
 
 const Frame = styled.nav`

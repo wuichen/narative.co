@@ -123,12 +123,11 @@ const calculateOffset = (progress: number) => {
   return {}
 }
 
-const calcOpacity = (entering: boolean, top: number): { opacity?: number } =>
-  entering
-    ? {}
-    : {
-        opacity: Math.abs(top) > 250 ? 0 : 1 - Math.abs(top) / 250,
-      }
+const calcOpacity = (entering: boolean, top: number): { opacity?: number } => {
+  const opacity = Math.abs(top) > 250 ? 0 : 1 - Math.abs(top) / 250
+
+  return entering ? {} : { opacity: opacity ? opacity : 1 }
+}
 
 const calcTransform = (offset: number): string =>
   `translateY(${offset * 180}px)`

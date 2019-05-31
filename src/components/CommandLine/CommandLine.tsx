@@ -3,7 +3,8 @@ import { useStaticQuery, graphql } from 'gatsby'
 import styled, { keyframes } from 'styled-components'
 import OutsideClickHandler from 'react-outside-click-handler'
 
-import CommandLineOptions from './CommandLineOptions'
+import CommandLineOptions from '@components/CommandLine/CommandLine.Options'
+import CommandLineTips from '@components/CommandLine/CommandLine.Tips'
 
 import shortcuts, { constants } from '../../shortcuts'
 import { useReduxState } from '../../store'
@@ -89,7 +90,7 @@ function CommandLine() {
   }, [open])
 
   // This component is mounted, but not returning anything until it's open!
-  if (!open) return null
+  if (!open) return <CommandLineTips />
 
   return (
     <OutsideClickHandler onOutsideClick={close}>
@@ -99,9 +100,7 @@ function CommandLine() {
             <CommandLineHeading isDefault={isDefault} />
           </LogoContainer>
           <CloseButton onClick={close}>
-            <CloseButton onClick={close}>
-              <CloseIcon />
-            </CloseButton>
+            <CloseIcon />
           </CloseButton>
         </Header>
         <CommandLineOptions key={name} list={list} name={name} />
@@ -207,13 +206,13 @@ const BackArrow = () => (
       rx="2.5"
       transform="rotate(-90 1.5 17)"
       fill="white"
-      fill-opacity="0.95"
+      fillOpacity="0.95"
     />
     <path
       d="M9.44125 12.9004L9.44125 11.4504L12.5 11.4504C12.7485 11.4504 12.95 11.2489 12.95 11.0004L12.95 7.20039C12.95 7.08104 12.9026 6.96658 12.8182 6.88219C12.7338 6.7978 12.6193 6.75039 12.5 6.75039L9.44125 6.75039L9.44125 5.30039C9.44125 5.11491 9.32745 4.94843 9.15462 4.8811C8.9818 4.81376 8.78536 4.85936 8.65987 4.99594L5.16862 8.79594C5.01046 8.96809 5.01046 9.23269 5.16863 9.40484L8.65987 13.2048C8.78536 13.3414 8.9818 13.387 9.15462 13.3197C9.32745 13.2523 9.44125 13.0859 9.44125 12.9004Z"
       stroke="#08080B"
-      stroke-width="0.9"
-      stroke-linejoin="round"
+      strokeWidth="0.9"
+      strokeLinejoin="round"
     />
   </svg>
 )
