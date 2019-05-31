@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { apiCall } from '@utils/api'
 import { theme } from '@styles'
+import throttle from 'lodash/throttle'
 
 export { apiCall }
 
@@ -91,6 +92,23 @@ export const getWindowDimensions = (): { height: number; width: number } => {
     width: 0,
     height: 0,
   }
+}
+
+export function useResize() {
+  const [dimensions, setDimensions] = useState({ width: 1280, height: 900 })
+
+  useEffect(() => {
+    const handleResize = throttle(
+      () => setDimensions(getWindowDimensions()),
+      50
+    )
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  })
+
+  return dimensions
 }
 
 /**

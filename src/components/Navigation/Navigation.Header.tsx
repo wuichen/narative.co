@@ -100,7 +100,7 @@ class Navigation extends Component<{}, NavigationState> {
       this.handleOutsideClick()
     }
     if (key === 'g') {
-      if (!this.state.active) {
+      if (!this.state.active && !document.getElementById('CommandLineInput')) {
         this.handleToggleClick()
       }
     }

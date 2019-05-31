@@ -7,9 +7,11 @@ import CommandLineOptions from '@components/CommandLine/CommandLine.Options'
 import CommandLineTips from '@components/CommandLine/CommandLine.Tips'
 
 import shortcuts, { constants } from '../../shortcuts'
-import { useReduxState } from '../../store'
+import store, { useReduxState } from '../../store'
 import { CloseIcon, ViewIcon, BookIcon } from '../../icons/ui'
-import { scrollable } from '@utils'
+import { scrollable, getBreakpointFromTheme, useResize } from '@utils'
+
+import mediaqueries from '@styles/media'
 
 interface Shortcut {
   symbol: string
@@ -77,9 +79,11 @@ function CommandLine() {
     name: state.shortcuts.name,
   }))
   const { allContentfulArticle } = useStaticQuery(articlesQuery)
-  const readingList = createReadingList(allContentfulArticle.edges)
+  const { width } = useResize()
+  const desktop = getBreakpointFromTheme('desktop')
 
-  const open = name && name.includes('COMMAND_LINE')
+  const readingList = createReadingList(allContentfulArticle.edges)
+  const open = width > desktop && name && name.includes('COMMAND_LINE')
   const isDefault = name === constants.COMMAND_LINE_DEFAULT
   const list = isDefault ? shortcuts.getShortcutsFiltered() : readingList
   const close = () =>
@@ -87,7 +91,12 @@ function CommandLine() {
 
   useEffect(() => {
     if (open) return scrollable('disable')
+
     scrollable('enable')
+
+    if (width < desktop) {
+      close()
+    }
   }, [open])
 
   // This component is mounted, but not returning anything until it's open!
@@ -126,17 +135,19 @@ const Frame = styled.div`
   margin: 0 auto;
   height: 418px;
   width: 712px;
-
   background: rgba(29, 33, 40, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 25px 30px rgba(0, 0, 0, 0.25);
-
   border-radius: 5px;
   opacity: 0;
 
   will-change: opacity, transform;
   animation: ${fadeIn} 0.25s forwards;
   overflow: hidden;
+
+  ${mediaqueries.desktop`
+    display: none;
+  `}
 `
 
 const Header = styled.header`
