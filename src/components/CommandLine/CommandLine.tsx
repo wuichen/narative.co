@@ -44,6 +44,7 @@ function createReadingList(articles) {
       symbol: 'ArticleIcon',
       name: constants.GO_TO_ARTICLE,
       label: [`${article.node.title}`],
+      search: article.node.title,
       path: article.node.slug,
       featured: article.node.featured,
       icon: ViewIcon,
