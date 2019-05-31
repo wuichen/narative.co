@@ -3,47 +3,60 @@ import styled from 'styled-components'
 
 import { useReduxState } from '../../store'
 import { constants, keyToSymbol } from '../../shortcuts'
+import { startAnimation } from '@utils'
+
+function shortcutToText({ name }) {
+  if (name) {
+    return name
+      .split('_')
+      .join(' ')
+      .toLowerCase()
+  }
+}
+
+function shortcutToSymbols({ keys }) {
+  if (keys) {
+    return keys.map((key: any) => {
+      let symbol = keyToSymbol(key)
+      if (typeof symbol === 'function') symbol = symbol()
+
+      return <Symbol key={key}>{symbol}</Symbol>
+    })
+  }
+}
 
 function CommandLineTips() {
   const [active, setActive] = useState(false)
+  const [hide, setHide] = useState(false)
   const [{ shortcuts }] = useReduxState(state => ({
     shortcuts: state.shortcuts,
   }))
 
   useEffect(() => {
-    if (
+    const shouldShowTip =
       shortcuts.source === constants.COMMAND_LINE &&
       shortcuts.name !== constants.GO_TO_ARTICLE
-    ) {
-      setActive(true)
 
-      setTimeout(() => {
-        setActive(false)
-      }, 4000)
+    const timer = setTimeout(() => {
+      setActive(false)
+    }, 4000)
+
+    if (shouldShowTip) {
+      setHide(false)
+
+      startAnimation(() => setActive(true))
+    } else {
+      setHide(true)
+      clearTimeout(timer)
     }
   }, [shortcuts.name])
 
-  const destination =
-    shortcuts.name &&
-    shortcuts.name
-      .split('_')
-      .join(' ')
-      .toLowerCase()
-
   return (
-    <Frame showToolTip={active}>
+    <Frame showToolTip={active} hideToolTip={hide}>
       <TipsContainer>
         Next time hit,{' '}
-        <SymbolContainer>
-          {shortcuts.keys &&
-            shortcuts.keys.map((key: any) => {
-              let symbol = keyToSymbol(key)
-              if (typeof symbol === 'function') symbol = symbol()
-
-              return <Symbol key={key}>{symbol}</Symbol>
-            })}{' '}
-        </SymbolContainer>
-        to {destination} faster
+        <SymbolContainer>{shortcutToSymbols(shortcuts)} </SymbolContainer>
+        to {shortcutToText(shortcuts)} faster
       </TipsContainer>
     </Frame>
   )
@@ -52,7 +65,7 @@ function CommandLineTips() {
 export default CommandLineTips
 
 const Frame = styled.div`
-  display: flex;
+  display: ${p => (p.hideToolTip ? 'none' : 'flex')};
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -66,8 +79,8 @@ const Frame = styled.div`
   transform: ${p =>
     p.showToolTip
       ? 'translate3d(0,0,0) scale(1)'
-      : 'translate3d(0px, 15px, -8px) scale(0.95)'};
-  transition: opacity 0.33s 0.2s, transform 0.33s var(--ease-out-quad) 0.2s;
+      : 'translate3d(0px, 15px, -8px) scale(0.97)'};
+  transition: opacity 0.33s linear 0.1s, all 0.33s var(--ease-out-quad) 0.1s;
 `
 
 const TipsContainer = styled.div`
