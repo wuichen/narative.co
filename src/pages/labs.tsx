@@ -15,6 +15,7 @@ import Transitions from '@components/Transitions'
 import mediaqueries from '@styles/media'
 import { keyToSymbol } from '../shortcuts'
 import LabsPreview from '../sections/labs/Labs.Preview'
+import LabsPreviewMobile from '../sections/labs/Labs.Preview.Mobile'
 
 /**
  * The labs page is a bit of a mess with the inlined Product Array but it
@@ -164,6 +165,9 @@ function LabsPage({ data, location }) {
             <LabsPreview key={product.excerpt} product={product} />
           ))}
         </Section>
+        <Section narrow>
+          <LabsPreviewMobile />
+        </Section>
       </>
     </Layout>
   )
@@ -209,21 +213,21 @@ export const pageQuery = graphql`
         }
       }
     }
-    needlBackground: file(name: { regex: "/needl-labs/" }) {
+    needlBackground: file(name: { regex: "/needl-labs-desktop/" }) {
       childImageSharp {
         fluid(maxWidth: 1140, maxHeight: 380, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    feyBackground: file(name: { regex: "/fey-labs/" }) {
+    feyBackground: file(name: { regex: "/fey-labs-desktop/" }) {
       childImageSharp {
         fluid(maxWidth: 1140, maxHeight: 380, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    commandlineBackground: file(name: { regex: "/commandline-labs/" }) {
+    commandlineBackground: file(name: { regex: "/commandline-labs-desktop/" }) {
       childImageSharp {
         fluid(maxWidth: 1140, maxHeight: 380, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
