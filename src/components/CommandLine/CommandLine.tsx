@@ -122,7 +122,7 @@ function CommandLine() {
 export default CommandLine
 
 const fadeIn = keyframes`
-  from { opacity: 0; transform: translate(-50%, -48%); }
+  from { opacity: 0; transform: translate(-50%, -48.8%); }
   to { opacity: 1; transform: translate(-50%, -50%); }
 `
 

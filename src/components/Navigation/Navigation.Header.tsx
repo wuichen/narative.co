@@ -11,7 +11,6 @@ import { ContactContext } from '@components/Contact/Contact.Context'
 import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
 
 const navLinks = [
-  { to: '/commandline' },
   { to: '/careers', text: 'Careers' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
@@ -48,7 +47,7 @@ const themes = {
     pseudo: 'transparent',
     symbol: {
       color: '#000',
-      background: '#73737D',
+      background: 'rgba(255,255,255,0.3)',
     },
   },
   dark: {
@@ -224,6 +223,24 @@ class Navigation extends Component<{}, NavigationState> {
                       />
                     </DesktopNavList>
                   </Nav>
+                  <CommandLineItem key={nav.to}>
+                    <NavSymbols
+                      active={active ? active : undefined}
+                      tabIndex={-1}
+                      delay={active ? 366 : 0}
+                      as="button"
+                      tabIndex={active ? 0 : -1}
+                      onClick={() =>
+                        shortcuts.handleShortcutFeature({
+                          name: constants.COMMAND_LINE_DEFAULT,
+                        })
+                      }
+                      data-a11y="false"
+                    >
+                      <Symbol>{keyToSymbol('meta')}</Symbol>
+                      <Symbol>K</Symbol>
+                    </NavSymbols>
+                  </CommandLineItem>
                 </Right>
               </NavContainer>
             </Section>
@@ -241,30 +258,6 @@ const NavItems = ({ active, handleClick, handleOutsideClick }) => {
 
   return navLinks.map((nav, index) => {
     const delay = active ? 30 * (navLinks.length - index) : 30 * index
-
-    if (nav.to === '/commandline') {
-      return (
-        <NavItem key={nav.to}>
-          <NavSymbols
-            active={active ? active : undefined}
-            disabled={nav.disabled}
-            tabIndex={-1}
-            delay={delay}
-            as="button"
-            tabIndex={active ? 0 : -1}
-            onClick={() =>
-              shortcuts.handleShortcutFeature({
-                name: constants.COMMAND_LINE_DEFAULT,
-              })
-            }
-            data-a11y="false"
-          >
-            <Symbol>{keyToSymbol('meta')}</Symbol>
-            <Symbol>K</Symbol>
-          </NavSymbols>
-        </NavItem>
-      )
-    }
 
     if (nav.to === '/contact') {
       return (
@@ -545,6 +538,16 @@ const NavItem = styled.li`
   `};
 `
 
+const CommandLineItem = styled.li`
+  right: -100px;
+  position: absolute;
+  display: inline-block;
+
+  ${mediaqueries.desktop_large`
+    display: none;
+  `};
+`
+
 const NavAnchor = styled.a`
   display: flex;
   height: 40px;
@@ -611,7 +614,7 @@ const NavSymbols = styled.a`
 
   pointer-events: ${p => (p.active ? 'initial' : 'none')};
   opacity: ${p => (p.active ? (p.disabled ? 0.15 : 1) : 0)};
-  transform: ${p => (p.active ? 'translateX(0)' : 'translateX(12px)')};
+  transform: ${p => (p.active ? 'translateX(0)' : 'translateX(-12px)')};
 
   &:hover {
     opacity: ${p => (p.disabled ? 0.15 : 0.6)};
@@ -638,7 +641,7 @@ const Symbol = styled.div`
   padding: 1px 4px;
   color: ${p => p.theme.symbol.color};
   background: ${p => p.theme.symbol.background};
-  font-size: 13px;
+  font-size: 12px;
 
   &:not(:last-child) {
     margin-right: 7px;
