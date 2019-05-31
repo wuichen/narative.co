@@ -46,10 +46,18 @@ const themes = {
   light: {
     color: '#fff',
     pseudo: 'transparent',
+    symbol: {
+      color: '#000',
+      background: '#73737D',
+    },
   },
   dark: {
     color: '#000',
     pseudo: '#fafafa',
+    symbol: {
+      color: '#1D2128',
+      background: '#dbdbdc',
+    },
   },
 }
 
@@ -628,8 +636,8 @@ const Symbol = styled.div`
   text-align: center;
   border-radius: 2.5px;
   padding: 1px 4px;
-  color: ${p => p.theme.colors.bg};
-  background: ${p => p.theme.colors.moon};
+  color: ${p => p.theme.symbol.color};
+  background: ${p => p.theme.symbol.background};
   font-size: 13px;
 
   &:not(:last-child) {
