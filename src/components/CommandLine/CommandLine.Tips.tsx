@@ -19,7 +19,7 @@ function CommandLineTips() {
 
       setTimeout(() => {
         setActive(false)
-      }, 6000)
+      }, 4000)
     }
   }, [shortcuts.name])
 

@@ -1,5 +1,4 @@
 export const SHORTCUT: string = 'SHORTCUT'
-export const SHORTCUT_TIP: string = 'SHORTCUT_TIP'
 
 export const COMMAND_LINE: string = 'COMMAND_LINE'
 
