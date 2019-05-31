@@ -8,7 +8,10 @@ import { Section, Logo } from '@components'
 import mediaqueries from '@styles/media'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
+import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
+
 const navLinks = [
+  { to: '/commandline' },
   { to: '/careers', text: 'Careers' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
@@ -230,6 +233,30 @@ const NavItems = ({ active, handleClick, handleOutsideClick }) => {
 
   return navLinks.map((nav, index) => {
     const delay = active ? 30 * (navLinks.length - index) : 30 * index
+
+    if (nav.to === '/commandline') {
+      return (
+        <NavItem key={nav.to}>
+          <NavSymbols
+            active={active ? active : undefined}
+            disabled={nav.disabled}
+            tabIndex={-1}
+            delay={delay}
+            as="button"
+            tabIndex={active ? 0 : -1}
+            onClick={() =>
+              shortcuts.handleShortcutFeature({
+                name: constants.COMMAND_LINE_DEFAULT,
+              })
+            }
+            data-a11y="false"
+          >
+            <Symbol>{keyToSymbol('meta')}</Symbol>
+            <Symbol>K</Symbol>
+          </NavSymbols>
+        </NavItem>
+      )
+    }
 
     if (nav.to === '/contact') {
       return (
@@ -471,9 +498,8 @@ const Right = styled.div`
 const DesktopNavList = styled.ul`
   list-style: none;
 
-  ${mediaqueries.phablet`
-  display: none;
-
+  ${mediaqueries.tablet`
+    display: none;
   `};
 `
 
@@ -560,22 +586,56 @@ const NavAnchor = styled.a`
   }
 
   ${mediaqueries.phablet`
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    color: #000;
-    font-weight: 400;
-    margin-bottom: 10px;
-
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p =>
-    p.delay + 300}ms,
-    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p =>
-      p.delay * 2 + 300}ms;
-      opacity: ${p => (p.active ? (p.disabled ? 0.15 : 1) : 0)};
-  transform: ${p => (p.active ? 'translateX(0)' : 'translateY(30px)')};
+    display: none;
   `};
 `
 
+const NavSymbols = styled.a`
+  position: relative;
+  top: -1px;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  color: ${p => p.theme.color};
+  font-size: 13px;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms,
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms;
+
+  pointer-events: ${p => (p.active ? 'initial' : 'none')};
+  opacity: ${p => (p.active ? (p.disabled ? 0.15 : 1) : 0)};
+  transform: ${p => (p.active ? 'translateX(0)' : 'translateX(12px)')};
+
+  &:hover {
+    opacity: ${p => (p.disabled ? 0.15 : 0.6)};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  ${mediaqueries.desktop`
+    display: none;
+  `}
+`
+
+const Symbol = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
+  text-align: center;
+  border-radius: 2.5px;
+  padding: 1px 4px;
+  color: ${p => p.theme.colors.bg};
+  background: ${p => p.theme.colors.moon};
+  font-size: 13px;
+
+  &:not(:last-child) {
+    margin-right: 7px;
+  }
+`
 const BackChevron = () => (
   <svg
     width="24"
