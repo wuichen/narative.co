@@ -241,6 +241,10 @@ const HeroSection = styled(Section)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  ${mediaqueries.tablet`
+    pointer-events: none;
+  `};
 `
 
 const HeroImage = styled.div`
@@ -322,9 +326,11 @@ const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  ${mediaqueries.phablet`
+  ${mediaqueries.tablet`
     height: calc(100vh - 90px);
     padding: 0;
+    user-select: none;
+    pointer-events: none;
   `};
 `
 
