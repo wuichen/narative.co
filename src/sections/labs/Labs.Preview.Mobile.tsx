@@ -45,7 +45,7 @@ function LabsPreviewMobile() {
           <FeyLogo />
         </Heading>
         <Media src={feyBackground.childImageSharp.fluid} />
-        <Border style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+        <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
         <Anchor
           href="https://feyapp.com"
           target="_blank"
@@ -59,7 +59,7 @@ function LabsPreviewMobile() {
       <PreviewCard style={{ background: '#222838' }}>
         <Heading>Narative Command</Heading>
         <Media src={commandlineBackground.childImageSharp.fluid} />
-        <Border style={{ borderColor: 'rgba(0,0,0,0.06)' }} />
+        <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#161C24', color: '#444750' }}>
           Check on desktop 😏
         </Anchor>
@@ -68,7 +68,7 @@ function LabsPreviewMobile() {
       <PreviewCard style={{ background: '#EFF0F4' }}>
         <Heading style={{ color: '#000' }}>Project Needle</Heading>
         <Media src={needlBackground.childImageSharp.fluid} />
-        <Border style={{ borderColor: 'rgba(0,0,0,0.06)' }} />
+        <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#D6D9DE', color: '#A4A6AD' }}>
           Coming soon
         </Anchor>
@@ -85,7 +85,7 @@ const PreviewCard = styled.div`
   background: red;
   margin-bottom: 25px;
 
-  ${mediaqueries.tablet_up`
+  ${mediaqueries.desktop_up`
     display: none;
   `}
 `
@@ -109,11 +109,10 @@ const Anchor = styled.a`
   font-weight: 600;
 `
 
-const Border = styled.hr`
-  top: 1px;
+const Border = styled.div`
   position: relative;
-  border: none;
-  border-top: 1px solid;
+  top: 1px;
+  height: 1px;
 `
 
 const FeyLogo = () => (

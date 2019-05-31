@@ -86,7 +86,7 @@ function LabsPage({ data, location }) {
         "Whether you're looking to get inked or you're a tattoo artist yourself, this upcoming app will help you get what you need. Find artists and styles, schedule appointments, book flashes and get paid.",
       children: (
         <>
-          <HorizontalRule dark />
+          <HorizontalRule />
           <LinkToProduct dark as="div">
             Try it out! Just press <Symbol>{keyToSymbol('meta')}</Symbol>{' '}
             <Symbol>K</Symbol>
