@@ -506,10 +506,10 @@ const DesktopNavList = styled.ul`
 
 const NavItem = styled.li`
   display: inline-block;
-  margin-right: 60px;
+  margin-right: 50px;
 
   &:last-child {
-    margin-right: 40px;
+    margin-right: 25px;
   }
 
   ${mediaqueries.tablet`
@@ -539,7 +539,7 @@ const NavItem = styled.li`
 `
 
 const CommandLineItem = styled.li`
-  right: -100px;
+  right: -80px;
   position: absolute;
   display: inline-block;
 
@@ -603,7 +603,7 @@ const NavAnchor = styled.a`
 
 const NavSymbols = styled.a`
   position: relative;
-  top: -1px;
+  top: 1px;
   display: flex;
   height: 40px;
   align-items: center;
