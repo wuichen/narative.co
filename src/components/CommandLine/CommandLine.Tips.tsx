@@ -39,7 +39,7 @@ function CommandLineTips() {
 
     const timer = setTimeout(() => {
       setActive(false)
-    }, 4000)
+    }, 3000)
 
     if (shouldShowTip) {
       setHide(false)
@@ -64,7 +64,7 @@ function CommandLineTips() {
 
 export default CommandLineTips
 
-const Frame = styled.div`
+const Frame = styled.div<{ showToolTip: boolean; hideToolTip: boolean }>`
   display: ${p => (p.hideToolTip ? 'none' : 'flex')};
   align-items: center;
   justify-content: center;

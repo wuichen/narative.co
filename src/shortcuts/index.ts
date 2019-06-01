@@ -38,7 +38,7 @@ export default (store => {
     // Listening to shortcut events
     handleKeydownEvent(event: KeyboardEvent) {
       const activeElement = document.activeElement
-      const inputs = ['input', 'select', 'button', 'textarea']
+      const inputs = ['input', 'select', 'textarea']
       const noInputIsFocused =
         activeElement &&
         inputs.indexOf(activeElement.tagName.toLowerCase()) === -1

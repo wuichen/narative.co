@@ -118,6 +118,7 @@ class Navigation extends Component<{}, NavigationState> {
 
   handleToggleClick = () => {
     const $toggle = this.leftToggle.current
+    shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
 
     this.setState(
       {
