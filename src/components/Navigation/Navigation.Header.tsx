@@ -118,7 +118,7 @@ class Navigation extends Component<{}, NavigationState> {
 
   handleToggleClick = () => {
     const $toggle = this.leftToggle.current
-    shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
+    this.handleShortcutReset()
 
     this.setState(
       {
@@ -138,6 +138,10 @@ class Navigation extends Component<{}, NavigationState> {
         }
       }
     )
+  }
+
+  handleShortcutReset = () => {
+    shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
   }
 
   handleCloseAnimation = () => {
@@ -193,6 +197,7 @@ class Navigation extends Component<{}, NavigationState> {
                 <LogoMask>
                   <LogoContainer
                     to="/"
+                    onClick={this.handleShortcutReset}
                     aria-label="Back home"
                     data-a11y="false"
                   >

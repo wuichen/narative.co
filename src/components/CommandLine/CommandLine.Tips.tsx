@@ -74,6 +74,8 @@ const Frame = styled.div<{ showToolTip: boolean; hideToolTip: boolean }>`
   left: 0;
   right: 0;
   margin: 0 auto;
+  pointer-events: none;
+  user-select: none;
 
   opacity: ${p => (p.showToolTip ? 1 : 0)};
   transform: ${p =>
