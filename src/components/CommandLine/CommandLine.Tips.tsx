@@ -5,6 +5,13 @@ import { useReduxState } from '../../store'
 import { constants, keyToSymbol } from '../../shortcuts'
 import { startAnimation } from '@utils'
 
+const whitelist = [
+  constants.GO_TO_ARTICLES,
+  constants.GO_TO_LABS,
+  constants.GO_TO_CAREERS,
+  constants.GO_TO_HOME,
+]
+
 function shortcutToText({ name }) {
   if (name) {
     return name
@@ -33,9 +40,7 @@ function CommandLineTips() {
   }))
 
   useEffect(() => {
-    const shouldShowTip =
-      shortcuts.source === constants.COMMAND_LINE &&
-      shortcuts.name !== constants.GO_TO_ARTICLE
+    const shouldShowTip = whitelist.some(name => shortcuts.name === name)
 
     const timer = setTimeout(() => {
       setActive(false)
