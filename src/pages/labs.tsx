@@ -80,7 +80,7 @@ function LabsPage({ data, location }) {
     },
     {
       logo: CommandlineLogo,
-      background: commandlineBackground.childImageSharp.fluid,
+      background: commandlineBackground.publicURL,
       backgroundColor: '#222838',
       excerpt:
         "Whether you're looking to get inked or you're a tattoo artist yourself, this upcoming app will help you get what you need. Find artists and styles, schedule appointments, book flashes and get paid.",
@@ -228,11 +228,7 @@ export const pageQuery = graphql`
       }
     }
     commandlineBackground: file(name: { regex: "/commandline-labs-desktop/" }) {
-      childImageSharp {
-        fluid(maxWidth: 1140, maxHeight: 380, quality: 100) {
-          ...GatsbyImageSharpFluid_noBase64
-        }
-      }
+      publicURL
     }
   }
 `

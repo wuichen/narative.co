@@ -1,6 +1,7 @@
 import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
+import throttle from 'lodash/throttle'
 
 import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
 
@@ -14,7 +15,12 @@ function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(enhancedShortcut)
 }
 
-function useActiveListItem(initial: number, list: any[], name: string): number {
+function useActiveListItem(
+  initial: number,
+  list: any[],
+  name: string,
+  listRef
+): number {
   const [active, setActive] = useState<number>(initial)
   const length: number = list.length
 
@@ -28,6 +34,7 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
         case 'ArrowUp':
           setActive(currentActive => {
             if (currentActive === 0) return length - 1
+            listRef.current.style.pointerEvents = 'none'
 
             return currentActive - 1
           })
@@ -35,6 +42,7 @@ function useActiveListItem(initial: number, list: any[], name: string): number {
         case 'ArrowDown':
           setActive(currentActive => {
             if (currentActive === length - 1) return 0
+            listRef.current.style.pointerEvents = 'none'
 
             return currentActive + 1
           })
@@ -78,26 +86,81 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
   const [value, setValue] = useState('')
 
   const results = value ? fuse.search(value) : list
-  const activeCommand = useActiveListItem(0, results, name)
-  const listStyles = { height: `${results.length * 61}px` }
   const placeholder =
     name === 'COMMAND_LINE_READ' ? 'Search articles' : 'Search commands'
+
+  // const activeCommand = useActiveListItem(activeIndex, results, name, listRef)
 
   useEffect(() => {
     inputRef.current.focus()
   }, [inputRef])
 
+  useEffect(() => {
+    setValue('')
+  }, [list])
+
+  const [activeCommand, setActive] = useState<number>(0)
+  const [withMouse, setWithMouse] = useState<boolean>(false)
+  const length: number = list.length
+
+  useEffect(() => {
+    setActive(0)
+  }, [name])
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      switch (event.key) {
+        case 'ArrowUp':
+          setWithMouse(false)
+          setActive(currentActive => {
+            if (currentActive === 0) return length - 1
+            listRef.current.style.pointerEvents = 'none'
+
+            return currentActive - 1
+          })
+          break
+        case 'ArrowDown':
+          setWithMouse(false)
+          setActive(currentActive => {
+            if (currentActive === length - 1) return 0
+            listRef.current.style.pointerEvents = 'none'
+
+            return currentActive + 1
+          })
+          break
+        default:
+          return
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [length])
+
+  if (activeCommand >= length) {
+    setActive(length - 1)
+  }
+
   if (listRef.current) {
-    if (activeCommand > 3) {
-      listRef.current.scrollTo({ top: (activeCommand - 3) * 61 })
-    } else {
-      listRef.current.scrollTo({ top: 0 })
+    if (!withMouse) {
+      if (activeCommand > 3) {
+        listRef.current.scrollTo({ top: (activeCommand - 3) * 61 })
+      } else {
+        listRef.current.scrollTo({ top: 0 })
+      }
     }
   }
 
   useEffect(() => {
-    setValue('')
-  }, [list])
+    const setFromEvent = e => {
+      setWithMouse(true)
+      listRef.current.style.pointerEvents = ''
+    }
+    window.addEventListener('mousemove', setFromEvent)
+    return () => window.removeEventListener('mousemove', setFromEvent)
+  }, [])
 
   return (
     <>
@@ -128,6 +191,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
               key={shortcut.name}
               highlight={highlight}
               onClick={() => handleShortcutSelection(results[index])}
+              onMouseOver={() => setActive(index)}
             >
               {labelToHighlighted(shortcut.label, shortcut.icon, highlight)}
               <ShortcutKeys>
