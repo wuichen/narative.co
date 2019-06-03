@@ -10,7 +10,7 @@ import MediaQuery from '@components/MediaQuery'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
-import shortcuts, { constants } from '../../shortcuts'
+import shortcuts, { constants } from '@shortcuts'
 
 const ctaLinks = [
   { to: '/careers', text: 'Careers' },

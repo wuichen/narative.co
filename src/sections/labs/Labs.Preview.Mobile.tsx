@@ -38,6 +38,11 @@ function LabsPreviewMobile() {
     commandlineBackground,
   } = useStaticQuery(previewQuery)
 
+  /**
+   * Bless Thiago for designing 3 unique looking cards that have the same sekelton.
+   * That's why we're going with inline styles for each of them so we can reflect
+   * the designs.
+   */
   return (
     <>
       <PreviewCard style={{ background: '#23232A' }}>

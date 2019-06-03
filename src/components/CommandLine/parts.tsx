@@ -2,9 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 
-import shortcuts, { constants } from '../../shortcuts'
+import shortcuts, { constants } from '@shortcuts'
 import { ViewIcon, BookIcon } from '../../icons/ui'
 
+/**
+ * Command Line Parts
+ *
+ * A somewhat messay utility file for the Command Line. Based on the currently
+ * active Command Line (Default, Read, etc) we have to generate the appropriate list
+ * and heading.
+ */
 const articlesQuery = graphql`
   query GetArticles {
     allContentfulArticle(sort: { fields: [publicationDate], order: DESC }) {
@@ -32,7 +39,6 @@ function createReadingList(articles) {
       icon: BookIcon,
     },
     ...articles.map(article => ({
-      symbol: 'ArticleIcon',
       name: constants.GO_TO_ARTICLE,
       label: [`${article.node.title}`],
       search: article.node.title,
@@ -48,8 +54,8 @@ export default function createCommandLineParts(name: string) {
     allContentfulArticle: { edges: articles },
   } = useStaticQuery(articlesQuery)
 
-  let list = []
-  let CommandLineHeading = () => <div />
+  let list
+  let CommandLineHeading
 
   switch (name) {
     case constants.COMMAND_LINE_DEFAULT:
@@ -77,6 +83,15 @@ export default function createCommandLineParts(name: string) {
         </BackButton>
       )
       break
+
+    default:
+      list = createReadingList(articles)
+      CommandLineHeading = () => (
+        <>
+          <Logo />
+          <Heading>Narative Command</Heading>
+        </>
+      )
   }
 
   return {

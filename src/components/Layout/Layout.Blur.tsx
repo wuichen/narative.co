@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useReduxState } from '../../store'
+import { useReduxState } from '@store'
 
 function LayoutBlur({ children }: { children: Element[] }) {
   const [{ shortcuts }] = useReduxState(state => ({

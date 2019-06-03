@@ -1,13 +1,22 @@
 import React, { useState, ReactElement, useEffect, useRef } from 'react'
 import Fuse from 'fuse.js'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
 
-import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
+import shortcuts, { constants, keyToSymbol } from '@shortcuts'
 
 interface CommandProps {
   list?: any[]
   name: string
+}
+
+// https://fusejs.io for more insight on the config parameters
+const fuseOptions = {
+  threshold: 0.3,
+  location: 0,
+  distance: 140, // A large distance so we can search articles easily
+  maxPatternLength: 20,
+  minMatchCharLength: 2,
+  keys: ['search'], // Dynamically genreated key on the shortcut object
 }
 
 function handleShortcutSelection(shortcut: { name: string }) {
@@ -15,65 +24,55 @@ function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(enhancedShortcut)
 }
 
+function createSearchableStrings(item) {
+  return { ...item, search: item.label.join('') }
+}
+
 function CommandLineOptions({ list = [], name }: CommandProps) {
-  const fuseOptions = {
-    threshold: 0.3,
-    location: 0,
-    distance: 140,
-    maxPatternLength: 20,
-    minMatchCharLength: 2,
-    keys: ['search'],
-  }
-
-  const filteredList = list
-    .filter(item => item.label)
-    .map(item => ({ ...item, search: item.label.join('') }))
-
+  const filteredList = list.map(createSearchableStrings)
   const fuse = new Fuse(filteredList, fuseOptions)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
-  const [value, setValue] = useState('')
 
+  const [value, setValue] = useState<string>('')
+  const [activeCommand, setActive] = useState<number>(0)
+  const [isUsingMouse, setIsUsingMouse] = useState<boolean>(false)
+
+  const numberOfOptions: number = list.length
   const results = value ? fuse.search(value) : list
   const placeholder =
-    name === 'COMMAND_LINE_READ' ? 'Search articles' : 'Search commands'
+    name === constants.COMMAND_LINE_READ ? 'Search articles' : 'Search commands'
 
-  // const activeCommand = useActiveListItem(activeIndex, results, name, listRef)
-
+  // Focus input on render
   useEffect(() => {
     inputRef.current.focus()
-  }, [inputRef])
+  }, [])
 
+  // Clear text input input and reset highlighted to 0
   useEffect(() => {
     setValue('')
-  }, [list])
-
-  const [activeCommand, setActive] = useState<number>(0)
-  const [withMouse, setWithMouse] = useState<boolean>(false)
-  const length: number = list.length
-
-  useEffect(() => {
     setActive(0)
   }, [name])
 
+  // Handling up and down arrow keys to scroll through the list of items
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {
         case 'ArrowUp':
-          setWithMouse(false)
+          listRef.current.style.pointerEvents = 'none'
+          setIsUsingMouse(false)
           setActive(currentActive => {
-            if (currentActive === 0) return length - 1
-            listRef.current.style.pointerEvents = 'none'
+            if (currentActive === 0) return numberOfOptions - 1
 
             return currentActive - 1
           })
           break
         case 'ArrowDown':
-          setWithMouse(false)
+          listRef.current.style.pointerEvents = 'none'
+          setIsUsingMouse(false)
           setActive(currentActive => {
-            if (currentActive === length - 1) return 0
-            listRef.current.style.pointerEvents = 'none'
+            if (currentActive === numberOfOptions - 1) return 0
 
             return currentActive + 1
           })
@@ -84,52 +83,63 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
     }
 
     window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [length])
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [numberOfOptions])
 
-  if (activeCommand >= length) {
-    setActive(length - 1)
-  }
-
-  if (listRef.current) {
-    if (!withMouse) {
-      if (activeCommand > 3) {
-        listRef.current.scrollTo({ top: (activeCommand - 3) * 61 })
-      } else {
-        listRef.current.scrollTo({ top: 0 })
-      }
-    }
-  }
-
+  /**
+   * The user is able to use their mouse to change the highlighted input,
+   * but it's not the same as simple hover styles. The active higlighted
+   * is updated on mouseOver so we have to turn off the mouse events when
+   * the user is typing on their keyboard. This avoids any weird reset behaviour.
+   *
+   * So, when the user moves their mouse we turn off the ability to scroll the
+   * list. This fixes all the weird issues such as scrolling back to their old position
+   * on mousemove.
+   */
   useEffect(() => {
-    const setFromEvent = e => {
-      setWithMouse(true)
+    function handleMouseMove() {
+      setIsUsingMouse(true)
       listRef.current.style.pointerEvents = ''
     }
-    window.addEventListener('mousemove', setFromEvent)
-    return () => window.removeEventListener('mousemove', setFromEvent)
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
+
+  if (activeCommand >= numberOfOptions) {
+    setActive(numberOfOptions - 1)
+  }
+
+  /**
+   * Handling scrolling of the list as the user scrolls up and down with
+   * their arrows keys. Since the list if 4 items in view we only want to
+   * start scrolling if the user reaches past the 4th item.
+   */
+  if (listRef.current && !isUsingMouse) {
+    if (activeCommand > 3) {
+      listRef.current.scrollTo({ top: (activeCommand - 3) * 61 })
+    } else {
+      listRef.current.scrollTo({ top: 0 })
+    }
+  }
 
   return (
     <>
       <Form
         onSubmit={event => {
+          // On Enter we fire the shortcut they want
           event.preventDefault()
           handleShortcutSelection(results[activeCommand])
         }}
       >
         <StyledInput
           ref={inputRef}
-          type="text"
-          placeholder={placeholder}
           value={value}
+          placeholder={placeholder}
+          type="text"
           id="CommandLineInput"
           autoComplete="Off"
-          onChange={event => {
-            setValue(event.target.value)
-          }}
+          onChange={event => setValue(event.target.value)}
         />
       </Form>
       <List ref={listRef}>
@@ -143,6 +153,11 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
               onClick={() => handleShortcutSelection(results[index])}
               onMouseOver={() => setActive(index)}
             >
+              {/* labelToHighlighted()
+               *  Generates the left side of the command line shortcut option.
+               *  This includes teh icon and regular and higlighted text.
+               *  👁 regular text BOLD HIGHLIGHTED
+               */}
               {labelToHighlighted(shortcut.label, shortcut.icon, highlight)}
               <ShortcutKeys>
                 {shortcut.keys &&

@@ -4,38 +4,60 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 import CommandLineOptions from '@components/CommandLine/CommandLine.Options'
 import CommandLineTips from '@components/CommandLine/CommandLine.Tips'
-import createCommandLineParts from './utils'
+import createCommandLineParts from './parts'
 
-import shortcuts, { constants } from '../../shortcuts'
-import { useReduxState } from '../../store'
+import shortcuts, { constants } from '@shortcuts'
+import { useReduxState } from '@store'
 import { CloseIcon } from '../../icons/ui'
 import { scrollable, getBreakpointFromTheme, useResize } from '@utils'
 
 import mediaqueries from '@styles/media'
 
-const handleClose = () =>
+/**
+ *     __                                                  _     __
+ *    / __\  ___   _ __ ___   _ __ ___    __ _  _ __    __| |   / /  (_) _ __    ___
+ *   / /    / _ \ | '_ ` _ \ | '_ ` _ \  / _` || '_ \  / _` |  / /   | || '_ \  / _ \
+ *  / /___ | (_) || | | | | || | | | | || (_| || | | || (_| | / /___ | || | | ||  __/
+ *  \____/  \___/ |_| |_| |_||_| |_| |_| \__,_||_| |_| \__,_| \____/ |_||_| |_| \___|
+ *
+ * Respsible for the ['meta', 'k] shortcut on narative.co
+ *
+ * How it works:
+ * - Create a modal shell that can be summond via a command
+ * - Grab the name of the active shortcut for this command line
+ * - Generate the appropriate shortcut options to show in the command line
+ *   based on the shortcut
+ */
+
+function handleClose() {
   shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
+}
 
 function CommandLine() {
-  const [{ name }] = useReduxState(state => ({
-    name: state.shortcuts.name,
-  }))
+  const selectShortcutName = state => ({ name: state.shortcuts.name })
+  const [{ name }] = useReduxState(selectShortcutName)
   const { width } = useResize()
+
   const screenIsWideEnough = width > getBreakpointFromTheme('desktop')
-  const open = screenIsWideEnough && name && name.includes('COMMAND_LINE')
+  const open = screenIsWideEnough && name.includes('COMMAND_LINE')
   const { list, CommandLineHeading } = createCommandLineParts(name)
 
   useEffect(() => {
+    // Depending if the commandline is open or not we have to disable scroll
     if (open) {
       scrollable('disable')
     } else {
       scrollable('enable')
     }
 
+    // On tablets and phones we don't give access to the command line
     if (!screenIsWideEnough) handleClose()
   }, [open])
 
-  // This component is mounted, but not returning anything until it's open!
+  /**
+   * We only show tips if the command line is not opened
+   * "Next time, hit G A to go to articles"
+   */
   if (!open) return <CommandLineTips />
 
   return (

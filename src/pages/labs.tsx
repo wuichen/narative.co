@@ -13,7 +13,8 @@ import Pill from '@components/Pill'
 import Transitions from '@components/Transitions'
 
 import mediaqueries from '@styles/media'
-import { keyToSymbol } from '../shortcuts'
+import { keyToSymbol } from '@shortcuts'
+
 import LabsPreview from '../sections/labs/Labs.Preview'
 import LabsPreviewMobile from '../sections/labs/Labs.Preview.Mobile'
 

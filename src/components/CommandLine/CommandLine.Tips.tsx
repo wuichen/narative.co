@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { useReduxState } from '../../store'
-import { constants, keyToSymbol } from '../../shortcuts'
+import { useReduxState } from '@store'
+import { constants, keyToSymbol } from '@shortcuts'
 import { startAnimation } from '@utils'
 
+// The shortcuts we want to provide tips for
 const whitelist = [
   constants.GO_TO_ARTICLES,
   constants.GO_TO_LABS,
@@ -12,16 +13,26 @@ const whitelist = [
   constants.GO_TO_HOME,
 ]
 
-function shortcutToText({ name }) {
+/**
+ * shortcutToText()
+ * transforms "GO_TO_ARTICLES" to "go to articles"
+ * @param param0
+ */
+function shortcutToText({ name }: { name: string }): string {
   if (name) {
     return name
       .split('_')
       .join(' ')
       .toLowerCase()
   }
+  return ''
 }
 
-function shortcutToSymbols({ keys }) {
+/**
+ * shortcutToSymbols()
+ * transforms ['meta', 'k'] to the react elements used in the UI
+ */
+function shortcutToSymbols({ keys }: { keys: string[] }): React.ReactElement[] {
   if (keys) {
     return keys.map((key: any) => {
       let symbol = keyToSymbol(key)
@@ -30,27 +41,34 @@ function shortcutToSymbols({ keys }) {
       return <Symbol key={key}>{symbol}</Symbol>
     })
   }
+
+  return [<div />]
 }
 
 function CommandLineTips() {
+  const selectShortcuts = state => ({ shortcuts: state.shortcuts })
+
   const [active, setActive] = useState(false)
   const [hide, setHide] = useState(false)
-  const [{ shortcuts }] = useReduxState(state => ({
-    shortcuts: state.shortcuts,
-  }))
+  const [{ shortcuts }] = useReduxState(selectShortcuts)
 
+  /**
+   * So, the command line tips are only required to be shown in a few
+   * instances. When a user uses the command line to navigate to a new
+   * page we show them a tip to try the shortcut directly.
+   */
   useEffect(() => {
     const shouldShowTip =
       whitelist.some(name => shortcuts.name === name) &&
       shortcuts.source === constants.COMMAND_LINE
 
+    // Only show the tip for about 3s
     const timer = setTimeout(() => {
       setActive(false)
-    }, 3000)
+    }, 3333)
 
     if (shouldShowTip) {
       setHide(false)
-
       startAnimation(() => setActive(true))
     } else {
       setHide(true)

@@ -8,7 +8,7 @@ import { ContactContext } from '@components/Contact/Contact.Context'
 import mediaqueries from '@styles/media'
 import { scrollable } from '@utils'
 import { ExIcon } from '../../icons/ui'
-import { useReduxState } from '../../store'
+import { useReduxState } from '@store'
 
 import ContactForm from '../../sections/contact/Contact.ContactForm'
 

@@ -6,12 +6,19 @@ import { SHORTCUT, ESCAPE } from '../shortcuts/constants'
  * Once there's the need for more reducers we'll move these into
  * their own files.
  */
-function shortcutsReducer(state = {}, action: any) {
+const initialState = {
+  name: '',
+  label: [],
+  search: '',
+  icon: null,
+}
+
+function shortcutsReducer(state = initialState, action: any) {
   switch (action.type) {
     case SHORTCUT:
       return action.payload
     case ESCAPE:
-      return {}
+      return initialState
     default:
       return state
   }

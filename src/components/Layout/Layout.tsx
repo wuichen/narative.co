@@ -10,8 +10,8 @@ import Container from '@components/Layout/Layout.Container'
 import CommandLine from '@components/CommandLine'
 
 import { GlobalStyles, theme } from '@styles'
-import store from '../../store'
-import shortcuts from '../../shortcuts'
+import store from '@store'
+import shortcuts from '@shortcuts'
 
 interface LayoutProps {
   background?: string

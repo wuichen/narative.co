@@ -8,7 +8,7 @@ import { Section, Logo } from '@components'
 import mediaqueries from '@styles/media'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import shortcuts, { constants, keyToSymbol } from '../../shortcuts'
+import shortcuts, { constants, keyToSymbol } from '@shortcuts'
 
 const navLinks = [
   { to: '/careers', text: 'Careers' },

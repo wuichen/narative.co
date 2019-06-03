@@ -8,7 +8,7 @@ import Logo from '@components/Logo'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
-import shortcuts, { constants } from '../../shortcuts'
+import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
   { to: '/careers', text: 'Careers' },

@@ -41,8 +41,5 @@ function configureStore(preloadedState: {}) {
   return store
 }
 
-const store = configureStore({})
-
-export { useReduxState, configureStore }
-
-export default store
+export { useReduxState }
+export default configureStore({})
