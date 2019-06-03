@@ -40,7 +40,9 @@ function CommandLineTips() {
   }))
 
   useEffect(() => {
-    const shouldShowTip = whitelist.some(name => shortcuts.name === name)
+    const shouldShowTip =
+      whitelist.some(name => shortcuts.name === name) &&
+      shortcuts.source === constants.COMMAND_LINE
 
     const timer = setTimeout(() => {
       setActive(false)
