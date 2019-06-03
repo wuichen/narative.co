@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
 import Footer from '@components/Navigation/Navigation.Footer'
+import Paginator from '@components/Navigation/Navigation.Paginator'
 import Section from '@components/Section'
 import SEO from '@components/SEO'
 import Layout from '@components/Layout'
@@ -10,6 +11,7 @@ import Layout from '@components/Layout'
 import ArticlesHero from '../../sections/articles/Articles.Hero'
 import ArticlesGrid from '../../sections/articles/Articles.Grid'
 import ArticlesFeatured from '../../sections/articles/Articles.Featured'
+import ArticlesPagination from '../../sections/articles/Articles.Pagination'
 
 /**
  * Narative.co/articles
@@ -30,8 +32,12 @@ function ArticlesPage({ data, location, pageContext }) {
     theme: 'light',
   }
 
+  const footerConfig = {
+    visible: false,
+  }
+
   return (
-    <Layout nav={navConfig}>
+    <Layout nav={navConfig} footer={footerConfig}>
       <>
         <SEO
           title={seo.title}
@@ -44,6 +50,7 @@ function ArticlesPage({ data, location, pageContext }) {
           <Section narrow>
             <ArticlesFeatured article={featured} />
             <ArticlesGrid articles={articles} />
+            <ArticlesPagination pageContext={pageContext} />
           </Section>
           <Footer mode="light" />
         </WhiteBackground>

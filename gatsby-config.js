@@ -56,7 +56,9 @@ exports.plugins = [
     options: {
       host: 'https://narative.co',
       sitemap: 'https://narative.co/sitemap.xml',
-      policy: [{ userAgent: '*', disallow: ['/.netlify/'] }],
+      policy: [
+        { userAgent: '*', disallow: ['/.netlify/', '/articles/preview/'] },
+      ],
     },
   },
   {

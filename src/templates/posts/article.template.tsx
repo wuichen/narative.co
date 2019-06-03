@@ -25,6 +25,8 @@ import ArticleHero from '../../sections/article/Article.Hero'
 import ArticleControls from '../../sections/article/Article.Controls'
 import ArticlePreview from '../../sections/article/Article.Preview'
 import ArticleMicrodata from '../../sections/article/Article.Microdata'
+import ArticleShare from '../../sections/article/Article.Share'
+import ArticleHighlight from '../../sections/article/Article.Highlight'
 
 import { IDetailPage } from '@typings'
 
@@ -128,12 +130,23 @@ class Article extends Component<ArticleProps, PostState> {
           <Progress {...scrollInfo} {...scrollInfo} />
         </Aside>
         <Aside right {...scrollInfo}>
-          <ArticleControls toggleMode={toggleMode} mode={mode} />
+          <ArticleControls
+            toggleMode={toggleMode}
+            mode={mode}
+            shortUrl={article.shortUrl}
+          />
         </Aside>
         <MobileControls>
-          <ArticleControls toggleMode={toggleMode} mode={mode} />
+          <ArticleControls
+            shortUrl={article.shortUrl}
+            toggleMode={toggleMode}
+            mode={mode}
+          />
         </MobileControls>
-        <Content contentRef={this.contentSectionRef} content={article.body} />
+        <Content contentRef={this.contentSectionRef} content={article.body}>
+          <ArticleShare article={article} mode={mode} />
+          <ArticleHighlight article={article} mode={mode} />
+        </Content>
         <Gradient>
           <Meta>
             <div>Posted on {article.publicationDate}</div>
@@ -176,6 +189,7 @@ const Content = styled(RichText).attrs<{ textHighlightColor: string }>({})`
   position: relative;
   padding: 160px 0 35px;
   background: ${p => p.theme.mode.background};
+  transition: background 0.2s linear;
 
   ${mediaqueries.tablet`
     padding: 60px 0 0;
@@ -206,10 +220,11 @@ const NextArticle = styled(Section)`
   display: block;
 `
 
-const FooterNext = styled.div`
+const FooterNext = styled.h3`
   position: relative;
   opacity: 0.25;
   margin-bottom: 100px;
+  font-weight: 400;
   color: ${p => p.theme.mode.text};
 
   ${mediaqueries.tablet`

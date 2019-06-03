@@ -9,7 +9,8 @@ import { keyframes } from 'styled-components'
 const black = '#262626'
 const bg = '#111216'
 const gold = '#E9DAAC'
-const grey = '#7a8085'
+const grey = '#73737D'
+const moon = '#73737D'
 const red = '#f44336'
 const purple = '#6166DC'
 
@@ -36,6 +37,7 @@ export const theme = {
     bg,
     gold,
     grey,
+    moon,
     red,
     purple,
   },
@@ -71,7 +73,7 @@ export const theme = {
     ['phablet', 540],
     ['tablet', 768],
     ['desktop', 1024],
-    ['desktop_medium', 1200],
+    ['desktop_medium', 1280],
     ['desktop_large', 1440],
   ],
 }

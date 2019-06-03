@@ -42,7 +42,7 @@ const ArticleHero = ({ article }: { article: IArticleNode }) => {
                   <HeroTitle>{article.title}</HeroTitle>
                   <HeroSubtitle>
                     By {author.name}
-                    {author.title && ` , ${author.title}`}
+                    {author.title && `, ${author.title}`}
                   </HeroSubtitle>
                 </Header>
               </Section>
@@ -68,7 +68,6 @@ const Hero = styled.div`
   z-index: 5;
   min-height: 600px;
   height: 100vh;
-  width: 100vw;
   background: #fafafa;
   display: flex;
   overflow: hidden;
@@ -84,11 +83,11 @@ const HeroContent = styled.div`
   height: 100%;
   left: 0;
   right: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  overflow: hidden;
 
   ${mediaqueries.tablet`
     min-height: 100vh;
@@ -121,7 +120,7 @@ const HeroTitle = styled(Heading.h1)`
 
 const HeroSubtitle = styled.div`
   font-size: 18px;
-  color: rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.3);
   font-weight: 800;
 `
 
@@ -140,17 +139,16 @@ const ReadingTime = styled.div`
   left: 51px;
   position: absolute;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.3);
 `
 
 const Image = styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    right: -40%;
-    overflow: visible;
-}
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  right: -40%;
+  overflow: visible;
 
   & > div {
     top: 50%;
@@ -161,6 +159,16 @@ const Image = styled.div`
     img {
       object-position: left center !important;
     }
+  }
+
+  /* This is for article previews */
+  & > img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    object-position: left center !important;
   }
 
   ${mediaqueries.tablet`

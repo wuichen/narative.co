@@ -1,8 +1,10 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { is, map } from 'ramda'
+import { is } from 'ramda'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+
+const readingTime = require('reading-time')
 const contentful = require('contentful')
 
 import { HTMLRendererOpts } from '../../plugins/gatsby-transformer-contentful-rich-text-html-renderer/htmlRenderer'
@@ -13,7 +15,8 @@ const client = contentful.createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
   accessToken: process.env.CONTENTFUL_PREVIEW_API_KEY,
   host: 'preview.contentful.com',
-  environment: process.env.CONTENTFUL_ENVIRONMENT || 'staging',
+  environment: process.env.CONTENTFUL_ENVIRONMENT || 'master',
+  dynamic_antries: 'auto',
 })
 
 // Some static error codes
@@ -29,7 +32,7 @@ const ERROR_FORBIDDEN = {
 
 const ERROR_UNRETRIEVABLE = {
   statusCode: 400,
-  body: JSON.stringify('Could not retrieve you entry'),
+  body: JSON.stringify('Could not retrieve your entry'),
 }
 
 const ERROR_UNPROCESSABLE = {
@@ -48,18 +51,56 @@ const modelToUrl = {
   [MODEL_ARTICLE]: settings.urls.articles,
 }
 
+function getReadingTime(html) {
+  const options = { wordsPerMinute: 250 }
+  const { minutes, ...rest } = readingTime(html, options)
+
+  return {
+    ...rest,
+    minutes: minutes,
+    text: `${Math.round(minutes)} minute read`,
+  }
+}
+
+function getTodaysDate() {
+  var monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const today = new Date()
+  const day = today.getDate()
+  const monthIndex = today.getMonth()
+  const year = today.getFullYear()
+
+  return `${monthNames[monthIndex]}. ${day}, ${year}`
+}
 export async function handler(event, context) {
   const queryParams = event.queryStringParameters
   const entryId = queryParams.entry
 
   // Store some empty variables for later (makes try / catch less painful)
-  let entry, model, fields
+  let entry, model
+  let fields = {}
 
   if (!entryId) return ERROR_BAD_REQUEST
 
   // Go to the API and get this entry
   try {
-    entry = await client.getEntry(entryId)
+    const entries = await client.getEntries({
+      include: 10,
+      limit: 1000,
+    })
+    entry = entries.items.find(item => item.sys.id === entryId)
     model = entry.sys.contentType.sys.id
   } catch (error) {
     console.error(error)
@@ -76,26 +117,36 @@ export async function handler(event, context) {
   // Sometimes it's a rich text complex object
   // This inline function has a go at parsing all of that information
   try {
-    fields = map(value => {
+    Object.entries(entry.fields).map(entryField => {
+      const [type, value] = entryField
       const isObject = is(Object, value)
 
-      // ... handle assets e.g. hero images
-      // todo: currently we just pull these out and do nothing with them
-      if (isObject && value.sys && value.sys.type === 'Asset') {
-        return { Article__Hero: 'Will not be displayed on preview' }
+      if (isObject && type === 'hero') {
+        return (fields[type] = { Article__Hero: value.fields.file.url })
       }
 
-      // ... handle the rich text elements
+      if (isObject && type === 'backgroundImage') {
+        return (fields[type] = { seo: { src: value.fields.file.url } })
+      }
+
+      if (isObject && type === 'slug') {
+        return (fields[type] = { seo: { src: value.fields.file.url } })
+      }
+
       if (isObject && value.nodeType === 'document') {
-        return documentToHtmlString(value, HTMLRendererOpts)
+        return (fields[type] = documentToHtmlString(value, HTMLRendererOpts))
       }
 
-      // ... or elevate all nested values
-      if (isObject && value.fields) return value.fields
+      if (isObject && value.fields) {
+        return (fields[type] = value.fields)
+      }
 
-      // ...else return the basic value
-      return value
-    }, entry.fields)
+      return (fields[type] = value)
+    })
+
+    fields.readingTime = getReadingTime(fields.body)
+    fields.publicationDate = getTodaysDate()
+    fields.path = fields.slug
   } catch (error) {
     console.error(error)
     return ERROR_UNPROCESSABLE

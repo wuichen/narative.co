@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 
-import { MicrodataBreadcrumb } from '@components/Media'
 import SEO from '@components/SEO'
 
 import { IArticleNode } from '@typings'
@@ -47,15 +46,14 @@ const Microdata = ({
     excerpt,
     author,
     hero,
-    postDate,
+    publicationDate,
+    updatedAt,
     backgroundImage,
     readingTime,
     path,
   },
   location,
   publicationLogo,
-  sectionName,
-  sectionUrl,
 }: {
   article: IArticleNode
   location: Location
@@ -63,10 +61,12 @@ const Microdata = ({
   sectionName: string
   sectionUrl: string
 }) => {
-  let isoDateStr
+  let isoDateStrPublished
+  let isoDateStrUpdated
 
   try {
-    isoDateStr = new Date(postDate!).toISOString()
+    isoDateStrPublished = new Date(publicationDate!).toISOString()
+    isoDateStrUpdated = new Date(updatedAt!).toISOString()
   } catch (error) {
     // Now all browsers can parse our date string. That's fine. The crawler can
     console.warn(error)
@@ -74,15 +74,6 @@ const Microdata = ({
 
   return (
     <>
-      <MicrodataBreadcrumb
-        levels={[
-          {
-            name: sectionName,
-            item: sectionUrl,
-          },
-          { name: title, item: location.href },
-        ]}
-      />
       <SEO
         title={title}
         description={excerpt}
@@ -90,7 +81,7 @@ const Microdata = ({
         canonical={canonical}
         pathname={path}
         readingTime={readingTime.text}
-        published={isoDateStr}
+        published={isoDateStrPublished}
       >
         <script type="application/ld+json">
           {`
@@ -103,21 +94,21 @@ const Microdata = ({
             },
             "headline": "${title}",
             "image": "${hero.Article__Hero.src}",
-            "datePublished": "${isoDateStr}",
-            "dateModified": "${isoDateStr}",
+            "datePublished": "${isoDateStrPublished}",
+            "dateModified": "${isoDateStrUpdated}",
             "author": {
               "@type": "Person",
-              "name": "${author ? author.name : 'Hopper Editors'}"
+              "name": "${author ? author.name : 'Narative Editors'}"
             },
             "publisher": {
               "@type": "Organization",
-              "name": "Hopper",
+              "name": "Narative",
               "logo": {
                 "@type": "ImageObject",
-                "url": "${location.origin + publicationLogo}"
+                "url": "${publicationLogo}"
               }
             },
-            "description": "${excerpt}"
+            "description": "${excerpt.replace(/"/g, '\\"')}"
           }
         `}
         </script>

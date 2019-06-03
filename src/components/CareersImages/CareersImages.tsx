@@ -96,7 +96,10 @@ class CareersImages extends Component {
                       viewed={this.state.viewed}
                       style={{ left: `${index * 36}rem` }}
                     >
-                      <Img fluid={image.node.childImageSharp.fluid} />
+                      <Img
+                        fluid={image.node.childImageSharp.fluid}
+                        alt={this.props.descriptions[index]}
+                      />
                     </ImageContainer>
                   ))}
                 </GalleryContainer>
@@ -106,6 +109,7 @@ class CareersImages extends Component {
           <GalleryControl
             disabled={activeIndex === 0}
             onClick={this.handlePrevClick}
+            data-a11y="false"
             left
           >
             <ChevronLeft />
@@ -113,6 +117,7 @@ class CareersImages extends Component {
           <GalleryControl
             disabled={activeIndex === this.props.images.length / 2 - 1}
             onClick={this.handleNextClick}
+            data-a11y="false"
             right
           >
             <ChevronRight />
@@ -238,7 +243,7 @@ const ImageContainerMobile = styled.div`
   `};
 `
 
-const GalleryControl = styled.div`
+const GalleryControl = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -264,6 +269,17 @@ const GalleryControl = styled.div`
 
   opacity: ${p => (p.disabled ? 0.25 : 1)};
   transition: opacity 600ms cubic-bezier(0.7, 0, 0.2, 1);
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -12%;
+    top: -12%;
+    width: 124%;
+    height: 124%;
+    border: 3px solid ${p => p.theme.colors.purple};
+    border-radius: 50%;
+  }
 
   ${mediaqueries.desktop`
     ${p => {

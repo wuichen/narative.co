@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -7,10 +7,9 @@ import Media from '@components/Media/Media.Img'
 import ScrollIndicator from '@components/ScrollIndicator'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Pill from '@components/Pill'
+import Transitions from '@components/Transitions'
 
 import mediaqueries from '@styles/media'
-import transitions from '@styles/transitions'
-import { startAnimation } from '@utils'
 
 const heroQuery = graphql`
   query CareersHeroPageQuery {
@@ -32,17 +31,8 @@ const heroQuery = graphql`
 `
 
 function CareersHero() {
-  // Fade in the text as we do on all the headings
-  const [animation, setAnimation] = useState('')
-
   // Start the bulb up animation once the image has laoded
   const [animateBulb, setBulbAnimation] = useState(false)
-
-  useEffect(() => {
-    startAnimation(() => {
-      setAnimation('start')
-    })
-  }, [])
 
   return (
     <StaticQuery
@@ -54,17 +44,19 @@ function CareersHero() {
               <Section>
                 <GridContainer>
                   <LeftContainer>
-                    <TextContainer animation={animation}>
-                      <Pill text="Careers" />
-                      <Heading.h1>
-                        Narative is a tight-knit team from across the world
-                        building great things.
-                      </Heading.h1>
-                      <MainText>
-                        We’re enthusiastic about partnering with and creating
-                        brands worth believing in.
-                      </MainText>
-                    </TextContainer>
+                    <Transitions.CSS.FadeIn>
+                      <TextContainer>
+                        <Pill text="Careers" />
+                        <Heading.h2 styles="h1">
+                          Narative is a tight-knit team from across the world
+                          building great things.
+                        </Heading.h2>
+                        <MainText>
+                          We’re enthusiastic about partnering with and creating
+                          brands worth believing in.
+                        </MainText>
+                      </TextContainer>
+                    </Transitions.CSS.FadeIn>
                     <div />
                   </LeftContainer>
                   <ImageContainer desktop>
@@ -127,6 +119,14 @@ const GridContainer = styled.div`
   min-height: 600px;
   width: 100%;
 
+  ${mediaqueries.desktop_medium`
+    min-height: 360px;
+  `};
+
+  @media screen and (max-height: 800px) {
+    min-height: 360px;
+  }
+
   ${mediaqueries.desktop`
     height: initial
     grid-template-columns: 1fr;
@@ -142,7 +142,6 @@ const GridContainer = styled.div`
 `
 
 const TextContainer = styled.div`
-  ${transitions.fadeIn};
   position: relative;
 
   h1 {

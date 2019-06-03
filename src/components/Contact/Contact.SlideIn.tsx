@@ -2,24 +2,29 @@ import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import Transition from 'react-transition-group/Transition'
 
+import Hidden from '@components/Hidden'
+import { ContactContext } from '@components/Contact/Contact.Context'
+
 import mediaqueries from '@styles/media'
 import { scrollable } from '@utils'
 import { ExIcon } from '../../icons/ui'
+import { useReduxState } from '@store'
 
 import ContactForm from '../../sections/contact/Contact.ContactForm'
 
-import { ContactContext } from '@components/Contact/Contact.Context'
-
 function ContactSlideIn() {
   const { showContact, toggleContact } = useContext(ContactContext)
+  const [{ name }] = useReduxState(state => ({
+    name: state.shortcuts.name,
+  }))
 
   useEffect(() => {
     if (showContact) {
       scrollable('disable')
 
-      function handleEscKeyPress({ key }) {
-        if (key === 'Escape') {
-          toggleContact()
+      function handleEscKeyPress(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          toggleContact(event)
         }
       }
 
@@ -31,8 +36,27 @@ function ContactSlideIn() {
     }
   }, [showContact])
 
+  useEffect(() => {
+    if (name === 'CONTACT') {
+      scrollable('disable')
+      toggleContact()
+    } else {
+      scrollable('enable')
+    }
+  }, [name])
+
   return (
-    <Frame>
+    <Frame tabIndex={showContact ? 0 : -1} aria-hidden={!showContact}>
+      {' '}
+      <Mask isActive={showContact} onClick={toggleContact} />
+      <CloseContainer
+        onClick={toggleContact}
+        animation={showContact}
+        data-a11y="false"
+      >
+        <ExIcon />
+        <Hidden>Close Contact Form</Hidden>
+      </CloseContainer>
       <SlideIn in={showContact}>
         {showContact && (
           <FormContainer>
@@ -40,9 +64,6 @@ function ContactSlideIn() {
           </FormContainer>
         )}
       </SlideIn>
-      <CloseContainer onClick={toggleContact} animation={showContact}>
-        <ExIcon />
-      </CloseContainer>
     </Frame>
   )
 }
@@ -80,9 +101,23 @@ const Frame = styled.div`
   z-index: 11;
 `
 
+const Mask = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 18, 22, 0.2);
+  pointer-events: ${p => (p.isActive ? 'initial' : 'none')};
+  opacity: ${p => (p.isActive ? 1 : 0)};
+  transition: opacity ${p => (p.isActive ? '0.7s' : '0')}
+    ${p => (p.isActive ? '0.3s' : '')};
+`
+
 const SlideInContainer = styled.div`
   width: 100vw;
-  overflow-y: hidden;
   height: calc(100vh - 40px);
   top: 0px;
   right: 0px;
@@ -153,5 +188,9 @@ const CloseContainer = styled.button`
   &:hover::after {
     background: rgba(0, 0, 0, 0.03);
     transform: scale(1);
+  }
+
+  &[data-a11y='true']:focus {
+    border: 2px solid ${p => p.theme.colors.purple};
   }
 `

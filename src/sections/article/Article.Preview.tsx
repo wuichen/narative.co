@@ -22,6 +22,8 @@ import { IArticleNode } from '@typings'
  *  [..............], [.........]
  */
 const ArticlesPreview = ({ articles }: { articles: IArticleNode[] }) => {
+  if (!articles) return null
+
   return (
     <>
       <Grid>
@@ -46,7 +48,7 @@ const GridItem = ({
   const hasOverflow = narrow && article.title.length > 35
 
   return (
-    <ArticleLink to={`/articles/${article.slug}`}>
+    <ArticleLink to={`/articles/${article.slug}`} data-a11y="false">
       <Item>
         <Image background={article.backgroundColor}>
           <Media src={article.backgroundImage.fluid} />
@@ -184,6 +186,7 @@ const TimeToRead = styled.div`
 `
 
 const ArticleLink = styled(Link)`
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
@@ -200,8 +203,21 @@ const ArticleLink = styled(Link)`
       0 30px 50px -30px rgba(0, 0, 0, 0.3);
   }
 
-  &:hover h2 {
+  &:hover h2,
+  &:focus h2 {
     color: ${p => p.theme.colors.purple};
+  }
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    top: -2%;
+    width: 104%;
+    height: 104%;
+    border: 3px solid ${p => p.theme.colors.purple};
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
   }
 
   ${mediaqueries.tablet`

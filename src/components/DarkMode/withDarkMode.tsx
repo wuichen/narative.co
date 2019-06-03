@@ -30,6 +30,11 @@ const themes = {
           bg: '#fafafa',
         },
       },
+      cta: {
+        background: '#fafafa',
+        border: 'rgba(0,0,0,0.1)',
+        corner: '#000',
+      },
       preview: {
         bg: '#fff',
       },
@@ -47,12 +52,17 @@ const themes = {
         "data:image/svg+xml,%3Csvg width='10' height='15' viewBox='0 0 10 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.432617' y='13.8564' width='16' height='1' transform='rotate(-60 0.432617 13.8564)' fill='%2350525B'/%3E%3C/svg%3E%0A",
       progress: {
         complete: '#fff',
-        bg: '#7A8085',
+        bg: '#73737D',
         mobile: {
           complete: '#B5B8B9',
           incomplete: '#1B1B1B',
           bg: 'rgba(0,0,0,0.92)',
         },
+      },
+      cta: {
+        background: 'rgba(29, 33, 40, 0.6)',
+        border: 'rgba(255,255,255,0.06)',
+        corner: '#fff',
       },
       preview: {
         bg: '#1D2128',
@@ -78,6 +88,19 @@ function withDarkMode(WrappedComponent) {
       const mode = this.state.mode === 'dark' ? 'light' : 'dark'
 
       this.setState({ mode }, () => localStorage.setItem('mode', mode))
+
+      /**
+       * Workaround for a chrome bug. Manually update the stops to have
+       * the corect colors.
+       */
+      setTimeout(() => {
+        const stops = document.querySelectorAll('stop')
+        stops.forEach(stop => {
+          const style = getComputedStyle(stop)
+          const opacity = style.getPropertyValue('opacity')
+          stop.style.opacity = opacity === '1' ? '0.99' : '1'
+        })
+      }, 0)
     }
 
     render() {

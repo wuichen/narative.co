@@ -9,15 +9,15 @@ import mediaqueries from '@styles/media'
  * and copying the link. This is component to handle that!
  */
 
-export default ({ mode, toggleMode }) => (
+export default ({ mode, toggleMode, shortUrl }) => (
   <>
-    <ShareButton mode={mode} />
+    <ShareButton mode={mode} shortUrl={shortUrl} />
     <DarkModeSelect toggleMode={toggleMode} mode={mode} />
   </>
 )
 
 const DarkModeSelect = ({ toggleMode, mode }) => (
-  <IconWrapper mode={mode} onClick={toggleMode}>
+  <IconWrapper mode={mode} onClick={toggleMode} tabIndex={1}>
     <MoonOrSun isDarkMode={mode === 'dark'} />
     <MoonMask isDarkMode={mode === 'dark'} />
   </IconWrapper>
@@ -31,7 +31,7 @@ class ShareButton extends Component {
 
     const tempInput = document.createElement('input')
     document.body.appendChild(tempInput)
-    tempInput.setAttribute('value', window.location.href)
+    tempInput.setAttribute('value', `ntve.co/${this.props.shortUrl}`)
     tempInput.select()
     document.execCommand('copy')
     document.body.removeChild(tempInput)
@@ -50,7 +50,11 @@ class ShareButton extends Component {
     const Icon = mode === 'dark' ? ShareDarkModeOffIcon : ShareDarkModeOnIcon
 
     return (
-      <IconWrapper mode={mode} onClick={this.copyToClipboardOnClick}>
+      <IconWrapper
+        mode={mode}
+        onClick={this.copyToClipboardOnClick}
+        tabIndex={-1}
+      >
         <Icon />
         <ToolTip mode={mode} hasCopied={this.state.hasCopied}>
           Copied
@@ -203,11 +207,10 @@ const MoonMask = styled.div`
   top: -8px;
   height: 24px;
   width: 24px;
-  border: 2px solid #000;
   border-radius: 50%;
-  transition: transform 0.45s ease;
   border: 0;
-  background: #fff;
+  background: ${p => p.theme.mode.background};
   transform: translate(${p => (p.isDarkMode ? '14px, -14px' : '0, 0')});
   opacity: ${p => (p.isDarkMode ? 0 : 1)};
+  transition: background 0.2s linear, transform 0.45s ease;
 `

@@ -8,6 +8,7 @@ import Logo from '@components/Logo'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
+import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
   { to: '/careers', text: 'Careers' },
@@ -15,6 +16,10 @@ const footerLinks = [
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
 ]
+
+function handleShortcutReset() {
+  shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
+}
 
 /**
  * The sites Footer is basic right now. But we have to account for light or
@@ -25,14 +30,14 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
   const { toggleContact } = useContext(ContactContext)
   const color = mode === 'dark' ? '#fff' : '#000'
   const transparentColor =
-    mode === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.25)'
+    mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'
 
   return (
     <Section narrow>
       <Frame color={color}>
         <CopyRight>© {new Date().getFullYear()} Narative Studio Inc.</CopyRight>
         <Left color={color}>
-          <LogoContainer to="/">
+          <LogoContainer to="/" data-a11y="false">
             <Logo fill={color} onlySymbol />
           </LogoContainer>
           <SocialIconsFooter>
@@ -48,9 +53,10 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
                   color={color}
                   onClick={event => {
                     event.preventDefault()
-                    toggleContact()
+                    toggleContact(event)
                   }}
                   to={link.to}
+                  data-a11y="false"
                   getProps={({ isPartiallyCurrent }) =>
                     isPartiallyCurrent ? { ['data-active']: 'true' } : null
                   }
@@ -65,9 +71,11 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
                 key={link.to}
                 color={color}
                 to={link.to}
+                data-a11y="false"
                 getProps={({ isPartiallyCurrent }) =>
                   isPartiallyCurrent ? { ['data-active']: 'true' } : null
                 }
+                onClick={handleShortcutReset}
               >
                 {link.text}
               </FooterLink>
@@ -102,7 +110,7 @@ const Frame = styled.footer`
       width: 100%;
       height: 1px;
       background: ${p => p.color};
-      opacity: 0.25;
+      opacity: 0.3;
     }
   `};
 `
@@ -119,7 +127,7 @@ const Left = styled.div`
   `};
 
   svg path {
-    transition: fill 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.9);
+    transition: fill 0.3s cubic-bezier(0.3, 0.46, 0.45, 0.9);
   }
 
   a:hover svg path {
@@ -144,8 +152,9 @@ const Right = styled.div`
 `
 
 const LogoContainer = styled(Link)`
-  opacity: 0.25;
-  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.9);
+  position: relative;
+  opacity: 0.3;
+  transition: opacity 0.3s cubic-bezier(0.3, 0.46, 0.45, 0.9);
 
   &:hover {
     opacity: 1;
@@ -154,6 +163,18 @@ const LogoContainer = styled(Link)`
   ${mediaqueries.tablet`
     display: none;
   `}
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    top: -10%;
+    width: 200%;
+    height: 120%;
+    border: 2px solid ${p => p.theme.colors.purple};
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
+  }
 `
 
 const SocialIconsFooter = styled.div`
@@ -175,7 +196,7 @@ const FooterLink = styled(Link)`
   font-weight: 600;
   font-size: 18px;
   color: ${p => p.color};
-  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.9);
+  transition: opacity 0.3s cubic-bezier(0.3, 0.46, 0.45, 0.9);
 
   &[data-active='true'] {
     &::after {
@@ -193,6 +214,18 @@ const FooterLink = styled(Link)`
 
   &:hover {
     opacity: 0.6;
+  }
+
+  &[data-a11y='true']:focus::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    top: -5%;
+    width: 120%;
+    height: 120%;
+    border: 2px solid ${p => p.theme.colors.purple};
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
   }
 
   &:not(:last-child) {

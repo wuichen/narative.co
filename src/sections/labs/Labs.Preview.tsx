@@ -52,8 +52,7 @@ const Card = styled.div`
   }
 
   ${mediaqueries.tablet`
-    height: auto;
-    padding: 40px 20px 30px;
+    display: none;
   `}
 `
 
@@ -64,6 +63,7 @@ const Content = styled.div`
 
   ${mediaqueries.phablet`
     text-align: center;
+    margin: 0 auto;
   `}
 `
 

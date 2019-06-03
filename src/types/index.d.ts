@@ -43,6 +43,12 @@ interface IAuthor {
   }
 }
 
+export interface IPaginator {
+  pageCount: number
+  index: number
+  pathPrefix: string
+}
+
 export interface IAsset {
   file: {
     url: string
@@ -127,6 +133,8 @@ export interface IArticleNode extends IBasicNode {
   backgroundColor: string
   readingTime?: {}
   path?: string
+  publicationDate?: string
+  updatedAt?: string
   fields: {
     path: string
     postDate: string

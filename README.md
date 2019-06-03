@@ -30,7 +30,7 @@ This project uses [Contentful](https://www.contentful.com) to pull in some copy 
 #### Running the code locally
 
 ```sh
-yarn dev
+yarn start
 ```
 
 #### Building the website

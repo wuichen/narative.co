@@ -151,8 +151,6 @@ class Select extends Component {
     selectedValue: '',
   }
 
-  handleClickOutside() {}
-
   toggleSelectDropdown = event => {
     event.preventDefault()
     this.setState({ isOpened: !this.state.isOpened })

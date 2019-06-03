@@ -6,11 +6,11 @@ module.exports.urls = {
   authors: 'authors',
   articles: 'articles',
   netlify: {
-    previewContent: '/.netlify/functions/preview-content',
+    preview: '/.netlify/functions/preview',
   },
   linkedin: 'https://www.linkedin.com/company/narative',
   instagram: 'http://instagram.com/narative.co',
-  twitter: 'https://twitter.com/narative_co',
+  twitter: 'https://twitter.com/narative',
   facebook: 'https://www.facebook.com/narative.co',
 }
 

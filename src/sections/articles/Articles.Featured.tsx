@@ -22,11 +22,14 @@ const ArticlesFeatured = ({ article }: { article: IArticleNode }) => (
       <StyledLink to={`/articles/${article.slug}`}>
         <Left>
           <SuperScript>Featured article</SuperScript>
-          <FeaturedTitle dark>{article.title}</FeaturedTitle>
+          <FeaturedTitle styles="h2" dark>
+            {article.title}
+          </FeaturedTitle>
           <Excerpt>{article.excerpt}</Excerpt>
           <ButtonArrow
             text="Read more"
             color="#000"
+            as="div"
             onClick={() => navigate(`/articles/${article.slug}`)}
           />
         </Left>
@@ -60,7 +63,6 @@ const Frame = styled.div`
   display: flex;
   padding: 60px 0 100px;
   align-items: center;
-  overflow: hidden;
 
   ${mediaqueries.tablet`
     display: none;
@@ -72,12 +74,17 @@ const StyledLink = styled(Link)`
   align-items: center;
   width: 100%;
 
-  &:hover h2 {
+  &:hover h3 {
     color: ${p => p.theme.colors.purple};
+  }
+
+  &:focus h3 {
+    color: ${p => p.theme.colors.purple};
+    text-decoration: underline;
   }
 `
 
-const FeaturedTitle = styled(Heading.h2)`
+const FeaturedTitle = styled(Heading.h3)`
   margin-bottom: 15px;
   transition: color 0.3s ease-in-out;
 `
@@ -103,11 +110,13 @@ const Right = styled.div`
   `}
 `
 
-const SuperScript = styled.div`
+const SuperScript = styled.h2`
   position: relative;
   display: inline-block;
   margin-bottom: 65px;
   opacity: 0.25;
+  font-weight: 400;
+  color: #000;
 
   &::after {
     content: '';

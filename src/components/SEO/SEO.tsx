@@ -21,6 +21,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 interface HelmetProps {
+  children?: React.ReactChildren
   title: string
   description?: string
   pathname: string
@@ -112,6 +113,7 @@ const getMetaTags = ({
 }
 
 const SEO = ({
+  children,
   title,
   description = seoDescription,
   pathname,
@@ -150,7 +152,9 @@ const SEO = ({
         twitter,
         readingTime,
       })}
-    />
+    >
+      {children}
+    </Helmet>
   )
 }
 

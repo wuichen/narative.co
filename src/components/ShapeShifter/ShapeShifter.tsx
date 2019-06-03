@@ -17,7 +17,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import throttle from 'lodash/throttle'
 import { StaticQuery, graphql } from 'gatsby'
 import { isSafari, isFireFox } from 'react-device-detect'
@@ -117,7 +117,9 @@ function ShapeShifter() {
   useEffect(() => {
     const $shape = shape.current
     setAnimate(true)
-    createMirrorMask()
+    setTimeout(() => {
+      createMirrorMask()
+    }, 0)
 
     if (isSafari || isFireFox) return
 
@@ -618,6 +620,11 @@ function ShapeShifter() {
 
 export default ShapeShifter
 
+const scaleIn = keyframes`
+  from { transform: scale(1.2); }
+  to { transform: scale(1); }
+`
+
 const Frame = styled.div`
   position: relative;
   width: 45%;
@@ -630,8 +637,7 @@ const Frame = styled.div`
   flex-direction: column;
   user-select: none;
   border-color: ${p => (p.animate ? '#6166dc' : 'transparent')};
-  transform: scale(${p => (p.animate ? 1 : 1.1)});
-  transition: transform 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: ${scaleIn} 3s cubic-bezier(0.25, 0.1, 0.25, 1);
 
   ${mediaqueries.desktop`
     display: none;
@@ -739,7 +745,7 @@ const ShapeContainer = styled.div`
 
 const ShapeGlow = styled.div`
   opacity: ${p => (p.animate ? 1 : 0)};
-  transition: opacity 1.4s 3s;
+  transition: opacity 1.4s 2.4s;
   pointer-events: none;
   position: absolute;
   width: 375px;
