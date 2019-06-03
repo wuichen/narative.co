@@ -26,10 +26,13 @@ function CommandLine() {
   const { list, CommandLineHeading } = createCommandLineParts(name)
 
   useEffect(() => {
-    if (open) return scrollable('disable')
+    if (open) {
+      scrollable('disable')
+    } else {
+      scrollable('enable')
+    }
 
     if (!screenIsWideEnough) handleClose()
-    scrollable('enable')
   }, [open])
 
   // This component is mounted, but not returning anything until it's open!

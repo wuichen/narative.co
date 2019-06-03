@@ -5,29 +5,25 @@ import { useStaticQuery, graphql } from 'gatsby'
 import shortcuts, { constants } from '../../shortcuts'
 import { ViewIcon, BookIcon } from '../../icons/ui'
 
+const articlesQuery = graphql`
+  query GetArticles {
+    allContentfulArticle(sort: { fields: [publicationDate], order: DESC }) {
+      edges {
+        node {
+          title
+          slug
+          featured
+        }
+      }
+    }
+  }
+`
+
 function createDefaultList() {
   return shortcuts.getShortcutsFiltered()
 }
 
-function createReadingList() {
-  const articlesQuery = graphql`
-    query GetArticles {
-      allContentfulArticle(sort: { fields: [publicationDate], order: DESC }) {
-        edges {
-          node {
-            title
-            slug
-            featured
-          }
-        }
-      }
-    }
-  `
-
-  const {
-    allContentfulArticle: { edges: articles },
-  } = useStaticQuery(articlesQuery)
-
+function createReadingList(articles) {
   return [
     {
       name: constants.GO_TO_ARTICLES,
@@ -48,6 +44,10 @@ function createReadingList() {
 }
 
 export default function createCommandLineParts(name: string) {
+  const {
+    allContentfulArticle: { edges: articles },
+  } = useStaticQuery(articlesQuery)
+
   let list = []
   let CommandLineHeading = () => <div />
 
@@ -63,7 +63,7 @@ export default function createCommandLineParts(name: string) {
       break
 
     case constants.COMMAND_LINE_READ:
-      list = createReadingList()
+      list = createReadingList(articles)
       CommandLineHeading = () => (
         <BackButton
           onClick={() =>

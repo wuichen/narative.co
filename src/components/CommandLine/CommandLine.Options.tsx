@@ -15,56 +15,6 @@ function handleShortcutSelection(shortcut: { name: string }) {
   shortcuts.handleShortcutFeature(enhancedShortcut)
 }
 
-function useActiveListItem(
-  initial: number,
-  list: any[],
-  name: string,
-  listRef
-): number {
-  const [active, setActive] = useState<number>(initial)
-  const length: number = list.length
-
-  useEffect(() => {
-    setActive(0)
-  }, [name])
-
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      switch (event.key) {
-        case 'ArrowUp':
-          setActive(currentActive => {
-            if (currentActive === 0) return length - 1
-            listRef.current.style.pointerEvents = 'none'
-
-            return currentActive - 1
-          })
-          break
-        case 'ArrowDown':
-          setActive(currentActive => {
-            if (currentActive === length - 1) return 0
-            listRef.current.style.pointerEvents = 'none'
-
-            return currentActive + 1
-          })
-          break
-        default:
-          return
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [length])
-
-  if (active >= length) {
-    setActive(length - 1)
-  }
-
-  return active > 0 ? active : 0
-}
-
 function CommandLineOptions({ list = [], name }: CommandProps) {
   const fuseOptions = {
     threshold: 0.3,
