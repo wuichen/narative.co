@@ -233,6 +233,13 @@ const List = styled.ul`
   height: 244px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `
 
 const Shortcut = styled.li<{ highlight: boolean }>`

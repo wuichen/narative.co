@@ -393,10 +393,10 @@ const Symbol = styled.div`
   align-items: center;
   justify-content: center;
   height: 16px;
-  width: 16px;
+  min-width: 16px;
   text-align: center;
   border-radius: 2.5px;
-  padding: 1px 4px;
+  padding: 1px 2px;
   color: ${p => p.theme.colors.bg};
   background: ${p => p.theme.colors.moon};
   font-size: 12px;
