@@ -8,6 +8,7 @@ import Logo from '@components/Logo'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
+import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
   { to: '/careers', text: 'Careers' },
@@ -15,6 +16,10 @@ const footerLinks = [
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
 ]
+
+function handleShortcutReset() {
+  shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
+}
 
 /**
  * The sites Footer is basic right now. But we have to account for light or
@@ -70,6 +75,7 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
                 getProps={({ isPartiallyCurrent }) =>
                   isPartiallyCurrent ? { ['data-active']: 'true' } : null
                 }
+                onClick={handleShortcutReset}
               >
                 {link.text}
               </FooterLink>

@@ -137,7 +137,11 @@ class Article extends Component<ArticleProps, PostState> {
           />
         </Aside>
         <MobileControls>
-          <ArticleControls toggleMode={toggleMode} mode={mode} />
+          <ArticleControls
+            shortUrl={article.shortUrl}
+            toggleMode={toggleMode}
+            mode={mode}
+          />
         </MobileControls>
         <Content contentRef={this.contentSectionRef} content={article.body}>
           <ArticleShare article={article} mode={mode} />
@@ -174,6 +178,7 @@ const MobileControls = styled.div`
   position: relative;
   padding-top: 65px;
   background: ${p => p.theme.mode.background};
+  transition: background 0.2s linear;
   text-align: center;
 
   ${mediaqueries.desktop_up`

@@ -52,18 +52,18 @@ const Card = styled.div`
   }
 
   ${mediaqueries.tablet`
-    height: auto;
-    padding: 40px 20px 30px;
+    display: none;
   `}
 `
 
 const Content = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 354px;
+  max-width: 371px;
 
   ${mediaqueries.phablet`
     text-align: center;
+    margin: 0 auto;
   `}
 `
 

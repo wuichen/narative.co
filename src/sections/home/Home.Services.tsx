@@ -123,12 +123,11 @@ const calculateOffset = (progress: number) => {
   return {}
 }
 
-const calcOpacity = (entering: boolean, top: number): { opacity?: number } =>
-  entering
-    ? {}
-    : {
-        opacity: Math.abs(top) > 250 ? 0 : 1 - Math.abs(top) / 250,
-      }
+const calcOpacity = (entering: boolean, top: number): { opacity?: number } => {
+  const opacity = Math.abs(top) > 250 ? 0 : 1 - Math.abs(top) / 250
+
+  return entering ? {} : { opacity }
+}
 
 const calcTransform = (offset: number): string =>
   `translateY(${offset * 180}px)`
@@ -207,7 +206,7 @@ function Code() {
 }
 
 function HomeServices() {
-  const config = { mass: 1, tension: 200, friction: 25 }
+  const config = { mass: 1, tension: 400, friction: 50 }
 
   const [props, set] = useSpring(() => ({
     offset: 1,
@@ -371,7 +370,7 @@ export default HomeServices
 
 const HomeServicesDesktop = styled.div`
   background: #101216;
-  padding-top: 130px;
+  padding-top: 60px;
 
   ${mediaqueries.tablet`
     display: none;

@@ -21,7 +21,7 @@ function HomeHero() {
           <IntersectionObserver
             render={({ intersectionRatio: ir }) => (
               <Transitions.CSS.FadeIn>
-                <ContentContainer style={{ opacity: ir * ir }}>
+                <ContentContainer style={ir ? { opacity: ir * ir } : {}}>
                   <TextContainer>
                     <Heading.h1>
                       Narative brands, builds and markets products on behalf of

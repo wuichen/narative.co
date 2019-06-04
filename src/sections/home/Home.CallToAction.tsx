@@ -9,7 +9,8 @@ import Section from '@components/Section'
 import MediaQuery from '@components/MediaQuery'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries, { media } from '@styles/media'
+import mediaqueries from '@styles/media'
+import shortcuts, { constants } from '@shortcuts'
 
 const ctaLinks = [
   { to: '/careers', text: 'Careers' },
@@ -54,6 +55,10 @@ function HomeCallToAction() {
     return () => buttonRef.current.removeEventListener('keyup', handleKeyUp)
   }, [])
 
+  function handleShortcutReset() {
+    shortcuts.handleShortcutFeature({ name: constants.ESCAPE })
+  }
+
   return (
     <StaticQuery
       query={imageQuery}
@@ -88,7 +93,12 @@ function HomeCallToAction() {
                       }
 
                       return (
-                        <NavLink key={link.to} to={link.to} tabIndex={-1}>
+                        <NavLink
+                          key={link.to}
+                          to={link.to}
+                          tabIndex={-1}
+                          onClick={handleShortcutReset}
+                        >
                           {link.text}
                         </NavLink>
                       )

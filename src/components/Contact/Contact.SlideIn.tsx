@@ -8,11 +8,15 @@ import { ContactContext } from '@components/Contact/Contact.Context'
 import mediaqueries from '@styles/media'
 import { scrollable } from '@utils'
 import { ExIcon } from '../../icons/ui'
+import { useReduxState } from '@store'
 
 import ContactForm from '../../sections/contact/Contact.ContactForm'
 
 function ContactSlideIn() {
   const { showContact, toggleContact } = useContext(ContactContext)
+  const [{ name }] = useReduxState(state => ({
+    name: state.shortcuts.name,
+  }))
 
   useEffect(() => {
     if (showContact) {
@@ -31,6 +35,15 @@ function ContactSlideIn() {
       scrollable('enable')
     }
   }, [showContact])
+
+  useEffect(() => {
+    if (name === 'CONTACT') {
+      scrollable('disable')
+      toggleContact()
+    } else {
+      scrollable('enable')
+    }
+  }, [name])
 
   return (
     <Frame tabIndex={showContact ? 0 : -1} aria-hidden={!showContact}>

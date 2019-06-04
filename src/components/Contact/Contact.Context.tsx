@@ -5,15 +5,18 @@ import { getBreakpointFromTheme, getWindowDimensions } from '@utils'
 // it returns two components Provider and Consumer
 export const ContactContext = createContext({
   showContact: false,
-  toggleContact: (event: Event) => {},
+  toggleContact: (event?: Event) => {},
 })
 
 export function ContactProvider({ children }: { children: ReactChild }) {
   const [showContact, setShowContact] = useState(false)
 
-  function toggleContact(event: Event) {
-    event.preventDefault()
-    event.stopPropagation()
+  function toggleContact(event?: Event) {
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
     const { width } = getWindowDimensions()
     const tablet = getBreakpointFromTheme('tablet')
 
