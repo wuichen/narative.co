@@ -178,6 +178,7 @@ const MobileControls = styled.div`
   position: relative;
   padding-top: 65px;
   background: ${p => p.theme.mode.background};
+  transition: background 0.2s linear;
   text-align: center;
 
   ${mediaqueries.desktop_up`
