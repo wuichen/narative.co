@@ -40,8 +40,7 @@ function createReadingList(articles) {
     },
     ...articles.map(article => ({
       name: constants.GO_TO_ARTICLE,
-      label: [`${article.node.title}`],
-      search: article.node.title,
+      label: [article.node.title],
       path: article.node.slug,
       featured: article.node.featured,
       icon: ViewIcon,
