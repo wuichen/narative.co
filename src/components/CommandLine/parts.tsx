@@ -100,15 +100,6 @@ export default function createCommandLineParts(name: string) {
   }
 }
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 0;
-  margin: 0 24px;
-  border-bottom: 1px solid rgba(115, 115, 125, 0.3);
-`
-
 const Heading = styled.h1`
   font-size: 16px;
   margin-left: 15px;
@@ -125,8 +116,6 @@ const BackButton = styled.button`
   display: flex;
   align-items: center;
 `
-
-const CloseButton = styled.button``
 
 const Logo = () => (
   <svg

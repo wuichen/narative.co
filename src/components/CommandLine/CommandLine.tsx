@@ -14,7 +14,7 @@ import { scrollable, getBreakpointFromTheme, useResize } from '@utils'
 import mediaqueries from '@styles/media'
 
 /**
- *     __                                                  _     __
+ *      __                                                 _     __
  *    / __\  ___   _ __ ___   _ __ ___    __ _  _ __    __| |   / /  (_) _ __    ___
  *   / /    / _ \ | '_ ` _ \ | '_ ` _ \  / _` || '_ \  / _` |  / /   | || '_ \  / _ \
  *  / /___ | (_) || | | | | || | | | | || (_| || | | || (_| | / /___ | || | | ||  __/
