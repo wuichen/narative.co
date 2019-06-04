@@ -84,7 +84,7 @@ function LabsPage({ data, location }) {
       background: commandlineBackground.publicURL,
       backgroundColor: '#222838',
       excerpt:
-        'We’ve built a new way to discover and navigate our very own website. Narative Command is our interpretation of a classic command line for the web, based off some of your favourite applications.',
+        'Computers have plenty of buttons, so we wondered: why explore the web with just one? Narative Command lets you instantly access any page on Narative.co with simple keyboard shortcuts.',
       children: (
         <>
           <HorizontalRule />
