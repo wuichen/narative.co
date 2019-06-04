@@ -84,7 +84,7 @@ function LabsPage({ data, location }) {
       background: commandlineBackground.publicURL,
       backgroundColor: '#222838',
       excerpt:
-        "Whether you're looking to get inked or you're a tattoo artist yourself, this upcoming app will help you get what you need. Find artists and styles, schedule appointments, book flashes and get paid.",
+        'We’ve built a new way to discover and navigate our very own website. Narative Command is our interpretation of a classic command line for the web, based off some of your favourite applications.',
       children: (
         <>
           <HorizontalRule />
