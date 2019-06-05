@@ -40,7 +40,7 @@ function CommandLine() {
 
   const screenIsWideEnough = width > getBreakpointFromTheme('desktop')
   const open = screenIsWideEnough && name.includes('COMMAND_LINE')
-  const { list, CommandLineHeading } = createCommandLineParts(name)
+  const { list, placeholder, CommandLineHeading } = createCommandLineParts(name)
 
   useEffect(() => {
     // Depending if the commandline is open or not we have to disable scroll
@@ -71,7 +71,12 @@ function CommandLine() {
             <CloseIcon />
           </CloseButton>
         </Header>
-        <CommandLineOptions key={name} list={list} name={name} />
+        <CommandLineOptions
+          key={name}
+          list={list}
+          name={name}
+          placeholder={placeholder}
+        />
       </Frame>
     </OutsideClickHandler>
   )

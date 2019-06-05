@@ -36,6 +36,12 @@ const shortcuts = [
     icon: icons.BookIcon,
   },
   {
+    name: constants.COMMAND_LINE_OPEN_SOURCE,
+    keys: ['shift', 'O'],
+    label: ['View', 'Open Source'],
+    icon: icons.OpenSourceIcon,
+  },
+  {
     name: constants.GO_TO_CAREERS,
     keys: ['G', 'C'],
     label: ['Go to ', 'Careers'],
