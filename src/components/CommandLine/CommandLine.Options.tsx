@@ -41,8 +41,10 @@ function CommandLineOptions({ list = [], name, placeholder }: CommandProps) {
   const [activeCommand, setActive] = useState<number>(0)
   const [isUsingMouse, setIsUsingMouse] = useState<boolean>(false)
 
+  const results: [] = value ? fuse.search(value) : list
+
   const numberOfOptions: number = list.length
-  const results = value ? fuse.search(value) : list
+  const numberOfResults: number = results.length
 
   // Focus input on render
   useEffect(() => {
@@ -92,13 +94,13 @@ function CommandLineOptions({ list = [], name, placeholder }: CommandProps) {
    * option.
    */
   useEffect(() => {
-    if (activeCommand >= results.length) {
-      return setActive(results.length - 1)
+    if (activeCommand >= numberOfResults) {
+      return setActive(numberOfResults - 1)
     }
     if (activeCommand === -1) {
       return setActive(0)
     }
-  }, [results.length])
+  }, [numberOfResults])
 
   /**
    * The user is able to use their mouse to change the highlighted input,
