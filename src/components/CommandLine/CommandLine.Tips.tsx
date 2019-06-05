@@ -79,7 +79,7 @@ function CommandLineTips() {
   return (
     <Frame showToolTip={active} hideToolTip={hide}>
       <TipsContainer>
-        Next time hit,{' '}
+        Next time, hit{' '}
         <SymbolContainer>{shortcutToSymbols(shortcuts)} </SymbolContainer>
         to {shortcutToText(shortcuts)} faster
       </TipsContainer>
