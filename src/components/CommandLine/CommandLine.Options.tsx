@@ -11,7 +11,7 @@ interface CommandProps {
 
 // https://fusejs.io for more insight on the config parameters
 const fuseOptions = {
-  threshold: 0.3,
+  threshold: 0.25,
   location: 0,
   distance: 140, // A large distance so we can search articles easily
   maxPatternLength: 20,
@@ -29,8 +29,8 @@ function createSearchableStrings(item) {
 }
 
 function CommandLineOptions({ list = [], name }: CommandProps) {
-  const filteredList = list.map(createSearchableStrings)
-  const fuse = new Fuse(filteredList, fuseOptions)
+  const searchableList = list.map(createSearchableStrings)
+  const fuse = new Fuse(searchableList, fuseOptions)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
@@ -148,7 +148,7 @@ function CommandLineOptions({ list = [], name }: CommandProps) {
 
           return (
             <Shortcut
-              key={shortcut.name}
+              key={shortcut.search}
               highlight={highlight}
               onClick={() => handleShortcutSelection(results[index])}
               onMouseOver={() => setActive(index)}
