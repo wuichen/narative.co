@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import shortcuts, { constants } from '@shortcuts'
-import { ViewIcon, BookIcon } from '../../icons/ui'
+import { ViewIcon, BookIcon, ExternalIcon } from '../../icons/ui'
 
 /**
  * Command Line Parts
@@ -48,57 +48,109 @@ function createReadingList(articles) {
   ]
 }
 
+function createOpenSourceList() {
+  return [
+    {
+      name: constants.GO_TO_NARATIVE_GITHUB,
+      keys: [],
+      label: ['Narative.co code'],
+      icon: ViewIcon,
+      external: true,
+    },
+    {
+      name: constants.GO_TO_NARATIVE,
+      keys: [],
+      label: ['Narative.co design'],
+      icon: ViewIcon,
+      external: true,
+    },
+    {
+      name: constants.GO_TO_FEY_LOGO,
+      keys: [],
+      label: ['Fey logo design'],
+      icon: ViewIcon,
+      external: true,
+    },
+    {
+      name: constants.GO_TO_HOPPER_WWW,
+      keys: [],
+      label: ['Hopper.com design'],
+      icon: ViewIcon,
+      external: true,
+    },
+    // {
+    //   name: constants.GO_TO_HOPPER_MEDIA,
+    //   keys: [],
+    //   label: ['Hopper Media Center design'],
+    //   icon: ViewIcon,
+    //   external: true,
+    // },
+  ]
+}
+
 export default function createCommandLineParts(name: string) {
   const {
     allContentfulArticle: { edges: articles },
   } = useStaticQuery(articlesQuery)
 
   let list
+  let placeholder
   let CommandLineHeading
 
   switch (name) {
     case constants.COMMAND_LINE_DEFAULT:
       list = createDefaultList()
-      CommandLineHeading = () => (
-        <>
-          <Logo />
-          <Heading>Narative Command</Heading>
-        </>
-      )
+      CommandLineHeading = Default
+      placeholder = 'Search commands'
       break
 
     case constants.COMMAND_LINE_READ:
       list = createReadingList(articles)
-      CommandLineHeading = () => (
-        <BackButton
-          onClick={() =>
-            shortcuts.handleShortcutFeature({
-              name: constants.COMMAND_LINE_DEFAULT,
-            })
-          }
-        >
-          <BackArrow />
-          <Heading>Back</Heading>
-        </BackButton>
-      )
+      CommandLineHeading = Back
+      placeholder = 'Search articles'
+      break
+    case constants.COMMAND_LINE_OPEN_SOURCE:
+      list = createOpenSourceList()
+      CommandLineHeading = Back
+      placeholder = 'Search projects'
       break
 
     default:
-      list = createReadingList(articles)
-      CommandLineHeading = () => (
-        <>
-          <Logo />
-          <Heading>Narative Command</Heading>
-        </>
-      )
+      list = createDefaultList()
+      CommandLineHeading = Default
+      placeholder = 'Search commands'
   }
 
   return {
     list,
+    placeholder,
     CommandLineHeading,
   }
 }
 
+function Default() {
+  return (
+    <>
+      <Logo />
+      <Heading>Narative Command</Heading>
+    </>
+  )
+}
+
+function Back() {
+  return (
+    <BackButton
+      onClick={() =>
+        shortcuts.handleShortcutFeature({
+          name: constants.COMMAND_LINE_DEFAULT,
+        })
+      }
+    >
+      <BackArrow />
+      <Heading>Back</Heading>
+    </BackButton>
+  )
+}
 const Heading = styled.h1`
   font-size: 16px;
   margin-left: 15px;
