@@ -19,12 +19,13 @@ const whitelist = [
  * @param param0
  */
 function shortcutToText({ name }: { name: string }): string {
+  const capitalize = str =>
+    str.charAt(0).toUpperCase() + str.substring(1).toLowerCase()
+
   if (name) {
-    return name
-      .split('_')
-      .join(' ')
-      .toLowerCase()
+    return capitalize(name.split('_').splice(-1)[0])
   }
+
   return ''
 }
 
@@ -81,7 +82,7 @@ function CommandLineTips() {
       <TipsContainer>
         Next time, hit{' '}
         <SymbolContainer>{shortcutToSymbols(shortcuts)} </SymbolContainer>
-        to {shortcutToText(shortcuts)} faster
+        to jump straight to {shortcutToText(shortcuts)}
       </TipsContainer>
     </Frame>
   )

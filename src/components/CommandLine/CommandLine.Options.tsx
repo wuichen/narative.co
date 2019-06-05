@@ -87,6 +87,20 @@ function CommandLineOptions({ list = [], name, placeholder }: CommandProps) {
   }, [numberOfOptions])
 
   /**
+   * Reset the active command as the results change because it's possible
+   * the activeCommand goes beyond the search results leaving no highlighted
+   * option.
+   */
+  useEffect(() => {
+    if (activeCommand >= results.length) {
+      return setActive(results.length - 1)
+    }
+    if (activeCommand === -1) {
+      return setActive(0)
+    }
+  }, [results.length])
+
+  /**
    * The user is able to use their mouse to change the highlighted input,
    * but it's not the same as simple hover styles. The active higlighted
    * is updated on mouseOver so we have to turn off the mouse events when
@@ -105,10 +119,6 @@ function CommandLineOptions({ list = [], name, placeholder }: CommandProps) {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
-
-  if (activeCommand >= numberOfOptions) {
-    setActive(numberOfOptions - 1)
-  }
 
   /**
    * Handling scrolling of the list as the user scrolls up and down with
