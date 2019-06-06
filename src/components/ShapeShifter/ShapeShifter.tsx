@@ -329,7 +329,7 @@ function ShapeShifter() {
    */
   function handleShift($el, len) {
     const maxHeight = JSON.parse($el.getAttribute('data-reset')).maxHeight
-    const limitedLength = pressedKeys.Alt && len > maxHeight ? maxHeight : len
+    const limitedLength = len > maxHeight ? maxHeight : len
 
     if (pressedKeys.Shift) {
       $el.style.width = `${Math.abs(limitedLength)}px`

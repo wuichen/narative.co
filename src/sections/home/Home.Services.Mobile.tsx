@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link, StaticQuery, graphql } from 'gatsby'
+import throttle from 'lodash/throttle'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -44,17 +45,14 @@ function HomeServicesMobile() {
   useEffect(() => {
     const $el = element.current
 
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       const maxOffset = $el.scrollWidth - $el.clientWidth
       const position = clamp($el.scrollLeft / maxOffset, 0, 100)
       setProgress(position)
-    }
+    }, 14)
 
     $el.addEventListener('scroll', handleScroll)
-
-    return () => {
-      $el.removeEventListener('scroll', handleScroll)
-    }
+    return () => $el.removeEventListener('scroll', handleScroll)
   }, [])
 
   const first = progress <= 0.333

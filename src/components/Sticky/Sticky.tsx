@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import throttle from 'lodash/throttle'
 
 import mediaqueries from '@styles/media'
 
@@ -31,7 +32,7 @@ class Sticky extends Component<StickyProps, StickyState> {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  handleScroll = () => {
+  handleScroll = throttle(() => {
     const $el = this.element.current
 
     const scrollPosition = window.pageYOffset || window.scrollY
@@ -58,7 +59,7 @@ class Sticky extends Component<StickyProps, StickyState> {
     const progress = progressOverElement > 1 ? 1 : progressOverElement
 
     this.setState({ position, progress })
-  }
+  }, 14)
 
   render() {
     const { height, render, top, disableOnMobile } = this.props

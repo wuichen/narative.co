@@ -79,6 +79,7 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
 
     if (this.props.nav.fixed && !this.props.nav.isContactPage) {
       window.addEventListener('scroll', this.handleScroll)
+
       this.setState({
         element: document.querySelector('[data-component="hero-mobile"]'),
       })
@@ -115,9 +116,9 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
     return null
   }
 
-  handleScroll = () =>
+  handleScroll = throttle(() => {
     this.setState({ position: clamp(window.pageYOffset, 0, 1000) })
-
+  }, 30)
   /**
    * If the user were to resize their browser window to be larger
    * than our tablet breakpoint, the layout would reflow to a different
@@ -133,7 +134,7 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
     if (width > tablet && this.state.active) {
       this.closeMobileNav()
     }
-  }, 20)
+  }, 30)
 
   /**
    * When we close the mobile nav we have to play a small trick

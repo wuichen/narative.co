@@ -18,7 +18,7 @@ function useWindowOffset() {
   useEffect(() => {
     const handleScroll = throttle(
       () => setWindowSize(calculateWindowOffset()),
-      15
+      14
     )
 
     // We don't want to add the listener beyond the height of the indicator

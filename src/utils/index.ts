@@ -134,7 +134,7 @@ export function useScrollPosition() {
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => setOffset(window.pageYOffset)
+    const handleScroll = throttle(() => setOffset(window.pageYOffset), 30)
     window.addEventListener('scroll', handleScroll)
 
     return () => {
