@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useState, useRef, createRef, useEffect } from 'react'
 import styled from 'styled-components'
-import { StaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import Section from '@components/Section'
 import Heading from '@components/Heading'
-import IntersectionObserver from '@components/IntersectionObserver'
 import Sticky from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
-import Transitions from '@components/Transitions'
 
 import mediaqueries from '@styles/media'
+import throttle from 'lodash/throttle'
+import { getWindowDimensions } from '@utils'
 
 const aboutNarativeText = [
   `Even the most brilliant companies hit points where their focus is
@@ -48,58 +48,66 @@ const imageQuery = graphql`
  * 1. Using a Padding/Margin trick to get the FadeOut to work nicely
  * 2. Overlaying a fixed gradient to get the FadeIn to work nicely
  */
-const HomeAbout = () => (
-  <StaticQuery
-    query={imageQuery}
-    render={({ glow }) => (
-      <>
-        <MobileContainer>
-          <Slash aria-hidden="true" />
-          <MediaContainer>
-            <Media critical src={glow.childImageSharp.fluid} />
-          </MediaContainer>
-        </MobileContainer>
-        <Gradient>
-          <Grid narrow>
-            <Sticky
-              height="682px"
-              top={140}
-              disableOnMobile
-              render={() => <AboutHeading>The Narative Approach</AboutHeading>}
-            />
-            <div>
-              {/*
-                Then each Text node gets it's own IntersectionObserver to handle
-                the margin and padding trick!
-              */}
-              {aboutNarativeText.map(text => (
-                <IntersectionObserver
-                  key={text}
-                  render={({ visiblePercentage }) => (
-                    <TextContainer>
-                      <Transitions.FadeScroll>
-                        <Text
-                          style={{ opacity: visiblePercentage / 100 }}
-                          dangerouslySetInnerHTML={{ __html: text }}
-                        />
-                      </Transitions.FadeScroll>
-                    </TextContainer>
-                  )}
-                />
-              ))}
-            </div>
-          </Grid>
-        </Gradient>
-      </>
-    )}
-  />
-)
+const HomeAbout = () => {
+  const { glow } = useStaticQuery(imageQuery)
+  const refs = useRef(aboutNarativeText.map(() => createRef(null)))
+
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      const { height } = getWindowDimensions()
+
+      refs.current.forEach(element => {
+        const el = element.current
+        const box = el.getBoundingClientRect()
+
+        if (box.top < height / 3.33) {
+          // Fade out the element when it reaches the top 2/3 of the page
+          el.style.opacity = (box.top + el.offsetHeight / 1.5) / (height / 3.33)
+        } else {
+          // Fade in the element from the bottom of the page
+          el.style.opacity = (1 - box.top / height) * 1.66
+        }
+      })
+    }, 15)
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <>
+      <MobileContainer>
+        <Slash aria-hidden="true" />
+        <MediaContainer>
+          <Media src={glow.childImageSharp.fluid} />
+        </MediaContainer>
+      </MobileContainer>
+      <Gradient>
+        <Grid narrow>
+          <Sticky
+            height="682px"
+            top={140}
+            disableOnMobile
+            render={() => <AboutHeading>The Narative Approach</AboutHeading>}
+          />
+          <div>
+            {aboutNarativeText.map((text, index) => (
+              <TextContainer ref={refs.current[index]}>
+                <Text dangerouslySetInnerHTML={{ __html: text }} />
+              </TextContainer>
+            ))}
+          </div>
+        </Grid>
+      </Gradient>
+    </>
+  )
+}
 
 export default HomeAbout
 
 const Gradient = styled.div`
   position: relative;
-  z-index: 3;
+  z-index: 1;
   background: #08080b;
   background: linear-gradient(#08080b, #101216);
 
@@ -107,6 +115,7 @@ const Gradient = styled.div`
     background: linear-gradient(transparent, #101216);
   `};
 `
+
 const Grid = styled(Section)`
   position: relative;
   display: grid;
@@ -114,8 +123,7 @@ const Grid = styled(Section)`
   grid-column-gap: 128px;
   padding-top: 100px;
   padding-bottom: 30px;
-  z-index: 1;
-  pointer-events: none;
+  z-index: 2;
 
   ${mediaqueries.tablet`
     padding-top: 80px;
@@ -126,12 +134,9 @@ const Grid = styled(Section)`
 
 const TextContainer = styled.div`
   position: relative;
-  top: 70px;
-  padding-top: 280px;
-  margin-top: -350px;
-
-  padding-bottom: 140px;
-  margin-bottom: -70px;
+  padding-top: 0;
+  margin-bottom: 75px;
+  will-change: opacity;
 
   ${mediaqueries.tablet`
     font-size: 22px;
