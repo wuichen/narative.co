@@ -267,7 +267,7 @@ function ShapeShifter() {
   function resetStyles($el, mirror) {
     const reset = JSON.parse($el.getAttribute('data-reset'))
     const corners = document.querySelectorAll('[data-corner]')
-    const isInverted = $el.style.transform.includes('scale')
+    const isInverted = $el.style.transform.includes('-1')
     corners.forEach(corner => (corner.style.borderColor = '#6166dc'))
 
     $el.style.transform = ''
