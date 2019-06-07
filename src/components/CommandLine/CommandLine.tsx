@@ -62,6 +62,7 @@ function CommandLine() {
 
   return (
     <OutsideClickHandler onOutsideClick={handleClose}>
+      <Background />
       <Frame>
         <Header>
           <LogoContainer>
@@ -84,9 +85,14 @@ function CommandLine() {
 
 export default CommandLine
 
-const fadeIn = keyframes`
+const fadeInAndUp = keyframes`
   from { opacity: 0; transform: translate(-50%, -48.8%); }
   to { opacity: 1; transform: translate(-50%, -50%); }
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1;  }
 `
 
 const Frame = styled.div`
@@ -105,7 +111,7 @@ const Frame = styled.div`
   opacity: 0;
 
   will-change: opacity, transform;
-  animation: ${fadeIn} 0.25s forwards;
+  animation: ${fadeInAndUp} 0.25s forwards;
   overflow: hidden;
 
   ${mediaqueries.desktop`
@@ -113,6 +119,17 @@ const Frame = styled.div`
   `}
 `
 
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  background: rgba(0, 0, 0, 0.6);
+  animation: ${fadeIn} 0.25s forwards;
+`
 const Header = styled.header`
   display: flex;
   align-items: center;

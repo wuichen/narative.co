@@ -3,8 +3,6 @@ import { ThemeProvider } from 'styled-components'
 import { StoreContext } from 'redux-react-hook'
 import { ContactProvider } from '@components/Contact/Contact.Context'
 
-import LayoutBlur from '@components/Layout/Layout.Blur'
-
 import ContactSlideIn from '@components/Contact/Contact.SlideIn'
 import Container from '@components/Layout/Layout.Container'
 import CommandLine from '@components/CommandLine'
@@ -44,10 +42,8 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
       <ThemeProvider theme={theme}>
         <ContactProvider>
           <>
-            <LayoutBlur>
-              <GlobalStyles />
-              <Container {...rest}>{children}</Container>
-            </LayoutBlur>
+            <GlobalStyles />
+            <Container {...rest}>{children}</Container>
             <ContactSlideIn />
             <CommandLine />
           </>
