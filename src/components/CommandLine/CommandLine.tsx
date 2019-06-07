@@ -104,7 +104,7 @@ const Frame = styled.div`
   margin: 0 auto;
   height: 418px;
   width: 712px;
-  background: rgba(29, 33, 40, 0.97);
+  background: rgba(29, 33, 40, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 25px 30px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -121,13 +121,14 @@ const Frame = styled.div`
 
 const Background = styled.div`
   position: fixed;
+  z-index: 2147483646;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   user-select: none;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.66);
   animation: ${fadeIn} 0.25s forwards;
 `
 const Header = styled.header`
