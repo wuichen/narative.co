@@ -621,7 +621,7 @@ function ShapeShifter() {
 export default ShapeShifter
 
 const scaleIn = keyframes`
-  from { transform: scale(1.25); opacity: 0 }
+  from { transform: scale(1.22); opacity: 0 }
   to { transform: scale(1); opacity: 1 }
 `
 
@@ -639,7 +639,7 @@ const Frame = styled.div`
   border-color: ${p => (p.animate ? '#6166dc' : 'transparent')};
   opacity: 0;
   transform: scale(1.2);
-  animation: ${scaleIn} 3s cubic-bezier(0.25, 0.1, 0.25, 1) 0.5s forwards;
+  animation: ${scaleIn} 3.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.5s forwards;
 
   ${mediaqueries.desktop`
     display: none;
