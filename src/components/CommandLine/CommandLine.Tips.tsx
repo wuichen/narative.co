@@ -43,7 +43,7 @@ function shortcutToSymbols({ keys }: { keys: string[] }): React.ReactElement[] {
     })
   }
 
-  return [<div />]
+  return [<div key="default" />]
 }
 
 function CommandLineTips() {
@@ -102,6 +102,7 @@ const Frame = styled.div<{ showToolTip: boolean; hideToolTip: boolean }>`
   margin: 0 auto;
   pointer-events: none;
   user-select: none;
+  z-index: 2147483647;
 
   opacity: ${p => (p.showToolTip ? 1 : 0)};
   transform: ${p =>

@@ -621,8 +621,8 @@ function ShapeShifter() {
 export default ShapeShifter
 
 const scaleIn = keyframes`
-  from { transform: scale(1.2); }
-  to { transform: scale(1); }
+  from { transform: scale(1.25); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
 `
 
 const Frame = styled.div`
@@ -637,7 +637,9 @@ const Frame = styled.div`
   flex-direction: column;
   user-select: none;
   border-color: ${p => (p.animate ? '#6166dc' : 'transparent')};
-  animation: ${scaleIn} 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  opacity: 0;
+  transform: scale(1.2);
+  animation: ${scaleIn} 3s cubic-bezier(0.25, 0.1, 0.25, 1) 0.5s forwards;
 
   ${mediaqueries.desktop`
     display: none;
@@ -656,7 +658,7 @@ const Vector = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
   pointer-events: none;
 `
 
@@ -712,8 +714,8 @@ const ShapeContainer = styled.div`
   border-color: ${p => (p.animate ? '#6166dc' : 'transparent')};
   opacity: ${p => (p.animate ? 1 : 0)};
   z-index: 1;
-  transition: opacity 3s ease-out, border-color 1.4s 0.8s, width 0.6s,
-    height 0.6s;
+  transition: opacity 3s ease-out 0.5s, border-color 1.4s 1.3s, width 1.1s,
+    height 1.1s;
 
   &::after {
     content: '';
@@ -745,7 +747,7 @@ const ShapeContainer = styled.div`
 
 const ShapeGlow = styled.div`
   opacity: ${p => (p.animate ? 1 : 0)};
-  transition: opacity 1.4s 2.4s;
+  transition: opacity 1.4s 2.8s;
   pointer-events: none;
   position: absolute;
   width: 375px;
@@ -761,7 +763,7 @@ const ShapeGlow = styled.div`
 
 const Corners = styled.div`
   opacity: ${p => (p.animate ? 1 : 0)};
-  transition: opacity 1.4s 0.8s;
+  transition: opacity 1.4s 1.3s;
   pointer-events: none;
 `
 

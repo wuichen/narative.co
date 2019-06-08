@@ -1,4 +1,4 @@
-import React, { useState, useRef, createRef, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 
@@ -8,8 +8,6 @@ import Sticky from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
 
 import mediaqueries from '@styles/media'
-import throttle from 'lodash/throttle'
-import { getWindowDimensions } from '@utils'
 
 const aboutNarativeText = [
   `Even the most brilliant companies hit points where their focus is
@@ -50,29 +48,6 @@ const imageQuery = graphql`
  */
 const HomeAbout = () => {
   const { glow } = useStaticQuery(imageQuery)
-  const refs = useRef(aboutNarativeText.map(() => createRef(null)))
-
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const { height } = getWindowDimensions()
-
-      refs.current.forEach(element => {
-        const el = element.current
-        const box = el.getBoundingClientRect()
-
-        if (box.top < height / 3.33) {
-          // Fade out the element when it reaches the top 2/3 of the page
-          el.style.opacity = (box.top + el.offsetHeight / 1.5) / (height / 3.33)
-        } else {
-          // Fade in the element from the bottom of the page
-          el.style.opacity = (1 - box.top / height) * 1.66
-        }
-      })
-    }, 15)
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   return (
     <>
@@ -91,8 +66,8 @@ const HomeAbout = () => {
             render={() => <AboutHeading>The Narative Approach</AboutHeading>}
           />
           <div>
-            {aboutNarativeText.map((text, index) => (
-              <TextContainer ref={refs.current[index]}>
+            {aboutNarativeText.map(text => (
+              <TextContainer data-scroll-fade={true}>
                 <Text dangerouslySetInnerHTML={{ __html: text }} />
               </TextContainer>
             ))}

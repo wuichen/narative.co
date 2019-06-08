@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link, StaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
 import {
@@ -50,73 +50,69 @@ const galleryDescriptions = [
  * - Careers
  */
 function CareersBody() {
+  const { gallery } = useStaticQuery(galleryQuery)
+
   return (
-    <StaticQuery
-      query={galleryQuery}
-      render={({ gallery }) => (
-        <>
-          <CareersRow header="Why Narative">
-            <SectionCopy maxWidth="69rem">
-              At Narative, nobody has a "boss". Instead, we hold a common goal,
-              where everyone owns executive level decision, regardless of
-              position. We teach and learn from each other everyday, with growth
-              based on trust and relationships.
+    <>
+      <CareersRow header="Why Narative">
+        <SectionCopy maxWidth="69rem">
+          At Narative, nobody has a "boss". Instead, we hold a common goal,
+          where everyone owns executive level decision, regardless of position.
+          We teach and learn from each other everyday, with growth based on
+          trust and relationships.
+        </SectionCopy>
+      </CareersRow>
+      <CareersRow header="Working at Narative">
+        <FlexColumn>
+          <WhatWeDoContent>
+            <SectionCopy maxWidth="42rem">
+              Not only are we mindful of the projects we select, we get to
+              choose how and when we work, to ensure we're at our best.
             </SectionCopy>
-          </CareersRow>
-          <CareersRow header="Working at Narative">
-            <FlexColumn>
-              <WhatWeDoContent>
-                <SectionCopy maxWidth="42rem">
-                  Not only are we mindful of the projects we select, we get to
-                  choose how and when we work, to ensure we're at our best.
-                </SectionCopy>
-              </WhatWeDoContent>
-              <WhatWeDoList>
-                <Perks />
-              </WhatWeDoList>
-            </FlexColumn>
-          </CareersRow>
+          </WhatWeDoContent>
+          <WhatWeDoList>
+            <Perks />
+          </WhatWeDoList>
+        </FlexColumn>
+      </CareersRow>
 
-          {/* Horizontal scroll Gallery */}
-          <CareersRow header="We have fun">
-            <SectionCopy maxWidth="67rem">
-              Since we're all remote, it's always a party when the team gets
-              together. And we like food... a lot.
-            </SectionCopy>
-            <CareersImages
-              images={gallery.edges}
-              descriptions={galleryDescriptions}
-            />
-          </CareersRow>
+      {/* Horizontal scroll Gallery */}
+      <CareersRow header="We have fun">
+        <SectionCopy maxWidth="67rem">
+          Since we're all remote, it's always a party when the team gets
+          together. And we like food... a lot.
+        </SectionCopy>
+        <CareersImages
+          images={gallery.edges}
+          descriptions={galleryDescriptions}
+        />
+      </CareersRow>
 
-          {/* Graph with Studio and Labs */}
-          <CareersRow
-            header={
-              <div style={{ paddingRight: '2.5rem' }}>Building our future</div>
-            }
-          >
-            <SectionCopy maxWidth="67rem">
-              We engage with exceptional clients to fund our own ideas.
-              Displaying our core beliefs through the development of our own
-              products. We call this{' '}
-              <LabsLink to="/labs">Narative Labs</LabsLink>.
-            </SectionCopy>
-          </CareersRow>
-          <CareersGraph />
+      {/* Graph with Studio and Labs */}
+      <CareersRow
+        header={
+          <div style={{ paddingRight: '2.5rem' }}>Building our future</div>
+        }
+      >
+        <SectionCopy maxWidth="67rem">
+          We engage with exceptional clients to fund our own ideas. Displaying
+          our core beliefs through the development of our own products. We call
+          this <LabsLink to="/labs">Narative Labs</LabsLink>.
+        </SectionCopy>
+      </CareersRow>
+      <CareersGraph />
 
-          {/* Get a job at Narative */}
-          <CareersRow header="Say hello">
-            <SectionCopy maxWidth="67rem">
-              If you have the devotion, the curiosity and the desire to build
-              great things, you might fit right in.
-            </SectionCopy>
-          </CareersRow>
-          <Section narrow>
-            <CareersAccordian />
-          </Section>
-        </>
-      )}
-    />
+      {/* Get a job at Narative */}
+      <CareersRow header="Say hello">
+        <SectionCopy maxWidth="67rem">
+          If you have the devotion, the curiosity and the desire to build great
+          things, you might fit right in.
+        </SectionCopy>
+      </CareersRow>
+      <Section narrow>
+        <CareersAccordian />
+      </Section>
+    </>
   )
 }
 

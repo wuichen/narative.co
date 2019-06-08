@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Transitions, Section, Heading } from '@components'
+import { Section, Heading } from '@components'
 import mediaqueries from '@styles/media'
 
 /**
@@ -23,15 +23,13 @@ const CareerRow = ({
   header: string
   hideOverflow?: boolean
 }) => (
-  <CareerRowSpacer>
-    <Transitions.FadeScroll>
-      <Section hideOverflow={hideOverflow} narrow>
-        <CareerRowContainer>
-          <CareerRowHeader>{header}</CareerRowHeader>
-          <CareerRowContent>{children}</CareerRowContent>
-        </CareerRowContainer>
-      </Section>
-    </Transitions.FadeScroll>
+  <CareerRowSpacer data-scroll-fade={true}>
+    <Section hideOverflow={hideOverflow} narrow>
+      <CareerRowContainer>
+        <CareerRowHeader>{header}</CareerRowHeader>
+        <CareerRowContent>{children}</CareerRowContent>
+      </CareerRowContainer>
+    </Section>
   </CareerRowSpacer>
 )
 

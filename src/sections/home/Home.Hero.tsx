@@ -20,9 +20,11 @@ function HomeHero() {
         <Section>
           <IntersectionObserver
             render={({ intersectionRatio: ir }) => (
-              <Transitions.CSS.FadeIn>
-                <ContentContainer style={ir ? { opacity: ir * ir } : {}}>
-                  <TextContainer>
+              <ContentContainer
+                style={ir ? { opacity: ir * ir } : { opacity: 1 }}
+              >
+                <TextContainer>
+                  <Transitions.CSS.FadeIn>
                     <Heading.h1>
                       Narative brands, builds and markets products on behalf of
                       growth-minded companies.
@@ -32,10 +34,10 @@ function HomeHero() {
                       your business take the next step.
                     </MainText>
                     <ButtonArrow onClick={toggleContact} text="Get in touch" />
-                  </TextContainer>
-                  <ShapeShifter />
-                </ContentContainer>
-              </Transitions.CSS.FadeIn>
+                  </Transitions.CSS.FadeIn>
+                </TextContainer>
+                <ShapeShifter />
+              </ContentContainer>
             )}
           />
           <ScrollIndicator />

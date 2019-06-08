@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import throttle from 'lodash/throttle'
 
@@ -14,100 +14,86 @@ const rows = createArrayWithLegth(11)
 const columns = createArrayWithLegth(7)
 const months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct']
 
-class CareersGraph extends Component {
-  state = {
-    animate: false,
-  }
+function CareersGraph() {
+  const [animate, setAnimate] = useState(false)
 
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize)
-  }
+  const graphRef = useRef<HTMLDivElement>(null)
+  const containerRref = useRef<HTMLDivElement>(null)
 
-  componentDidWillunmount() {
-    window.addEventListener('resize', this.handleResize)
-  }
-
-  handleResize = throttle(() => {
-    if (!this.graph || !this.container) return
-
-    const subractor = this.graph.offsetHeight > 250 ? 13 : 9
-
-    this.container.style.height = `${this.graph.offsetHeight - subractor}px`
-  }, 16)
-
-  handlePercentage = visiblePercentage => {
+  function handlePercentage(visiblePercentage: number) {
     if (visiblePercentage > 33) {
-      this.setState({ animate: true })
+      setAnimate(true)
     }
   }
 
-  render() {
-    const { animate } = this.state
+  useEffect(() => {
+    const handleResize = throttle(() => {
+      const subractor = graphRef.current.offsetHeight > 250 ? 13 : 9
+      containerRef.current.style.height = `${graphRef.current.offsetHeight -
+        subractor}px`
+    }, 16)
 
-    return (
-      <>
-        <Hidden>
-          A Graph showing the relationship of growth between Narative Labs and
-          Narative Studio.
-        </Hidden>
-        <IntersectionObserver
-          render={({ visiblePercentage }) => {
-            if (!animate) {
-              this.handlePercentage(visiblePercentage)
-            }
+    window.addEventListener('resize', handleResize)
+    return () => window.addEventListener('resize', handleResize)
+  }, [])
 
-            return (
-              <CareersGraphContainer aria-hidden="true">
-                <CareersGraphGrid ref={svg => (this.container = svg)}>
-                  <CareersGraphGridRowContainer>
-                    {rows.map((item, index) => (
-                      <CareersGraphGridRow
+  return (
+    <>
+      <Hidden>
+        A Graph showing the relationship of growth between Narative Labs and
+        Narative Studio.
+      </Hidden>
+      <IntersectionObserver
+        render={({ visiblePercentage }) => {
+          if (!animate) handlePercentage(visiblePercentage)
+
+          return (
+            <CareersGraphContainer aria-hidden="true" data-scroll-fade={true}>
+              <CareersGraphGrid ref={containerRref}>
+                <CareersGraphGridRowContainer>
+                  {rows.map((_, index) => (
+                    <CareersGraphGridRow
+                      key={index}
+                      animate={animate}
+                      index={rows.length - index + 1}
+                      style={{ top: `${index * 10}%` }}
+                    />
+                  ))}
+                </CareersGraphGridRowContainer>
+                <CareersGraphGridColumnContainer animate={animate}>
+                  {columns.map((_, index) => (
+                    <CareersGraphGridColumn
+                      key={index}
+                      style={{ left: `${index * 14.028}%` }}
+                    />
+                  ))}
+                </CareersGraphGridColumnContainer>
+                <CareersGraphSVGContainer ref={graphRef} animate={animate}>
+                  <CareersGraphSVG aria-hidden="true" />
+                </CareersGraphSVGContainer>
+                <LabelsContainer animate={animate}>
+                  <YLabels>
+                    <YLabs>Labs</YLabs>
+                    <YStudio>Studio</YStudio>
+                  </YLabels>
+                  <XLabelsContainer>
+                    {months.map((month, index) => (
+                      <XLabels
                         key={index}
-                        animate={animate}
-                        index={rows.length - index + 1}
-                        style={{ top: `${index * 10}%` }}
-                      />
+                        style={{ left: `${(index * 100) / 7.3}%` }}
+                      >
+                        {month}
+                      </XLabels>
                     ))}
-                  </CareersGraphGridRowContainer>
-                  <CareersGraphGridColumnContainer animate={animate}>
-                    {columns.map((item, index) => (
-                      <CareersGraphGridColumn
-                        key={index}
-                        style={{ left: `${index * 14.028}%` }}
-                      />
-                    ))}
-                  </CareersGraphGridColumnContainer>
-                  <CareersGraphSVGContainer
-                    ref={svg => (this.graph = svg)}
-                    animate={animate}
-                  >
-                    <CareersGraphSVG aria-hidden="true" />
-                  </CareersGraphSVGContainer>
-                  <LabelsContainer animate={animate}>
-                    <YLabels>
-                      <YLabs>Labs</YLabs>
-                      <YStudio>Studio</YStudio>
-                    </YLabels>
-                    <XLabelsContainer>
-                      {months.map((month, index) => (
-                        <XLabels
-                          key={index}
-                          style={{ left: `${(index * 100) / 7.3}%` }}
-                        >
-                          {month}
-                        </XLabels>
-                      ))}
-                    </XLabelsContainer>
-                  </LabelsContainer>
-                </CareersGraphGrid>
-              </CareersGraphContainer>
-            )
-          }}
-        />
-      </>
-    )
-  }
+                  </XLabelsContainer>
+                </LabelsContainer>
+              </CareersGraphGrid>
+            </CareersGraphContainer>
+          )
+        }}
+      />
+    </>
+  )
 }
 
 export default CareersGraph
