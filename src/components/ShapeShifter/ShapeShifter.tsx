@@ -65,12 +65,14 @@ let pressedKeys: {} = {}
  */
 const query = graphql`
   query ShapeShipfterQuery {
-    glowImage: file(name: { regex: "/glow@2x/" }) {
-      childImageSharp {
-        fixed(width: 375, height: 375, quality: 100) {
-          ...GatsbyImageSharpFixed_noBase64
-        }
-      }
+    glowImage: file(name: { regex: "/glow@1x/" }) {
+      publicURL
+      # childImageSharp {
+      #   url
+      # fixed(width: 375, height: 375, quality: 100) {
+      #   ...GatsbyImageSharpFixed_noBase64
+      # }
+      # }
     }
   }
 `
@@ -293,8 +295,8 @@ function ShapeShifter() {
     numbers.current.style.opacity = 0
     numbers.current.style.transform = ''
     numbers.current.style.color = '#6166dc'
-    glow.current.style.opacity = 1
-    glow.current.style.transition = 'opacity 1.6s linear'
+    glow.current.style.opacity = 0.6
+    glow.current.style.transition = 'opacity 0.3s linear'
   }
 
   // Handles showing of the Width x Heights units under the shape
@@ -573,7 +575,7 @@ function ShapeShifter() {
           <ShapesContainer>
             <Relative ref={rel} style={activeStyles}>
               <ShapeGlow ref={glow} animate={animate}>
-                <Media src={glowImage.childImageSharp.fixed} />
+                <Media src={glowImage.publicURL} />
               </ShapeGlow>
               <ShapeContainer
                 style={activeStyles}
@@ -746,19 +748,20 @@ const ShapeContainer = styled.div`
 `
 
 const ShapeGlow = styled.div`
-  opacity: ${p => (p.animate ? 1 : 0)};
+  opacity: ${p => (p.animate ? 0.6 : 0)};
   transition: opacity 1.4s 2.8s;
   pointer-events: none;
   position: absolute;
   width: 375px;
   height: 375px;
-  left: -40px;
-  top: -50px;
-  transform: scale(1.8, 2.8);
+  height: 375px;
+    left: -250px;
+    top: -180px;
+  /* transform: scale(1.8, 2.8);
 
   ${mediaqueries.desktop_large`
       transform: scale(1.4, 2.4);
-  `}
+  `} */
 `
 
 const Corners = styled.div`
