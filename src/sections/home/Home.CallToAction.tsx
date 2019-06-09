@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import styled from 'styled-components'
-import { Link, graphql, StaticQuery } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Logo from '@components/Logo'
 import IntersectionObserver from '@components/IntersectionObserver'
@@ -18,18 +18,6 @@ const ctaLinks = [
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
 ]
-
-const imageQuery = graphql`
-  query HomeCTAQuery {
-    file(name: { regex: "/waves-texture-1/" }) {
-      childImageSharp {
-        original {
-          src
-        }
-      }
-    }
-  }
-`
 
 /**
  * <HomeCallToAction />
@@ -60,83 +48,75 @@ function HomeCallToAction() {
   }
 
   return (
-    <StaticQuery
-      query={imageQuery}
-      render={({ file }) => (
-        <Background>
-          <IntersectionObserver
-            render={({ visiblePercentage }) => (
-              <Frame narrow>
-                <Nav inView={visiblePercentage > 80}>
-                  <LogoContainer>
-                    <Logo fill="rgba(255,255,255,0.3)" aria-hidden="true" />
-                  </LogoContainer>
-                  <MobileLogoContainer>
-                    <MobileLogo aria-hidden="true" />
-                  </MobileLogoContainer>
-                  <NavLinks>
-                    {ctaLinks.map(link => {
-                      if (link.to === '/contact') {
-                        return (
-                          <NavLink
-                            key={link.to}
-                            to={link.to}
-                            tabIndex={-1}
-                            onClick={event => {
-                              event.preventDefault()
-                              toggleContact(event)
-                            }}
-                          >
-                            {link.text}
-                          </NavLink>
-                        )
-                      }
+    <Background>
+      <IntersectionObserver
+        render={({ visiblePercentage }) => (
+          <Frame narrow>
+            <Nav inView={visiblePercentage > 80}>
+              <LogoContainer>
+                <Logo fill="rgba(255,255,255,0.3)" aria-hidden="true" />
+              </LogoContainer>
+              <MobileLogoContainer>
+                <MobileLogo aria-hidden="true" />
+              </MobileLogoContainer>
+              <NavLinks>
+                {ctaLinks.map(link => {
+                  if (link.to === '/contact') {
+                    return (
+                      <NavLink
+                        key={link.to}
+                        to={link.to}
+                        tabIndex={-1}
+                        onClick={event => {
+                          event.preventDefault()
+                          toggleContact(event)
+                        }}
+                      >
+                        {link.text}
+                      </NavLink>
+                    )
+                  }
 
-                      return (
-                        <NavLink
-                          key={link.to}
-                          to={link.to}
-                          tabIndex={-1}
-                          onClick={handleShortcutReset}
-                        >
-                          {link.text}
-                        </NavLink>
-                      )
-                    })}
-                  </NavLinks>
-                </Nav>
-                <TextContainer>
-                  <TextBackground
-                    background={file.childImageSharp.original.src}
-                    visiblePercentage={visiblePercentage}
-                  >
-                    <Text>
-                      Together, let's discover what your company is truly
-                      capable of.
-                    </Text>
-                  </TextBackground>
-                  <MobileAction to="/contact">Get in touch</MobileAction>
-                </TextContainer>
-                <CallToAction onClick={toggleContact}>
-                  <CTAText
-                    animation={showContact}
-                    onClick={toggleContact}
-                    ref={buttonRef}
-                    data-a11y="false"
-                  >
-                    Contact Us <ChevronDownIcon aria-hidden="true" />
-                  </CTAText>
-                </CallToAction>
-                <MobileCopy>More about Narative</MobileCopy>
-              </Frame>
-            )}
-          />
-          <MediaQuery maxWidth="tablet">
-            <Footer />
-          </MediaQuery>
-        </Background>
-      )}
-    />
+                  return (
+                    <NavLink
+                      key={link.to}
+                      to={link.to}
+                      tabIndex={-1}
+                      onClick={handleShortcutReset}
+                    >
+                      {link.text}
+                    </NavLink>
+                  )
+                })}
+              </NavLinks>
+            </Nav>
+            <TextContainer>
+              <TextBackground visiblePercentage={visiblePercentage}>
+                <Text>
+                  Together, let's discover what your company is truly capable
+                  of.
+                </Text>
+              </TextBackground>
+              <MobileAction to="/contact">Get in touch</MobileAction>
+            </TextContainer>
+            <CallToAction onClick={toggleContact}>
+              <CTAText
+                animation={showContact}
+                onClick={toggleContact}
+                ref={buttonRef}
+                data-a11y="false"
+              >
+                Contact Us <ChevronDownIcon aria-hidden="true" />
+              </CTAText>
+            </CallToAction>
+            <MobileCopy>More about Narative</MobileCopy>
+          </Frame>
+        )}
+      />
+      <MediaQuery maxWidth="tablet">
+        <Footer />
+      </MediaQuery>
+    </Background>
   )
 }
 
@@ -253,7 +233,15 @@ const TextBackground = styled.div`
   padding-top: 200px;
   margin-top: -200px;
   background-repeat: no-repeat;
-  background-image: url(${p => p.background});
+  background-image: linear-gradient(
+    112.72deg,
+    #d2c2b3 4.64%,
+    #d7d7d9 30.41%,
+    #c3c5c8 49.82%,
+    #a0a49b 71.09%,
+    #dcdddc 87.93%
+  );
+
   background-size: cover;
   color: transparent !important;
   background-position: 0 120px;
