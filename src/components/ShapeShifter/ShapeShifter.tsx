@@ -757,7 +757,7 @@ const ShapeGlow = styled.div`
   height: 375px;
   left: -40px;
   top: -50px;
-  transform: scale(1.8, 2.8);
+  transform: scale(1.8, 2.2);
 
   ${mediaqueries.desktop_large`
       transform: scale(1.4, 2.4);
