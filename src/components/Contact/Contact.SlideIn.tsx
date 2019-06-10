@@ -41,7 +41,9 @@ function ContactSlideIn() {
       scrollable('disable')
       toggleContact()
     } else {
-      scrollable('enable')
+      if (!name.includes('COMMAND_LINE')) {
+        scrollable('enable')
+      }
     }
   }, [name])
 

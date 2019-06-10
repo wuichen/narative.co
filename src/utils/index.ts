@@ -123,6 +123,7 @@ export function useResize() {
  */
 export const scrollable = (action: string) => {
   if (action.toLowerCase() === 'enable') {
+    console.log('fired')
     document.body.style.cssText = null
   } else {
     document.body.style.overflow = 'hidden'

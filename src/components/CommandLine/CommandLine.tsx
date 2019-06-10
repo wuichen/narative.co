@@ -43,6 +43,7 @@ function CommandLine() {
   const { list, placeholder, CommandLineHeading } = createCommandLineParts(name)
 
   useEffect(() => {
+    console.log({ name, open })
     // Depending if the commandline is open or not we have to disable scroll
     if (open) {
       scrollable('disable')
