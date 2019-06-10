@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { useSpring, animated } from 'react-spring'
 import throttle from 'lodash/throttle'
 
@@ -53,13 +53,6 @@ export const services = [
 
 const imageQuery = graphql`
   query SerivesImageQuery {
-    texture: file(name: { regex: "/waves-texture-2/" }) {
-      childImageSharp {
-        original {
-          src
-        }
-      }
-    }
     first: file(name: { regex: "/desktop-home-brand/" }) {
       childImageSharp {
         fluid(maxWidth: 787, quality: 100) {
@@ -214,6 +207,7 @@ function HomeServices() {
   }))
   const heading = createRef()
   const { showContact, toggleContact } = useContext(ContactContext)
+  const { first, second, third } = useStaticQuery(imageQuery)
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -237,128 +231,122 @@ function HomeServices() {
 
   return (
     <>
-      <StaticQuery
-        query={imageQuery}
-        render={({ texture, first, second, third }) => (
-          <HomeServicesDesktop>
-            <Section>
-              <IntersectionObserver
-                render={({ entering, boundingClientRect }) => {
-                  return (
-                    <animated.div style={animatedStyles}>
-                      <HeadingBackground
-                        background={texture.childImageSharp.original.src}
-                        style={calcOpacity(entering, boundingClientRect.top)}
-                      >
-                        <LargeHeading ref={heading}>
-                          Narative helps you brand, build and grow.
-                        </LargeHeading>
-                      </HeadingBackground>
-                    </animated.div>
-                  )
-                }}
-              />
-            </Section>
-            <Sticky
-              height="333vh"
-              render={({ progress }) => {
-                const getActive = calculateActive(progress)
-                const offset = calculateOffset(progress)
+      <HomeServicesDesktop>
+        <Section>
+          <IntersectionObserver
+            render={({ entering, boundingClientRect }) => {
+              return (
+                <animated.div style={animatedStyles}>
+                  <HeadingBackground
+                    style={calcOpacity(entering, boundingClientRect.top)}
+                  >
+                    <LargeHeading ref={heading}>
+                      Narative helps you brand, build and grow.
+                    </LargeHeading>
+                  </HeadingBackground>
+                </animated.div>
+              )
+            }}
+          />
+        </Section>
+        <Sticky
+          height="333vh"
+          render={({ progress }) => {
+            const getActive = calculateActive(progress)
+            const offset = calculateOffset(progress)
 
-                const firstActive: boolean = getActive(0)
-                const secondActive: boolean = getActive(1)
-                const thirdActive: boolean = getActive(2)
+            const firstActive: boolean = getActive(0)
+            const secondActive: boolean = getActive(1)
+            const thirdActive: boolean = getActive(2)
 
-                const background = firstActive
-                  ? '#556767'
-                  : secondActive
-                  ? '#5f6f82'
-                  : '#59698a'
+            const background = firstActive
+              ? '#556767'
+              : secondActive
+              ? '#5f6f82'
+              : '#59698a'
 
-                const progressStyles = {
-                  transform: `translateY(${offset.offset}px)`,
-                  height: '100%',
-                  top: 0,
-                  background,
-                }
+            const progressStyles = {
+              transform: `translateY(${offset.offset}px)`,
+              height: '100%',
+              top: 0,
+              background,
+            }
 
-                return (
-                  <Grid>
-                    <ImageSlides>
-                      <ImageSlide critical active={firstActive}>
-                        <Media src={first.childImageSharp.fluid} />
-                        <Time />
-                      </ImageSlide>
-                      <ImageSlide active={secondActive}>
-                        <Media critical src={second.childImageSharp.fluid} />
-                        <Code />
-                      </ImageSlide>
-                      <ImageSlide active={thirdActive}>
-                        <Media critical src={third.childImageSharp.fluid} />
-                      </ImageSlide>
-                    </ImageSlides>
-                    <Column>
-                      <Value id="grid-value" active={firstActive}>
-                        <Heading.h2>Brand</Heading.h2>
-                        <List>
-                          <ListItem>Visual identity</ListItem>
-                          <ListItem>Strategic messaging</ListItem>
-                          <ListItem>Customer journeys</ListItem>
-                        </List>
-                        <StyledLink
-                          onClick={toggleContact}
-                          active={firstActive}
-                          tabIndex={firstActive ? 0 : -1}
-                        >
-                          Let’s talk about your brand
-                        </StyledLink>
-                        <Progress style={progressStyles} />
-                      </Value>
-                      <Value active={secondActive}>
-                        <Transform active={secondActive || thirdActive}>
-                          <Heading.h2>Build</Heading.h2>
-                          <List>
-                            <ListItem>Responsive websites</ListItem>
-                            <ListItem>Content management systems</ListItem>
-                            <ListItem>Cross-platform apps</ListItem>
-                          </List>
-                        </Transform>
-                        <StyledLink
-                          onClick={toggleContact}
-                          active={secondActive}
-                          tabIndex={secondActive ? 0 : -1}
-                        >
-                          Let's build something together
-                        </StyledLink>
-                      </Value>
-                      <Value active={thirdActive}>
-                        <Transform active={thirdActive}>
-                          <Heading.h2>Grow</Heading.h2>
-                          <List>
-                            <ListItem>Content strategy</ListItem>
-                            <ListItem>Conversion optimization</ListItem>
-                            <ListItem>Nurturing and onboarding</ListItem>
-                          </List>
-                        </Transform>
-                        <StyledLink
-                          onClick={toggleContact}
-                          active={thirdActive}
-                          tabIndex={thirdActive ? 0 : -1}
-                        >
-                          Let’s grow your business
-                        </StyledLink>
-                      </Value>
-                    </Column>
-                    <Column gradient />
-                    <Column gradient />
-                    <Column />
-                  </Grid>
-                )
-              }}
-            />
-          </HomeServicesDesktop>
-        )}
-      />
+            return (
+              <Grid>
+                <ImageSlides>
+                  <ImageSlide critical active={firstActive}>
+                    <Media src={first.childImageSharp.fluid} />
+                    <Time />
+                  </ImageSlide>
+                  <ImageSlide active={secondActive}>
+                    <Media critical src={second.childImageSharp.fluid} />
+                    <Code />
+                  </ImageSlide>
+                  <ImageSlide active={thirdActive}>
+                    <Media critical src={third.childImageSharp.fluid} />
+                  </ImageSlide>
+                </ImageSlides>
+                <Column>
+                  <Value id="grid-value" active={firstActive}>
+                    <Heading.h2>Brand</Heading.h2>
+                    <List>
+                      <ListItem>Visual identity</ListItem>
+                      <ListItem>Strategic messaging</ListItem>
+                      <ListItem>Customer journeys</ListItem>
+                    </List>
+                    <StyledLink
+                      onClick={toggleContact}
+                      active={firstActive}
+                      tabIndex={firstActive ? 0 : -1}
+                    >
+                      Let’s talk about your brand
+                    </StyledLink>
+                    <Progress style={progressStyles} />
+                  </Value>
+                  <Value active={secondActive}>
+                    <Transform active={secondActive || thirdActive}>
+                      <Heading.h2>Build</Heading.h2>
+                      <List>
+                        <ListItem>Responsive websites</ListItem>
+                        <ListItem>Content management systems</ListItem>
+                        <ListItem>Cross-platform apps</ListItem>
+                      </List>
+                    </Transform>
+                    <StyledLink
+                      onClick={toggleContact}
+                      active={secondActive}
+                      tabIndex={secondActive ? 0 : -1}
+                    >
+                      Let's build something together
+                    </StyledLink>
+                  </Value>
+                  <Value active={thirdActive}>
+                    <Transform active={thirdActive}>
+                      <Heading.h2>Grow</Heading.h2>
+                      <List>
+                        <ListItem>Content strategy</ListItem>
+                        <ListItem>Conversion optimization</ListItem>
+                        <ListItem>Nurturing and onboarding</ListItem>
+                      </List>
+                    </Transform>
+                    <StyledLink
+                      onClick={toggleContact}
+                      active={thirdActive}
+                      tabIndex={thirdActive ? 0 : -1}
+                    >
+                      Let’s grow your business
+                    </StyledLink>
+                  </Value>
+                </Column>
+                <Column gradient />
+                <Column gradient />
+                <Column />
+              </Grid>
+            )
+          }}
+        />
+      </HomeServicesDesktop>
       <HomeServicesMobile />
     </>
   )
@@ -379,11 +367,16 @@ const HeadingBackground = styled.div`
   position: relative;
   -webkit-background-clip: text;
   background-clip: text;
-
   background-repeat: no-repeat;
-  background-image: url(${p => p.background});
+  background-image: linear-gradient(
+    92.62deg,
+    #bfa8a7 0.99%,
+    #cfd3de 34.85%,
+    #adbbd2 67.46%,
+    #9facac 79.92%,
+    #e0dbce 93.48%
+  );
   color: transparent !important;
-  background-position: bottom left;
   max-width: 900px;
   padding-bottom: 400px;
   margin-bottom: -250px;

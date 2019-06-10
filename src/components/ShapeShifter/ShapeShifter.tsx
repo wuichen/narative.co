@@ -19,7 +19,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import throttle from 'lodash/throttle'
-import { StaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import { isSafari, isFireFox } from 'react-device-detect'
 
 import Media from '@components/Media/Media.Img'
@@ -63,16 +63,14 @@ let pressedKeys: {} = {}
  *
  * This avoids gradient banding as much as we can!
  */
-const query = graphql`
+const imageQuery = graphql`
   query ShapeShipfterQuery {
-    glowImage: file(name: { regex: "/glow@1x/" }) {
-      publicURL
-      # childImageSharp {
-      #   url
-      # fixed(width: 375, height: 375, quality: 100) {
-      #   ...GatsbyImageSharpFixed_noBase64
-      # }
-      # }
+    glowImage: file(name: { regex: "/glow-shape-background/" }) {
+      childImageSharp {
+        fixed(width: 375, height: 375, quality: 100) {
+          ...GatsbyImageSharpFixed_noBase64
+        }
+      }
     }
   }
 `
@@ -91,6 +89,8 @@ function ShapeShifter() {
     ...activeStyles,
     maxHeight: Active.maxHeight,
   })
+
+  const { glowImage } = useStaticQuery(imageQuery)
 
   /**
    * Refs
@@ -180,7 +180,7 @@ function ShapeShifter() {
       transition: transform 0.6s ease;
     `
     homeHero.appendChild(mask)
-  }, 16)
+  }, 15)
 
   /**
    * |
@@ -194,7 +194,7 @@ function ShapeShifter() {
 
     event = e
     redraw = true
-  }, 20)
+  }, 15)
 
   function onKeydown(event) {
     pressedKeys[event.key] = event.key
@@ -568,63 +568,63 @@ function ShapeShifter() {
   }
 
   return (
-    <StaticQuery
-      query={query}
-      render={({ glowImage }) => (
-        <Frame animate={animate}>
-          <ShapesContainer>
-            <Relative ref={rel} style={activeStyles}>
-              <ShapeGlow ref={glow} animate={animate}>
-                <Media src={glowImage.publicURL} />
-              </ShapeGlow>
-              <ShapeContainer
-                style={activeStyles}
-                ref={shape}
-                data-reset={resetActiveStyles}
-                animate={animate}
-              >
-                <Vector style={Active.styles} ref={vector}>
-                  <Active.Shape />
+    <Frame animate={animate}>
+      <ShapesContainer>
+        <Relative ref={rel} style={activeStyles}>
+          <ShapeGlow ref={glow} animate={animate}>
+            <Media src={glowImage.childImageSharp.fixed} />
+          </ShapeGlow>
+          <ShapeContainer
+            style={activeStyles}
+            ref={shape}
+            data-reset={resetActiveStyles}
+            animate={animate}
+          >
+            <Vector style={Active.styles} ref={vector}>
+              <Active.Shape />
+            </Vector>
+            <Numbers ref={numbers} />
+            <HandleShapeShift onClick={handleShapeMorphClick} />
+            <Corners animate={animate}>
+              <TopLeftCorner data-corner="top-left" />
+              <TopRightCorner data-corner="top-right" />
+              <BottomLeftCorner data-corner="bottom-left" />
+              <BottomRightCorner data-corner="bottom-right" />
+            </Corners>
+          </ShapeContainer>
+        </Relative>
+        <Mirror>
+          <Relative ref={relMirror} style={activeStyles} mirror>
+            <ShapeContainer
+              style={activeStyles}
+              data-reset={resetActiveStyles}
+              ref={shapeMirror}
+              animate={animate}
+              mirror
+            >
+              <Blur>
+                <Vector style={Active.styles} ref={vectorMirror}>
+                  <Active.Mirror />
                 </Vector>
-                <Numbers ref={numbers} />
-                <HandleShapeShift onClick={handleShapeMorphClick} />
-                <Corners animate={animate}>
-                  <TopLeftCorner data-corner="top-left" />
-                  <TopRightCorner data-corner="top-right" />
-                  <BottomLeftCorner data-corner="bottom-left" />
-                  <BottomRightCorner data-corner="bottom-right" />
-                </Corners>
-              </ShapeContainer>
-            </Relative>
-            <Mirror>
-              <Relative ref={relMirror} style={activeStyles} mirror>
-                <ShapeContainer
-                  style={activeStyles}
-                  data-reset={resetActiveStyles}
-                  ref={shapeMirror}
-                  animate={animate}
-                  mirror
-                >
-                  <Blur>
-                    <Vector style={Active.styles} ref={vectorMirror}>
-                      <Active.Mirror />
-                    </Vector>
-                  </Blur>
-                </ShapeContainer>
-              </Relative>
-            </Mirror>
-          </ShapesContainer>
-        </Frame>
-      )}
-    />
+              </Blur>
+            </ShapeContainer>
+          </Relative>
+        </Mirror>
+      </ShapesContainer>
+    </Frame>
   )
 }
 
 export default ShapeShifter
 
 const scaleIn = keyframes`
-  from { transform: scale(1.22); opacity: 0 }
+  from { transform: scale(1.2); opacity: 0.001 }
   to { transform: scale(1); opacity: 1 }
+`
+
+const fadeIn = keyframes`
+  0% { opacity: 0.001 }
+  100% {  opacity: 1 }
 `
 
 const Frame = styled.div`
@@ -639,9 +639,10 @@ const Frame = styled.div`
   flex-direction: column;
   user-select: none;
   border-color: ${p => (p.animate ? '#6166dc' : 'transparent')};
-  opacity: 0;
+  opacity: 0.001;
   transform: scale(1.2);
-  animation: ${scaleIn} 3.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.5s forwards;
+  animation: ${scaleIn} 3.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards,
+    ${fadeIn} 3s 0.3s forwards;
 
   ${mediaqueries.desktop`
     display: none;
@@ -748,20 +749,19 @@ const ShapeContainer = styled.div`
 `
 
 const ShapeGlow = styled.div`
-  opacity: ${p => (p.animate ? 0.6 : 0)};
-  transition: opacity 1.4s 2.8s;
+  opacity: ${p => (p.animate ? 1 : 0.001)};
+  transition: opacity 1.4s 2.6s;
   pointer-events: none;
   position: absolute;
   width: 375px;
   height: 375px;
-  height: 375px;
-    left: -250px;
-    top: -180px;
-  /* transform: scale(1.8, 2.8);
+  left: -40px;
+  top: -50px;
+  transform: scale(1.8, 2.2);
 
   ${mediaqueries.desktop_large`
       transform: scale(1.4, 2.4);
-  `} */
+  `}
 `
 
 const Corners = styled.div`
