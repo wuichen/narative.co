@@ -31,7 +31,7 @@ const perks = [
   },
   {
     heading: 'Health insurance',
-    text: 'we focus on what matters most',
+    text: 'complete coverage in Canada',
   },
 ]
 
