@@ -144,7 +144,7 @@ const CareersAccordianItem = ({
             }}
           />
           <AccordianMailTo href={mailTo}>
-            <ButtonArrow text="email us about this job" />
+            <ButtonArrow text="Apply now" />
           </AccordianMailTo>
         </div>
       )}
