@@ -141,7 +141,7 @@ const CareersAccordianItem = ({
                   .childMarkdownRemark.html,
             }}
           />
-          <AccordianMailTo href={mailTo}>
+          <AccordianMailTo href={mailTo} target="_blank">
             <ButtonArrow text="Apply now" />
           </AccordianMailTo>
         </div>
