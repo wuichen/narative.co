@@ -120,7 +120,7 @@ const CareersAccordianItem = ({
   index: number
   isOpen: boolean
 }) => {
-  const mailTo = `mailTo:info@narative.co?subject=${career.title} @ Narative`
+  const mailTo = `mailTo:careers@narative.co?subject=${career.title} @ Narative`
 
   return (
     <AccordianListItem isOpen={isOpen} onClick={() => handleIndexOpen(index)}>
