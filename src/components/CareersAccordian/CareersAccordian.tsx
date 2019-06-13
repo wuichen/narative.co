@@ -153,7 +153,7 @@ const CareersAccordianItem = ({
 const AccordianContainer = styled.div`
   color: #fff;
   max-width: 69rem;
-  min-height: 55rem;
+  /* min-height: 55rem; */
   margin: 0 0 5rem 26.3rem;
   position: relative;
   top: -14rem;
