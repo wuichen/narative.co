@@ -260,6 +260,26 @@ const Truncate = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `
+
+const HeadingBackground = styled.span`
+  position: relative;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 115%;
+    max-width: 198px;
+    height: 130%;
+    border-radius: 5px;
+    background: ${p => p.theme.mode.background};
+    opacity: ${p => (p.isActive ? 0.4 : 1)};
+    left: -7.5%;
+    top: -15%;
+    position: absolute;
+    z-index: -1;
+  }
+`
+
 const Heading = styled.h6`
   cursor: pointer;
   display: flex;
@@ -282,25 +302,6 @@ const Heading = styled.h6`
 
   &:hover ${HeadingBackground} {
     opacity: 0.4;
-  }
-`
-
-const HeadingBackground = styled.span`
-  position: relative;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 115%;
-    max-width: 198px;
-    height: 130%;
-    border-radius: 5px;
-    background: ${p => p.theme.mode.background};
-    opacity: ${p => (p.isActive ? 0.4 : 1)};
-    left: -7.5%;
-    top: -15%;
-    position: absolute;
-    z-index: -1;
   }
 `
 

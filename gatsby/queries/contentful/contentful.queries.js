@@ -172,9 +172,8 @@ const articleNode = `
  * @returns {object} Gatsby style GraphQL query with a key of posts {data: { posts: {edges: [ ... ]}}}
  */
 module.exports.articles = `
-  query GetArticles($limit: Int, $featured: Boolean) {
+  query GetArticles($featured: Boolean) {
     articles: allContentfulArticle(
-      limit: $limit,
       filter: { featured: {eq: $featured}, title: {ne: null} },
       sort: {fields: [publicationDate], order: DESC}
     ) {
