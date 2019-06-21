@@ -472,6 +472,7 @@ const Content = styled.article`
     display: block;
     position: relative;
     max-width: 100%;
+    height: auto;
     z-index: 0;
     margin: 30px auto 55px;
     border-radius: 5px;
