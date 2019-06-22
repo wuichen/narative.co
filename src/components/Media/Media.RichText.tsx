@@ -251,6 +251,7 @@ const Content = styled.article`
   position: relative;
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   flex-direction: column;
   ${selectionColor}
 
