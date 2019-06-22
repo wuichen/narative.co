@@ -250,6 +250,7 @@ const highlight = css`
 const Content = styled.article`
   position: relative;
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   ${selectionColor}
 
