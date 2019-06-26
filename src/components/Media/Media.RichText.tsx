@@ -286,7 +286,7 @@ const Content = styled.article`
     font-size: 2.2rem;
     line-height: 1.45;
     margin-bottom: 2rem;
-    padding-top: 105px;
+    padding-top: 85px;
 
     ${mediaqueries.desktop_up`
       font-size: 3.2rem;

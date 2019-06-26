@@ -30,7 +30,7 @@ const templates = {
 }
 
 // Some useful variables
-const queryLimit = process.env.NODE_ENV === 'development' ? 10 : null // Limit pages for deving
+const queryLimit = process.env.NODE_ENV === 'development' ? 10 : 9999 // Limit pages for deving
 const featuredLimit = 1 // The maximum number of featured/popular articles we want to show around the site
 const relatedLimit = 3 // The maximum number of relateds for each piece of content
 const pageLength = 6 // How many nodes should be displayed on each list pages

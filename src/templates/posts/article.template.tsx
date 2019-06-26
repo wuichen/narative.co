@@ -193,7 +193,7 @@ const Content = styled(RichText).attrs<{ textHighlightColor: string }>({})`
   transition: background 0.2s linear;
 
   ${mediaqueries.tablet`
-    padding: 60px 0 0;
+    padding: 60px 0 10px;
   `}
 `
 
