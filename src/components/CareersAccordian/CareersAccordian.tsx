@@ -305,7 +305,7 @@ const AccordianCareersEmail = styled.p`
 
   ${mediaqueries.tablet`
     font-size: 1.4rem;
-    margin-top: 0;
+    margin-top: 20px;
 
     span {
       width: 80%;
