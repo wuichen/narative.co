@@ -18,7 +18,7 @@ function CareersGraph() {
   const [animate, setAnimate] = useState(false)
 
   const graphRef = useRef<HTMLDivElement>(null)
-  const containerRref = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   function handlePercentage(visiblePercentage: number) {
     if (visiblePercentage > 33) {
@@ -30,10 +30,8 @@ function CareersGraph() {
     const handleResize = throttle(() => {
       const subractor = graphRef.current.offsetHeight > 250 ? 13 : 9
 
-      if (containerRef.current) {
-        containerRef.current.style.height = `${graphRef.current.offsetHeight -
-          subractor}px`
-      }
+      containerRef.current.style.height = `${graphRef.current.offsetHeight -
+        subractor}px`
     }, 16)
 
     window.addEventListener('resize', handleResize)
