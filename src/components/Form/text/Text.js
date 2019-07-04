@@ -85,7 +85,7 @@ const InputError = styled.div`
   font-size: 1.2rem;
 
   ${mediaqueries.tablet`
-    bottom: 0.5rem;
+    bottom: 0.4rem;
   `};
 `
 
@@ -127,6 +127,7 @@ const StyledLabel = styled.label`
 
   ${mediaqueries.tablet`
     font-size: 1.6rem;
+    font-weight: 400;
     color: ${p => (p.hasError ? p.theme.colors.red : 'rgba(0,0,0,0.35)')};
   `};
 `
@@ -184,6 +185,7 @@ const StyledInput = styled.input`
   ${mediaqueries.tablet`
     font-size: 1.6rem;
     height: 1.8rem;
+    font-weight: 400;
     color: #000;
   `};
 

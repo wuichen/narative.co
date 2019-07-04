@@ -157,7 +157,7 @@ const SlideInContainer = styled.div`
   top: 0px;
   right: 0px;
   padding-top: 125px;
-  z-index: 0;
+  z-index: 10;
   position: fixed;
   overflow-y: scroll;
   transition: transform 1.1s cubic-bezier(0.19, 1, 0.22, 1);

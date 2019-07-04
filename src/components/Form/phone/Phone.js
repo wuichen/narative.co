@@ -53,7 +53,7 @@ const StyledLabel = styled.label`
 
 const InputError = styled.div`
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 0.4rem;
   color: ${props => props.theme.colors.red};
   font-size: 1.2rem;
 `

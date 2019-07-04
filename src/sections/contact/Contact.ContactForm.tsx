@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'gatsby'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
 import {
@@ -159,10 +159,16 @@ class ContactForm extends Component<
                       type="submit"
                     />
                   </ButtonContainer>
-                  <MobileButtonContainer>
+                  <MobileButtonContainer
+                    animation={animation}
+                    delay={baseDelay + 610}
+                  >
                     <Button isSubmitting={props.isSubmitting} text="Submit" />
                   </MobileButtonContainer>
-                  <ContactByEmail animation={animation} />
+                  <ContactByEmail
+                    animation={animation}
+                    delay={baseDelay + 610}
+                  />
                 </StyledFormikForm>
               )
             }}
@@ -175,9 +181,9 @@ class ContactForm extends Component<
 
 export default ContactForm
 
-const ContactByEmail = ({ animation }) => (
+const ContactByEmail = ({ animation, delay }) => (
   <>
-    <ContactWithEmail animation={animation} delay={1240}>
+    <ContactWithEmail animation={animation} delay={delay}>
       <ContactWithEmailText>
         <CopyToClipboard
           copyOnClick="contact@narative.co"
@@ -191,7 +197,11 @@ const ContactByEmail = ({ animation }) => (
         </CopyToClipboard>
       </ContactWithEmailText>
     </ContactWithEmail>
-    <MobileContactWithEmail href="mailto:contact@narative.co">
+    <MobileContactWithEmail
+      href="mailto:contact@narative.co"
+      animation={animation}
+      delay={delay}
+    >
       Prefer to send us an email instead? <span>contact@narative.co</span>
     </MobileContactWithEmail>
   </>
@@ -200,6 +210,13 @@ const ContactByEmail = ({ animation }) => (
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
+`
+
+const fadeUpAnimation = css`
+  transition: opacity 0.5s linear ${p => p.delay}ms,
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms;
+  opacity: ${p => (p.animation ? 1 : 0)};
+  transform: ${p => (p.animation ? 'translateY(0)' : 'translateY(20px)')};
 `
 
 const FormHeader = styled(Heading.h2)`
@@ -224,10 +241,7 @@ const FormSection = styled.div`
     flex-direction: column;
   `};
 
-  transition: opacity 0.5s linear ${p => p.delay}ms,
-    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms;
-  opacity: ${p => (p.animation ? 1 : 0)};
-  transform: ${p => (p.animation ? 'translateY(0)' : 'translateY(20px)')};
+  ${fadeUpAnimation}
 `
 
 const ContactWithEmailText = styled.div`
@@ -250,6 +264,7 @@ const MobileContactWithEmail = styled.a`
   text-align: center;
   color: rgba(0, 0, 0, 0.33);
   margin-top: 40px;
+  ${fadeUpAnimation}
 
   ${mediaqueries.tablet`
     display: block;
@@ -265,11 +280,7 @@ const ContactWithEmail = styled.div`
   position: relative;
   padding-top: 55px;
   margin-left: 265px;
-
-  transition: opacity 0.5s linear ${p => p.delay - 200}ms,
-    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay - 200}ms;
-  opacity: ${p => (p.animation ? 1 : 0)};
-  transform: ${p => (p.animation ? 'translateY(0)' : 'translateY(20px)')};
+  ${fadeUpAnimation}
 
   &::after {
     content: '';
@@ -379,10 +390,7 @@ const CopyRightContainer = styled.div`
 const ButtonContainer = styled.div`
   margin-left: 265px;
   padding-top: 35px;
-  transition: opacity 0.5s linear ${p => p.delay}ms,
-    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.9) ${p => p.delay}ms;
-  opacity: ${p => (p.animation ? 1 : 0)};
-  transform: ${p => (p.animation ? 'translateY(0)' : 'translateY(20px)')};
+  ${fadeUpAnimation}
 
   ${mediaqueries.tablet`
     display: none;
@@ -391,6 +399,8 @@ const ButtonContainer = styled.div`
 
 const MobileButtonContainer = styled.div`
   display: none;
+
+  ${fadeUpAnimation}
 
   ${mediaqueries.tablet`
     display: block;

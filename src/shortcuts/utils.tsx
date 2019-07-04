@@ -28,9 +28,8 @@ export const eventToShortcut = (e: KeyboardEvent): Shortcut | null => {
    * don't know when to listen to multiple keys
    */
   const customModifierKeys = ['G', 'N']
-  const customModifierKeyPressed = customModifierKeys.includes(
-    e.key.toUpperCase()
-  )
+  const customModifierKeyPressed =
+    e.key && customModifierKeys.includes(e.key.toUpperCase())
 
   /**
    * In the case of a custom modifier being pressed we'll want it to an Array that exits

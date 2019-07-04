@@ -143,7 +143,7 @@ function LabsPage({ data, location }) {
 
             <HeroImage>
               <Media
-                critical
+                loading="eager"
                 onLoad={() => setShowScreen(true)}
                 src={heroBody.childImageSharp.fluid}
               />
@@ -153,13 +153,13 @@ function LabsPage({ data, location }) {
                   transition: 'opacity 1s ease 0.5s',
                 }}
               >
-                <Media critical src={heroScreen.childImageSharp.fluid} />
+                <Media loading="eager" src={heroScreen.childImageSharp.fluid} />
               </div>
             </HeroImage>
           </HeroSection>
         </LayoutHeroMobile>
         <HeroImageMobile>
-          <Media critical src={hero.childImageSharp.fluid} />
+          <Media loading="eager" src={hero.childImageSharp.fluid} />
         </HeroImageMobile>
         <Section narrow>
           {products.map(product => (

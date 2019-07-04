@@ -194,7 +194,8 @@ export default (store => {
         const input = document.getElementById(
           'CommandLineInput'
         ) as HTMLInputElement
-        const isInputEmpty = input.value === ''
+
+        const isInputEmpty = input && input.value === ''
 
         if (isInputEmpty) {
           return api.handleShortcutFeature({
