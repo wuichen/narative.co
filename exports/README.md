@@ -8,6 +8,22 @@
 [Contentful exporting](https://github.com/contentful/contentful-cli/tree/master/docs/space/export)
 [Contentful importing](https://github.com/contentful/contentful-cli/tree/master/docs/space/import)
 
+
+#### Prerequisites
+
+```sh
+# To install the Contenful cli utilities globally
+yarn global add contentful-cli
+
+# Then, to link the utilties to your account
+contentful login
+
+# Then, you can select a space to use for the import/export
+contentful space use
+```
+
+Note: Should you use an existing space, change its locale to English (en).
+
 #### Exporting
 
 ```sh
