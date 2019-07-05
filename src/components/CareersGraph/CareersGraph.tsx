@@ -50,7 +50,7 @@ function CareersGraph() {
 
           return (
             <CareersGraphContainer aria-hidden="true" data-scroll-fade={true}>
-              <CareersGraphGrid ref={containerRref}>
+              <CareersGraphGrid ref={containerRef}>
                 <CareersGraphGridRowContainer>
                   {rows.map((_, index) => (
                     <CareersGraphGridRow
