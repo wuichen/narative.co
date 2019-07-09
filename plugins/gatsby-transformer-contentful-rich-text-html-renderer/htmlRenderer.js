@@ -116,9 +116,12 @@ module.exports.HTMLRendererOpts = {
         const caption = htmlEntities(description)
 
         // Make the img tag that will be returned either way
-        const img = `<img src="${src}" alt="${caption}" class="image__${className} ${
+        const img = `
+          <div class="image__container">
+            <img src="${src}" alt="${caption}" class="image__${className} ${
           withShadow ? 'image__with_shadow' : ''
-        }" />`
+        }"/>
+          </div>`
 
         const figcaption = `<figcaption>${
           showDescription ? caption : ''
@@ -127,10 +130,12 @@ module.exports.HTMLRendererOpts = {
         // If there is a description, then we want to render that as a <caption>
         if (caption) {
           return `
-          <figure>
-            ${img}
-            ${figcaption}
-          </figure>
+          <div class="image__container">
+            <figure>
+              ${img}
+              ${figcaption}
+            </figure>
+          </div>
         `
         } else {
           return img
