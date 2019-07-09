@@ -144,10 +144,10 @@ module.exports.HTMLRendererOpts = {
 
       if (contentfulId === 'callToAction') {
         let {
-          heading,
-          subheading,
-          primaryCallToAction,
-          secondaryCallToAction,
+          heading = {},
+          subheading = {},
+          primaryCallToAction = {},
+          secondaryCallToAction = {},
         } = node.data.target.fields
 
         heading = heading.en || heading
