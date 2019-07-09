@@ -32,7 +32,8 @@ module.exports.HTMLRendererOpts = {
     [INLINES.EMBEDDED_ENTRY]: node => {
       if (!node.data.target.fields) return null
 
-      let { text } = node.data.target.fields
+      let { text = {} } = node.data.target.fields
+      text = text.en || text
       const contentfulId = node.data.target.sys.contentType.sys.id
 
       if (contentfulId === 'highlight' && typeof text === 'string') {
@@ -40,7 +41,7 @@ module.exports.HTMLRendererOpts = {
         md.renderer.rules.paragraph_close = () => '</highlight>'
 
         const html = md.render(text)
-        return `${html}</highlight>`
+        return html
       }
     },
     [BLOCKS.EMBEDDED_ENTRY]: node => {
