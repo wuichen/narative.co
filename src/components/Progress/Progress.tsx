@@ -160,7 +160,7 @@ class Progress extends Component<
                   <Heading
                     isActive={isActive}
                     onClick={() =>
-                      scrollTo(0, heading.offset + this.props.offset + 65)
+                      scrollTo(0, heading.offset + this.props.offset + 15)
                     }
                   >
                     <Truncate>
