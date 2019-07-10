@@ -161,14 +161,16 @@ function LabsPage({ data, location }) {
         <HeroImageMobile>
           <Media loading="eager" src={hero.childImageSharp.fluid} />
         </HeroImageMobile>
-        <Section narrow>
-          {products.map(product => (
-            <LabsPreview key={product.excerpt} product={product} />
-          ))}
-        </Section>
-        <Section narrow>
-          <LabsPreviewMobile />
-        </Section>
+        <LabsBody>
+          <Section narrow>
+            {products.map(product => (
+              <LabsPreview key={product.excerpt} product={product} />
+            ))}
+          </Section>
+          <Section narrow>
+            <LabsPreviewMobile />
+          </Section>
+        </LabsBody>
       </>
     </Layout>
   )
@@ -344,6 +346,11 @@ const HorizontalRule = styled.hr`
     background: ${p =>
       p.dark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255,255,255,0.1)'};
   `}
+`
+
+const LabsBody = styled.div`
+  position: relative;
+  z-index: 1;
 `
 
 const LinkToProduct = styled.a`
