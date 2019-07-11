@@ -84,7 +84,7 @@ const Grid = styled(Section)`
   ${mediaqueries.tablet`
     display: block;
 
-    & > svg {
+    & > span > svg {
       width: 94.29px;
       height: 25px;
       margin-bottom:15px;
