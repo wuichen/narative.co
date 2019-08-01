@@ -21,6 +21,13 @@ const previewQuery = graphql`
         }
       }
     }
+    novelaBackground: file(name: { regex: "/novela-labs-mobile/" }) {
+      childImageSharp {
+        fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
     commandlineBackground: file(name: { regex: "/commandline-labs-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
@@ -35,6 +42,7 @@ function LabsPreviewMobile() {
   const {
     needlBackground,
     feyBackground,
+    novelaBackground,
     commandlineBackground,
   } = useStaticQuery(previewQuery)
 
@@ -67,6 +75,20 @@ function LabsPreviewMobile() {
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#161C24', color: '#444750' }}>
           Check on desktop 😏
+        </Anchor>
+      </PreviewCard>
+
+      <PreviewCard style={{ background: '#B0CDE5' }}>
+        <Heading style={{ color: '#000' }}>Novela Theme</Heading>
+        <Media src={novelaBackground.childImageSharp.fluid} />
+        <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
+        <Anchor
+          href="https://gatsby-theme-novela.netlify.com/"
+          target="_blank"
+          rel="noopener"
+          style={{ background: '#7E9BB3', color: '#FAFAFA' }}
+        >
+          See the live theme
         </Anchor>
       </PreviewCard>
 
