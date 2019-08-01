@@ -98,7 +98,7 @@ function LabsPage({ data, location }) {
     },
     {
       logo: NovelaLogo,
-      background: novelaBackground.publicURL,
+      background: novelaBackground.childImageSharp.fluid,
       backgroundColor: '#B0CDE5',
       excerpt:
         'With minimal styling and maximum features — including multiple homepage layouts, built-in social sharing and dark mode — Novela makes it easy to publish beautiful articles and stories with Gatsby.',
@@ -266,7 +266,11 @@ export const pageQuery = graphql`
       publicURL
     }
     novelaBackground: file(name: { regex: "/novela-labs-desktop/" }) {
-      publicURL
+      childImageSharp {
+        fluid(maxWidth: 1140, maxHeight: 380, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
     }
   }
 `
