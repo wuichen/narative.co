@@ -161,11 +161,11 @@ function LabsPage({ data, location }) {
                 <TextContainer>
                   <Pill text="Labs" />
                   <Heading.h2 styles="h1">
-                    Whether with our clients or all by ourselves, we're always
+                    Whether with our clients or all by ourselves, we’re always
                     busy building something new.
                   </Heading.h2>
                   <MainText>
-                    Take a peek at the products we're creating in-house at
+                    Take a peek at the products we’re creating in-house at
                     Narative.
                   </MainText>
                 </TextContainer>
