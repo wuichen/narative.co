@@ -93,7 +93,7 @@ function HomeCallToAction() {
             <TextContainer>
               <TextBackground visiblePercentage={visiblePercentage}>
                 <Text>
-                  Together, let's discover what your company is truly capable
+                  Together, let’s discover what your company is truly capable
                   of.
                 </Text>
               </TextBackground>

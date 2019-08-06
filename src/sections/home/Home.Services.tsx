@@ -21,7 +21,7 @@ export const services = [
     heading: 'Brand',
     list: ['Visual identity', 'Strategic messaging', 'Customer journeys'],
     link: {
-      text: "Let's talk about your brand",
+      text: 'Let’s talk about your brand',
       to: '/contact',
     },
   },
@@ -33,7 +33,7 @@ export const services = [
       'Cross-platform apps',
     ],
     link: {
-      text: "Let's build something together",
+      text: 'Let’s build something together',
       to: '/contact',
     },
   },
@@ -45,7 +45,7 @@ export const services = [
       'Nurturing and onboarding',
     ],
     link: {
-      text: "Let's grow your business",
+      text: 'Let’s grow your business',
       to: '/contact',
     },
   },
@@ -318,7 +318,7 @@ function HomeServices() {
                       active={secondActive}
                       tabIndex={secondActive ? 0 : -1}
                     >
-                      Let's build something together
+                      Let’s build something together
                     </StyledLink>
                   </Value>
                   <Value active={thirdActive}>

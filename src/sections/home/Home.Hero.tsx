@@ -30,7 +30,7 @@ function HomeHero() {
                       growth-minded companies.
                     </Heading.h1>
                     <MainText>
-                      We're a team with senior startup experience here to help
+                      We’re a team with senior startup experience here to help
                       your business take the next step.
                     </MainText>
                     <ButtonArrow onClick={toggleContact} text="Get in touch" />

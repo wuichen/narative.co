@@ -67,7 +67,7 @@ function CareersBody() {
           <WhatWeDoContent>
             <SectionCopy maxWidth="42rem">
               Not only are we mindful of the projects we select, we get to
-              choose how and when we work, to ensure we're at our best.
+              choose how and when we work, to ensure we’re at our best.
             </SectionCopy>
           </WhatWeDoContent>
           <WhatWeDoList>
@@ -79,7 +79,7 @@ function CareersBody() {
       {/* Horizontal scroll Gallery */}
       <CareersRow header="We have fun">
         <SectionCopy maxWidth="67rem">
-          Since we're all remote, it's always a party when the team gets
+          Since we’re all remote, it's always a party when the team gets
           together. And we like food... a lot.
         </SectionCopy>
         <CareersImages

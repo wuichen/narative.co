@@ -23,7 +23,7 @@ function NotFound({ data, location }) {
               <TextContainer>
                 <div />
                 <WelcomeHeader>
-                  Oops, there's nothing here. But don’t worry, you can just go{' '}
+                  Oops, there’s nothing here. But don’t worry, you can just go{' '}
                   <TextLink to="/">back home</TextLink> or{' '}
                   <TextLink to="/contact">contact us</TextLink>.
                 </WelcomeHeader>

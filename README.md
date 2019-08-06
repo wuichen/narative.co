@@ -5,7 +5,7 @@
 # Narative.co
 
 Narative builds brands, websites and products for growth-minded companies.. <br />
-We're a team with senior startup experience here to help your business take the next step.
+We’re a team with senior startup experience here to help your business take the next step.
 
 #### Technology
 

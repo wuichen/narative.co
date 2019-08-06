@@ -21,7 +21,7 @@ const validate = values => {
   let errors = {}
 
   if (!values.name) {
-    errors.name = "Hi, we're Narative. What's your name?"
+    errors.name = "Hi, we're Narative. What’s your name?"
   }
 
   if (!values.email) {
