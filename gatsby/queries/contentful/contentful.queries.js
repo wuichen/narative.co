@@ -10,7 +10,7 @@ const settings = require('../../../src/settings')
  * Also Contentful returns us every locale ever, even if they're null.
  * Since title is a required field on all of our content,
  * I'm doing a not null check on that as part of each filter.
- * If there's a better way, I'm open to it!
+ * If there’s a better way, I'm open to it!
  */
 
 /**

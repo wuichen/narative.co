@@ -20,7 +20,7 @@ git clone git@github.com:narative/narative.co.git && cd narative.co
 # Install all depedencies
 yarn
 
-# 🎉 That's it, you've installed repo locally. One last step!
+# 🎉 that’s it, you've installed repo locally. One last step!
 ```
 
 ### Enviroment Variables

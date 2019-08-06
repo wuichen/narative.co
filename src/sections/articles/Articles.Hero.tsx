@@ -37,7 +37,7 @@ function ArticlesHero() {
        * handleTyping Effect
        * This will initiate the typing life effect we have displayed over the
        * hero image typewriter. Basically go through the string one char at a time
-       * and udpate the counter until we're out of characters to type!
+       * and udpate the counter until we’re out of characters to type!
        */
       const sentence = ' help your business take the next step.'
       const speed = Math.floor(Math.random() * 60) + 30
@@ -82,7 +82,7 @@ function ArticlesHero() {
               />
               <HeroImageText imageLoaded={imageLoaded}>
                 Narative builds brands, websites and products for growth-minded
-                companies. We're a team with senior startup experience here to
+                companies. we’re a team with senior startup experience here to
                 <Caret ref={text} />
               </HeroImageText>
             </HeroImage>

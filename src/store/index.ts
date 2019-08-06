@@ -18,7 +18,7 @@ if (isDev) {
 /**
  * In the case that we need to preload state this will stay as a function
  * that accepts an initial state object. As for right now we do not initialize
- * our app with state so we're exporting this as an executed function.
+ * our app with state so we’re exporting this as an executed function.
  *
  * @param preloadedState any {}
  */

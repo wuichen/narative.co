@@ -23,7 +23,7 @@ const PublicLogoQuery = graphql`
   }
 `
 
-// An SEO bomb we want to keep. This is another standard that's worth setting up.
+// An SEO bomb we want to keep. This is another standard that’s worth setting up.
 export default ({ article, location }: { article: IArticleNode }) => (
   <StaticQuery
     query={PublicLogoQuery}
@@ -68,7 +68,7 @@ const Microdata = ({
     isoDateStrPublished = new Date(publicationDate!).toISOString()
     isoDateStrUpdated = new Date(updatedAt!).toISOString()
   } catch (error) {
-    // Now all browsers can parse our date string. That's fine. The crawler can
+    // Now all browsers can parse our date string. that’s fine. The crawler can
     console.warn(error)
   }
 

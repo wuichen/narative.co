@@ -12,7 +12,7 @@ import mediaqueries from '@styles/media'
 const aboutNarativeText = [
   `Even the most brilliant companies hit points where their focus is
   spread thin by the many challenges that growing businesses face,
-  blocking them from reaching their full potential. That's where we
+  blocking them from reaching their full potential. that’s where we
   come in.`,
   `Narative brings focus through the lens of a team that’s faced it
   all before, at scrappy startups and established enterprises alike.

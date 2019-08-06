@@ -21,7 +21,7 @@ function handleTransform(node) {
 }
 
 /**
- * We're able to create a Call To Action embedded entry within Contentful, which allows
+ * we’re able to create a Call To Action embedded entry within Contentful, which allows
  * the author to embed links to our contact page. Since we have a Contact slidein modal
  * it's better to override the default functionality with a dynamic togglecontact
  */

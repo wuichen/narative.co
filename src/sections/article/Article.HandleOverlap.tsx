@@ -66,7 +66,7 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
     )
   }
 
-  // Is the current element within the window's frame? That's all we care about!
+  // Is the current element within the window's frame? that’s all we care about!
   isVisible = (element: HTMLElement): boolean => {
     const rect = element.getBoundingClientRect()
 

@@ -15,7 +15,7 @@ import { IArticleNode } from '@typings'
  *
  * If you haven't noticed, this is basically a stripped down copy and paste
  * of Articles.Grid.tsx. It works well for now but eventually we may want to
- * abstract the <Grid>...items</Grid> since there's duplicate code.
+ * abstract the <Grid>...items</Grid> since there’s duplicate code.
  *
  *  [..............], [.........]
  *  [.....LONG.....], [..SHORT..]

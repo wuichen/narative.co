@@ -17,7 +17,7 @@ class TransitionsFadeScroll extends Component<{
   }
 
   calculateStyleCurves = ({ intersectionRatio, exiting, ...rest }) => {
-    // To avoid NaN errors, return out if there's no intersectionRatio
+    // To avoid NaN errors, return out if there’s no intersectionRatio
     if (!intersectionRatio) {
       return { opacity: 0, transform: 0 }
     }

@@ -52,7 +52,7 @@ function* takeRelated(postId, postCategories, posts) {
     if (numberTaken === relatedLimit) return
     // Otherwise test if there is intersection between
     // this post's categories and the loop post's categories,
-    // and that we're not making a post a related of itself.
+    // and that we’re not making a post a related of itself.
     if (intersection(postCategories, categories).length && postId !== node.id) {
       // Increment the number taken
       numberTaken++
@@ -157,7 +157,7 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
   /**
    * Prefix is just any slug stripped from any path (assumes all have same path root)
    * This seems like a complicated way to do this when pathPrefix could just be a parameter,
-   * but I don't really want to fuck with URLs in createPages. That's the responsibility of
+   * but I don't really want to fuck with URLs in createPages. that’s the responsibility of
    * the data so happens at the Contentful-Enhance plugin.
    */
   const pathPrefix = unfeatured[0] && unfeatured[0].pathPrefix
@@ -209,7 +209,7 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
        * We want to take the first n articles that are in the same category regardless of model.
        *
        * Categories are objects {name: 'Austin', id: 'austin-category'}.
-       * To make testing intersection of categories perform better we're not going
+       * To make testing intersection of categories perform better we’re not going
        * to test object to object but string to string. That means we map categories
        * down from an array of objects to an array of category IDs.
        */
@@ -248,7 +248,7 @@ module.exports = async ({ actions: { createPage }, graphql }) => {
     // If it's the last item in the list, there will be no articles. So grab the first 2
     if (next.length === 0) next = articles.slice(0, 2)
 
-    // If there's 1 item in the list, grab the first article
+    // If there’s 1 item in the list, grab the first article
     if (next.length === 1) next = [...next, articles[0]]
 
     // Create the page for this post

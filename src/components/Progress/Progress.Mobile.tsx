@@ -32,7 +32,7 @@ class Progress extends Component<
   componentDidUpdate(prevProps) {
     /**
      * If the height of the content is less than the screen height we don't
-     * want to show a progress indicator because it will be buggy and there's
+     * want to show a progress indicator because it will be buggy and there’s
      * not point to see a progress indicator when you can see all of the content.
      */
     if (this.props.height !== prevProps.height) {

@@ -58,7 +58,7 @@ let pressedKeys: {} = {}
 
 /**
  * To avoid rendering a linear-gradient or using the original CSS
- * blur and scale effects we're loading in a static image to display
+ * blur and scale effects we’re loading in a static image to display
  * as the Glow.
  *
  * This avoids gradient banding as much as we can!
@@ -114,7 +114,7 @@ function ShapeShifter() {
 
   /**
    * Attaching all the event listeners and initializating the ShapeShifter
-   * We're also disabling the events for Safari and Firefox in this case.
+   * we’re also disabling the events for Safari and Firefox in this case.
    */
   useEffect(() => {
     const $shape = shape.current
@@ -326,7 +326,7 @@ function ShapeShifter() {
   }
 
   /**
-   * There's also the ability to press shift! This will alter the shape
+   * there’s also the ability to press shift! This will alter the shape
    * to have the same width and height at all times.
    */
   function handleShift($el, len) {

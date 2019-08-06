@@ -1,5 +1,5 @@
 /**
- * In production we're pointing directly at heroku because I've had
+ * In production we’re pointing directly at heroku because I've had
  * enough of trying to setup AWS Route 53 with some Heroku DNS and
  * ACM systems. So this will have to due for now :)
  */

@@ -20,7 +20,7 @@ import { IArticleNode } from '@typings'
  */
 
 /**
- * Okay, I know, the Grid is manually setup and we're manually selecting an
+ * Okay, I know, the Grid is manually setup and we’re manually selecting an
  * index from the array of articles... but it's only 8 and it works perfectly fine.
  *
  * TODO: Figure out CSS grid for reverse grid row items and inserting a quote inside.

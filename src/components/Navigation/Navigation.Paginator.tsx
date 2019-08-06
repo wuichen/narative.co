@@ -14,7 +14,7 @@ import { IPaginator } from '@typings'
  * 1 2 3 ... final page NEXT
  * Component to navigate between different pages on a series of blog post, for example.
  *
- * We're using a <nav> element here so make sure to put the pagination component
+ * we’re using a <nav> element here so make sure to put the pagination component
  * INSIDE of a section to make sure the markup stays contextually relevant
  *
  * Receives the gatsby-paginator props
@@ -42,9 +42,9 @@ class Paginator extends Component<IPaginator, {}> {
     const count = this.count
     const maxPages = this.maxPages
 
-    // Current is the page we're on
+    // Current is the page we’re on
     // We want to show current - 1, current, current + 1
-    // Of course if we're on page 1, we don't want a page 0
+    // Of course if we’re on page 1, we don't want a page 0
     const previousPage = current === 1 ? current : current - 1
 
     // Now create a range of numbers from the previousPage to the total pages (count)
@@ -58,16 +58,16 @@ class Paginator extends Component<IPaginator, {}> {
     // When it comes to rendering our range if we find a null we'll add a spacer.
 
     // We might need a spacer at the start of the pagination e.g. 1 ... 3 4 5 etc.
-    // If we're after the second page, we need a ... spacer (3 and up)
+    // If we’re after the second page, we need a ... spacer (3 and up)
     if (pagesRange[0] > 2) {
       truncatedRange.unshift(null)
     }
-    // If we're after the first page, we need page 1 to appear (2 and up)
+    // If we’re after the first page, we need page 1 to appear (2 and up)
     if (pagesRange[0] > 1) {
       truncatedRange.unshift(1)
     }
 
-    // If we're on the final page, then there won't be a "next" page and
+    // If we’re on the final page, then there won't be a "next" page and
     // the pagination will end up looking a bit short (e.g. on 8 pages ... 7, 8)
     // Push to the end an extra page maxPages from the end
     if (pagesRange[0] + 1 === count && pagesRange[0] - 1 > 0) {
@@ -79,12 +79,12 @@ class Paginator extends Component<IPaginator, {}> {
     }
 
     // We might need a spacer at the end of the pagination e.g. 4 5 6 ... 8
-    // If we're before the penultimate page, we need a ... spacer
+    // If we’re before the penultimate page, we need a ... spacer
     if (pagesRange[0] + maxPages < count) {
       truncatedRange.push(null)
     }
 
-    // If we're before the last page, we need page <last> to appear
+    // If we’re before the last page, we need page <last> to appear
     if (pagesRange[0] + maxPages - 1 < count) {
       truncatedRange.push(count)
     }
@@ -110,7 +110,7 @@ class Paginator extends Component<IPaginator, {}> {
   /**
    * Utility to turn an index in to a page path.
    * All it really does is glue the page path to the front,
-   * but note there's special behaviour for page 1 where the URL should be /articles/ not /articles/page/1
+   * but note there’s special behaviour for page 1 where the URL should be /articles/ not /articles/page/1
    */
   getFullPath = (n: number) => {
     return '/' + (n === 1 ? this.pageRoot : this.pageRoot + '/page/' + n)

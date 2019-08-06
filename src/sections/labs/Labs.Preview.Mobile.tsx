@@ -48,7 +48,7 @@ function LabsPreviewMobile() {
 
   /**
    * Bless Thiago for designing 3 unique looking cards that have the same sekelton.
-   * That's why we're going with inline styles for each of them so we can reflect
+   * that’s why we’re going with inline styles for each of them so we can reflect
    * the designs.
    */
   return (

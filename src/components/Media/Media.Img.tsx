@@ -7,7 +7,7 @@ import { IImg } from '@typings'
 
 /**
  * To soften the blur-up we get from the default configuration of gatbsy image
- * we're adding a CSS blur to the image. This makes it smoother!
+ * we’re adding a CSS blur to the image. This makes it smoother!
  */
 const StyledGatsbyImag = styled(GatsbyImg)`
   & > img {
@@ -31,7 +31,7 @@ const StyledGatsbyImag = styled(GatsbyImg)`
  * todo : lazyload the default img tag
  */
 const Img: React.SFC<IImg> = ({ src, alt, ...props }) => {
-  // We're going to build our final component's props dynamically.
+  // we’re going to build our final component's props dynamically.
   // So create a nice default set of props that are relevant to Gatsby and non Gatsby images
   const imgProps = {
     alt,

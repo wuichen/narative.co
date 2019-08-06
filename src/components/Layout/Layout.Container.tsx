@@ -170,7 +170,7 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
   }
 
   /**
-   * We're hijacking the <Link to="/path" /> functionality here. When a user
+   * we’re hijacking the <Link to="/path" /> functionality here. When a user
    * taps a link we prvent default, close the nav, apply the mask, and _then_
    * finally navigate to the new page.
    */
@@ -253,7 +253,7 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
 
               {/**
                * Finally, this Mask is only applied when navigation to a new page. It's how
-               * we're able to make it feel smooth between mobile navigations
+               * we’re able to make it feel smooth between mobile navigations
                */}
               <MaskMobile shouldMask={mask} theme={navTheme} />
 
