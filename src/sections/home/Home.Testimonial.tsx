@@ -50,7 +50,7 @@ function HomeQuote() {
         <SVG src={quote.largeIcon.file.url} />
         <div>
           <Blockquote dangerouslySetInnerHTML={{ __html: `“${blockquote}”` }} />
-          <StyledLink to={`/articles${quote.article.slug}`} data-a11y="false">
+          <StyledLink to={`/articles/${quote.article.slug}`} data-a11y="false">
             <SVG src={quote.smallIcon.file.url} />
             More on {quote.company}
           </StyledLink>
