@@ -20,7 +20,9 @@ exports.plugins = [
   {
     resolve: `gatsby-plugin-styled-components`,
     options: {
-      displayName: process.env.NODE_ENV === 'development',
+      displayName:
+        process.env.NODE_ENV === 'development' ||
+        process.env.TARGET === 'staging',
     },
   },
   {
