@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'gatsby'
+import React, { useState, useContext, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
@@ -13,6 +12,7 @@ import {
   SocialLinks,
 } from '@components'
 import Hidden from '@components/Hidden'
+import { ContactContext } from '@components/Contact/Contact.Context'
 import mediaqueries from '@styles/media'
 import { apiCall, startAnimation } from '@utils'
 import { SubmittedCheckIcon } from '../../icons/ui'
@@ -40,25 +40,20 @@ const validate = values => {
   return errors
 }
 
-class ContactForm extends Component<
-  { baseDelay: number },
-  { animation: string; submitted: boolean; firstName: string }
-> {
-  state = {
-    animation: '',
-    submitted: false,
-    firstName: '',
-  }
+function ContactForm({ baseDelay }: { baseDelay: number }) {
+  const { toggleContact } = useContext(ContactContext)
 
-  componentDidMount() {
+  const [animation, setAnimation] = useState<string>('')
+  const [firstName, setFirstName] = useState<string>('')
+  const [submitted, setSubmitted] = useState<boolean>(false)
+
+  useEffect(() => {
     startAnimation(() => {
-      this.setState({
-        animation: 'start',
-      })
+      setAnimation('start')
     })
-  }
+  }, [])
 
-  handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     const { company, details, email, name } = values
 
     const method = 'post'
@@ -73,110 +68,102 @@ class ContactForm extends Component<
     try {
       await apiCall({ method, endpoint, data })
 
+      setFirstName(name.split(' ')[0])
       setSubmitting(false)
-      this.setState({ submitted: true, firstName: name.split(' ')[0] })
+      setSubmitted(true)
     } catch (err) {
       console.warn(err)
     }
   }
 
-  render() {
-    const { baseDelay } = this.props
-    const { animation, firstName, submitted } = this.state
-
-    return (
-      <Section>
-        {submitted ? (
-          <SubmittedScreen>
-            <SubmittedCheckIcon />
-            <SubmittedHeader>Thank you, {firstName}</SubmittedHeader>
-            <SubmittedText>
-              Our business development team will get back to you shortly.
-            </SubmittedText>
-            <SubmittedBackButton to="/">Go back</SubmittedBackButton>
-            <SocialLinksContainer>
-              <SocialLinks fill="black" />
-            </SocialLinksContainer>
-            <CopyRightContainer>
-              © {new Date().getFullYear()} Narative Studio Inc.
-            </CopyRightContainer>
-          </SubmittedScreen>
-        ) : (
-          <Formik
-            onSubmit={this.handleSubmit}
-            validate={validate}
-            validateOnBlur={false}
-            initialValues={{
-              name: '',
-              email: '',
-              details: '',
-            }}
-            render={props => {
-              return (
-                <StyledFormikForm>
-                  <FormSection
-                    animation={animation}
-                    delay={baseDelay + 350}
-                    spacing="large"
-                  >
-                    <FormHeader morePadding>Tell us about you</FormHeader>
-                    <span>
-                      <Field
-                        component={Form.Text}
-                        label="your name"
-                        name="name"
-                        autoFocus={true}
-                      />
-                      <Field
-                        component={Form.Text}
-                        label="email address"
-                        name="email"
-                      />
-                      <Field
-                        component={Form.Text}
-                        label="company"
-                        name="company"
-                      />
-                    </span>
-                  </FormSection>
-                  <FormSection animation={animation} delay={baseDelay + 480}>
-                    <FormHeader>Tell us about your idea</FormHeader>
+  return (
+    <Section>
+      {submitted ? (
+        <SubmittedScreen>
+          <SubmittedCheckIcon />
+          <SubmittedHeader>Thank you, {firstName}</SubmittedHeader>
+          <SubmittedText>
+            Our business development team will get back to you shortly.
+          </SubmittedText>
+          <SubmittedBackButton onClick={toggleContact}>
+            Go back
+          </SubmittedBackButton>
+          <SocialLinksContainer>
+            <SocialLinks fill="black" />
+          </SocialLinksContainer>
+          <CopyRightContainer>
+            © {new Date().getFullYear()} Narative Studio Inc.
+          </CopyRightContainer>
+        </SubmittedScreen>
+      ) : (
+        <Formik
+          onSubmit={handleSubmit}
+          validate={validate}
+          validateOnBlur={false}
+          initialValues={{
+            name: '',
+            email: '',
+            details: '',
+          }}
+          render={props => {
+            return (
+              <StyledFormikForm>
+                <FormSection
+                  animation={animation}
+                  delay={baseDelay + 350}
+                  spacing="large"
+                >
+                  <FormHeader morePadding>Tell us about you</FormHeader>
+                  <span>
                     <Field
-                      component={Form.Textarea}
-                      label="give us a short description"
-                      name="details"
-                      rows={1}
+                      component={Form.Text}
+                      label="your name"
+                      name="name"
+                      autoFocus={true}
                     />
-                  </FormSection>
-                  <ButtonContainer
-                    animation={animation}
-                    delay={baseDelay + 610}
-                  >
-                    <ButtonArrow
-                      isSubmitting={props.isSubmitting}
-                      color="black"
-                      text="Submit"
-                      type="submit"
+                    <Field
+                      component={Form.Text}
+                      label="email address"
+                      name="email"
                     />
-                  </ButtonContainer>
-                  <MobileButtonContainer
-                    animation={animation}
-                    delay={baseDelay + 610}
-                  >
-                    <Button isSubmitting={props.isSubmitting} text="Submit" />
-                  </MobileButtonContainer>
-                  <ContactByEmail
-                    animation={animation}
-                    delay={baseDelay + 610}
+                    <Field
+                      component={Form.Text}
+                      label="company"
+                      name="company"
+                    />
+                  </span>
+                </FormSection>
+                <FormSection animation={animation} delay={baseDelay + 480}>
+                  <FormHeader>Tell us about your idea</FormHeader>
+                  <Field
+                    component={Form.Textarea}
+                    label="give us a short description"
+                    name="details"
+                    rows={1}
                   />
-                </StyledFormikForm>
-              )
-            }}
-          />
-        )}
-      </Section>
-    )
-  }
+                </FormSection>
+                <ButtonContainer animation={animation} delay={baseDelay + 610}>
+                  <ButtonArrow
+                    isSubmitting={props.isSubmitting}
+                    color="black"
+                    text="Submit"
+                    type="submit"
+                  />
+                </ButtonContainer>
+                <MobileButtonContainer
+                  animation={animation}
+                  delay={baseDelay + 610}
+                >
+                  <Button isSubmitting={props.isSubmitting} text="Submit" />
+                </MobileButtonContainer>
+                <ContactByEmail animation={animation} delay={baseDelay + 610} />
+              </StyledFormikForm>
+            )
+          }}
+        />
+      )}
+    </Section>
+  )
 }
 
 export default ContactForm
@@ -343,7 +330,7 @@ const SubmittedScreen = styled.div`
   text-align: center;
   flex-direction: column;
   opacity: 0;
-  animation: ${fadeIn} 50ms 500ms ${p => p.theme.transitions.in} forwards;
+  animation: ${fadeIn} 1.2s ease forwards;
 
   ${mediaqueries.desktop`
     padding-bottom: 0;
@@ -369,7 +356,7 @@ const SubmittedText = styled.p`
   margin-bottom: 3rem;
 `
 
-const SubmittedBackButton = styled(Link)`
+const SubmittedBackButton = styled.button`
   font-size: 18px;
   font-weight: 600;
 `
