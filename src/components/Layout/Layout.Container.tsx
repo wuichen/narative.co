@@ -27,7 +27,10 @@ interface LayoutProps {
     offset?: boolean
     theme?: string
   }
-  withFooter?: boolean
+  footer?: {
+    visible?: boolean
+    theme?: string
+  }
 }
 
 interface LayoutState {
@@ -205,6 +208,7 @@ class LayoutContainer extends Component<LayoutProps, LayoutState> {
     } = this.state
     const navTheme = nav.theme
 
+    console.log(footer.visible)
     return (
       <>
         <NavigationMobile active={active} navigateOut={this.navigateOut} />

@@ -15,8 +15,8 @@ import Transitions from '@components/Transitions'
 import mediaqueries from '@styles/media'
 import { keyToSymbol } from '@shortcuts'
 
-import LabsPreview from '../sections/labs/Labs.Preview'
-import LabsPreviewMobile from '../sections/labs/Labs.Preview.Mobile'
+import LabsPreview from '../../sections/labs/Labs.Preview'
+import LabsPreviewMobile from '../../sections/labs/Labs.Preview.Mobile'
 
 /**
  * The labs page is a bit of a mess with the inlined Product Array but it

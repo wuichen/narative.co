@@ -32,6 +32,11 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
   const transparentColor =
     mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'
 
+  console.log('FIRED IN FOOTER')
+  console.log('FIRED IN FOOTER')
+  console.log('FIRED IN FOOTER')
+  console.log('FIRED IN FOOTER')
+  console.log('FIRED IN FOOTER')
   return (
     <Section narrow>
       <Frame color={color}>
