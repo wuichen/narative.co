@@ -29,6 +29,15 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       target="_blank"
       rel="noopener"
       data-a11y="false"
+      aria-label="Link to Dribbble"
+      href={settings.urls.dribbble}
+    >
+      <SocialIcons.DribbleIcon fill={fill} />
+    </SocialIconContainer>
+    <SocialIconContainer
+      target="_blank"
+      rel="noopener"
+      data-a11y="false"
       aria-label="Link to Instagram"
       href={settings.urls.instagram}
     >

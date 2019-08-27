@@ -111,7 +111,7 @@ const Frame = styled.div`
   opacity: 0;
 
   will-change: opacity, transform;
-  animation: ${fadeInAndUp} 0.25s forwards;
+  animation: ${fadeInAndUp} 0.15s forwards;
   overflow: hidden;
 
   ${mediaqueries.desktop`

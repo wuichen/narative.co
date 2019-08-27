@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { graphql } from 'gatsby'
 
@@ -22,6 +22,24 @@ function NovealPage({ data, location }) {
     theme: 'light',
   }
 
+  const [dimension, setDimension] = useState(1140)
+  const iframeRef = useRef(document.createElement('iframe'))
+
+  useEffect(() => {
+    var style = document.createElement('style')
+    style.rel = 'stylesheet'
+    style.type = 'text/css'
+    style.textContent = `
+      body {
+        zoom: 82%;
+        position: relative;
+      }`
+
+    if (iframeRef.current.document) {
+      iframeRef.current.document.head.appendChild(style)
+    }
+  }, [iframeRef.current])
+
   return (
     <Layout
       background="linear-gradient(180deg, #fff 55%, #D9DBE0 100%)"
@@ -36,9 +54,14 @@ function NovealPage({ data, location }) {
           image={contentful.seo.image.file.url}
           pathname={location.pathname}
         />
+        <div>
+          <button onClick={() => setDimension(1140)}>Desktop</button>
+          <button onClick={() => setDimension(946)}>Tablet</button>
+          <button onClick={() => setDimension(361)}>Mobile</button>
+        </div>
         <Section>
-          <PreviewContainer>
-            <Preview src="https://novela.narative.co" />
+          <PreviewContainer style={{ maxWidth: `${dimension}px` }}>
+            <Preview src="https://novela.narative.co" ref={iframeRef} />
           </PreviewContainer>
         </Section>
       </>

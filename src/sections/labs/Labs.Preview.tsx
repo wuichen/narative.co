@@ -27,6 +27,7 @@ const Card = styled.div`
   background: ${p => p.background};
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  overflow: hidden;
   margin: 0 auto;
 
   &:not(:last-child) {
@@ -84,12 +85,11 @@ const Excerpt = styled.p`
 
 const Image = styled.div`
   position: absolute;
-  width: 100%;
   height: 100%;
+  width: 69%;
   top: 0;
-  left: 0;
+  right: 0;
   pointer-events: none;
-  border-radius: 5px;
   overflow: hidden;
 
   .gatsby-image-wrapper {

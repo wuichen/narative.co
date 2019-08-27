@@ -7,28 +7,35 @@ import mediaqueries from '@styles/media'
 
 const previewQuery = graphql`
   query LabsPreviewMobile {
-    needlBackground: file(name: { regex: "/needl-labs-mobile/" }) {
+    needlBackground: file(name: { regex: "/labs-needl-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    feyBackground: file(name: { regex: "/fey-labs-mobile/" }) {
+    feyBackground: file(name: { regex: "/labs-fey-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    novelaBackground: file(name: { regex: "/novela-labs-mobile/" }) {
+    novelaBackground: file(name: { regex: "/labs-novela-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    commandlineBackground: file(name: { regex: "/commandline-labs-mobile/" }) {
+    memoirBackground: file(name: { regex: "/labs-memoir-mobile/" }) {
+      childImageSharp {
+        fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    commandlineBackground: file(name: { regex: "/labs-command-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -43,6 +50,7 @@ function LabsPreviewMobile() {
     needlBackground,
     feyBackground,
     novelaBackground,
+    memoirBackground,
     commandlineBackground,
   } = useStaticQuery(previewQuery)
 
@@ -53,6 +61,15 @@ function LabsPreviewMobile() {
    */
   return (
     <>
+      <PreviewCard style={{ background: '#0D0709' }}>
+        <Heading style={{ color: '#000' }}>Project Needle</Heading>
+        <Media src={needlBackground.childImageSharp.fluid} />
+        <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
+        <Anchor as="div" style={{ background: '#171719', color: '#515359' }}>
+          Coming soon
+        </Anchor>
+      </PreviewCard>
+
       <PreviewCard style={{ background: '#23232A' }}>
         <Heading>
           <FeyLogo />
@@ -88,13 +105,13 @@ function LabsPreviewMobile() {
           rel="noopener"
           style={{ background: '#7E9BB3', color: '#FAFAFA' }}
         >
-          See the live theme
+          Live preview
         </Anchor>
       </PreviewCard>
 
       <PreviewCard style={{ background: '#EFF0F4' }}>
-        <Heading style={{ color: '#000' }}>Project Needle</Heading>
-        <Media src={needlBackground.childImageSharp.fluid} />
+        <Heading style={{ color: '#000' }}>Memoir Theme</Heading>
+        <Media src={memoirBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#D6D9DE', color: '#A4A6AD' }}>
           Coming soon
