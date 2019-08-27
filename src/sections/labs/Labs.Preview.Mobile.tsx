@@ -61,7 +61,7 @@ function LabsPreviewMobile() {
    */
   return (
     <>
-      <PreviewCard style={{ background: '#0D0709' }}>
+      <PreviewCard style={{ background: '#fafafa' }}>
         <Heading style={{ color: '#000' }}>Project Needle</Heading>
         <Media src={needlBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
