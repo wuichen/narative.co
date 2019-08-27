@@ -38,7 +38,7 @@ function LabsPage({ data, location }) {
   } = data
   const { seo } = allContentfulPage.edges[0].node
   const pageBackground =
-    'linear-gradient(180deg, #08080b, #111216 15%, #191D23 100%)'
+    'linear-gradient(180deg, #08080b 15%, #111216 50%, #191D23 100%)'
   const navConfig = {
     fixed: true,
     theme: 'light',
@@ -71,7 +71,7 @@ function LabsPage({ data, location }) {
     {
       logo: FeyLogo,
       background: feyBackground.childImageSharp.fluid,
-      backgroundColor: '#1A1A1A',
+      backgroundColor: '#16171C',
       excerpt:
         'Sick of tracking your trades across Evernote, Excel files and countless screenshots? Fey gives you the complete picture of your portfolio, with fast data entry, always-on risk analysis and more.',
       children: (

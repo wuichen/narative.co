@@ -66,8 +66,8 @@ const HomeAbout = () => {
             render={() => <AboutHeading>The Narative Approach</AboutHeading>}
           />
           <div>
-            {aboutNarativeText.map(text => (
-              <TextContainer data-scroll-fade={true}>
+            {aboutNarativeText.map((text, index) => (
+              <TextContainer data-scroll-fade={true} key={index}>
                 <Text dangerouslySetInnerHTML={{ __html: text }} />
               </TextContainer>
             ))}
