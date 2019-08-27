@@ -26,18 +26,22 @@ function NovealPage({ data, location }) {
   const iframeRef = useRef(null)
 
   useEffect(() => {
-    var style = document.createElement('style')
-    style.type = 'text/css'
-    style.textContent = `
-      body {
-        zoom: 82%;
-        position: relative;
-      }`
+    console.log(iframeRef.current)
+    iframeRef.current.addEventListener('load', function() {
+      console.log('fired')
+      var style = document.createElement('style')
+      style.type = 'text/css'
+      style.textContent = `
+          body {
+            zoom: 82%;
+            position: relative;
+          }`
 
-    if (iframeRef.current.document) {
-      iframeRef.current.document.head.appendChild(style)
-    }
-  }, [iframeRef.current])
+      console.log(iframeRef.current)
+      console.log(iframeRef.current.contentWindow.document)
+      iframeRef.current.contentWindow.document.head.appendChild(style)
+    })
+  }, [])
 
   return (
     <Layout
@@ -60,7 +64,11 @@ function NovealPage({ data, location }) {
         </div>
         <Section>
           <PreviewContainer style={{ maxWidth: `${dimension}px` }}>
-            <Preview src="https://novela.narative.co" ref={iframeRef} />
+            <Preview
+              id="Iframe__Novela"
+              src="https://novela.narative.co"
+              ref={iframeRef}
+            />
           </PreviewContainer>
         </Section>
       </>
