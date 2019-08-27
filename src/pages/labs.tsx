@@ -71,7 +71,7 @@ function LabsPage({ data, location }) {
     {
       logo: FeyLogo,
       background: feyBackground.childImageSharp.fluid,
-      backgroundColor: '#1A1A1A',
+      backgroundColor: '#16171C',
       excerpt:
         'Sick of tracking your trades across Evernote, Excel files and countless screenshots? Fey gives you the complete picture of your portfolio, with fast data entry, always-on risk analysis and more.',
       children: (
