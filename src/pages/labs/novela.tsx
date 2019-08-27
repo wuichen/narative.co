@@ -23,11 +23,10 @@ function NovealPage({ data, location }) {
   }
 
   const [dimension, setDimension] = useState(1140)
-  const iframeRef = useRef(document.createElement('iframe'))
+  const iframeRef = useRef(null)
 
   useEffect(() => {
     var style = document.createElement('style')
-    style.rel = 'stylesheet'
     style.type = 'text/css'
     style.textContent = `
       body {
