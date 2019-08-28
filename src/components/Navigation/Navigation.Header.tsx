@@ -99,8 +99,7 @@ class Navigation extends Component<{}, NavigationState> {
       if (prevState.previousPath !== previousPathFromStorage) {
         this.setState({
           previousPath: previousPathFromStorage,
-          showPreviousPath,
-          linkBackToHome: urlsThatUseBackButton.some(
+          showPreviousPath: urlsThatUseBackButton.some(
             pathname => window.location.pathname.indexOf(pathname) >= 0
           ),
         })
@@ -209,7 +208,7 @@ class Navigation extends Component<{}, NavigationState> {
                     <BackChevron />
                   </LogoBack>
                 )}
-                {linkBackToHome && (
+                {linkBackToHome && !showPreviousPath && (
                   <LogoBack onClick={() => navigate('/')} data-a11y="false">
                     <BackChevron />
                   </LogoBack>
