@@ -48,6 +48,12 @@ function NovealPage({ data, location }) {
             #gatsby-focus-wrapper > div {
               padding-top: 50px
             }
+
+            @media screen and (max-width: 1000px) {
+              #gatsby-focus-wrapper > div {
+                padding-top: 0px
+              }
+            }
           `
       iframeRef.current.contentWindow.document.head.appendChild(style)
       setHasLoaded(true)
