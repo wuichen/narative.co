@@ -64,6 +64,7 @@ interface NavigationState {
   active: boolean
   previousPath: string
   showPreviousPath: boolean
+  linkBackToHome: boolean
 }
 
 class Navigation extends Component<{}, NavigationState> {
@@ -73,11 +74,19 @@ class Navigation extends Component<{}, NavigationState> {
     active: false,
     previousPath: '',
     showPreviousPath: false,
+    linkBackToHome: false,
   }
 
   componentDidMount() {
     const previousPath = localStorage.getItem('previousPath')
-    this.setState({ previousPath })
+    const urlsThatUseBackButton = ['/labs/']
+
+    this.setState({
+      previousPath,
+      linkBackToHome: urlsThatUseBackButton.some(
+        pathname => window.location.pathname.indexOf(pathname) >= 0
+      ),
+    })
 
     window.addEventListener('keydown', this.handleEscKeyPress)
   }
@@ -90,7 +99,8 @@ class Navigation extends Component<{}, NavigationState> {
       if (prevState.previousPath !== previousPathFromStorage) {
         this.setState({
           previousPath: previousPathFromStorage,
-          showPreviousPath: urlsThatUseBackButton.some(
+          showPreviousPath,
+          linkBackToHome: urlsThatUseBackButton.some(
             pathname => window.location.pathname.indexOf(pathname) >= 0
           ),
         })
@@ -175,7 +185,12 @@ class Navigation extends Component<{}, NavigationState> {
   }
 
   render() {
-    const { active, previousPath, showPreviousPath } = this.state
+    const {
+      active,
+      previousPath,
+      showPreviousPath,
+      linkBackToHome,
+    } = this.state
     const { nav } = this.props
     const fill = nav.theme === 'dark' ? '#000' : '#fff'
     const theme = themes[nav.theme]
@@ -191,6 +206,11 @@ class Navigation extends Component<{}, NavigationState> {
                     onClick={() => window.history.back()}
                     data-a11y="false"
                   >
+                    <BackChevron />
+                  </LogoBack>
+                )}
+                {linkBackToHome && (
+                  <LogoBack onClick={() => navigate('/')} data-a11y="false">
                     <BackChevron />
                   </LogoBack>
                 )}
