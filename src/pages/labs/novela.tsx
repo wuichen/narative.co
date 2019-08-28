@@ -66,10 +66,14 @@ function NovealPage({ data, location }) {
   }, [])
 
   useEffect(() => {
-    const handleMessage = event => setTheme(event.data.theme)
+    const handleMessage = event => {
+      if (event.data.theme) {
+        setTheme(event.data.theme)
+      }
+    }
     window.addEventListener('message', handleMessage)
     return () => window.removeEventListener('message', handleMessage)
-  }, [])
+  }, [theme])
 
   const styledTheme =
     theme === 'dark'
