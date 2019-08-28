@@ -8,7 +8,7 @@ import Section from '@components/Section'
 import SEO from '@components/SEO'
 import Media from '@components/Media/Media.Img'
 
-import mediaqueries, { media } from '@styles/media'
+import mediaqueries from '@styles/media'
 
 /**
  * The home page of Narative.co!
@@ -215,7 +215,9 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
   `}
 
   ${mediaqueries.tablet`
-    display: none;
+    height: 0px;
+    visibility: hidden;
+    opacity: 0;
   `}
 
   &::before {
