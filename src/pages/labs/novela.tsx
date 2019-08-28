@@ -50,6 +50,12 @@ function NovealPage({ data, location }) {
 
             @media screen and (max-width: 1000px) {
               #gatsby-focus-wrapper > div {
+                padding-top: 25px
+              }
+            }
+
+            @media screen and (max-width: 500px) {
+              #gatsby-focus-wrapper > div {
                 padding-top: 0px
               }
             }
