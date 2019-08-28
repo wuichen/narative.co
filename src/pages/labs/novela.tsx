@@ -15,7 +15,7 @@ import mediaqueries from '@styles/media'
  */
 function NovealPage({ data, location }) {
   const contentful = data.allContentfulPage.edges[0].node
-  console.log(data)
+
   const [theme, setTheme] = useState('light')
   const [dimension, setDimension] = useState(1140)
   const [hasLoaded, setHasLoaded] = useState(false)
