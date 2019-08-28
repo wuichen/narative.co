@@ -3,16 +3,19 @@ import styled, { ThemeProvider } from 'styled-components'
 import { graphql } from 'gatsby'
 
 import Layout from '@components/Layout'
+import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Section from '@components/Section'
 import SEO from '@components/SEO'
-import mediaqueries from '@styles/media'
+import Media from '@components/Media/Media.Img'
+
+import mediaqueries, { media } from '@styles/media'
 
 /**
  * The home page of Narative.co!
  */
 function NovealPage({ data, location }) {
   const contentful = data.allContentfulPage.edges[0].node
-
+  console.log(data)
   const [theme, setTheme] = useState('light')
   const [dimension, setDimension] = useState(1140)
   const [hasLoaded, setHasLoaded] = useState(false)
@@ -95,49 +98,73 @@ function NovealPage({ data, location }) {
           pathname={location.pathname}
         />
 
-        <Section style={{ position: 'relative' }} narrow>
-          <Controls isMobile={dimension === 361}>
-            <div>
-              <ControlButton
-                onClick={() => setDimension(1140)}
-                style={{ opacity: dimension === 1140 ? 1 : 0.3 }}
+        <LayoutHeroMobile>
+          <Section style={{ position: 'relative' }} narrow>
+            <Controls isMobile={dimension === 361}>
+              <div>
+                <ControlButton
+                  onClick={() => setDimension(1140)}
+                  style={{ opacity: dimension === 1140 ? 1 : 0.3 }}
+                >
+                  <DesktopIcon fill={styledTheme.active} />
+                </ControlButton>
+                <ControlButton
+                  onClick={() => setDimension(946)}
+                  style={{ opacity: dimension === 946 ? 1 : 0.3 }}
+                >
+                  <TabletIcon fill={styledTheme.active} />
+                </ControlButton>
+                <ControlButton
+                  onClick={() => setDimension(361)}
+                  style={{ opacity: dimension === 361 ? 1 : 0.3 }}
+                >
+                  <MobileIcon fill={styledTheme.active} />
+                </ControlButton>
+              </div>
+              <Divider style={{ background: styledTheme.active }} />
+              <Anchor
+                href="https://github.com/narative/gatsby-theme-novela/"
+                target="_blank"
+                rel="noopener"
               >
-                <DesktopIcon fill={styledTheme.active} />
-              </ControlButton>
-              <ControlButton
-                onClick={() => setDimension(946)}
-                style={{ opacity: dimension === 946 ? 1 : 0.3 }}
-              >
-                <TabletIcon fill={styledTheme.active} />
-              </ControlButton>
-              <ControlButton
-                onClick={() => setDimension(361)}
-                style={{ opacity: dimension === 361 ? 1 : 0.3 }}
-              >
-                <MobileIcon fill={styledTheme.active} />
-              </ControlButton>
-            </div>
-            <Divider style={{ background: styledTheme.active }} />
-            <Anchor
-              href="https://github.com/narative/gatsby-theme-novela/"
-              target="_blank"
-              rel="noopener"
-            >
-              Get this theme <ExternalLinkIcon />
-            </Anchor>
-          </Controls>
-          <PreviewContainer
-            style={{ maxWidth: `${dimension}px`, opacity: hasLoaded ? 1 : 0 }}
-            isMobile={dimension === 361}
-          >
-            <Preview
-              id="Iframe__Novela"
-              src="https://novela.narative.co"
-              ref={iframeRef}
+                Get this theme <ExternalLinkIcon />
+              </Anchor>
+            </Controls>
+            <PreviewContainer
+              style={{
+                maxWidth: `${dimension}px`,
+                opacity: hasLoaded ? 1 : 0,
+              }}
               isMobile={dimension === 361}
-            />
-          </PreviewContainer>
-        </Section>
+            >
+              <Preview
+                id="Iframe__Novela"
+                src="https://novela.narative.co"
+                ref={iframeRef}
+                isMobile={dimension === 361}
+              />
+            </PreviewContainer>
+          </Section>
+          <Mobile>
+            <Section narrow>
+              <MediaContainer>
+                <Media
+                  loading="eager"
+                  src={data.novelaDesktop.childImageSharp.fluid}
+                />
+              </MediaContainer>
+            </Section>
+            <Section>
+              <MobileAnchor
+                href="https://github.com/narative/gatsby-theme-novela/"
+                target="_blank"
+                rel="noopener"
+              >
+                Get this theme
+              </MobileAnchor>
+            </Section>
+          </Mobile>
+        </LayoutHeroMobile>
       </Layout>
     </ThemeProvider>
   )
@@ -147,7 +174,7 @@ export default NovealPage
 
 export const pageQuery = graphql`
   query NovealPageQuery {
-    allContentfulPage(filter: { pageName: { eq: "Home" } }) {
+    allContentfulPage(filter: { pageName: { eq: "Novela" } }) {
       edges {
         node {
           seo {
@@ -159,6 +186,13 @@ export const pageQuery = graphql`
               }
             }
           }
+        }
+      }
+    }
+    novelaDesktop: file(name: { regex: "/labs-theme-novela-desktop/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1060, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
@@ -181,8 +215,7 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
   `}
 
   ${mediaqueries.tablet`
-     margin: 0 auto;
-     padding: 150px 0 0;
+    display: none;
   `}
 
   &::before {
@@ -196,9 +229,9 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     filter: blur(120px);
 
     ${mediaqueries.tablet`
-    background: rgba(0, 0, 0, 0.1);
-    filter: blur(100px);
-  `}
+      background: rgba(0, 0, 0, 0.1);
+      filter: blur(100px);
+    `}
   }
 `
 
@@ -216,6 +249,10 @@ const Controls = styled.div<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
   z-index: 10;
+
+  ${mediaqueries.tablet`
+    display: none;
+  `}
 `
 
 const ControlButton = styled.button`
@@ -248,6 +285,41 @@ const Anchor = styled.a`
       fill: ${p => p.theme.links};
     }
   }
+`
+
+const Mobile = styled.div`
+  ${mediaqueries.desktop_up`
+    display: none;
+  `}
+`
+
+const MediaContainer = styled.div`
+  position: relative;
+  margin-top: 85px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 94%;
+    left: 5%;
+    top: 5%;
+    background: rgba(0, 0, 0, 0.1);
+    filter: blur(100px);
+  }
+`
+
+const MobileAnchor = styled.a`
+  color: ${p => p.theme.links};
+  height: 45px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${p => p.theme.links};
+  border-radius: 5px;
+  margin-top: 45px;
+  font-weight: 600;
 `
 
 const DesktopIcon = ({ fill }) => (
