@@ -18,7 +18,6 @@ function NovealPage({ data, location }) {
   const [hasLoaded, setHasLoaded] = useState(false)
   const iframeRef = useRef(null)
 
-  console.log(theme)
   const navConfig = {
     offset: true,
     fixed: true,
