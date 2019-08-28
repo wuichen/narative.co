@@ -41,7 +41,7 @@ function NovealPage({ data, location }) {
               padding-top: 50px
             }
           `
-      // iframeRef.current.contentWindow.document.head.appendChild(style)
+      iframeRef.current.contentWindow.document.head.appendChild(style)
       setHasLoaded(true)
     })
   }, [])
