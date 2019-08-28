@@ -5,6 +5,7 @@ import { graphql } from 'gatsby'
 import Layout from '@components/Layout'
 import Section from '@components/Section'
 import SEO from '@components/SEO'
+import mediaqueries from '@styles/media'
 
 /**
  * The home page of Narative.co!
@@ -23,23 +24,26 @@ function NovealPage({ data, location }) {
   }
 
   const [dimension, setDimension] = useState(1140)
+  const [hasLoaded, setHasLoaded] = useState(false)
   const iframeRef = useRef(null)
 
   useEffect(() => {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.textContent = `
-          body {
-            zoom: 82%;
-            position: relative;
-          }
-          
-          .gatsby-focus-wrapper > div {
-            padding-top: 50px
-          }
-        `
-
-    iframeRef.current.contentWindow.document.head.appendChild(style)
+    iframeRef.current.addEventListener('load', () => {
+      const style = document.createElement('style')
+      style.type = 'text/css'
+      style.textContent = `
+            body {
+              zoom: 82%;
+              position: relative;
+            }
+            
+            .gatsby-focus-wrapper > div {
+              padding-top: 50px
+            }
+          `
+      // iframeRef.current.contentWindow.document.head.appendChild(style)
+      setHasLoaded(true)
+    })
   }, [])
 
   return (
@@ -79,7 +83,9 @@ function NovealPage({ data, location }) {
               Get this theme <ExternalLinkIcon />
             </Anchor>
           </Controls>
-          <PreviewContainer style={{ maxWidth: `${dimension}px` }}>
+          <PreviewContainer
+            style={{ maxWidth: `${dimension}px`, opacity: hasLoaded ? 1 : 0 }}
+          >
             <Preview
               id="Iframe__Novela"
               src="https://novela.narative.co"
@@ -117,7 +123,17 @@ export const pageQuery = graphql`
 const PreviewContainer = styled.div`
   position: relative;
   width: 100%;
-  margin: 25px auto 0;
+  margin: 65px auto 0;
+  transition: opacity 0.5s;
+  margin: 15px auto 0;
+
+  ${mediaqueries.desktop_large`
+    margin: 64px auto 0;
+  `}
+
+  ${mediaqueries.desktop_medium`
+   margin: 15px auto 0;
+  `}
 
   &::before {
     content: '';
@@ -125,9 +141,9 @@ const PreviewContainer = styled.div`
     width: 90%;
     height: 94%;
     left: 5%;
-    top: 2%;
-    background: rgba(0, 0, 0, 0.2);
-    filter: blur(110px);
+    top: 5%;
+    background: rgba(0, 0, 0, 0.28);
+    filter: blur(120px);
   }
 `
 
@@ -144,7 +160,6 @@ const Controls = styled.div`
   top: -100px;
   display: flex;
   align-items: center;
-  background: #fff;
   z-index: 10;
 `
 
@@ -168,6 +183,15 @@ const Anchor = styled.a`
 
   svg {
     margin-left: 11px;
+    background: #fafafa;
+    width: 21px;
+    height: 17px;
+    right: 0px;
+    position: relative;
+
+    ${mediaqueries.desktop_large`
+      right: -1px;
+    `}
   }
 `
 
