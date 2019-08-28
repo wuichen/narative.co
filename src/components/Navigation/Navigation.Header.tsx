@@ -210,7 +210,7 @@ class Navigation extends Component<{}, NavigationState> {
                 )}
                 {linkBackToHome && !showPreviousPath && (
                   <LogoBack onClick={() => navigate('/')} data-a11y="false">
-                    <BackChevron />
+                    <BackChevron fill={fill} />
                   </LogoBack>
                 )}
                 <LogoMask>
@@ -672,7 +672,7 @@ const Symbol = styled.div`
     margin-right: 7px;
   }
 `
-const BackChevron = () => (
+const BackChevron = ({ fill = 'black' }) => (
   <svg
     width="24"
     height="24"
@@ -682,7 +682,7 @@ const BackChevron = () => (
   >
     <path
       d="M15.41 16.09L10.83 11.5L15.41 6.91L14 5.5L8 11.5L14 17.5L15.41 16.09Z"
-      fill="black"
+      fill={fill}
     />
   </svg>
 )
