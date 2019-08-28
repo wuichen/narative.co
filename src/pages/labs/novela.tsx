@@ -60,7 +60,7 @@ function NovealPage({ data, location }) {
               }
             }
           `
-      iframeRef.current.contentWindow.document.head.appendChild(style)
+      // iframeRef.current.contentWindow.document.head.appendChild(style)
       setHasLoaded(true)
     })
   }, [])
@@ -91,7 +91,7 @@ function NovealPage({ data, location }) {
           pathname={location.pathname}
         />
 
-        <Section style={{ position: 'relative' }}>
+        <Section style={{ position: 'relative' }} narrow>
           <Controls isMobile={dimension === 361}>
             <div>
               <ControlButton
@@ -171,8 +171,9 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
   `}
 
-  ${mediaqueries.desktop_medium`
-     margin: ${p => (p.isMobile ? '-15px auto -65px' : '15px auto -65px')};
+  ${mediaqueries.tablet`
+     margin: 0 auto;
+     padding: 150px 0 0;
   `}
 
   &::before {
@@ -184,6 +185,11 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     top: 5%;
     background: rgba(0, 0, 0, 0.28);
     filter: blur(120px);
+
+    ${mediaqueries.tablet`
+    background: rgba(0, 0, 0, 0.1);
+    filter: blur(100px);
+  `}
   }
 `
 
