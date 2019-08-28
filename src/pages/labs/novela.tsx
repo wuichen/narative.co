@@ -81,7 +81,7 @@ function NovealPage({ data, location }) {
         />
 
         <Section style={{ position: 'relative' }}>
-          <Controls>
+          <Controls isMobile={dimension === 361}>
             <div>
               <ControlButton
                 onClick={() => setDimension(1140)}
@@ -102,7 +102,7 @@ function NovealPage({ data, location }) {
                 <MobileIcon fill={styledTheme.active} />
               </ControlButton>
             </div>
-            <Divider />
+            <Divider style={{ background: styledTheme.active }} />
             <Anchor
               href="https://github.com/narative/gatsby-theme-novela/"
               target="_blank"
@@ -113,11 +113,13 @@ function NovealPage({ data, location }) {
           </Controls>
           <PreviewContainer
             style={{ maxWidth: `${dimension}px`, opacity: hasLoaded ? 1 : 0 }}
+            isMobile={dimension === 361}
           >
             <Preview
               id="Iframe__Novela"
               src="https://novela.narative.co"
               ref={iframeRef}
+              isMobile={dimension === 361}
             />
           </PreviewContainer>
         </Section>
@@ -148,18 +150,18 @@ export const pageQuery = graphql`
   }
 `
 
-const PreviewContainer = styled.div`
+const PreviewContainer = styled.div<{ isMobile: boolean }>`
   position: relative;
   width: 100%;
   transition: opacity 0.5s;
-  margin: 15px auto -65px;
+  margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
 
   ${mediaqueries.desktop_large`
-    margin: 64px auto -65px;
+    margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
   `}
 
   ${mediaqueries.desktop_medium`
-    margin: 15px auto -65px;
+     margin: ${p => (p.isMobile ? '-15px auto -65px' : '15px auto -65px')};
   `}
 
   &::before {
@@ -174,17 +176,17 @@ const PreviewContainer = styled.div`
   }
 `
 
-const Preview = styled.iframe`
+const Preview = styled.iframe<{ isMobile: boolean }>`
   position: relative;
   width: 100%;
   border: none;
-  height: 600px;
+  height: ${p => (p.isMobile ? '700px' : '600px')};
 `
 
-const Controls = styled.div`
+const Controls = styled.div<{ isMobile: boolean }>`
   position: absolute;
   right: 40px;
-  top: -100px;
+  top: ${p => (p.isMobile ? '-70px' : '-100px')};
   display: flex;
   align-items: center;
   z-index: 10;
@@ -201,7 +203,7 @@ const Divider = styled.div`
   width: 1px;
   background: red;
   margin: 0 35px;
-  background: rgba(8, 8, 11, 0.2);
+  opacity: 0.2;
 `
 
 const Anchor = styled.a`
@@ -213,16 +215,12 @@ const Anchor = styled.a`
     background: ${p => p.theme.background};
     width: 21px;
     height: 17px;
-    right: 0px;
+    right: -1px;
     position: relative;
 
     * {
       fill: ${p => p.theme.links};
     }
-
-    ${mediaqueries.desktop_large`
-      right: -1px;
-    `}
   }
 `
 
