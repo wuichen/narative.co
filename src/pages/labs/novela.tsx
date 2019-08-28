@@ -166,9 +166,14 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
   width: 100%;
   transition: opacity 0.5s;
   margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
+  padding: 0;
 
   ${mediaqueries.desktop_large`
     margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
+  `}
+
+  ${mediaqueries.desktop_medium`
+    margin: ${p => (p.isMobile ? '35px auto -65px' : '15px auto -65px')};
   `}
 
   ${mediaqueries.tablet`
