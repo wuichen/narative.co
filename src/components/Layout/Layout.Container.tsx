@@ -335,7 +335,7 @@ const MobileHamburger = styled.button`
   z-index: 999;
   width: 30px;
   height: 30px;
-  top: 50px;
+  top: 54px;
   right: 30px;
   opacity: ${p => (p.active ? 0.5 : 1)};
   transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -353,6 +353,10 @@ const MobileHamburger = styled.button`
     display: none;
     visibility: hidden;
   `}
+
+  @media screen and (min-height: 800px) {
+    top: 48px;
+  }
 `
 
 const Toggle = styled.span`
