@@ -38,34 +38,37 @@ function NovealPage({ data, location }) {
       : 'linear-gradient(180deg, #fff 55%, #D9DBE0 100%)'
 
   useEffect(() => {
-    iframeRef.current.addEventListener('load', () => {
+    function handleIframe() {
       const style = document.createElement('style')
       style.type = 'text/css'
       style.textContent = `
-            body {
-              zoom: 82%;
-              position: relative;
-            }
-            
-            #gatsby-focus-wrapper > div {
-              padding-top: 50px
-            }
-
-            @media screen and (max-width: 1000px) {
-              #gatsby-focus-wrapper > div {
-                padding-top: 25px
+              body {
+                zoom: 82%;
+                position: relative;
               }
-            }
-
-            @media screen and (max-width: 500px) {
+              
               #gatsby-focus-wrapper > div {
-                padding-top: 0px
+                padding-top: 50px
               }
-            }
-          `
+  
+              @media screen and (max-width: 1000px) {
+                #gatsby-focus-wrapper > div {
+                  padding-top: 25px
+                }
+              }
+  
+              @media screen and (max-width: 500px) {
+                #gatsby-focus-wrapper > div {
+                  padding-top: 0px
+                }
+              }
+            `
       iframeRef.current.contentWindow.document.head.appendChild(style)
       setHasLoaded(true)
-    })
+    }
+    iframeRef.current.addEventListener('load', handleIframe)
+
+    return () => iframeRef.current.removeEventListener('load', handleIframe)
   }, [])
 
   useEffect(() => {
@@ -211,7 +214,7 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
   `}
 
   ${mediaqueries.desktop_medium`
-    margin: ${p => (p.isMobile ? '35px auto -65px' : '15px auto -65px')};
+    margin: ${p => (p.isMobile ? '35px auto -65px' : '20px auto -65px')};
   `}
 
   ${mediaqueries.tablet`
