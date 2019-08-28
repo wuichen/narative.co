@@ -60,7 +60,7 @@ function NovealPage({ data, location }) {
               }
             }
           `
-      // iframeRef.current.contentWindow.document.head.appendChild(style)
+      iframeRef.current.contentWindow.document.head.appendChild(style)
       setHasLoaded(true)
     })
   }, [])
