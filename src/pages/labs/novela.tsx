@@ -45,7 +45,7 @@ function NovealPage({ data, location }) {
               position: relative;
             }
             
-            .gatsby-focus-wrapper > div {
+            #gatsby-focus-wrapper > div {
               padding-top: 50px
             }
           `
