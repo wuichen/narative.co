@@ -183,7 +183,7 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     height: 94%;
     left: 5%;
     top: 5%;
-    background: rgba(0, 0, 0, 0.28);
+    background: rgba(0, 0, 0, 0.24);
     filter: blur(120px);
 
     ${mediaqueries.tablet`
