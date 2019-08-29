@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 
 import SEO from '@components/SEO'
@@ -124,9 +124,8 @@ function LabsPage({ data, location }) {
           <HorizontalRule dark />
           <div>
             <LinkToProduct
-              target="_blank"
-              data-a11y="false"
-              href="https://novela.narative.co"
+              as={Link}
+              to="/labs/novela"
               style={{ color: '#08080B' }}
             >
               <EyeIcon aria-hidden="true" fill="#08080B" />
