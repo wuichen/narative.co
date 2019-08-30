@@ -5541,9 +5541,9 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.0"
 
-"favicons-webpack-plugin@git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
+"favicons-webpack-plugin@https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
   version "0.0.9"
-  resolved "git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
+  resolved "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
   dependencies:
     core-js "^2.5.7"
     favicons "^5.1.1"
@@ -6228,11 +6228,6 @@ gatsby-plugin-react-helmet@^3.0.2:
   integrity sha512-ApDQjtqfW0rzYpem9NHwff8lWZlDKLeuyMaaP1QKoLkiGJkussJ7n1X5BJJ4lK32g6rDb3aZ+zik08ohtG7QgQ==
   dependencies:
     "@babel/runtime" "^7.5.5"
-
-gatsby-plugin-remove-fingerprints@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-remove-fingerprints/-/gatsby-plugin-remove-fingerprints-0.0.2.tgz#ef21a184e2f5deffe644aebd16b8d67f46a7d51b"
-  integrity sha512-af1zbr0+cr3fcjEAVAbUia/On6GJbrxoLVNZf7TxLqKzPMfMlDNXf6hDXAJy0dzxE6qrqD2oyGZpk1rOdgUQ0Q==
 
 gatsby-plugin-robots-txt@^1.4.0:
   version "1.5.0"
