@@ -28,7 +28,6 @@ const StyledGatsbyImag = styled(GatsbyImg)`
  * <Img src={...fluid Gatsby image} />
  * <Img src="https://..." />
  *
- * todo : lazyload the default img tag
  */
 const Img: React.SFC<IImg> = ({ src, alt, ...props }) => {
   // we’re going to build our final component's props dynamically.

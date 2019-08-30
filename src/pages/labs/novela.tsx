@@ -151,10 +151,7 @@ function NovealPage({ data, location }) {
           <Mobile>
             <Section narrow>
               <MediaContainer>
-                <Media
-                  loading="eager"
-                  src={data.novelaDesktop.childImageSharp.fluid}
-                />
+                <Media src={data.novelaDesktop.childImageSharp.fluid} />
               </MediaContainer>
             </Section>
             <Section>

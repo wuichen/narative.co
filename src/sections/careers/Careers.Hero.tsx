@@ -61,14 +61,10 @@ function CareersHero() {
                   </LeftContainer>
                   <ImageContainer desktop>
                     <HeroImageTop>
-                      <Media
-                        loading="eager"
-                        src={heroTop.childImageSharp.fluid}
-                      />
+                      <Media src={heroTop.childImageSharp.fluid} />
                     </HeroImageTop>
                     <HeroImageBottom start={animateBulb}>
                       <Media
-                        loading="eager"
                         onLoad={() => setBulbAnimation(true)}
                         src={heroBottom.childImageSharp.fluid}
                       />
@@ -90,11 +86,10 @@ function CareersHero() {
           <Section hideOnDesktop>
             <ImageContainer>
               <HeroImageTop>
-                <Media loading="eager" src={heroTop.childImageSharp.fluid} />
+                <Media src={heroTop.childImageSharp.fluid} />
               </HeroImageTop>
               <HeroImageBottom>
                 <Media
-                  loading="eager"
                   src={heroBottom.childImageSharp.fluid}
                   onLoad={() => setBulbAnimation(true)}
                 />

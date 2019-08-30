@@ -275,16 +275,16 @@ function HomeServices() {
             return (
               <Grid>
                 <ImageSlides>
-                  <ImageSlide loading="eager" active={firstActive}>
+                  <ImageSlide active={firstActive}>
                     <Media src={first.childImageSharp.fluid} />
                     <Time />
                   </ImageSlide>
                   <ImageSlide active={secondActive}>
-                    <Media loading="eager" src={second.childImageSharp.fluid} />
+                    <Media src={second.childImageSharp.fluid} />
                     <Code />
                   </ImageSlide>
                   <ImageSlide active={thirdActive}>
-                    <Media loading="eager" src={third.childImageSharp.fluid} />
+                    <Media src={third.childImageSharp.fluid} />
                   </ImageSlide>
                 </ImageSlides>
                 <Column>

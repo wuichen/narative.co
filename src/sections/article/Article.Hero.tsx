@@ -52,7 +52,7 @@ const ArticleHero = ({ article }: { article: IArticleNode }) => {
               <ReadingTime>{article.readingTime.text}</ReadingTime>
             </RelativeSection>
             <Image>
-              <Media loading="eager" src={article.hero.Article__Hero} />
+              <Media src={article.hero.Article__Hero} />
             </Image>
           </Hero>
         )

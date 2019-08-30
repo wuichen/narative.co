@@ -76,7 +76,6 @@ function ArticlesHero() {
             </ContentContainer>
             <HeroImage>
               <Media
-                loading="eager"
                 src={heroImage.childImageSharp.fluid}
                 onLoad={() => setImageLoaded(true)}
               />
