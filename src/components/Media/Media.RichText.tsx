@@ -586,8 +586,8 @@ const CallToActionLeftCorner = `
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M1 13.5C0.723862 13.5 0.5 13.2761 0.5 13L0.500001 0.500001L135 0.500011C135.276 0.500011 135.5 0.723869 135.5 1.00001C135.5 1.27615 135.276 1.50001 135 1.50001L1.5 1.5L1.5 13C1.5 13.2761 1.27614 13.5 1 13.5Z"
       fill="url(#paint0_linear)"
       fill-opacity="0.8"
@@ -617,8 +617,8 @@ const CallToActionRightCorner = `
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M120 0C120.276 0 120.5 0.223858 120.5 0.5V13.5H1C0.723858 13.5 0.5 13.2761 0.5 13C0.5 12.7239 0.723858 12.5 1 12.5H119.5V0.5C119.5 0.223858 119.724 0 120 0Z"
       fill="url(#paint1_linear)"
       fill-opacity="0.8"

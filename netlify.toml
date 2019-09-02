@@ -2,3 +2,7 @@
   Command = "yarn build"
   Functions = "functions"
   Publish = "public"
+
+[[headers]]
+  for = "/irap/*"
+    Basic-Auth = "someuser:irap anotheruser:future"

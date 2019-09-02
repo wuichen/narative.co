@@ -8,14 +8,16 @@ const {
 } = require('../gatsby-transformer-contentful-rich-text-html-renderer/htmlRenderer')
 
 const TYPE_ARTICLE = 'ContentfulArticle'
+const TYPE_IRAP = 'ContentfulIrap'
 
 const URL_ARTICLES = settings.urls.articles
 
 const typeToUrl = {
   [TYPE_ARTICLE]: URL_ARTICLES,
+  [TYPE_IRAP]: 'irap',
 }
 
-const nodeTypesToModify = [TYPE_ARTICLE]
+const nodeTypesToModify = [TYPE_ARTICLE, TYPE_IRAP]
 
 const getReadingTime = refNode => {
   // Get the content matrix that Contentful stores for RichText fields
