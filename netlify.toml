@@ -5,4 +5,5 @@
 
 [[headers]]
   for = "/irap/*"
-    Basic-Auth = "someuser:irap anotheruser:future"
+  [headers.values]
+    Basic-Auth = "irap:fey"
