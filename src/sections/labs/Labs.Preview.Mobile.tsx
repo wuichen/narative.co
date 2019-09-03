@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
 import Media from '@components/Media/Media.Img'
@@ -100,9 +100,8 @@ function LabsPreviewMobile() {
         <Media src={novelaBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor
-          href="https://gatsby-theme-novela.netlify.com/"
-          target="_blank"
-          rel="noopener"
+          as={Link}
+          to="/labs/novela"
           style={{ background: '#7E9BB3', color: '#FAFAFA' }}
         >
           Live preview

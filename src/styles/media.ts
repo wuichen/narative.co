@@ -21,14 +21,14 @@ const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
     ...acc,
     // max-width media query e.g. mediaqueries.desktop
     [label]: (...args: TemplateStringsArray[]) => css`
-      @media (max-width: ${toEm(size)}) {
+      @media (max-width: ${size}px) {
         ${css(...args)};
       }
     `,
     // min-width media query e.g. mediaqueries.desktop_up
     // This is the breakpoint prior's size +1
     [`${label}_up`]: (...args: TemplateStringsArray[]) => css`
-      @media (min-width: ${toEm(theme.breakpoints[i - 1][1] + 1)}) {
+      @media (min-width: ${theme.breakpoints[i - 1][1] + 1}px) {
         ${css(...args)};
       }
     `,

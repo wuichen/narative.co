@@ -6,6 +6,7 @@ import { ContactProvider } from '@components/Contact/Contact.Context'
 import ContactSlideIn from '@components/Contact/Contact.SlideIn'
 import Container from '@components/Layout/Layout.Container'
 import CommandLine from '@components/CommandLine'
+import Breakpoints from '@components/Breakpoints'
 
 import { GlobalStyles, theme } from '@styles'
 import store from '@store'
@@ -46,6 +47,7 @@ const Layout = ({ children, ...rest }: LayoutProps) => {
             <Container {...rest}>{children}</Container>
             <ContactSlideIn />
             <CommandLine />
+            <Breakpoints />
           </>
         </ContactProvider>
       </ThemeProvider>
