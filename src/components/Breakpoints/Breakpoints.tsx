@@ -11,14 +11,14 @@ function Breakpoints() {
 
   return (
     <Container largest={theme.breakpoints[theme.breakpoints.length - 1][0]}>
-      {theme.breakpoints.map((brekapoint, index) => {
+      {theme.breakpoints.map((breakpoint, index) => {
         return (
           <ShowBreakpoint
-            breakpoint={brekapoint[0]}
-            key={brekapoint[0]}
+            breakpoint={breakpoint[0]}
+            key={breakpoint[0]}
             style={{ zIndex: theme.breakpoints.length - index }}
           >
-            <span>{brekapoint[0]}</span> · <span>{brekapoint[1]}px</span>
+            <span>{breakpoint[0]}</span> · <span>{breakpoint[1]}px</span>
           </ShowBreakpoint>
         )
       })}
