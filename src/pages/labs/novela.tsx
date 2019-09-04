@@ -220,6 +220,10 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     opacity: 0;
   `}
 
+@media screen and (max-height: 800px) {
+  margin: ${p => (p.isMobile ? '35px auto -65px' : '25px auto -65px')};
+    }
+
   &::before {
     content: '';
     position: absolute;
