@@ -386,7 +386,7 @@ const HeadingBackground = styled.div`
 const LargeHeading = styled.p`
   display: inline;
   font-weight: 700;
-  font-size: 80px;
+  font-size: 70px;
   letter-spacing: -0.5px;
   line-height: 1.2;
   font-family: ${p => p.theme.fontfamily.serif};

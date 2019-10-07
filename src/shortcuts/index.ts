@@ -111,6 +111,11 @@ export default (store => {
           store.dispatch({ type: constants.SHORTCUT, payload: feature })
           break
         }
+        case constants.GO_TO_ABOUT: {
+          navigate('/about')
+          store.dispatch({ type: constants.SHORTCUT, payload: feature })
+          break
+        }
         case constants.GO_TO_ARTICLES: {
           navigate('/articles')
           store.dispatch({ type: constants.SHORTCUT, payload: feature })

@@ -11,7 +11,7 @@ import { ContactContext } from '@components/Contact/Contact.Context'
 import shortcuts, { constants, keyToSymbol } from '@shortcuts'
 
 const navLinks = [
-  { to: '/careers', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
