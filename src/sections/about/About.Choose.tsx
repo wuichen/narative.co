@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 
+import ButtonPill from '@components/Button/Button.Pill'
 import Divider from '@components/Divider'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -8,7 +9,11 @@ import mediaqueries from '@styles/media'
 
 import AboutHeading from './About.Heading'
 
+import { ContactContext } from '@components/Contact/Contact.Context'
+
 function AboutChoose() {
+  const { toggleContact } = useContext(ContactContext)
+
   return (
     <AboutChooseContainer>
       <AboutHeading
@@ -51,6 +56,9 @@ function AboutChoose() {
             </ValueText>
           </div>
         </ValuesGrid>
+        <ButtonContainer>
+          <ButtonPill text="Work with our team" onClick={toggleContact} />
+        </ButtonContainer>
       </Section>
     </AboutChooseContainer>
   )
@@ -59,7 +67,7 @@ function AboutChoose() {
 export default AboutChoose
 
 const ShapePlaceholder = styled.div`
-  margin-top: 80px;
+  margin: 80px auto -100px;
   width: 100%;
   height: 580px;
   background: linear-gradient(rgba(255, 255, 255, 0.5), transparent);
@@ -73,7 +81,6 @@ const ValuesGrid = styled.div`
   max-width: 750px;
   margin: 0 auto;
   position: relative;
-  top: -150px;
   display: grid;
   grid-template-columns: 337px 337px;
   grid-template-rows: 1fr 1fr;
@@ -97,4 +104,10 @@ const ValueHeading = styled(Heading.h3)`
 const ValueText = styled.p`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 55px auto 0;
 `

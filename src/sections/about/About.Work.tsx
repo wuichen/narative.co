@@ -55,12 +55,12 @@ const MiddleGrid = styled.div`
 
 const Image = styled.div`
   background: #fafafa;
-  opacity: 0.33;
+  opacity: 0.75;
   height: 470px;
 `
 
 const NarrowImage = styled.div`
   background: #fafafa;
-  opacity: 0.33;
+  opacity: 0.75;
   height: 517px;
 `

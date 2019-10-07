@@ -9,6 +9,8 @@ interface StickyProps {
   height: number
   top?: number
   disableOnMobile?: boolean
+  render: (props: StickyState) => void
+  cover?: boolean
 }
 
 interface StickyState {
@@ -32,7 +34,7 @@ class Sticky extends Component<StickyProps, StickyState> {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  handleScroll = throttle(() => {
+  handleScroll = () => {
     const $el = this.element.current
 
     const scrollPosition = window.pageYOffset || window.scrollY
@@ -56,19 +58,24 @@ class Sticky extends Component<StickyProps, StickyState> {
     const progressOverElement =
       (scrollPosition - topOfElement) / (heightOfElement - viewportHeight) || 0
 
-    const progress = progressOverElement > 1 ? 1 : progressOverElement
+    const progress =
+      progressOverElement > 1
+        ? 1
+        : progressOverElement < 0
+        ? 0
+        : progressOverElement
 
     this.setState({ position, progress })
-  }, 14)
+  }
 
   render() {
-    const { height, render, top, disableOnMobile } = this.props
+    const { cover, height, render, top, disableOnMobile } = this.props
 
     return (
       <div ref={this.element} data-component="sticky">
         <StickyDuration height={height} isDisabled={disableOnMobile}>
           <StickyItemContainer>
-            <StickyItem top={top} isDisabled={disableOnMobile}>
+            <StickyItem top={top} isDisabled={disableOnMobile} cover={cover}>
               {render(this.state)}
             </StickyItem>
           </StickyItemContainer>
@@ -80,7 +87,7 @@ class Sticky extends Component<StickyProps, StickyState> {
 
 export default Sticky
 
-const StickyDuration = styled.div`
+const StickyDuration = styled.div<{ height: string }>`
   height: ${p => p.height || '100vh'};
 
   ${mediaqueries.tablet`
@@ -92,11 +99,12 @@ const StickyItemContainer = styled.div`
   height: 100%;
 `
 
-const StickyItem = styled.div`
+const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   position: sticky;
   z-index: 1;
   top: ${p => p.top || 0}px;
   min-height: initial;
+  height: ${p => (p.cover ? '100vh' : 'initial')};
   display: flex;
   align-items: center;
   justify-content: center;

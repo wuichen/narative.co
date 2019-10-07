@@ -40,6 +40,8 @@ export const theme = {
     moon,
     red,
     purple,
+    sirius: '#fafafa',
+    kepler: '#08080B',
   },
   animations: {
     flicker,
