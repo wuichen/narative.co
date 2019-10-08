@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import OutsideClickHandler from 'react-outside-click-handler'
+import usePortal from 'react-useportal'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import Heading from '@components/Heading'
@@ -8,7 +10,6 @@ import Sticky from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
 
 import mediaqueries from '@styles/media'
-import { relative } from 'path'
 
 /**
  * Command Line Parts
@@ -75,34 +76,131 @@ const illustrationQuery = graphql`
  */
 
 function AboutTeam() {
+  const [person, setPerson] = useState()
   const illustrations = useStaticQuery(illustrationQuery)
+  const { Portal } = usePortal()
 
   const people = [
     {
       name: 'Thiago Costa',
       role: 'Brand and Design',
       illustration: illustrations.thiago,
+      signature: () => {},
+      about: () => (
+        <>
+          <p>
+            I’ve been crafting digital experiences for humans for the past ten
+            years, having the honour to contribute on the growth of companies
+            like Hopper, Lightspeed, Breather among others.
+          </p>
+          <p>
+            During this journey I had the opportunity to meet the most talented
+            group of people, and build a world-class team to develop startups.
+          </p>
+          <p>
+            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
+            cursus semper lorem sit amet tempor. Duis nec lacus orci.
+          </p>
+        </>
+      ),
+      social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
       name: 'Brad Tiller',
       role: 'Marketing and Growth',
       illustration: illustrations.brad,
+      signature: () => {},
+      about: () => (
+        <>
+          <p>
+            I’ve been crafting digital experiences for humans for the past ten
+            years, having the honour to contribute on the growth of companies
+            like Hopper, Lightspeed, Breather among others.
+          </p>
+          <p>
+            During this journey I had the opportunity to meet the most talented
+            group of people, and build a world-class team to develop startups.
+          </p>
+          <p>
+            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
+            cursus semper lorem sit amet tempor. Duis nec lacus orci.
+          </p>
+        </>
+      ),
+      social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
       name: 'Dennis Brotzky',
       role: 'Software Engineering',
       illustration: illustrations.dennis,
+      signature: () => {},
+      about: () => (
+        <>
+          <p>
+            I’ve been crafting digital experiences for humans for the past ten
+            years, having the honour to contribute on the growth of companies
+            like Hopper, Lightspeed, Breather among others.
+          </p>
+          <p>
+            During this journey I had the opportunity to meet the most talented
+            group of people, and build a world-class team to develop startups.
+          </p>
+          <p>
+            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
+            cursus semper lorem sit amet tempor. Duis nec lacus orci.
+          </p>
+        </>
+      ),
+      social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
 
     {
       name: 'Dan Le Van',
       role: 'Software Engineering',
       illustration: illustrations.dan,
+      signature: () => {},
+      about: () => (
+        <>
+          <p>
+            I’ve been crafting digital experiences for humans for the past ten
+            years, having the honour to contribute on the growth of companies
+            like Hopper, Lightspeed, Breather among others.
+          </p>
+          <p>
+            During this journey I had the opportunity to meet the most talented
+            group of people, and build a world-class team to develop startups.
+          </p>
+          <p>
+            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
+            cursus semper lorem sit amet tempor. Duis nec lacus orci.
+          </p>
+        </>
+      ),
+      social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
       name: 'Mack Mansouri',
       role: 'Operations and Partnerships',
       illustration: illustrations.mack,
+      signature: () => {},
+      about: () => (
+        <>
+          <p>
+            I’ve been crafting digital experiences for humans for the past ten
+            years, having the honour to contribute on the growth of companies
+            like Hopper, Lightspeed, Breather among others.
+          </p>
+          <p>
+            During this journey I had the opportunity to meet the most talented
+            group of people, and build a world-class team to develop startups.
+          </p>
+          <p>
+            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
+            cursus semper lorem sit amet tempor. Duis nec lacus orci.
+          </p>
+        </>
+      ),
+      social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     // {
     //   name: 'Thomas Russell',
@@ -142,7 +240,7 @@ function AboutTeam() {
             >
               <Cards>
                 {people.map(person => (
-                  <Card key={person.name}>
+                  <Card key={person.name} onClick={() => setPerson(person)}>
                     <Illustration>
                       <Media src={person.illustration.childImageSharp.fluid} />
                     </Illustration>
@@ -160,6 +258,29 @@ function AboutTeam() {
           </Section>
         )}
       />
+      {person && (
+        <Portal>
+          <ModalOverlay>
+            <OutsideClickHandler onOutsideClick={() => setPerson(undefined)}>
+              <Modal>
+                <ModalGrid>
+                  <div>
+                    <ModalName>{person.name}</ModalName>
+                    <ModalRole>{person.role}</ModalRole>
+                    <div>
+                      <person.about />
+                    </div>
+                    <div>{person.social.map(social => social.link)}</div>
+                  </div>
+                  <div>
+                    <Media src={person.illustration.childImageSharp.fluid} />
+                  </div>
+                </ModalGrid>
+              </Modal>
+            </OutsideClickHandler>
+          </ModalOverlay>
+        </Portal>
+      )}
       <AboutRow header="History">
         <HistoryText>
           <Text>
@@ -179,6 +300,55 @@ function AboutTeam() {
 }
 
 export default AboutTeam
+
+const Modal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 630px;
+  width: 1140px;
+  background: #000;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+`
+
+const ModalOverlay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+`
+
+const ModalGrid = styled.div`
+  display: grid;
+  grid-template-columns: 480px 472px;
+  grid-column-gap: 30px;
+  align-items: center;
+
+  p {
+    color: #fff;
+    margin-bottom: 25px;
+  }
+`
+
+const ModalName = styled(Heading.h2)`
+  margin-bottom: 5px;
+`
+
+const ModalRole = styled.div`
+  font-size: 22px;
+  color: ${p => p.theme.colors.grey};
+  margin-bottom: 30px;
+`
 
 function AboutRow({
   children,
@@ -304,7 +474,7 @@ const Card = styled.div`
   align-items: center;
   justify-content: flex-end;
   height: 470px;
-  background: ${p => p.theme.colors.kepler};
+  background: #000;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   text-align: center;
