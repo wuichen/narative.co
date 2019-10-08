@@ -108,6 +108,7 @@ const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 
   ${mediaqueries.tablet`
     position: ${p => (p.isDisabled ? 'static' : 'sticky')};

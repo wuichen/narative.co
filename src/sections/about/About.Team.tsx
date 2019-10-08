@@ -1,10 +1,68 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky from '@components/Sticky'
+import Media from '@components/Media/Media.Img'
+
 import mediaqueries from '@styles/media'
+import { relative } from 'path'
+
+/**
+ * Command Line Parts
+ *
+ * A somewhat messay utility file for the Command Line. Based on the currently
+ * active Command Line (Default, Read, etc) we have to generate the appropriate list
+ * and heading.
+ */
+const illustrationQuery = graphql`
+  query GetIllustrations {
+    brad: file(name: { regex: "/portrait-illustration-brad/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    dan: file(name: { regex: "/portrait-illustration-dan/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    dennis: file(name: { regex: "/portrait-illustration-dennis/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    mack: file(name: { regex: "/portrait-illustration-mack/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    thiago: file(name: { regex: "/portrait-illustration-thiago/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    tom: file(name: { regex: "/portrait-illustration-tom/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+  }
+`
 
 /**
  * <AboutRow />
@@ -16,16 +74,42 @@ import mediaqueries from '@styles/media'
  *              [...........................]
  */
 
-const people = [
-  { name: 'Thiago Costa', role: 'Brand and Design' },
-  { name: 'Brad Tiller', role: 'Brand and Design' },
-  { name: 'Dennis Brotzky', role: 'Brand and Design' },
-  // { name: 'Thomas Russell', role: 'Brand and Design' },
-  { name: 'Mack Mansouri', role: 'Brand and Design' },
-  { name: 'Dan Le Van', role: 'Brand and Design' },
-]
-
 function AboutTeam() {
+  const illustrations = useStaticQuery(illustrationQuery)
+
+  const people = [
+    {
+      name: 'Thiago Costa',
+      role: 'Brand and Design',
+      illustration: illustrations.thiago,
+    },
+    {
+      name: 'Brad Tiller',
+      role: 'Marketing and Growth',
+      illustration: illustrations.brad,
+    },
+    {
+      name: 'Dennis Brotzky',
+      role: 'Software Engineering',
+      illustration: illustrations.dennis,
+    },
+    {
+      name: 'Mack Mansouri',
+      role: 'Operations and Partnerships',
+      illustration: illustrations.mack,
+    },
+    // {
+    //   name: 'Thomas Russell',
+    //   role: 'Product Management',
+    //   illustration: illustrations.tom,
+    // },
+    {
+      name: 'Dan Le Van',
+      role: 'Software Engineering',
+      illustration: illustrations.dan,
+    },
+  ]
+
   return (
     <AboutTeamContainer>
       <AboutRow header="The team">
@@ -58,8 +142,10 @@ function AboutTeam() {
               <Cards>
                 {people.map(person => (
                   <Card key={person.name}>
-                    <div></div>
-                    <div>
+                    <Illustration>
+                      <Media src={person.illustration.childImageSharp.fluid} />
+                    </Illustration>
+                    <div style={{ position: 'relative' }}>
                       <Name>{person.name}</Name>
                       <Role>{person.role}</Role>
                     </div>
@@ -204,11 +290,18 @@ const Cards = styled.div`
   grid-column-gap: 20px;
 `
 
+const Role = styled.div`
+  color: ${p => p.theme.colors.grey};
+  font-size: 22px;
+  transition: color 0.4s;
+`
+
 const Card = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 470px;
   background: ${p => p.theme.colors.kepler};
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
@@ -216,15 +309,28 @@ const Card = styled.div`
   text-align: center;
   padding: 0 0 44px;
   cursor: pointer;
+  will-change: filter;
+  transition: filter 0.8s;
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+  &:hover ${Role} {
+    color: ${p => p.theme.colors.gold};
+  }
+`
+
+const Illustration = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
 `
 
 const Name = styled(Heading.h3)`
   margin-bottom: 0;
-`
-
-const Role = styled.div`
-  color: ${p => p.theme.colors.grey};
-  font-size: 22px;
 `
 
 const Progress = styled.div`

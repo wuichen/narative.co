@@ -94,7 +94,7 @@ const Gradient = styled.div`
 const Grid = styled(Section)`
   position: relative;
   display: grid;
-  grid-template-columns: 135px 670px;
+  grid-template-columns: 144px 670px;
   grid-column-gap: 128px;
   padding-top: 100px;
   padding-bottom: 30px;
