@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { graphql } from 'gatsby'
 
 import Divider from '@components/Divider'
@@ -14,7 +15,7 @@ import AboutIndependent from '../sections/about/About.Independent'
 function AboutPage({ data, location }) {
   const contentful = data.allContentfulPage.edges[0].node
   const pageBackground =
-    'linear-gradient(rgb(9, 10, 12),rgb(17, 18, 22) 60%,#1a1e24 100%)'
+    'linear-gradient(#08080B,rgb(17, 18, 22) 60%,#1a1e24 100%)'
 
   const navConfig = {
     offset: true,
@@ -24,6 +25,7 @@ function AboutPage({ data, location }) {
 
   const footerConfig = {
     visible: true,
+    theme: 'light',
   }
 
   return (
@@ -34,18 +36,30 @@ function AboutPage({ data, location }) {
         image={contentful.seo.image.file.url}
         pathname={location.pathname}
       />
-      <AboutHero />
-      <AboutTeam />
-      <Divider />
-      <AboutChoose />
-      <Divider />
-      <AboutWork />
-      <AboutIndependent />
+      <TopGradient>
+        <AboutHero />
+        <AboutTeam />
+        <Divider />
+      </TopGradient>
+      <BottomGradient>
+        <AboutChoose />
+        <Divider />
+        <AboutWork />
+        <AboutIndependent />
+      </BottomGradient>
     </Layout>
   )
 }
 
 export default AboutPage
+
+const TopGradient = styled.div`
+  background: linear-gradient(#08080b, #191d23);
+`
+
+const BottomGradient = styled.div`
+  background: linear-gradient(transparent, #08080b);
+`
 
 export const pageQuery = graphql`
   query AboutPageQuery {

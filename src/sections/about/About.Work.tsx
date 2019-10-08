@@ -11,7 +11,7 @@ function AboutChoose() {
   return (
     <AboutWorkContainer>
       <AboutHeading
-        heading="How we work together"
+        heading="Going the distance"
         text="Narative is an all-remote team, meaning we work physically apart — something that's taught us the importance of always staying in sync. We communicate constantly and transparently, with each other and with each of our partners.
     And when it matters most, we make sure to all get together."
       />

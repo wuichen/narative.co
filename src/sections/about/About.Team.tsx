@@ -93,6 +93,12 @@ function AboutTeam() {
       role: 'Software Engineering',
       illustration: illustrations.dennis,
     },
+
+    {
+      name: 'Dan Le Van',
+      role: 'Software Engineering',
+      illustration: illustrations.dan,
+    },
     {
       name: 'Mack Mansouri',
       role: 'Operations and Partnerships',
@@ -103,11 +109,6 @@ function AboutTeam() {
     //   role: 'Product Management',
     //   illustration: illustrations.tom,
     // },
-    {
-      name: 'Dan Le Van',
-      role: 'Software Engineering',
-      illustration: illustrations.dan,
-    },
   ]
 
   return (
