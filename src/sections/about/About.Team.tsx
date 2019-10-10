@@ -4,6 +4,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 import usePortal from 'react-useportal'
 import SVG from 'react-inlinesvg'
 import { useStaticQuery, graphql } from 'gatsby'
+import { useSpring, animated } from 'react-spring'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -140,6 +141,7 @@ function AboutTeam() {
 
   const cardRefs = useRef([...Array(people.length)].map(() => createRef()))
   const modalRef = createRef()
+
   const person =
     typeof selectedPersonIndex === 'number'
       ? people[selectedPersonIndex]
@@ -152,6 +154,8 @@ function AboutTeam() {
 
     modalRef.current.style.transform = `translateX(${translateX}px) translateY(-40px) scale(0.34, 0.75)`
   }
+
+  // const props = useSpring({ opacity: 0 })
 
   return (
     <AboutTeamContainer>
@@ -218,6 +222,7 @@ function AboutTeam() {
           <OutsideClickHandler
             onOutsideClick={() => setSelectedPersonIndex(undefined)}
           >
+            {/* <animated.div style={props}> */}
             <Modal
               style={
                 Boolean(person)
@@ -250,6 +255,7 @@ function AboutTeam() {
                 )}
               </ModalGrid>
             </Modal>
+            {/* </animated.div> */}
           </OutsideClickHandler>
         </ModalOverlay>
       </Portal>

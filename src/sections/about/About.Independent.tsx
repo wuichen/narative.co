@@ -1,7 +1,6 @@
-import React, { createRef, useState, useEffect, useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
-import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky from '@components/Sticky'
 import mediaqueries from '@styles/media'
@@ -168,54 +167,6 @@ const testimonials = [
 ]
 
 function AboutChoose() {
-  const [progress, setProgress] = useState(0)
-  const scrollRef = useRef()
-  const cardRefs = useRef(
-    [...Array(testimonials.length)].map(() => createRef())
-  )
-
-  // useEffect(() => {
-  //   const getOffsetTop = (element: any) => {
-  //     let offsetTop = 0
-  //     while (element) {
-  //       offsetTop += element.offsetTop
-  //       element = element.offsetParent
-  //     }
-  //     return offsetTop
-  //   }
-
-  //   function handleScroll() {
-  //     if (scrollRef.current) {
-  //       const height = scrollRef.current.offsetHeight
-  //       const offset = getOffsetTop(scrollRef.current)
-  //       const scrollProgress = (window.scrollY - offset) / height
-  //       setProgress(scrollProgress)
-  //     }
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll)
-  //   return () => window.removeEventListener('scroll', handleScroll)
-  // }, [scrollRef])
-
-  // useEffect(() => {
-  //   function clamp(val, min, max) {
-  //     return val > max ? max : val < min ? min : val
-  //   }
-
-  //   cardRefs.current
-  //     .filter(element => element != null)
-  //     .forEach((element, index) => {
-  //       const total = cardRefs.current.length
-  //       const offsetProgress = clamp(progress / (index + 1), 0, 1)
-
-  //       const offsetY = offsetProgress * -40
-  //       const scale = 1 - offsetProgress
-  //       const opacity = 1 - offsetProgress
-  //       element.current.style.transform = `translate(0px, ${offsetY}px) scale(${scale}, ${scale})`
-  //       element.current.style.opacity = opacity
-  //     })
-  // }, [progress])
-
   function clamp(val, min, max) {
     return val > max ? max : val < min ? min : val
   }
@@ -225,7 +176,7 @@ function AboutChoose() {
       cover
       height="3000px"
       render={({ progress }) => {
-        const five = progress * 3
+        const five = progress * 2.5
         const textStyles = `opacity: ${1 - five}; filter: blur(${five * 3}px`
 
         return (
@@ -262,29 +213,42 @@ function AboutChoose() {
                   )
                   const nextProgress = clamp(nextStaggered * total, 0, 1)
 
-                  console.log({
-                    index,
-                    currentProgress,
-                    nextProgress,
-                  })
-
                   const transalteYFirst =
-                    currentProgress * (index === 0 ? 150 : 500)
+                    currentProgress * (index === 0 ? 100 : 450)
 
                   const transalteYSecond =
-                    transalteYFirst + nextProgress * 18 * (total - nextIndex)
+                    transalteYFirst + nextProgress * 22 * (total - nextIndex)
+
+                  const scaleCurve = 1 - nextStaggered * 0.25
+
+                  const blends = [
+                    '#1D2128',
+                    '#1C1F26',
+                    '#1A1E24',
+                    '#191C23',
+                    '#181B21',
+                    '#17191F',
+                    '#15181D',
+                    '#14161B',
+                    '#131519',
+                    '#121318',
+                    '#101216',
+                    '#0F1014',
+                  ]
+
+                  const selectedBlend = Math.round(
+                    ((((1 - scaleCurve) * 100) / 9) * 10) / 2
+                  )
 
                   return (
                     <TestimonialCard
                       index={index}
                       data-card={index}
                       style={{
-                        transform: `translateY(-${transalteYSecond}px) scale(${1 -
-                          nextStaggered * 0.25})`,
-                        opacity: 1.5 - nextProgress,
+                        transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
                       }}
                     >
-                      <Card ref={cardRefs.current[index]}>
+                      <Card style={{ background: blends[selectedBlend] }}>
                         <div>
                           <testimonial.logo />
                         </div>
@@ -359,6 +323,8 @@ const Card = styled.div`
   padding: 40px 40px 40px 0;
   font-size: 18px;
   color: ${p => p.theme.colors.grey};
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
+  transition: background 0.1s;
 `
 
 const Role = styled.div`
