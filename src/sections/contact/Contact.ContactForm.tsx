@@ -7,10 +7,10 @@ import {
   ButtonArrow,
   Section,
   CopyToClipboard,
-  Heading,
   Form,
   SocialLinks,
 } from '@components'
+import Heading from '@components/Heading'
 import Hidden from '@components/Hidden'
 import { ContactContext } from '@components/Contact/Contact.Context'
 import mediaqueries from '@styles/media'
