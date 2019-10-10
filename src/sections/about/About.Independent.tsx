@@ -6,8 +6,6 @@ import Section from '@components/Section'
 import Sticky from '@components/Sticky'
 import mediaqueries from '@styles/media'
 
-import { animateByKeyframe } from '@utils'
-
 import AboutHeading from './About.Heading'
 
 const GatsbyLogo = () => (
@@ -176,85 +174,158 @@ function AboutChoose() {
     [...Array(testimonials.length)].map(() => createRef())
   )
 
-  useEffect(() => {
-    const getOffsetTop = (element: any) => {
-      let offsetTop = 0
-      while (element) {
-        offsetTop += element.offsetTop
-        element = element.offsetParent
-      }
-      return offsetTop
-    }
+  // useEffect(() => {
+  //   const getOffsetTop = (element: any) => {
+  //     let offsetTop = 0
+  //     while (element) {
+  //       offsetTop += element.offsetTop
+  //       element = element.offsetParent
+  //     }
+  //     return offsetTop
+  //   }
 
-    function handleScroll() {
-      if (scrollRef.current) {
-        const height = scrollRef.current.offsetHeight
-        const offset = getOffsetTop(scrollRef.current)
-        const scrollProgress = (window.scrollY - offset) / height
-        setProgress(scrollProgress)
-      }
-    }
+  //   function handleScroll() {
+  //     if (scrollRef.current) {
+  //       const height = scrollRef.current.offsetHeight
+  //       const offset = getOffsetTop(scrollRef.current)
+  //       const scrollProgress = (window.scrollY - offset) / height
+  //       setProgress(scrollProgress)
+  //     }
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [scrollRef])
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => window.removeEventListener('scroll', handleScroll)
+  // }, [scrollRef])
 
-  useEffect(() => {
-    function clamp(val, min, max) {
-      return val > max ? max : val < min ? min : val
-    }
+  // useEffect(() => {
+  //   function clamp(val, min, max) {
+  //     return val > max ? max : val < min ? min : val
+  //   }
 
-    cardRefs.current
-      .filter(element => element != null)
-      .forEach((element, index) => {
-        const total = cardRefs.current.length
-        const offsetProgress = clamp(progress / (index + 1), 0, 1)
+  //   cardRefs.current
+  //     .filter(element => element != null)
+  //     .forEach((element, index) => {
+  //       const total = cardRefs.current.length
+  //       const offsetProgress = clamp(progress / (index + 1), 0, 1)
 
-        const offsetY = offsetProgress * -40
-        const scale = 1 - offsetProgress
-        const opacity = 1 - offsetProgress
-        element.current.style.transform = `translate(0px, ${offsetY}px) scale(${scale}, ${scale})`
-        element.current.style.opacity = opacity
-      })
-  }, [progress])
+  //       const offsetY = offsetProgress * -40
+  //       const scale = 1 - offsetProgress
+  //       const opacity = 1 - offsetProgress
+  //       element.current.style.transform = `translate(0px, ${offsetY}px) scale(${scale}, ${scale})`
+  //       element.current.style.opacity = opacity
+  //     })
+  // }, [progress])
+
+  function clamp(val, min, max) {
+    return val > max ? max : val < min ? min : val
+  }
 
   return (
-    <div ref={scrollRef}>
-      <AboutHeadingSpacer>
-        <HeadingLineBreak>
-          <AboutHeading
-            heading="Independent, but never alone"
-            text="While we like to do things our own way, nobody can do it all by themselves. <div style='color:#73737D'>Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div>"
-          />
-        </HeadingLineBreak>
-        <Section narrow>
-          <TestimonialCardContainer>
-            {testimonials.map((t, index) => (
-              <TestimonialCard data-card={index}>
-                <Card ref={cardRefs.current[index]}>
-                  <div>
-                    <t.logo />
-                  </div>
-                  <VerticalDivider />
-                  <div>
-                    <Role>
-                      {t.name}, {t.title}
-                    </Role>
-                    <div>{t.testimonial}</div>
-                  </div>
-                </Card>
-              </TestimonialCard>
-            ))}
-          </TestimonialCardContainer>
-        </Section>
-      </AboutHeadingSpacer>
-    </div>
+    <Sticky
+      cover
+      height="3000px"
+      render={({ progress }) => {
+        const five = progress * 3
+        const textStyles = `opacity: ${1 - five}; filter: blur(${five * 3}px`
+
+        return (
+          <AboutTestimonialContainer>
+            <HeadingLineBreak>
+              <AboutHeading
+                heading="Independent, but never alone"
+                text={`
+                  <div style="${textStyles}">
+                    While we like to do things our own way, nobody can do it all
+                    by themselves.
+                    <div style="color:#73737D">
+                      Narative believes in building ongoing partnerships based
+                      on trust, and in contributing our ideas and work to the
+                      open source community. When we do honest work, good word
+                      spreads, and we can all build ever-greater things.
+                    </div>
+                  </div>`}
+              />
+            </HeadingLineBreak>
+            <Section narrow>
+              <TestimonialCardContainer>
+                {testimonials.map((testimonial, index) => {
+                  const total = testimonials.length
+                  const nextIndex = index + 1
+
+                  const staggered = clamp(progress - index / total, 0, 1)
+                  const currentProgress = clamp(staggered * total, 0, 1)
+
+                  const nextStaggered = clamp(
+                    progress - nextIndex / total,
+                    0,
+                    1
+                  )
+                  const nextProgress = clamp(nextStaggered * total, 0, 1)
+
+                  console.log({
+                    index,
+                    currentProgress,
+                    nextProgress,
+                  })
+
+                  const transalteYFirst =
+                    currentProgress * (index === 0 ? 150 : 500)
+
+                  const transalteYSecond =
+                    transalteYFirst + nextProgress * 18 * (total - nextIndex)
+
+                  return (
+                    <TestimonialCard
+                      index={index}
+                      data-card={index}
+                      style={{
+                        transform: `translateY(-${transalteYSecond}px) scale(${1 -
+                          nextStaggered * 0.25})`,
+                        opacity: 1.5 - nextProgress,
+                      }}
+                    >
+                      <Card ref={cardRefs.current[index]}>
+                        <div>
+                          <testimonial.logo />
+                        </div>
+                        <VerticalDivider />
+                        <div>
+                          <Role>
+                            {testimonial.name} · {testimonial.title}
+                          </Role>
+                          <div>{testimonial.testimonial}</div>
+                        </div>
+                      </Card>
+                    </TestimonialCard>
+                  )
+                })}
+              </TestimonialCardContainer>
+            </Section>
+          </AboutTestimonialContainer>
+        )
+      }}
+    />
   )
 }
 
 export default AboutChoose
 
-const AboutHeadingSpacer = styled.div``
+const AboutTestimonialContainer = styled.div`
+  position: relative;
+  padding-top: 10vh;
+  height: 100vh;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 20vh;
+    max-height: 262px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 76.72%);
+  }
+`
 
 const TestimonialCardContainer = styled.ul`
   position: relative;
@@ -266,12 +337,16 @@ const TestimonialCardContainer = styled.ul`
     flex-direction: column;
   `};
 `
+
 const TestimonialCard = styled.li`
   will-change: transform, opacity;
-
-  top: calc(30vh + 200px);
+  top: 350px;
   height: 350px;
-  position: sticky;
+  position: absolute;
+
+  &:first-child {
+    top: 0;
+  }
 `
 
 const Card = styled.div`
@@ -299,9 +374,6 @@ const VerticalDivider = styled.div`
 `
 
 const HeadingLineBreak = styled.div`
-  position: sticky;
-  top: 80px;
-
   h2 {
     width: 70%;
     display: block;
