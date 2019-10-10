@@ -163,122 +163,133 @@ function AboutTeam() {
 
   console.log(Boolean(person))
   return (
-    <AboutTeamContainer>
-      <AboutRow header="The team">
-        <TeamText>
-          <Text>
-            One thing we’ve learned from our years within growing startups is
-            that throwing more people at a problem rarely hastens solving it.
-          </Text>
-          <Text>
-            We keep our team intentionally small, bringing on only those with
-            the skills, experience and enthusiasm required to create real impact
-            — both for our business, and for yours.
-          </Text>
-        </TeamText>
-      </AboutRow>
-      <Sticky
-        height="2200px"
-        cover
-        disableOnMobile
-        render={({ progress }) => (
-          <Section>
-            <TeamCardsContainer
-              style={{
-                transform: `translate3d(-${progress *
-                  (people.length - 2) *
-                  390}px, 0 , 0)
+    <>
+      <AboutTeamContainer>
+        <AboutRow header="The team">
+          <TeamText>
+            <Text>
+              One thing we’ve learned from our years within growing startups is
+              that throwing more people at a problem rarely hastens solving it.
+            </Text>
+            <Text>
+              We keep our team intentionally small, bringing on only those with
+              the skills, experience and enthusiasm required to create real
+              impact — both for our business, and for yours.
+            </Text>
+          </TeamText>
+        </AboutRow>
+        <Sticky
+          height="2200px"
+          cover
+          disableOnMobile
+          render={({ progress }) => (
+            <Section>
+              <TeamCardsContainer
+                style={{
+                  transform: `translate3d(-${progress *
+                    (people.length - 2) *
+                    390}px, 0 , 0)
             `,
-              }}
-            >
-              <Cards>
-                {people.map((person, index) => (
-                  <Card
-                    key={person.name}
-                    ref={cardRefs.current[index]}
-                    onClick={() => handleClick(index)}
-                    onMouseOver={() => handleMouseOver(index)}
-                  >
-                    <Illustration>
-                      <Media src={person.illustration.childImageSharp.fluid} />
-                    </Illustration>
-                    <div style={{ position: 'relative' }}>
-                      <Name>{person.name}</Name>
-                      <Role>{person.role}</Role>
-                    </div>
-                  </Card>
-                ))}
-              </Cards>
-            </TeamCardsContainer>
-            <Progress>
-              <Value style={{ transform: `translateX(${progress * 438}%)` }} />
-            </Progress>
-          </Section>
-        )}
-      />
-      <Portal>
-        <ModalOverlay
-          style={
-            Boolean(person)
-              ? { opacity: 1, pointerEvents: 'initial' }
-              : { opacity: 0 }
-          }
-        >
-          <OutsideClickHandler
-            onOutsideClick={() => setSelectedPersonIndex(undefined)}
-          >
-            {/* <animated.div style={props}> */}
-            <Modal
-              style={
-                Boolean(person)
-                  ? { opacity: 1, transform: 'none' }
-                  : { opacity: 0 }
-              }
-              person={Boolean(person)}
-              ref={modalRef}
-            >
-              <ModalGrid person={Boolean(person)}>
-                {person && (
-                  <>
-                    <div>
-                      <ModalName>{person.name}</ModalName>
-                      <ModalRole>{person.role}</ModalRole>
-                      <div>
-                        {person.about.map((text, index) => (
-                          <ModalText index={index}>{text}</ModalText>
-                        ))}
+                }}
+              >
+                <Cards>
+                  {people.map((person, index) => (
+                    <Card
+                      key={person.name}
+                      ref={cardRefs.current[index]}
+                      onClick={() => handleClick(index)}
+                      onMouseOver={() => handleMouseOver(index)}
+                    >
+                      <Illustration>
+                        <Media
+                          src={person.illustration.childImageSharp.fluid}
+                        />
+                      </Illustration>
+                      <div style={{ position: 'relative' }}>
+                        <Name>{person.name}</Name>
+                        <Role>{person.role}</Role>
                       </div>
-                      <div>{person.social.map(social => social.link)}</div>
-                      <ModalSignature>
-                        <SVG src={person.signature} />
-                      </ModalSignature>
-                    </div>
-                    <div>
-                      <Media src={person.illustration.childImageSharp.fluid} />
-                    </div>
-                  </>
-                )}
-              </ModalGrid>
-            </Modal>
-            {/* </animated.div> */}
-          </OutsideClickHandler>
-        </ModalOverlay>
+                    </Card>
+                  ))}
+                </Cards>
+              </TeamCardsContainer>
+              <Progress>
+                <Value
+                  style={{ transform: `translateX(${progress * 438}%)` }}
+                />
+              </Progress>
+            </Section>
+          )}
+        />
+
+        <AboutRow header="History">
+          <HistoryText>
+            <Text>
+              We founded Narative to have the freedom to both pursue our own
+              ambitions and help businesses we believe in pursue theirs,
+              applying everything we’ve learned working within and alongside
+              companies like:
+            </Text>
+          </HistoryText>
+          <CompanyLogos>
+            <UbisoftLogo /> <HopperLogo /> <LightspeedLogo />{' '}
+            <YellowPagesLogo /> <BreatherLogo /> <UnbounceLogo /> <RitualLogo />
+          </CompanyLogos>
+        </AboutRow>
+      </AboutTeamContainer>
+      <Portal>
+        <div>
+          <ModalOverlay
+            style={
+              Boolean(person)
+                ? { opacity: 1, pointerEvents: 'initial' }
+                : { opacity: 0 }
+            }
+          >
+            <OutsideClickHandler
+              onOutsideClick={() => setSelectedPersonIndex(undefined)}
+            >
+              {/* <animated.div style={props}> */}
+              <Modal
+                style={
+                  Boolean(person)
+                    ? { opacity: 1, transform: 'none' }
+                    : { opacity: 0 }
+                }
+                person={Boolean(person)}
+                ref={modalRef}
+              >
+                <ModalGrid person={Boolean(person)}>
+                  {person && (
+                    <>
+                      <div>
+                        <ModalName>{person.name}</ModalName>
+                        <ModalRole>{person.role}</ModalRole>
+                        <div>
+                          {person.about.map((text, index) => (
+                            <ModalText index={index}>{text}</ModalText>
+                          ))}
+                        </div>
+                        <div>{person.social.map(social => social.link)}</div>
+                        <ModalSignature>
+                          <SVG src={person.signature} />
+                        </ModalSignature>
+                      </div>
+                      <div>
+                        <Media
+                          src={person.illustration.childImageSharp.fluid}
+                        />
+                      </div>
+                    </>
+                  )}
+                </ModalGrid>
+              </Modal>
+              {/* </animated.div> */}
+            </OutsideClickHandler>
+          </ModalOverlay>
+        </div>
       </Portal>
-      <AboutRow header="History">
-        <HistoryText>
-          <Text>
-            We founded Narative to have the freedom to both pursue our own
-            ambitions and help businesses we believe in pursue theirs, applying
-            everything we’ve learned working within and alongside companies
-            like:
-          </Text>
-        </HistoryText>
-        <CompanyLogos>
-          <UbisoftLogo /> <HopperLogo /> <LightspeedLogo /> <YellowPagesLogo />{' '}
-          <BreatherLogo /> <UnbounceLogo /> <RitualLogo />
-        </CompanyLogos>
-      </AboutRow>
-    </AboutTeamContainer>
+    </>
   )
 }
 
