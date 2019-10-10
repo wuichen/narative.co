@@ -171,7 +171,7 @@ const testimonials = [
 
 function AboutChoose() {
   const [progress, setProgress] = useState(0)
-  const scrollRef = useRef(document.createElement('div'))
+  const scrollRef = useRef()
   const cardRefs = useRef(
     [...Array(testimonials.length)].map(() => createRef())
   )
