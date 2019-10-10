@@ -155,8 +155,13 @@ function AboutTeam() {
     modalRef.current.style.transform = `translateX(${translateX}px) translateY(-40px) scale(0.34, 0.75)`
   }
 
+  function handleClick(index) {
+    console.log(index)
+    setSelectedPersonIndex(index)
+  }
   // const props = useSpring({ opacity: 0 })
 
+  console.log(Boolean(person))
   return (
     <AboutTeamContainer>
       <AboutRow header="The team">
@@ -191,7 +196,7 @@ function AboutTeam() {
                   <Card
                     key={person.name}
                     ref={cardRefs.current[index]}
-                    onClick={() => setSelectedPersonIndex(index)}
+                    onClick={() => handleClick(index)}
                     onMouseOver={() => handleMouseOver(index)}
                   >
                     <Illustration>
