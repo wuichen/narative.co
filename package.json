@@ -61,6 +61,7 @@
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.1",
     "ramda": "^0.26.1",
+    "ramjet": "^0.5.0",
     "react": "^16.8.3",
     "react-device-detect": "^1.5.9",
     "react-dom": "^16.8.3",

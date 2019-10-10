@@ -7,7 +7,7 @@ import mediaqueries from '@styles/media'
 
 import AboutHeading from './About.Heading'
 
-function AboutChoose() {
+function AboutPhotographs() {
   return (
     <AboutWorkContainer>
       <AboutHeading
@@ -29,7 +29,7 @@ function AboutChoose() {
   )
 }
 
-export default AboutChoose
+export default AboutPhotographs
 
 const AboutWorkContainer = styled.div`
   padding: 140px 0 160px;
@@ -39,12 +39,11 @@ const AboutWorkContainer = styled.div`
 const ImageGrid = styled.div`
   max-width: 944px;
   width: 100%;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 470px 517px 470px;
   grid-row-gap: 30px;
-  margin: 120px auto 0;
+  margin: 150px auto 120px;
 `
 
 const MiddleGrid = styled.div`

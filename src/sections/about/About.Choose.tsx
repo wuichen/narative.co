@@ -67,7 +67,7 @@ function AboutChoose() {
 export default AboutChoose
 
 const ShapePlaceholder = styled.div`
-  margin: 80px auto -100px;
+  margin: 150px auto -100px;
   width: 100%;
   height: 580px;
   background: linear-gradient(rgba(255, 255, 255, 0.5), transparent);

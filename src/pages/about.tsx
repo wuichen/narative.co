@@ -10,13 +10,13 @@ import SEO from '@components/SEO'
 import AboutHero from '../sections/about/About.Hero'
 import AboutTeam from '../sections/about/About.Team'
 import AboutChoose from '../sections/about/About.Choose'
-import AboutWork from '../sections/about/About.Work'
+import AboutPhotographs from '../sections/about/About.Photographs'
 import AboutIndependent from '../sections/about/About.Independent'
 import AboutStudioLabs from '../sections/about/About.StudioLabs'
 import AboutContact from '../sections/about/About.Contact'
 
 function AboutPage({ data, location }) {
-  const [ref, inView] = useInView({ threshold: 0.43 })
+  const [ref, inView] = useInView({ threshold: 0.8 })
 
   const contentful = data.allContentfulPage.edges[0].node
   const pageBackground =
@@ -48,14 +48,16 @@ function AboutPage({ data, location }) {
         <Divider />
       </TopGradient>
       <TransitionLayer style={{ opacity: inView ? 1 : 0 }} />
-      <BottomGradient>
+      <MiddleGradient>
         <AboutChoose />
-        <Divider />
-        <AboutWork />
+      </MiddleGradient>
+      <Divider />
+      <BottomGradient>
+        <AboutPhotographs />
         <AboutIndependent />
-        <AboutStudioLabs />
+        <AboutStudioLabs inView={inView} />
         <div ref={ref} style={{ position: 'relative', zIndex: inView ? 2 : 1 }}>
-          <AboutContact />
+          <AboutContact inView={inView} />
         </div>
       </BottomGradient>
     </Layout>
@@ -68,9 +70,14 @@ const TopGradient = styled.div`
   background: linear-gradient(#08080b, #191d23);
 `
 
+const MiddleGradient = styled.div`
+  position: relative;
+  background: #111216;
+`
+
 const BottomGradient = styled.div`
   position: relative;
-  background: #0a0a0d;
+  background: linear-gradient(#111216, #08080b);
 
   &::after {
     content: '';
@@ -79,7 +86,7 @@ const BottomGradient = styled.div`
     bottom: -310px;
     height: 310px;
     left: 0;
-    background: #0a0a0d;
+    background: #08080b;
   }
 `
 
@@ -92,7 +99,7 @@ const TransitionLayer = styled.div`
   height: 100%;
   background: #d8d7d8;
   z-index: 1;
-  transition: opacity 1.5s;
+  transition: opacity 1s;
   will-change: opacity;
 
   &::after {

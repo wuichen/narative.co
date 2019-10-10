@@ -35,7 +35,7 @@ const Container = styled.div`
   position: relative;
   width: 100vw;
   overflow-x: hidden;
-  padding-bottom: 240px;
+  padding-bottom: 150px;
 `
 
 const Blocks = styled.div`

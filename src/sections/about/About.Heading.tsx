@@ -29,18 +29,6 @@ export default AboutHeading
 
 const AboutHeadingSpacer = styled.div`
   overflow-x: hidden;
-
-  ${mediaqueries.desktop_large`
-    padding-bottom: 15rem;
-  `};
-
-  ${mediaqueries.desktop`
-    padding-bottom: 10rem;
-  `};
-
-  ${mediaqueries.tablet`
-    padding-bottom: 6rem;
-  `};
 `
 
 const AboutHeadingContainer = styled.div`

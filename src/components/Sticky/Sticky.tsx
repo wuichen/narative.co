@@ -89,10 +89,6 @@ export default Sticky
 
 const StickyDuration = styled.div<{ height: string }>`
   height: ${p => p.height || '100vh'};
-
-  ${mediaqueries.tablet`
-    height: ${p => (p.isDisabled ? '100%' : p.height)};
-  `}
 `
 
 const StickyItemContainer = styled.div`
@@ -109,9 +105,5 @@ const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-
-  ${mediaqueries.tablet`
-    position: ${p => (p.isDisabled ? 'static' : 'sticky')};
-    display: ${p => (p.isDisabled ? 'block' : 'flex')};
-  `}
+  ${p => p.cover && 'overflow-y: hidden;'};
 `

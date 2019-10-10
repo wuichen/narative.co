@@ -296,3 +296,41 @@ export function useActiveListItem(initial: number, list: any[]): number {
 
   return active > 0 ? active : 0
 }
+
+export const animateByKeyframe = ({
+  element,
+  keyframes,
+  progress,
+  easing,
+  delay,
+  callback,
+  action,
+}: {
+  element: HTMLElement
+  keyframes: []
+  progress: number
+  delay?: number
+  callback: () => {}
+  easing?: string
+  action?: string
+}) => {
+  const DURATION = 1000
+
+  const options = {
+    duration: DURATION,
+    delay: delay || 0,
+    fill: 'both',
+    easing: easing || 'linear',
+    direction: action === 'hide' ? 'reverse' : 'normal',
+  }
+
+  // @ts-ignore
+  const animation = element.animate(keyframes, options)
+  animation.currentTime = progress * DURATION
+  animation.pause()
+
+  if (DURATION === progress * DURATION) {
+    animation.finish()
+  }
+  animation.addEventListener('finish', callback, { once: true })
+}

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { createRef, useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky from '@components/Sticky'
 import mediaqueries from '@styles/media'
+
+import { animateByKeyframe } from '@utils'
 
 import AboutHeading from './About.Heading'
 
@@ -168,8 +170,56 @@ const testimonials = [
 ]
 
 function AboutChoose() {
+  const [progress, setProgress] = useState(0)
+  const scrollRef = useRef(document.createElement('div'))
+  const cardRefs = useRef(
+    [...Array(testimonials.length)].map(() => createRef())
+  )
+
+  useEffect(() => {
+    const getOffsetTop = (element: any) => {
+      let offsetTop = 0
+      while (element) {
+        offsetTop += element.offsetTop
+        element = element.offsetParent
+      }
+      return offsetTop
+    }
+
+    function handleScroll() {
+      if (scrollRef.current) {
+        const height = scrollRef.current.offsetHeight
+        const offset = getOffsetTop(scrollRef.current)
+        const scrollProgress = (window.scrollY - offset) / height
+        setProgress(scrollProgress)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [scrollRef])
+
+  useEffect(() => {
+    function clamp(val, min, max) {
+      return val > max ? max : val < min ? min : val
+    }
+
+    cardRefs.current
+      .filter(element => element != null)
+      .forEach((element, index) => {
+        const total = cardRefs.current.length
+        const offsetProgress = clamp(progress / (index + 1), 0, 1)
+
+        const offsetY = offsetProgress * -40
+        const scale = 1 - offsetProgress
+        const opacity = 1 - offsetProgress
+        element.current.style.transform = `translate(0px, ${offsetY}px) scale(${scale}, ${scale})`
+        element.current.style.opacity = opacity
+      })
+  }, [progress])
+
   return (
-    <div>
+    <div ref={scrollRef}>
       <AboutHeadingSpacer>
         <HeadingLineBreak>
           <AboutHeading
@@ -181,7 +231,7 @@ function AboutChoose() {
           <TestimonialCardContainer>
             {testimonials.map((t, index) => (
               <TestimonialCard data-card={index}>
-                <Card>
+                <Card ref={cardRefs.current[index]}>
                   <div>
                     <t.logo />
                   </div>
@@ -204,21 +254,7 @@ function AboutChoose() {
 
 export default AboutChoose
 
-const AboutHeadingSpacer = styled.div`
-  padding-bottom: 300px;
-
-  ${mediaqueries.desktop_large`
-    padding-bottom: 15rem;
-  `};
-
-  ${mediaqueries.desktop`
-    padding-bottom: 10rem;
-  `};
-
-  ${mediaqueries.tablet`
-    padding-bottom: 6rem;
-  `};
-`
+const AboutHeadingSpacer = styled.div``
 
 const TestimonialCardContainer = styled.ul`
   position: relative;

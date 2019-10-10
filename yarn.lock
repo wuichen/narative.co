@@ -11386,6 +11386,11 @@ ramda@^0.26.1:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
   integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
 
+ramjet@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/ramjet/-/ramjet-0.5.0.tgz#1a7a972b5c2abbc4e94c52baf778feb4b46dd50f"
+  integrity sha1-GnqXK1wqu8TpTFK693j+tLRt1Q8=
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"

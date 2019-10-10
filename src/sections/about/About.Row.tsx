@@ -168,56 +168,40 @@ const testimonials = [
 
 function AboutChoose() {
   return (
-    <div>
-      <AboutHeadingSpacer>
-        <HeadingLineBreak>
-          <AboutHeading
-            heading="Independent, but never alone"
-            text="While we like to do things our own way, nobody can do it all by themselves. <div style='color:#73737D'>Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div>"
-          />
-        </HeadingLineBreak>
-        <Section narrow>
-          <TestimonialCardContainer>
-            {testimonials.map((t, index) => (
-              <TestimonialCard data-card={index}>
-                <Card>
-                  <div>
-                    <t.logo />
-                  </div>
-                  <VerticalDivider />
-                  <div>
-                    <Role>
-                      {t.name}, {t.title}
-                    </Role>
-                    <div>{t.testimonial}</div>
-                  </div>
-                </Card>
-              </TestimonialCard>
-            ))}
-          </TestimonialCardContainer>
-        </Section>
-      </AboutHeadingSpacer>
-    </div>
+    <AboutHeadingSpacer>
+      <HeadingLineBreak>
+        <AboutHeading
+          heading="Independent, but never alone"
+          text="While we like to do things our own way, nobody can do it all by themselves. <div style='color:#73737D'>Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div>"
+        />
+      </HeadingLineBreak>
+      <Section narrow>
+        <TestimonialCardContainer>
+          {testimonials.map((t, index) => (
+            <TestimonialCard data-card={index}>
+              <Card>
+                <div>
+                  <t.logo />
+                </div>
+                <VerticalDivider />
+                <div>
+                  <Role>
+                    {t.name}, {t.title}
+                  </Role>
+                  <div>{t.testimonial}</div>
+                </div>
+              </Card>
+            </TestimonialCard>
+          ))}
+        </TestimonialCardContainer>
+      </Section>
+    </AboutHeadingSpacer>
   )
 }
 
 export default AboutChoose
 
-const AboutHeadingSpacer = styled.div`
-  padding-bottom: 300px;
-
-  ${mediaqueries.desktop_large`
-    padding-bottom: 15rem;
-  `};
-
-  ${mediaqueries.desktop`
-    padding-bottom: 10rem;
-  `};
-
-  ${mediaqueries.tablet`
-    padding-bottom: 6rem;
-  `};
-`
+const AboutHeadingSpacer = styled.div``
 
 const TestimonialCardContainer = styled.ul`
   position: relative;

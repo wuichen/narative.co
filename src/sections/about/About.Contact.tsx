@@ -5,7 +5,7 @@ import Section from '@components/Section'
 import ButtonPill from '@components/Button/Button.Pill'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-function AboutContact() {
+function AboutContact({ inView }: { inView: boolean }) {
   const { toggleContact } = useContext(ContactContext)
 
   return (
@@ -13,9 +13,9 @@ function AboutContact() {
       <Section>
         <Heading>
           Lorem ipsum dolor sit amet,{' '}
-          <span style={{ color: '#73737D' }}>
+          <Grey inView={inView}>
             consectetur adipiscing elit phasellus in lectus at aug.
-          </span>
+          </Grey>
         </Heading>
         <ButtonContainer>
           <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />
@@ -50,4 +50,10 @@ const Heading = styled.h2`
   letter-spacing: -0.5px;
   color: ${p => p.theme.colors.kepler};
   font-family: ${p => p.theme.fontfamily.serif};
+`
+
+const Grey = styled.span<{ inView: boolean }>`
+  color: ${p => (p.inView ? p.theme.colors.grey : p.theme.colors.kepler)};
+  transition: color 1.5s;
+  will-change: opacity;
 `
