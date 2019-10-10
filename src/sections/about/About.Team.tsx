@@ -1,5 +1,5 @@
 import React, { useState, useRef, createRef, useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import OutsideClickHandler from 'react-outside-click-handler'
 import usePortal from 'react-useportal'
 import SVG from 'react-inlinesvg'
@@ -80,23 +80,11 @@ function AboutTeam() {
       role: 'Brand and Design',
       illustration: illustrations.thiago,
       signature: illustrations.thiagoSig.publicURL,
-      about: () => (
-        <>
-          <p>
-            I’ve been crafting digital experiences for humans for the past ten
-            years, having the honour to contribute on the growth of companies
-            like Hopper, Lightspeed, Breather among others.
-          </p>
-          <p>
-            During this journey I had the opportunity to meet the most talented
-            group of people, and build a world-class team to develop startups.
-          </p>
-          <p>
-            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
-            cursus semper lorem sit amet tempor. Duis nec lacus orci.
-          </p>
-        </>
-      ),
+      about: [
+        ' I’ve been crafting digital experiences for humans for the past ten years, having the honour to contribute on the growth of companies like Hopper, Lightspeed, Breather among others.',
+        'During this journey I had the opportunity to meet the most talented group of people, and build a world-class team to develop startups. ',
+        'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
+      ],
       social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
@@ -104,23 +92,11 @@ function AboutTeam() {
       role: 'Marketing and Growth',
       illustration: illustrations.brad,
       signature: illustrations.bradSig.publicURL,
-      about: () => (
-        <>
-          <p>
-            I’ve been crafting digital experiences for humans for the past ten
-            years, having the honour to contribute on the growth of companies
-            like Hopper, Lightspeed, Breather among others.
-          </p>
-          <p>
-            During this journey I had the opportunity to meet the most talented
-            group of people, and build a world-class team to develop startups.
-          </p>
-          <p>
-            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
-            cursus semper lorem sit amet tempor. Duis nec lacus orci.
-          </p>
-        </>
-      ),
+      about: [
+        ' I’ve been crafting digital experiences for humans for the past ten years, having the honour to contribute on the growth of companies like Hopper, Lightspeed, Breather among others.',
+        'During this journey I had the opportunity to meet the most talented group of people, and build a world-class team to develop startups. ',
+        'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
+      ],
       social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
@@ -128,23 +104,11 @@ function AboutTeam() {
       role: 'Software Engineering',
       illustration: illustrations.dennis,
       signature: illustrations.dennisSig.publicURL,
-      about: () => (
-        <>
-          <p>
-            I’ve been crafting digital experiences for humans for the past ten
-            years, having the honour to contribute on the growth of companies
-            like Hopper, Lightspeed, Breather among others.
-          </p>
-          <p>
-            During this journey I had the opportunity to meet the most talented
-            group of people, and build a world-class team to develop startups.
-          </p>
-          <p>
-            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
-            cursus semper lorem sit amet tempor. Duis nec lacus orci.
-          </p>
-        </>
-      ),
+      about: [
+        ' I’ve been crafting digital experiences for humans for the past ten years, having the honour to contribute on the growth of companies like Hopper, Lightspeed, Breather among others.',
+        'During this journey I had the opportunity to meet the most talented group of people, and build a world-class team to develop startups. ',
+        'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
+      ],
       social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
 
@@ -153,23 +117,11 @@ function AboutTeam() {
       role: 'Software Engineering',
       illustration: illustrations.dan,
       signature: illustrations.danSig.publicURL,
-      about: () => (
-        <>
-          <p>
-            I’ve been crafting digital experiences for humans for the past ten
-            years, having the honour to contribute on the growth of companies
-            like Hopper, Lightspeed, Breather among others.
-          </p>
-          <p>
-            During this journey I had the opportunity to meet the most talented
-            group of people, and build a world-class team to develop startups.
-          </p>
-          <p>
-            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
-            cursus semper lorem sit amet tempor. Duis nec lacus orci.
-          </p>
-        </>
-      ),
+      about: [
+        ' I’ve been crafting digital experiences for humans for the past ten years, having the honour to contribute on the growth of companies like Hopper, Lightspeed, Breather among others.',
+        'During this journey I had the opportunity to meet the most talented group of people, and build a world-class team to develop startups. ',
+        'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
+      ],
       social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
     {
@@ -177,23 +129,11 @@ function AboutTeam() {
       role: 'Operations and Partnerships',
       illustration: illustrations.mack,
       signature: illustrations.mackSig.publicURL,
-      about: () => (
-        <>
-          <p>
-            I’ve been crafting digital experiences for humans for the past ten
-            years, having the honour to contribute on the growth of companies
-            like Hopper, Lightspeed, Breather among others.
-          </p>
-          <p>
-            During this journey I had the opportunity to meet the most talented
-            group of people, and build a world-class team to develop startups.
-          </p>
-          <p>
-            Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras
-            cursus semper lorem sit amet tempor. Duis nec lacus orci.
-          </p>
-        </>
-      ),
+      about: [
+        ' I’ve been crafting digital experiences for humans for the past ten years, having the honour to contribute on the growth of companies like Hopper, Lightspeed, Breather among others.',
+        'During this journey I had the opportunity to meet the most talented group of people, and build a world-class team to develop startups. ',
+        'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
+      ],
       social: ['twitter.com', 'dribbble.com', 'github.com', 'linkedin.com'],
     },
   ]
@@ -205,21 +145,12 @@ function AboutTeam() {
       ? people[selectedPersonIndex]
       : undefined
 
-  useEffect(() => {
-    console.log(cardRefs)
-
-    cardRefs.current[0]
-  }, [cardRefs])
-
   function handleMouseOver(index) {
-    console.log(index)
     const el = cardRefs.current[index] as HTMLElement
-    console.log(el)
     const box = el.current.getBoundingClientRect()
-    console.log(box)
-    modalRef.current.style.transform = `translateX(${box.x +
-      370 / 2 -
-      1440 / 2}px) translateY(-40px) scale(0.34, 0.75)`
+    const translateX = box.x + 370 / 2 - 1440 / 2
+
+    modalRef.current.style.transform = `translateX(${translateX}px) translateY(-40px) scale(0.34, 0.75)`
   }
 
   return (
@@ -296,22 +227,28 @@ function AboutTeam() {
               person={Boolean(person)}
               ref={modalRef}
             >
-              {person && (
-                <ModalGrid>
-                  <div>
-                    <ModalName>{person.name}</ModalName>
-                    <ModalRole>{person.role}</ModalRole>
+              <ModalGrid person={Boolean(person)}>
+                {person && (
+                  <>
                     <div>
-                      <person.about />
+                      <ModalName>{person.name}</ModalName>
+                      <ModalRole>{person.role}</ModalRole>
+                      <div>
+                        {person.about.map((text, index) => (
+                          <ModalText index={index}>{text}</ModalText>
+                        ))}
+                      </div>
+                      <div>{person.social.map(social => social.link)}</div>
+                      <ModalSignature>
+                        <SVG src={person.signature} />
+                      </ModalSignature>
                     </div>
-                    <div>{person.social.map(social => social.link)}</div>
-                    <SVG src={person.signature} />
-                  </div>
-                  <div>
-                    <Media src={person.illustration.childImageSharp.fluid} />
-                  </div>
-                </ModalGrid>
-              )}
+                    <div>
+                      <Media src={person.illustration.childImageSharp.fluid} />
+                    </div>
+                  </>
+                )}
+              </ModalGrid>
             </Modal>
           </OutsideClickHandler>
         </ModalOverlay>
@@ -336,12 +273,24 @@ function AboutTeam() {
 
 export default AboutTeam
 
+const fadeInAndUp = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1;  }
+`
+
 const Modal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 630px;
-  width: 1140px;
+  max-height: 630px;
+  max-width: 1140px;
+  height: 100%;
+  width: 100%;
   background: #000;
   left: 0;
   right: 0;
@@ -349,7 +298,7 @@ const Modal = styled.div`
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  transition: transform 0.5s ease;
+  transition: transform 0.33s ease;
 `
 
 const ModalOverlay = styled.div`
@@ -367,26 +316,40 @@ const ModalOverlay = styled.div`
 `
 
 const ModalGrid = styled.div`
+  padding: 120px 0 80px 90px;
   display: grid;
   grid-template-columns: 480px 472px;
   grid-column-gap: 30px;
   align-items: center;
-  opacity: 0;
+  opacity: ${p => (p.person ? 1 : 0)};
+  transition: opacity 0.3s 0.33s;
+`
 
-  p {
-    color: #fff;
-    margin-bottom: 25px;
-  }
+const ModalText = styled.p<{ index: number }>`
+  color: #fff;
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1)
+    ${p => p.index * 100 + 533}ms forwards;
 `
 
 const ModalName = styled(Heading.h2)`
   margin-bottom: 5px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 333ms forwards;
 `
 
 const ModalRole = styled.div`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
   margin-bottom: 30px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 433ms forwards;
+`
+
+const ModalSignature = styled.div`
+  opacity: 0;
+  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 833ms forwards;
 `
 
 function AboutRow({
