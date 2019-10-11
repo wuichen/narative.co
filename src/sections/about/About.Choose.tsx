@@ -7,59 +7,77 @@ import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky from '@components/Sticky'
+import Media from '@components/Media/Media.Img'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
 
 import AboutHeading from './About.Heading'
 
-const shapeIlloQuery = graphql`
+const shapeImagesQuery = graphql`
   query GetShapeIllo {
-    shape: file(name: { regex: "/about-glow-shape/" }) {
+    shapeWithoutShadow: file(name: { regex: "/about-shape-without-shadow/" }) {
       publicURL
+    }
+    shapeWithShadow: file(name: { regex: "/about-shape-with-shadow/" }) {
+      publicURL
+    }
+    shapeReflection: file(name: { regex: "/about-shape-reflection/" }) {
+      publicURL
+    }
+    shapeBackgroundGlow: file(name: { regex: "/about-shape-glow/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1000, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
     }
   }
 `
 
 function AboutChoose() {
-  const { shape } = useStaticQuery(shapeIlloQuery)
+  const {
+    shapeWithoutShadow,
+    shapeWithShadow,
+    shapeReflection,
+    shapeBackgroundGlow,
+  } = useStaticQuery(shapeImagesQuery)
   const { toggleContact } = useContext(ContactContext)
 
-  console.log(shape)
   return (
     <AboutChooseContainer>
       <Sticky
-        height="1600px"
+        height="2200px"
         cover
         render={({ progress }) =>
           console.log(progress) || (
             <AboutChooseInner>
               <>
                 <div>
-                  <div
+                  <HeadingContainer
                     style={{
-                      opacity: 1 - (progress + progress + progress),
-                      filter: `blur(${progress * 40}px)`,
+                      opacity:
+                        1 -
+                        (progress +
+                          progress +
+                          progress +
+                          progress +
+                          progress +
+                          progress),
+                      filter: `blur(${progress * 20}px)`,
                     }}
                   >
                     <AboutHeading
                       heading="Who we choose to be"
-                      text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
+                      text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as inHeadingContaineriduals, and as a team. These are our choices."
                     />
-                  </div>
+                  </HeadingContainer>
 
                   <Section narrow>
-                    <ShapeContainer
-                      style={{
-                        transform: `scale(${1 + progress * 10})`,
-                      }}
-                    >
-                      <SVG src={shape.publicURL} />
-                    </ShapeContainer>
                     <Values
                       style={{
-                        opacity: 1.4 - (1.4 - progress),
-                        filter: `blur(${(0.5 - progress) * 10}px)`,
+                        opacity: progress + 0.5,
+                        filter: `blur(${(0.5 - progress) * 5}px)`,
                       }}
                     >
                       <ValuesGrid>
@@ -103,6 +121,39 @@ function AboutChoose() {
                         />
                       </ButtonContainer>
                     </Values>
+                    <ShapeContainer
+                      style={{
+                        transform: `scale(${1 + progress * 7})`,
+                      }}
+                    >
+                      <ShapeGlow
+                        style={{
+                          opacity:
+                            1 -
+                            (progress +
+                              progress +
+                              progress +
+                              progress +
+                              progress),
+                        }}
+                      >
+                        <Media
+                          src={shapeBackgroundGlow.childImageSharp.fluid}
+                        />
+                      </ShapeGlow>
+                      <ShapeRectangle>
+                        <SVG src={shapeWithoutShadow.publicURL} />
+                      </ShapeRectangle>
+                      <ShapeRectangleWithMask>
+                        <SVG src={shapeWithoutShadow.publicURL} />
+                      </ShapeRectangleWithMask>
+                      {/* <ShapeRectangle>
+                        <SVG src={shapeWithShadow.publicURL} />
+                      </ShapeRectangle> */}
+                      {/* <ShapeRectangleReflection>
+                        <SVG src={shapeReflection.publicURL} />
+                      </ShapeRectangleReflection> */}
+                    </ShapeContainer>
                   </Section>
                 </div>
               </>
@@ -116,6 +167,11 @@ function AboutChoose() {
 
 export default AboutChoose
 
+const HeadingContainer = styled.div`
+  z-index: 2;
+  position: relative;
+  will-change: transform, filter;
+`
 const ShapeContainer = styled.div`
   position: absolute;
   display: flex;
@@ -126,6 +182,59 @@ const ShapeContainer = styled.div`
   left: 0;
   right: 0;
   margin: 0 auto;
+  max-width: 750px;
+
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+`
+
+const ShapeRectangle = styled.figure`
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 3;
+`
+
+const ShapeRectangleWithMask = styled.figure`
+  position: absolute;
+  width: 100%;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50vh;
+    background: #111216;
+    top: -50vh;
+    left: 0;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50vh;
+    background: #111216;
+    bottom: -50vh;
+    left: 0;
+  }
+`
+
+const ShapeRectangleReflection = styled.figure`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  margin: 0 auto;
+`
+
+const ShapeGlow = styled.figure`
+  top: -200px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  will-change: opacity;
 `
 
 const AboutChooseContainer = styled.div`
@@ -144,6 +253,7 @@ const Values = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   will-change: transform, filter;
+  background: #111216;
 `
 
 const ValuesGrid = styled.div`
