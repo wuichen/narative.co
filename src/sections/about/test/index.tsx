@@ -190,7 +190,7 @@ const CardContainer = styled.div<{ isSelected: boolean }>`
   top: 0;
   display: flex;
   transition: opacity 0s;
-  ${p => !p.isSelected && `transition-delay: 0.8s;`}
+  ${p => !p.isSelected && `transition-delay: 0.4s;`}
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
 `
 

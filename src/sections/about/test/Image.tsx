@@ -12,9 +12,7 @@ export const Image = ({ isSelected, pointOfInterest = 0, src }) => {
         src={src.src}
         alt=""
         initial={false}
-        animate={
-          isSelected ? { x: -20, y: -20 } : { x: -pointOfInterest, y: 0 }
-        }
+        animate={isSelected ? { x: 690, y: 80 } : { x: 0, y: 0 }}
         transition={closeSpring}
       />
     </IllustrationContainer>
@@ -27,9 +25,8 @@ const IllustrationContainer = styled(motion.div)`
   left: 0;
   bottom: 0;
   right: 0;
-  overflow: hidden;
   height: 420px;
-  width: 390px;
+  width: 100vw;
   transform: translateZ(0);
 `
 

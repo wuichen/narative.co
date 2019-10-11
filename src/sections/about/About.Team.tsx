@@ -1,10 +1,7 @@
 import React, { useState, useRef, createRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
-import OutsideClickHandler from 'react-outside-click-handler'
 import usePortal from 'react-useportal'
-import SVG from 'react-inlinesvg'
 import { useStaticQuery, graphql } from 'gatsby'
-import { useSpring, animated } from 'react-spring'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -14,7 +11,6 @@ import Media from '@components/Media/Media.Img'
 import mediaqueries from '@styles/media'
 
 import Test from './test'
-import { parsePath } from 'history'
 
 export const illustrationQuery = graphql`
   query GetIllustrations {
@@ -162,6 +158,18 @@ function AboutTeam() {
     setChildRef(ref)
   }
 
+  function handleModalClick(bool: boolean) {
+    setIsOpen(bool)
+
+    if (bool === false) {
+      document.body.style.pointerEvents = 'none'
+
+      setTimeout(() => {
+        document.body.style.pointerEvents = ''
+      }, 460)
+    }
+  }
+
   console.log(person)
   console.log(isOpen)
   return (
@@ -199,7 +207,7 @@ function AboutTeam() {
                     <Card
                       key={person.name}
                       ref={cardRefs.current[index]}
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => handleModalClick(true)}
                       onMouseOver={() => handleMouseOver(index)}
                       isSelected={selectedPersonIndex === index}
                       isOpen={isOpen}
@@ -298,7 +306,7 @@ function AboutTeam() {
           isSelected={isOpen}
           handleRef={handleRef}
           person={person}
-          handleOutsideClick={isOpen ? () => setIsOpen(false) : () => {}}
+          handleOutsideClick={isOpen ? () => handleModalClick(false) : () => {}}
         />
       </Portal>
     </>
@@ -510,7 +518,7 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   overflow: hidden;
   opacity: ${p => (p.isSelected && p.isOpen ? 0 : 1)};
 
-  ${p => !p.isOpen && `transition-delay: 0.8s;`}
+  ${p => !p.isOpen && `transition-delay: 0.4s;`}
 
   &:hover {
     filter: grayscale(0);
