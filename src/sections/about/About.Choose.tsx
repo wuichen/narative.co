@@ -77,7 +77,7 @@ function AboutChoose() {
                     <Values
                       style={{
                         opacity: progress + 0.5,
-                        filter: `blur(${(0.5 - progress) * 5}px)`,
+                        filter: `blur(${(0.8 - progress) * 5}px)`,
                       }}
                     >
                       <ValuesGrid>
