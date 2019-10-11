@@ -13,6 +13,9 @@ import Media from '@components/Media/Media.Img'
 
 import mediaqueries from '@styles/media'
 
+import Test from './test'
+import { parsePath } from 'history'
+
 export const illustrationQuery = graphql`
   query GetIllustrations {
     brad: file(name: { regex: "/portrait-illustration-brad/" }) {
@@ -69,9 +72,8 @@ export const illustrationQuery = graphql`
 `
 
 function AboutTeam() {
-  const [selectedPersonIndex, setSelectedPersonIndex] = useState<
-    number | undefined
-  >(undefined)
+  const [selectedPersonIndex, setSelectedPersonIndex] = useState<number>(0)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const illustrations = useStaticQuery(illustrationQuery)
   const { Portal } = usePortal()
 
@@ -140,28 +142,28 @@ function AboutTeam() {
   ]
 
   const cardRefs = useRef([...Array(people.length)].map(() => createRef()))
-  const modalRef = createRef()
+  const [childRef, setChildRef] = useState()
 
-  const person =
-    typeof selectedPersonIndex === 'number'
-      ? people[selectedPersonIndex]
-      : undefined
+  const person = people[selectedPersonIndex]
 
   function handleMouseOver(index) {
+    setSelectedPersonIndex(index)
+
     const el = cardRefs.current[index] as HTMLElement
     const box = el.current.getBoundingClientRect()
-    const translateX = box.x + 370 / 2 - 1440 / 2
 
-    modalRef.current.style.transform = `translateX(${translateX}px) translateY(-40px) scale(0.34, 0.75)`
+    if (childRef.current) {
+      childRef.current.style.top = `${box.y}px`
+      childRef.current.style.left = `${box.x}px`
+    }
   }
 
-  function handleClick(index) {
-    console.log(index)
-    setSelectedPersonIndex(index)
+  function handleRef(ref) {
+    setChildRef(ref)
   }
-  // const props = useSpring({ opacity: 0 })
 
-  console.log(Boolean(person))
+  console.log(person)
+  console.log(isOpen)
   return (
     <>
       <AboutTeamContainer>
@@ -197,8 +199,10 @@ function AboutTeam() {
                     <Card
                       key={person.name}
                       ref={cardRefs.current[index]}
-                      onClick={() => handleClick(index)}
+                      onClick={() => setIsOpen(true)}
                       onMouseOver={() => handleMouseOver(index)}
+                      isSelected={selectedPersonIndex === index}
+                      isOpen={isOpen}
                     >
                       <Illustration>
                         <Media
@@ -238,11 +242,11 @@ function AboutTeam() {
           </CompanyLogos>
         </AboutRow>
       </AboutTeamContainer>
-      <Portal>
+      {/* <Portal>
         <div>
           <ModalOverlay
             style={
-              Boolean(person)
+              isOpen
                 ? { opacity: 1, pointerEvents: 'initial' }
                 : { opacity: 0 }
             }
@@ -250,17 +254,16 @@ function AboutTeam() {
             <OutsideClickHandler
               onOutsideClick={() => setSelectedPersonIndex(undefined)}
             >
-              {/* <animated.div style={props}> */}
               <Modal
                 style={
-                  Boolean(person)
+                  isOpen
                     ? { opacity: 1, transform: 'none' }
                     : { opacity: 0 }
                 }
-                person={Boolean(person)}
+                person={isOpen}
                 ref={modalRef}
               >
-                <ModalGrid person={Boolean(person)}>
+                <ModalGrid person={isOpen}>
                   {person && (
                     <>
                       <div>
@@ -285,10 +288,18 @@ function AboutTeam() {
                   )}
                 </ModalGrid>
               </Modal>
-              {/* </animated.div> */}
             </OutsideClickHandler>
           </ModalOverlay>
         </div>
+      </Portal> */}
+
+      <Portal>
+        <Test
+          isSelected={isOpen}
+          handleRef={handleRef}
+          person={person}
+          handleOutsideClick={isOpen ? () => setIsOpen(false) : () => {}}
+        />
       </Portal>
     </>
   )
@@ -480,7 +491,7 @@ const Role = styled.div`
   transition: color 0.4s;
 `
 
-const Card = styled.div`
+const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -494,8 +505,12 @@ const Card = styled.div`
   padding: 0 0 44px;
   cursor: pointer;
   will-change: filter;
-  transition: filter 0.8s;
+  transition: filter 0.2s, opacity 0s;
   filter: grayscale(1);
+  overflow: hidden;
+  opacity: ${p => (p.isSelected && p.isOpen ? 0 : 1)};
+
+  ${p => !p.isOpen && `transition-delay: 0.8s;`}
 
   &:hover {
     filter: grayscale(0);
