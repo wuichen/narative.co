@@ -108,9 +108,8 @@ export const Card = memo(
           handleOutsideClick={handleOutsideClick}
         />
         <CardContent isSelected={isSelected} onClick={handleOutsideClick}>
-          <motion.div
+          <ContentContainer
             ref={cardRef}
-            className="card-content"
             style={{
               background: '#000',
               y,
@@ -148,7 +147,7 @@ export const Card = memo(
                 </div>
               </Container>
             )} */}
-          </motion.div>
+          </ContentContainer>
         </CardContent>
       </CardContainer>
     )
@@ -215,27 +214,7 @@ const CardContent = styled.div<{ isSelected: boolean }>`
   `}
 `
 
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 470px;
-  background: #000;
-  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  text-align: center;
-  padding: 0 0 44px;
-  cursor: pointer;
-  will-change: filter;
-  transition: filter 0.8s;
-  overflow: hidden;
-
-  &:hover {
-    filter: grayscale(0);
-  }
-  &:hover ${Role} {
-    color: ${p => p.theme.colors.gold};
-  }
+const ContentContainer = styled(motion.div)`
+  max-width: 1140px;
+  width: 90vw;
 `
