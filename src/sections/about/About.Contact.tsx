@@ -32,6 +32,11 @@ const Container = styled.div`
   align-items: flex-end;
   position: relative;
   height: calc(100vh - 310px);
+
+  @media (min-height: 1200px) {
+    padding-top: 310px;
+    align-items: center;
+  }
 `
 
 const ButtonContainer = styled.div`

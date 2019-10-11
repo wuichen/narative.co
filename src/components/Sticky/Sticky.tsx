@@ -106,7 +106,6 @@ const StickyItemContainer = styled.div`
 
 const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   position: sticky;
-  z-index: 1;
   top: ${p => p.top || 0}px;
   min-height: initial;
   height: ${p => (p.cover ? '100vh' : 'initial')};

@@ -212,6 +212,7 @@ export interface ICard extends React.HTMLAttributes<HTMLElement> {
 
 export interface IImg extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: ISharpFixedOrFluidAttrs | string
+  loading?: 'lazy' | 'eager' | 'auto'
 }
 
 export interface IRichText {

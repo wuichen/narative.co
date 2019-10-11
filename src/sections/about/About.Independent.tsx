@@ -166,6 +166,21 @@ const testimonials = [
   },
 ]
 
+const blends = [
+  '#1D2128',
+  '#1C1F26',
+  '#1A1E24',
+  '#191C23',
+  '#181B21',
+  '#17191F',
+  '#15181D',
+  '#14161B',
+  '#131519',
+  '#121318',
+  '#101216',
+  '#0F1014',
+]
+
 function AboutChoose() {
   function clamp(val, min, max) {
     return val > max ? max : val < min ? min : val
@@ -202,6 +217,14 @@ function AboutChoose() {
                 {testimonials.map((testimonial, index) => {
                   const total = testimonials.length
                   const nextIndex = index + 1
+                  const previousIndex = index - 1
+
+                  const prevStaggered = clamp(
+                    progress - previousIndex / total,
+                    0,
+                    1
+                  )
+                  const prevProgress = clamp(prevStaggered * total, 0, 1)
 
                   const staggered = clamp(progress - index / total, 0, 1)
                   const currentProgress = clamp(staggered * total, 0, 1)
@@ -221,21 +244,6 @@ function AboutChoose() {
 
                   const scaleCurve = 1 - nextStaggered * 0.25
 
-                  const blends = [
-                    '#1D2128',
-                    '#1C1F26',
-                    '#1A1E24',
-                    '#191C23',
-                    '#181B21',
-                    '#17191F',
-                    '#15181D',
-                    '#14161B',
-                    '#131519',
-                    '#121318',
-                    '#101216',
-                    '#0F1014',
-                  ]
-
                   const selectedBlend = Math.round(
                     ((((1 - scaleCurve) * 100) / 9) * 10) / 2
                   )
@@ -246,6 +254,7 @@ function AboutChoose() {
                       data-card={index}
                       style={{
                         transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
+                        opacity: prevProgress,
                       }}
                     >
                       <Card style={{ background: blends[selectedBlend] }}>
@@ -282,12 +291,18 @@ const AboutTestimonialContainer = styled.div`
   &::after {
     content: '';
     position: absolute;
-    height: 20vh;
-    max-height: 262px;
+    height: 30vh;
+    min-height: 300px;
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 76.72%);
+    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 70%);
+
+    @media (min-height: 1200px) {
+      height: 45vh;
+      min-height: 300px;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 20%);
+    }
   }
 `
 

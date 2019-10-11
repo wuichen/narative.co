@@ -203,6 +203,7 @@ function AboutTeam() {
                       <Illustration>
                         <Media
                           src={person.illustration.childImageSharp.fluid}
+                          loading="eager"
                         />
                       </Illustration>
                       <div style={{ position: 'relative' }}>
