@@ -4,7 +4,7 @@ import { motion, useMotionValue } from 'framer-motion'
 // import { Link } from "react-router-dom";
 import { openSpring, closeSpring } from './animations'
 
-import { ContentPlaceholder } from './ContentPlaceholder'
+import { About } from './About'
 import { Name } from './Name'
 import { Role } from './Role'
 import { Image } from './Image'
@@ -87,7 +87,6 @@ export const Card = memo(
 
     const openCardContent = isSelected
       ? {
-          height: 'auto',
           maxWidth: '1140px',
           maxHeight: '630px',
           overflow: 'hidden',
@@ -132,7 +131,7 @@ export const Card = memo(
             {/* <Name name={person.name} isSelected={isSelected} />
             <Role role={person.role} isSelected={isSelected} /> */}
             {/* {/* <Role role={persona.role}  isSelected={isSelected} /> */}
-            <ContentPlaceholder />
+            <About isSelected={isSelected} person={person} />
             {/* {person && (
               <Container key={person.name}>
                 <Illustration>
@@ -156,7 +155,7 @@ export const Card = memo(
 
 export default Card
 
-const Overlay = ({ isSelected, handleOutsideClick }) => (
+const Overlay = ({ isSelected }) => (
   <OverlayContainer
     initial={false}
     animate={{ opacity: isSelected ? 1 : 0 }}
@@ -216,5 +215,13 @@ const CardContent = styled.div<{ isSelected: boolean }>`
 
 const ContentContainer = styled(motion.div)`
   max-width: 1140px;
+  max-height: 630px;
   width: 90vw;
+  height: 90vh;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 `

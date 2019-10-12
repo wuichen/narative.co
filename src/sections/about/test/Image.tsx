@@ -20,18 +20,14 @@ export const Image = ({ isSelected, pointOfInterest = 0, src }) => {
 }
 
 const IllustrationContainer = styled(motion.div)`
-  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  height: 420px;
-  width: 100vw;
   transform: translateZ(0);
 `
 
 const Illustration = styled(motion.img)`
-  position: absolute;
   top: 0;
   left: 0;
   overflow: hidden;
