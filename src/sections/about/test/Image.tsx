@@ -25,6 +25,8 @@ const IllustrationContainer = styled(motion.div)`
   bottom: 0;
   right: 0;
   transform: translateZ(0);
+  position: relative;
+  z-index: 1;
 `
 
 const Illustration = styled(motion.img)`
