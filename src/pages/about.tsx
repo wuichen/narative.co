@@ -11,7 +11,7 @@ import AboutHero from '../sections/about/About.Hero'
 import AboutTeam from '../sections/about/About.Team'
 import AboutChoose from '../sections/about/About.Choose'
 import AboutPhotographs from '../sections/about/About.Photographs'
-import AboutIndependent from '../sections/about/About.Independent'
+import AboutTestimonial from '../sections/about/About.Testimonials'
 import AboutStudioLabs from '../sections/about/About.StudioLabs'
 import AboutContact from '../sections/about/About.Contact'
 
@@ -54,7 +54,7 @@ function AboutPage({ data, location }) {
       <Divider />
       <BottomGradient>
         <AboutPhotographs />
-        <AboutIndependent />
+        <AboutTestimonial />
         <AboutStudioLabs inView={inView} />
         <div ref={ref} style={{ position: 'relative', zIndex: inView ? 2 : 1 }}>
           <AboutContact inView={inView} />

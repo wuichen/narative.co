@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Section from '@components/Section'
 import mediaqueries from '@styles/media'
 
-function AboutStudioLabs() {
+function AboutStudioLabs({ inView }: { inView: boolean }) {
   return (
     <Container>
       <Section>

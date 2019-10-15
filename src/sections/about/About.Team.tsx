@@ -2,6 +2,7 @@ import React, { useState, useRef, createRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import usePortal from 'react-useportal'
 import { useStaticQuery, graphql } from 'gatsby'
+import SVG from 'react-inlinesvg'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -10,7 +11,7 @@ import Media from '@components/Media/Media.Img'
 
 import mediaqueries from '@styles/media'
 
-import Test from './test'
+import AboutTeamModal from './About.Team.Modal'
 
 export const illustrationQuery = graphql`
   query GetIllustrations {
@@ -142,7 +143,7 @@ function AboutTeam() {
 
   const person = people[selectedPersonIndex]
 
-  function handleMouseOver(index) {
+  function handleMouseOver(index: number) {
     setSelectedPersonIndex(index)
 
     const el = cardRefs.current[index] as HTMLElement
@@ -154,7 +155,7 @@ function AboutTeam() {
     }
   }
 
-  function handleRef(ref) {
+  function handleRef(ref: any) {
     setChildRef(ref)
   }
 
@@ -170,8 +171,6 @@ function AboutTeam() {
     }
   }
 
-  console.log(person)
-  console.log(isOpen)
   return (
     <>
       <AboutTeamContainer>
@@ -250,64 +249,45 @@ function AboutTeam() {
           </CompanyLogos>
         </AboutRow>
       </AboutTeamContainer>
-      {/* <Portal>
-        <div>
-          <ModalOverlay
-            style={
-              isOpen
-                ? { opacity: 1, pointerEvents: 'initial' }
-                : { opacity: 0 }
-            }
-          >
-            <OutsideClickHandler
-              onOutsideClick={() => setSelectedPersonIndex(undefined)}
-            >
-              <Modal
-                style={
-                  isOpen
-                    ? { opacity: 1, transform: 'none' }
-                    : { opacity: 0 }
-                }
-                person={isOpen}
-                ref={modalRef}
-              >
-                <ModalGrid person={isOpen}>
-                  {person && (
-                    <>
-                      <div>
-                        <ModalName>{person.name}</ModalName>
-                        <ModalRole>{person.role}</ModalRole>
-                        <div>
-                          {person.about.map((text, index) => (
-                            <ModalText index={index}>{text}</ModalText>
-                          ))}
-                        </div>
-                        <div>{person.social.map(social => social.link)}</div>
-                        <ModalSignature>
-                          <SVG src={person.signature} />
-                        </ModalSignature>
-                      </div>
-                      <div>
-                        <Media
-                          src={person.illustration.childImageSharp.fluid}
-                        />
-                      </div>
-                    </>
-                  )}
-                </ModalGrid>
-              </Modal>
-            </OutsideClickHandler>
-          </ModalOverlay>
-        </div>
-      </Portal> */}
 
       <Portal>
-        <Test
+        <AboutTeamModal
           isSelected={isOpen}
           handleRef={handleRef}
           person={person}
           handleOutsideClick={isOpen ? () => handleModalClick(false) : () => {}}
         />
+      </Portal>
+      <Portal>
+        <Modal
+          style={isOpen ? { opacity: 1, transform: 'none' } : { opacity: 0 }}
+          person={isOpen}
+        >
+          <ModalContent person={isOpen}>
+            <ModalGrid person={isOpen}>
+              {person && (
+                <>
+                  <div>
+                    <ModalName>{person.name}</ModalName>
+                    <ModalRole>{person.role}</ModalRole>
+                    <div>
+                      {person.about.map((text, index) => (
+                        <ModalText index={index}>{text}</ModalText>
+                      ))}
+                    </div>
+                    <div>{person.social.map(social => social.link)}</div>
+                    <ModalSignature>
+                      <SVG src={person.signature} />
+                    </ModalSignature>
+                  </div>
+                  <div>
+                    <Media src={person.illustration.childImageSharp.fluid} />
+                  </div>
+                </>
+              )}
+            </ModalGrid>
+          </ModalContent>
+        </Modal>
       </Portal>
     </>
   )
@@ -329,32 +309,26 @@ const Modal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.33s ease 0.4s;
+  pointer-events: none;
+`
+
+const ModalContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-height: 630px;
   max-width: 1140px;
   height: 100%;
   width: 100%;
   background: #000;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  transition: transform 0.33s ease;
-`
-
-const ModalOverlay = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  backdrop-filter: blur(10px);
-  z-index: 10;
-  pointer-events: none;
 `
 
 const ModalGrid = styled.div`
@@ -523,6 +497,7 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   &:hover {
     filter: grayscale(0);
   }
+
   &:hover ${Role} {
     color: ${p => p.theme.colors.gold};
   }

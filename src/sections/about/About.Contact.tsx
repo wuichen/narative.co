@@ -12,10 +12,7 @@ function AboutContact({ inView }: { inView: boolean }) {
     <Container>
       <Section>
         <Heading>
-          Lorem ipsum dolor sit amet,{' '}
-          <Grey inView={inView}>
-            consectetur adipiscing elit phasellus in lectus at aug.
-          </Grey>
+          That's our story. <Grey inView={inView}>What's yours?</Grey>
         </Heading>
         <ButtonContainer>
           <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />
@@ -49,7 +46,7 @@ const Heading = styled.h2`
   font-size: 70px;
   text-align: center;
   width: 100%;
-  max-width: 945px;
+  max-width: 749px;
   margin: 0 auto;
   line-height: 1.05;
   letter-spacing: -0.5px;
@@ -57,7 +54,7 @@ const Heading = styled.h2`
   font-family: ${p => p.theme.fontfamily.serif};
 `
 
-const Grey = styled.span<{ inView: boolean }>`
+const Grey = styled.div<{ inView: boolean }>`
   color: ${p => (p.inView ? p.theme.colors.grey : p.theme.colors.kepler)};
   transition: color 1.5s;
   will-change: opacity;

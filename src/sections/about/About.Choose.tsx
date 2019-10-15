@@ -47,119 +47,110 @@ function AboutChoose() {
   return (
     <AboutChooseContainer>
       <Sticky
-        height="2200px"
+        height="1800px"
         cover
-        render={({ progress }) =>
-          console.log(progress) || (
-            <AboutChooseInner>
-              <>
-                <div>
-                  <HeadingContainer
+        render={({ progress }) => (
+          <AboutChooseInner>
+            <>
+              <div>
+                <HeadingContainer
+                  style={{
+                    opacity:
+                      1 -
+                      (progress + progress + progress + progress + progress),
+                    filter: `blur(${progress * 20}px)`,
+                  }}
+                >
+                  <AboutHeading
+                    heading="Who we choose to be"
+                    text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as inHeadingContaineriduals, and as a team. These are our choices."
+                  />
+                </HeadingContainer>
+
+                <Section narrow>
+                  <Values
                     style={{
-                      opacity:
-                        1 -
-                        (progress +
-                          progress +
-                          progress +
-                          progress +
-                          progress +
-                          progress),
-                      filter: `blur(${progress * 20}px)`,
+                      opacity: progress + 0.7,
+                      // filter: `blur(${(0.8 - progress) * 5}px)`,
                     }}
                   >
-                    <AboutHeading
-                      heading="Who we choose to be"
-                      text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as inHeadingContaineriduals, and as a team. These are our choices."
-                    />
-                  </HeadingContainer>
-
-                  <Section narrow>
-                    <Values
+                    <ValuesGrid>
+                      <div>
+                        <ValueIllo />
+                        <ValueHeading>Be kind</ValueHeading>
+                        <ValueText>
+                          Communicate honestly but sensitively; act with
+                          positive intent; and trust others to do the same.
+                        </ValueText>
+                      </div>
+                      <div>
+                        <ValueIllo />
+                        <ValueHeading>Be creative</ValueHeading>
+                        <ValueText>
+                          Push beyond best practices and by-the-numbers design
+                          to discover valuable new ideas.
+                        </ValueText>
+                      </div>
+                      <div>
+                        <ValueIllo />
+                        <ValueHeading>Be adaptable</ValueHeading>
+                        <ValueText>
+                          Strive to grow from every challenge and change, even
+                          when it means changing your mind.
+                        </ValueText>
+                      </div>
+                      <div>
+                        <ValueIllo />
+                        <ValueHeading>Be yourself</ValueHeading>
+                        <ValueText>
+                          Work and live the way that uniquely suits you, free of
+                          rigid hierarchies and arbitrary expectations.
+                        </ValueText>
+                      </div>
+                    </ValuesGrid>
+                    <ButtonContainer>
+                      <ButtonPill
+                        text="Work with our team"
+                        onClick={toggleContact}
+                      />
+                    </ButtonContainer>
+                  </Values>
+                  <ShapeContainer
+                    style={{
+                      transform: `scale(${1 + progress * 4})`,
+                    }}
+                  >
+                    <ShapeGlow
                       style={{
-                        opacity: progress + 0.5,
-                        filter: `blur(${(0.8 - progress) * 5}px)`,
+                        opacity:
+                          1 -
+                          (progress +
+                            progress +
+                            progress +
+                            progress +
+                            progress),
                       }}
                     >
-                      <ValuesGrid>
-                        <div>
-                          <ValueIllo />
-                          <ValueHeading>Be kind</ValueHeading>
-                          <ValueText>
-                            Communicate honestly but sensitively; act with
-                            positive intent; and trust others to do the same.
-                          </ValueText>
-                        </div>
-                        <div>
-                          <ValueIllo />
-                          <ValueHeading>Be creative</ValueHeading>
-                          <ValueText>
-                            Push beyond best practices and by-the-numbers design
-                            to discover valuable new ideas.
-                          </ValueText>
-                        </div>
-                        <div>
-                          <ValueIllo />
-                          <ValueHeading>Be adaptable</ValueHeading>
-                          <ValueText>
-                            Strive to grow from every challenge and change, even
-                            when it means changing your mind.
-                          </ValueText>
-                        </div>
-                        <div>
-                          <ValueIllo />
-                          <ValueHeading>Be yourself</ValueHeading>
-                          <ValueText>
-                            Work and live the way that uniquely suits you, free
-                            of rigid hierarchies and arbitrary expectations.
-                          </ValueText>
-                        </div>
-                      </ValuesGrid>
-                      <ButtonContainer>
-                        <ButtonPill
-                          text="Work with our team"
-                          onClick={toggleContact}
-                        />
-                      </ButtonContainer>
-                    </Values>
-                    <ShapeContainer
-                      style={{
-                        transform: `scale(${1 + progress * 7})`,
-                      }}
-                    >
-                      <ShapeGlow
-                        style={{
-                          opacity:
-                            1 -
-                            (progress +
-                              progress +
-                              progress +
-                              progress +
-                              progress),
-                        }}
-                      >
-                        <Media
-                          src={shapeBackgroundGlow.childImageSharp.fluid}
-                        />
-                      </ShapeGlow>
-                      <ShapeRectangle>
-                        <SVG src={shapeWithoutShadow.publicURL} />
-                      </ShapeRectangle>
-                      <ShapeRectangleWithMask>
-                        <SVG src={shapeWithoutShadow.publicURL} />
-                      </ShapeRectangleWithMask>
-                      {/* <ShapeRectangle>
+                      <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
+                    </ShapeGlow>
+                    <ShapeRectangle>
+                      <SVG src={shapeWithoutShadow.publicURL} />
+                    </ShapeRectangle>
+                    <ShapeRectangleWithMask>
+                      <SVG src={shapeWithoutShadow.publicURL} />
+                    </ShapeRectangleWithMask>
+                    {/* <ShapeRectangle>
                         <SVG src={shapeWithShadow.publicURL} />
                       </ShapeRectangle> */}
-                      {/* <ShapeRectangleReflection>
+                    {/* <ShapeRectangleReflection>
                         <SVG src={shapeReflection.publicURL} />
                       </ShapeRectangleReflection> */}
-                    </ShapeContainer>
-                  </Section>
-                </div>
-              </>
-            </AboutChooseInner>
-          )
-        }
+                  </ShapeContainer>
+                </Section>
+              </div>
+            </>
+          </AboutChooseInner>
+        )}
       />
     </AboutChooseContainer>
   )
