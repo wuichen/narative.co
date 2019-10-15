@@ -9,7 +9,7 @@ import SEO from '@components/SEO'
 
 import AboutHero from '../sections/about/About.Hero'
 import AboutTeam from '../sections/about/About.Team'
-import AboutChoose from '../sections/about/About.Choose'
+import AboutValues from '../sections/about/About.Values'
 import AboutPhotographs from '../sections/about/About.Photographs'
 import AboutTestimonial from '../sections/about/About.Testimonials'
 import AboutStudioLabs from '../sections/about/About.StudioLabs'
@@ -49,7 +49,7 @@ function AboutPage({ data, location }) {
       </TopGradient>
       <TransitionLayer style={{ opacity: inView ? 1 : 0 }} />
       <MiddleGradient>
-        <AboutChoose />
+        <AboutValues />
       </MiddleGradient>
       <Divider />
       <BottomGradient>

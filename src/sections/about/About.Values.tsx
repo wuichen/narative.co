@@ -35,7 +35,7 @@ const shapeImagesQuery = graphql`
   }
 `
 
-function AboutChoose() {
+function AboueValues() {
   const {
     shapeWithoutShadow,
     shapeWithShadow,
@@ -45,12 +45,12 @@ function AboutChoose() {
   const { toggleContact } = useContext(ContactContext)
 
   return (
-    <AboutChooseContainer>
+    <AboueValuesContainer>
       <Sticky
         height="1800px"
         cover
         render={({ progress }) => (
-          <AboutChooseInner>
+          <AboueValuesInner>
             <>
               <div>
                 <HeadingContainer
@@ -149,14 +149,14 @@ function AboutChoose() {
                 </Section>
               </div>
             </>
-          </AboutChooseInner>
+          </AboueValuesInner>
         )}
       />
-    </AboutChooseContainer>
+    </AboueValuesContainer>
   )
 }
 
-export default AboutChoose
+export default AboueValues
 
 const HeadingContainer = styled.div`
   z-index: 2;
@@ -228,11 +228,11 @@ const ShapeGlow = styled.figure`
   will-change: opacity;
 `
 
-const AboutChooseContainer = styled.div`
+const AboueValuesContainer = styled.div`
   padding: 85px 0 240px;
 `
 
-const AboutChooseInner = styled.div`
+const AboueValuesInner = styled.div`
   position: relative;
   padding: 65px 0 70vh;
 `
