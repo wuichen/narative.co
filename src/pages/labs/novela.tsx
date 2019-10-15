@@ -83,8 +83,18 @@ function NovealPage({ data, location }) {
 
   const styledTheme =
     theme === 'dark'
-      ? { links: '#E9DAAC', active: '#FAFAFA', background: '#111216' }
-      : { links: '#6166DC', active: '#000', background: '#FAFAFA' }
+      ? {
+          links: '#E9DAAC',
+          active: '#FAFAFA',
+          background: '#111216',
+          external: '#28292D',
+        }
+      : {
+          links: '#6166DC',
+          active: '#000',
+          background: '#FAFAFA',
+          external: '#E6E6E7',
+        }
 
   return (
     <ThemeProvider theme={styledTheme}>
@@ -146,6 +156,13 @@ function NovealPage({ data, location }) {
                 ref={iframeRef}
                 isMobile={dimension === 361}
               />
+              <PreviewLink
+                href="https://novela.narative.co"
+                target="_blank"
+                rel="noopener"
+              >
+                <PreviewIcon fill={styledTheme.active} />
+              </PreviewLink>
             </PreviewContainer>
           </Section>
           <Mobile>
@@ -247,6 +264,35 @@ const Preview = styled.iframe<{ isMobile: boolean }>`
   border: none;
   height: ${p => (p.isMobile ? '700px' : '600px')};
 `
+
+const PreviewLink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 33px;
+  height: 28px;
+  right: 0;
+  top: 0;
+  background: ${p => p.theme.external};
+`
+
+const PreviewIcon = ({ fill }: { fill: string }) => (
+  <svg
+    width="13"
+    height="12"
+    viewBox="0 0 13 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M2.75473 1.33325H2.34703L4.58175 3.5104C4.85241 3.77409 4.85807 4.20727 4.59438 4.47794C4.33068 4.7486 3.8975 4.75426 3.62684 4.49056L1.3686 2.29051V2.64891C1.3686 3.02679 1.06223 3.33312 0.684348 3.33312C0.306469 3.33312 9.52478e-05 3.02679 9.52478e-05 2.64891V0.68421C9.52478e-05 0.306331 0.306426 0 0.684305 0H2.75473C3.1229 0 3.42136 0.298458 3.42136 0.666625C3.42136 1.03479 3.1229 1.33325 2.75473 1.33325ZM4.78916 0.66337C4.78916 0.296856 5.09386 0 5.47007 0H11.6317C12.3844 0 13.0002 0.600223 13.0002 1.33325V6.64862C13.0002 7.02652 12.6938 7.33287 12.3159 7.33287C11.938 7.33287 11.6317 7.02652 11.6317 6.64862V1.32674H5.47007C5.09386 1.32674 4.78916 1.02988 4.78916 0.66337ZM7.53012 12C7.90633 12 8.21103 11.7031 8.21103 11.3366C8.21103 10.9701 7.90633 10.6733 7.53012 10.6733L1.36851 10.6733L1.36851 5.35138C1.36851 4.97348 1.06216 4.66713 0.684253 4.66713C0.306351 4.66713 5.10883e-07 4.97348 4.76972e-07 5.35138L0 10.6667C-6.57783e-08 11.3998 0.615761 12 1.36851 12L7.53012 12ZM12.9995 9.33264C12.9995 8.96417 12.6931 8.66602 12.3152 8.66602C11.9374 8.66602 11.631 8.96417 11.631 9.33264V9.71062L9.37208 7.50992C9.10142 7.24623 8.66824 7.25188 8.40454 7.52254C8.14085 7.79321 8.14651 8.22639 8.41717 8.49008L10.6505 10.6659H10.2625C9.8846 10.6659 9.57822 10.964 9.57822 11.3325C9.57822 11.701 9.8846 11.9991 10.2625 11.9991H12.3152C12.6931 11.9991 12.9995 11.701 12.9995 11.3325V9.33264Z"
+      fill={fill}
+    />
+  </svg>
+)
 
 const Controls = styled.div<{ isMobile: boolean }>`
   position: absolute;
