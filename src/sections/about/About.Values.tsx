@@ -57,8 +57,9 @@ function AboueValues() {
       const TOP_PADDING = 65
       const BOTTOM_MARGIN = 100
 
-      const scale = (shapeHeight + height) / height + 2
-      const totalHeadingHeight = headHeight + TOP_PADDING + BOTTOM_MARGIN
+      const scale = (shapeHeight + height * 1.25) / height + 2
+      const totalHeadingHeight =
+        headHeight + TOP_PADDING + BOTTOM_MARGIN + shapeHeight / 2
       const middleOfWindow = height / 2
       const offset = totalHeadingHeight - middleOfWindow
 
@@ -269,7 +270,7 @@ const AboueValuesContainer = styled.div`
 
 const AboueValuesInner = styled.div`
   position: relative;
-  padding: 65px 0 60vh;
+  padding: 65px 0 63vh;
 `
 
 const Values = styled.div`

@@ -84,7 +84,8 @@ function AboutTestimonial() {
       height="2400px"
       render={({ progress }) => {
         const five = progress * 2.5
-        const textStyles = `opacity: ${1 - five}; filter: blur(${five * 3}px`
+        const textStyles = `opacity: ${1 - five}; filter: blur(${five *
+          3}px); will-change: opacity, filter;`
 
         return (
           <AboutTestimonialContainer>
@@ -140,7 +141,6 @@ function AboutTestimonial() {
                     ((((1 - scaleCurve) * 100) / 9) * 10) / 2
                   )
 
-                  console.log(testimonial.logo)
                   return (
                     <TestimonialCard
                       index={index}
@@ -178,7 +178,7 @@ function AboutTestimonial() {
   )
 }
 
-export default AboutTestimonial
+export default React.memo(AboutTestimonial)
 
 const AboutTestimonialContainer = styled.div`
   position: relative;
