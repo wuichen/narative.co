@@ -101,15 +101,20 @@ export function useResize() {
   const [dimensions, setDimensions] = useState({ width: 1280, height: 900 })
 
   useEffect(() => {
+    setDimensions(getWindowDimensions())
+
     const handleResize = throttle(
       () => setDimensions(getWindowDimensions()),
       50
     )
+
+    // handleResize()
+
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  })
+  }, [])
 
   return dimensions
 }

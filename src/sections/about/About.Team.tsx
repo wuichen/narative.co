@@ -211,15 +211,21 @@ function AboutTeam() {
                       isSelected={selectedPersonIndex === index}
                       isOpen={isOpen}
                     >
-                      <Illustration>
+                      <Illustration
+                        isOpen={isOpen && selectedPersonIndex === index}
+                      >
                         <Media
                           src={person.illustration.childImageSharp.fluid}
                           loading="eager"
                         />
                       </Illustration>
                       <div style={{ position: 'relative' }}>
-                        <Name>{person.name}</Name>
-                        <Role>{person.role}</Role>
+                        <Name isOpen={isOpen && selectedPersonIndex === index}>
+                          {person.name}
+                        </Name>
+                        <Role isOpen={isOpen && selectedPersonIndex === index}>
+                          {person.role}
+                        </Role>
                       </div>
                     </Card>
                   ))}
@@ -260,32 +266,32 @@ function AboutTeam() {
       </Portal>
       <Portal>
         <Modal
-          style={isOpen ? { opacity: 1, transform: 'none' } : { opacity: 0 }}
-          person={isOpen}
+          style={
+            isOpen ? { opacity: 1 } : { opacity: 0, pointerEvents: 'none' }
+          }
+          isOpen={isOpen}
         >
-          <ModalContent person={isOpen}>
-            <ModalGrid person={isOpen}>
-              {person && (
-                <>
+          <ModalContent>
+            {isOpen && (
+              <ModalGrid>
+                <div>
+                  <ModalName>{person.name}</ModalName>
+                  <ModalRole>{person.role}</ModalRole>
                   <div>
-                    <ModalName>{person.name}</ModalName>
-                    <ModalRole>{person.role}</ModalRole>
-                    <div>
-                      {person.about.map((text, index) => (
-                        <ModalText index={index}>{text}</ModalText>
-                      ))}
-                    </div>
-                    <div>{person.social.map(social => social.link)}</div>
-                    <ModalSignature>
-                      <SVG src={person.signature} />
-                    </ModalSignature>
+                    {person.about.map((text, index) => (
+                      <ModalText index={index}>{text}</ModalText>
+                    ))}
                   </div>
-                  <div>
-                    <Media src={person.illustration.childImageSharp.fluid} />
-                  </div>
-                </>
-              )}
-            </ModalGrid>
+                  <div>{person.social.map(social => social.link)}</div>
+                  <ModalSignature>
+                    <SVG src={person.signature} />
+                  </ModalSignature>
+                </div>
+                <div>
+                  <Media src={person.illustration.childImageSharp.fluid} />
+                </div>
+              </ModalGrid>
+            )}
           </ModalContent>
         </Modal>
       </Portal>
@@ -296,7 +302,7 @@ function AboutTeam() {
 export default AboutTeam
 
 const fadeInAndUp = keyframes`
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 `
 
@@ -305,7 +311,7 @@ const fadeIn = keyframes`
   to { opacity: 1;  }
 `
 
-const Modal = styled.div`
+const Modal = styled.div<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,7 +320,7 @@ const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.33s ease 0.4s;
+  ${p => p.isOpen && `transition: opacity 0s ease 0.4s`};
   pointer-events: none;
 `
 
@@ -337,35 +343,36 @@ const ModalGrid = styled.div`
   grid-template-columns: 480px 472px;
   grid-column-gap: 30px;
   align-items: center;
-  opacity: ${p => (p.person ? 1 : 0)};
-  transition: opacity 0.3s 0.33s;
 `
 
-const ModalText = styled.p<{ index: number }>`
+const ModalText = styled.p<{ index: number; isOpen: boolean }>`
   color: #fff;
   margin-bottom: 25px;
   opacity: 0;
-  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1)
-    ${p => p.index * 100 + 533}ms forwards;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
+    ${p => p.index * 100 + 400}ms forwards;
 `
 
-const ModalName = styled(Heading.h2)`
+const ModalName = styled(Heading.h2)<{ isOpen: boolean }>`
   margin-bottom: 5px;
   opacity: 0;
-  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 333ms forwards;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
 `
 
-const ModalRole = styled.div`
+const ModalRole = styled.div<{ isOpen: boolean }>`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
   margin-bottom: 30px;
   opacity: 0;
-  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 433ms forwards;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 400ms
+    forwards;
 `
 
-const ModalSignature = styled.div`
+const ModalSignature = styled.div<{ isOpen: boolean }>`
   opacity: 0;
-  animation: ${fadeInAndUp} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 833ms forwards;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 700ms
+    forwards;
 `
 
 function AboutRow({
@@ -467,10 +474,29 @@ const Cards = styled.div`
   grid-column-gap: 20px;
 `
 
-const Role = styled.div`
+const Illustration = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: ${p => (p.isOpen ? 0 : 1)};
+  transition: opacity 0.4s 0.3s;
+`
+
+const Name = styled(Heading.h3)<{ isOpen: boolean }>`
+  margin-bottom: 0;
+  transform: translateY(${p => (p.isOpen ? 0 : -8)}px);
+  opacity: ${p => (p.isOpen ? 0 : 1)};
+  transition: transform 0.4s 0.5s, opacity 0.4s 0.5s;
+`
+
+const Role = styled.div<{ isOpen: boolean }>`
   color: ${p => p.theme.colors.grey};
   font-size: 22px;
-  transition: color 0.4s;
+  transform: translateY(${p => (p.isOpen ? 0 : -8)}px);
+  opacity: ${p => (p.isOpen ? 0 : 1)};
+  transition: transform 0.5s 0.475s, opacity 0.4s 0.475s, color 0.4s;
 `
 
 const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
@@ -501,18 +527,6 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   &:hover ${Role} {
     color: ${p => p.theme.colors.gold};
   }
-`
-
-const Illustration = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-`
-
-const Name = styled(Heading.h3)`
-  margin-bottom: 0;
 `
 
 const Progress = styled.div`

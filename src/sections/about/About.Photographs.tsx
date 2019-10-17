@@ -32,7 +32,7 @@ function AboutPhotographs() {
 export default AboutPhotographs
 
 const AboutWorkContainer = styled.div`
-  padding: 140px 0 160px;
+  padding: 140px 0 calc(160px - 10vh);
   overflow-x: hidden;
 `
 
@@ -43,7 +43,7 @@ const ImageGrid = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: 470px 517px 470px;
   grid-row-gap: 30px;
-  margin: 150px auto 120px;
+  margin: 150px auto 0;
 `
 
 const MiddleGrid = styled.div`

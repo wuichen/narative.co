@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
 import SVG from 'react-inlinesvg'
@@ -11,6 +11,7 @@ import Media from '@components/Media/Media.Img'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import mediaqueries from '@styles/media'
+import { useResize } from '@utils'
 
 import AboutHeading from './About.Heading'
 
@@ -43,37 +44,71 @@ function AboueValues() {
     shapeBackgroundGlow,
   } = useStaticQuery(shapeImagesQuery)
   const { toggleContact } = useContext(ContactContext)
+  const { width, height } = useResize()
+  const shapeRef = useRef()
+  const headingRef = useRef()
+
+  const [scaleOptions, setScaleOptions] = useState({ scale: 7, offset: 0 })
+
+  useEffect(() => {
+    if (shapeRef.current && headingRef.current) {
+      const { height: shapeHeight } = shapeRef.current.getBoundingClientRect()
+      const { height: headHeight } = headingRef.current.getBoundingClientRect()
+      const TOP_PADDING = 65
+      const BOTTOM_MARGIN = 100
+
+      const scale = (shapeHeight + height) / height + 2
+      const totalHeadingHeight = headHeight + TOP_PADDING + BOTTOM_MARGIN
+      const middleOfWindow = height / 2
+      const offset = totalHeadingHeight - middleOfWindow
+
+      setScaleOptions({
+        scale,
+        offset,
+      })
+    }
+  }, [width, height, shapeRef, headingRef])
 
   return (
     <AboueValuesContainer>
       <Sticky
-        height="1800px"
         cover
-        render={({ progress }) => (
-          <AboueValuesInner>
-            <>
+        height="1800px"
+        render={({ progress }) => {
+          const fastProgress = progress + progress + progress + progress
+
+          const headingAnimation = {
+            opacity: 1 - fastProgress,
+            filter: `blur(${progress * 20}px)`,
+          }
+
+          const valuesAnimation = {
+            opacity: progress + 0.25,
+          }
+
+          const shapeOffsetAnimation = {
+            transform: `translateY(${progress * scaleOptions.offset}px)`,
+          }
+
+          const shapeScaleAnimation =
+            progress > 0
+              ? {
+                  transform: `scale(${1 + progress * scaleOptions.scale}) `,
+                }
+              : {}
+
+          return (
+            <AboueValuesInner>
               <div>
-                <HeadingContainer
-                  style={{
-                    opacity:
-                      1 -
-                      (progress + progress + progress + progress + progress),
-                    filter: `blur(${progress * 20}px)`,
-                  }}
-                >
+                <HeadingContainer ref={headingRef} style={headingAnimation}>
                   <AboutHeading
                     heading="Who we choose to be"
-                    text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as inHeadingContaineriduals, and as a team. These are our choices."
+                    text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
                   />
                 </HeadingContainer>
 
                 <Section narrow>
-                  <Values
-                    style={{
-                      opacity: progress + 0.7,
-                      // filter: `blur(${(0.8 - progress) * 5}px)`,
-                    }}
-                  >
+                  <Values style={valuesAnimation}>
                     <ValuesGrid>
                       <div>
                         <ValueIllo />
@@ -115,28 +150,19 @@ function AboueValues() {
                       />
                     </ButtonContainer>
                   </Values>
-                  <ShapeContainer
-                    style={{
-                      transform: `scale(${1 + progress * 4})`,
-                    }}
-                  >
+                  <ShapeContainer style={shapeOffsetAnimation}>
                     <ShapeGlow
                       style={{
-                        opacity:
-                          1 -
-                          (progress +
-                            progress +
-                            progress +
-                            progress +
-                            progress),
+                        opacity: 1 - fastProgress,
+                        transform: shapeScaleAnimation.transform,
                       }}
                     >
                       <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
                     </ShapeGlow>
-                    <ShapeRectangle>
+                    <ShapeRectangle ref={shapeRef} style={shapeScaleAnimation}>
                       <SVG src={shapeWithoutShadow.publicURL} />
                     </ShapeRectangle>
-                    <ShapeRectangleWithMask>
+                    <ShapeRectangleWithMask style={shapeScaleAnimation}>
                       <SVG src={shapeWithoutShadow.publicURL} />
                     </ShapeRectangleWithMask>
                     {/* <ShapeRectangle>
@@ -148,9 +174,9 @@ function AboueValues() {
                   </ShapeContainer>
                 </Section>
               </div>
-            </>
-          </AboueValuesInner>
-        )}
+            </AboueValuesInner>
+          )
+        }}
       />
     </AboueValuesContainer>
   )
@@ -162,9 +188,10 @@ const HeadingContainer = styled.div`
   z-index: 2;
   position: relative;
   will-change: transform, filter;
+  margin-bottom: 100px;
 `
+
 const ShapeContainer = styled.div`
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,23 +201,30 @@ const ShapeContainer = styled.div`
   right: 0;
   margin: 0 auto;
   max-width: 750px;
+  position: relative;
 
-  top: 50%;
-  transform: translate(-50%, -50%);
+  /* top: 50%;
+  transform: translate(-50%, -50%); */
   width: 100%;
 `
 
 const ShapeRectangle = styled.figure`
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
   z-index: 3;
+  min-height: 212px;
+  will-change: transform;
 `
 
 const ShapeRectangleWithMask = styled.figure`
   position: absolute;
+  top: 0;
   width: 100%;
+  will-change: transform;
+
   &::before {
     content: '';
     position: absolute;
@@ -200,6 +234,7 @@ const ShapeRectangleWithMask = styled.figure`
     top: -50vh;
     left: 0;
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -220,21 +255,21 @@ const ShapeRectangleReflection = styled.figure`
 `
 
 const ShapeGlow = styled.figure`
-  top: -200px;
   width: 100%;
   height: 100%;
   position: absolute;
+  top: -100px;
   z-index: 1;
-  will-change: opacity;
+  will-change: opacity, transform;
 `
 
 const AboueValuesContainer = styled.div`
-  padding: 85px 0 240px;
+  padding: 150px 0 240px;
 `
 
 const AboueValuesInner = styled.div`
   position: relative;
-  padding: 65px 0 70vh;
+  padding: 65px 0 60vh;
 `
 
 const Values = styled.div`

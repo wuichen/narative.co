@@ -111,25 +111,28 @@ function AboutTestimonial() {
                   const nextIndex = index + 1
                   const previousIndex = index - 1
 
-                  const betweenZeroAndOne = (num: number) => clamp(num, 0, 1)
-                  const calcStaggerNumber = (indexToStagger: number) =>
-                    betweenZeroAndOne(progress - indexToStagger / total)
-                  const getProgress = (stag: number) => stag * total
+                  const prevStaggered = clamp(
+                    progress - previousIndex / total,
+                    0,
+                    1
+                  )
+                  const prevProgress = clamp(prevStaggered * total, 0, 1)
 
-                  const prevStaggered = calcStaggerNumber(previousIndex)
-                  const staggered = calcStaggerNumber(index)
-                  const nextStaggered = calcStaggerNumber(nextIndex)
+                  const staggered = clamp(progress - index / total, 0, 1)
+                  const currentProgress = clamp(staggered * total, 0, 1)
 
-                  const prevProgress = getProgress(prevStaggered)
-                  const currentProgress = getProgress(staggered)
-                  const nextProgress = getProgress(nextStaggered)
+                  const nextStaggered = clamp(
+                    progress - nextIndex / total,
+                    0,
+                    1
+                  )
+                  const nextProgress = clamp(nextStaggered * total, 0, 1)
 
-                  const translateUpBeforeBack =
+                  const transalteYFirst =
                     currentProgress * (index === 0 ? 100 : 450)
 
-                  const translateBack =
-                    translateUpBeforeBack +
-                    nextProgress * 22 * (total - nextIndex)
+                  const transalteYSecond =
+                    transalteYFirst + nextProgress * 22 * (total - nextIndex)
 
                   const scaleCurve = 1 - nextStaggered * 0.25
 
@@ -137,13 +140,13 @@ function AboutTestimonial() {
                     ((((1 - scaleCurve) * 100) / 9) * 10) / 2
                   )
 
+                  console.log(testimonial.logo)
                   return (
                     <TestimonialCard
-                      key={testimonial.name}
                       index={index}
                       data-card={index}
                       style={{
-                        transform: `translateY(-${translateBack}px) scale(${scaleCurve})`,
+                        transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
                         opacity: prevProgress,
                       }}
                     >

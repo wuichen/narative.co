@@ -568,9 +568,9 @@ const CommandLineItem = styled.li`
   position: absolute;
   display: inline-block;
 
-  ${mediaqueries.desktop_large`
+  @media (max-width: 1340px) {
     display: none;
-  `};
+  }
 `
 
 const NavAnchor = styled.a`
