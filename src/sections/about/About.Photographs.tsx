@@ -65,7 +65,7 @@ const AboutWorkContainer = styled.div`
 `
 
 const Spacer = styled.div`
-  height: 150px;
+  height: 100px;
 `
 
 const ImageGrid = styled.div`
