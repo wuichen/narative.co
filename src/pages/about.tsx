@@ -42,11 +42,13 @@ function AboutPage({ data, location }) {
         pathname={location.pathname}
       />
 
-      <TopGradient>
+      <HeroGradient>
         <AboutHero />
+      </HeroGradient>
+      <TeamGradient>
         <AboutTeam />
         <Divider />
-      </TopGradient>
+      </TeamGradient>
       <TransitionLayer style={{ opacity: inView ? 1 : 0 }} />
       <MiddleGradient>
         <AboutValues />
@@ -66,8 +68,12 @@ function AboutPage({ data, location }) {
 
 export default AboutPage
 
-const TopGradient = styled.div`
-  background: linear-gradient(#08080b, #191d23);
+const HeroGradient = styled.div`
+  background: linear-gradient(#08080b, #13151a);
+`
+
+const TeamGradient = styled.div`
+  background: linear-gradient(#13151a 75%, #191d23);
 `
 
 const MiddleGradient = styled.div`

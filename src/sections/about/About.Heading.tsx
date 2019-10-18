@@ -28,7 +28,7 @@ const AboutHeading = ({ heading, text }: { heading: string; text: string }) => (
 export default AboutHeading
 
 const AboutHeadingSpacer = styled.div`
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 `
 
 const AboutHeadingContainer = styled.div`

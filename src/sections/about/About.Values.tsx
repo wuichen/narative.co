@@ -48,134 +48,109 @@ function AboueValues() {
   const shapeRef = useRef()
   const headingRef = useRef()
 
-  const [scaleOptions, setScaleOptions] = useState({ scale: 7, offset: 0 })
+  const [scale, setScale] = useState(1)
 
   useEffect(() => {
-    if (shapeRef.current && headingRef.current) {
-      const { height: shapeHeight } = shapeRef.current.getBoundingClientRect()
-      const { height: headHeight } = headingRef.current.getBoundingClientRect()
-      const TOP_PADDING = 65
-      const BOTTOM_MARGIN = 100
-
-      const scale = (shapeHeight + height * 1.25) / height + 2
-      const totalHeadingHeight =
-        headHeight + TOP_PADDING + BOTTOM_MARGIN + shapeHeight / 2
-      const middleOfWindow = height / 2
-      const offset = totalHeadingHeight - middleOfWindow
-
-      setScaleOptions({
-        scale,
-        offset,
-      })
+    if (shapeRef.current) {
+      const shapeRect = shapeRef.current.getBoundingClientRect()
+      const scale = (shapeRect.height + height) / height + 2
+      setScale(scale)
     }
-  }, [width, height, shapeRef, headingRef])
+  }, [width, height, shapeRef])
+
+  const values = [
+    {
+      heading: 'Be kind',
+      text:
+        'Communicate honestly but sensitively; act with positive intent; and trust others to do the same.',
+      illullstration: '',
+    },
+    {
+      heading: 'Be creative',
+      text:
+        'Push beyond best practices and by-the-numbers design to discover valuable new ideas',
+      illullstration: '',
+    },
+    {
+      heading: 'Be adaptable',
+      text:
+        'Strive to grow from every challenge and change, even when it means changing your mind.',
+      illullstration: '',
+    },
+    {
+      heading: 'Be yourself',
+      text:
+        'Work and live the way that uniquely suits you, free of rigid hierarchies and arbitrary expectations.',
+      illullstration: '',
+    },
+  ]
 
   return (
     <AboueValuesContainer>
+      <HeadingContainer ref={headingRef}>
+        <AboutHeading
+          heading="Who we choose to be"
+          text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
+        />
+      </HeadingContainer>
       <Sticky
         cover
         height="1800px"
         render={({ progress }) => {
           const fastProgress = progress + progress + progress + progress
 
-          const headingAnimation = {
-            opacity: 1 - fastProgress,
-            filter: `blur(${progress * 20}px)`,
-          }
-
           const valuesAnimation = {
-            opacity: progress + 0.25,
-          }
-
-          const shapeOffsetAnimation = {
-            transform: `translateY(${progress * scaleOptions.offset}px)`,
+            opacity: progress,
+            pointerEvents: progress > 0.5 ? 'initial' : 'none',
           }
 
           const shapeScaleAnimation =
             progress > 0
               ? {
-                  transform: `scale(${1 + progress * scaleOptions.scale}) `,
+                  transform: `translateY(-50%) scale(${1 + progress * scale})`,
+                  pointerEvents: progress <= 0.5 ? 'initial' : 'none',
                 }
               : {}
 
           return (
-            <AboueValuesInner>
-              <div>
-                <HeadingContainer ref={headingRef} style={headingAnimation}>
-                  <AboutHeading
-                    heading="Who we choose to be"
-                    text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
-                  />
-                </HeadingContainer>
-
-                <Section narrow>
-                  <Values style={valuesAnimation}>
-                    <ValuesGrid>
-                      <div>
+            <>
+              <Section narrow>
+                <Values style={valuesAnimation}>
+                  <ValuesGrid>
+                    {values.map(value => (
+                      <div key={value.heading}>
                         <ValueIllo />
-                        <ValueHeading>Be kind</ValueHeading>
-                        <ValueText>
-                          Communicate honestly but sensitively; act with
-                          positive intent; and trust others to do the same.
-                        </ValueText>
+                        <ValueHeading>{value.heading}</ValueHeading>
+                        <ValueText>{value.text}</ValueText>
                       </div>
-                      <div>
-                        <ValueIllo />
-                        <ValueHeading>Be creative</ValueHeading>
-                        <ValueText>
-                          Push beyond best practices and by-the-numbers design
-                          to discover valuable new ideas.
-                        </ValueText>
-                      </div>
-                      <div>
-                        <ValueIllo />
-                        <ValueHeading>Be adaptable</ValueHeading>
-                        <ValueText>
-                          Strive to grow from every challenge and change, even
-                          when it means changing your mind.
-                        </ValueText>
-                      </div>
-                      <div>
-                        <ValueIllo />
-                        <ValueHeading>Be yourself</ValueHeading>
-                        <ValueText>
-                          Work and live the way that uniquely suits you, free of
-                          rigid hierarchies and arbitrary expectations.
-                        </ValueText>
-                      </div>
-                    </ValuesGrid>
-                    <ButtonContainer>
-                      <ButtonPill
-                        text="Work with our team"
-                        onClick={toggleContact}
-                      />
-                    </ButtonContainer>
-                  </Values>
-                  <ShapeContainer style={shapeOffsetAnimation}>
-                    <ShapeGlow
-                      style={{
-                        opacity: 1 - fastProgress,
-                        transform: shapeScaleAnimation.transform,
-                      }}
-                    >
-                      <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
-                    </ShapeGlow>
-                    <ShapeRectangle ref={shapeRef} style={shapeScaleAnimation}>
-                      <SVG src={shapeWithoutShadow.publicURL} />
-                    </ShapeRectangle>
-                    <ShapeRectangleWithMask style={shapeScaleAnimation}>
-                      <SVG src={shapeWithoutShadow.publicURL} />
-                    </ShapeRectangleWithMask>
-                    {/* <ShapeRectangle>
+                    ))}
+                  </ValuesGrid>
+                  <ButtonContainer>
+                    <ButtonPill
+                      text="Work with our team"
+                      onClick={toggleContact}
+                    />
+                  </ButtonContainer>
+                </Values>
+              </Section>
+              <ShapeContainer style={shapeScaleAnimation}>
+                <ShapeGlow style={{ opacity: 1 - fastProgress }}>
+                  <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
+                </ShapeGlow>
+                <ShapeRectangle ref={shapeRef}>
+                  <SVG src={shapeWithoutShadow.publicURL} />
+                </ShapeRectangle>
+                <ShapeRectangleWithMask>
+                  <SVG src={shapeWithoutShadow.publicURL} />
+                </ShapeRectangleWithMask>
+                {/* <ShapeRectangle>
                         <SVG src={shapeWithShadow.publicURL} />
                       </ShapeRectangle> */}
-                    {/* <ShapeRectangleReflection>
+                {/* <ShapeRectangleReflection>
                         <SVG src={shapeReflection.publicURL} />
                       </ShapeRectangleReflection> */}
-                  </ShapeContainer>
-                </Section>
-              </div>
-            </AboueValuesInner>
+              </ShapeContainer>
+            </>
           )
         }}
       />
@@ -185,45 +160,50 @@ function AboueValues() {
 
 export default AboueValues
 
+const AboueValuesContainer = styled.div`
+  padding: 0px 0 100px;
+`
+
 const HeadingContainer = styled.div`
-  z-index: 2;
   position: relative;
   will-change: transform, filter;
-  margin-bottom: 100px;
+  transform: translateY(24vh);
+  z-index: 1;
 `
 
 const ShapeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  will-change: transform;
-  pointer-events: none;
   left: 0;
   right: 0;
+  bottom: 0;
+  top: 50%;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   max-width: 750px;
-  position: relative;
-
-  /* top: 50%;
-  transform: translate(-50%, -50%); */
-  width: 100%;
+  position: absolute;
+  transform: translateY(-50%);
+  will-change: transform;
 `
 
 const ShapeRectangle = styled.figure`
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   right: 0;
   margin: 0 auto;
   z-index: 3;
-  min-height: 212px;
+  transform: translateY(-50%);
   will-change: transform;
 `
 
 const ShapeRectangleWithMask = styled.figure`
   position: absolute;
-  top: 0;
   width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
   will-change: transform;
 
   &::before {
@@ -259,18 +239,9 @@ const ShapeGlow = styled.figure`
   width: 100%;
   height: 100%;
   position: absolute;
-  top: -100px;
+  top: 160px;
   z-index: 1;
   will-change: opacity, transform;
-`
-
-const AboueValuesContainer = styled.div`
-  padding: 150px 0 240px;
-`
-
-const AboueValuesInner = styled.div`
-  position: relative;
-  padding: 65px 0 63vh;
 `
 
 const Values = styled.div`
@@ -293,14 +264,13 @@ const ValuesGrid = styled.div`
   grid-column-gap: 1fr;
   justify-content: space-between;
   grid-row-gap: 45px;
-  text-align: center;
 `
 
 const ValueIllo = styled.div`
-  width: 200px;
-  height: 120px;
-  background: #1d2128;
-  margin: 0 auto 15px;
+  width: 31px;
+  height: 31px;
+  background: #93c3ea;
+  margin-bottom: 15px;
 `
 
 const ValueHeading = styled(Heading.h3)`

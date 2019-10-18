@@ -85,7 +85,7 @@ function AboutTestimonial() {
       render={({ progress }) => {
         const five = progress * 2.5
         const textStyles = `opacity: ${1 - five}; filter: blur(${five *
-          3}px); will-change: opacity, filter;`
+          2}px); will-change: opacity, filter;`
 
         return (
           <AboutTestimonialContainer>
@@ -111,24 +111,23 @@ function AboutTestimonial() {
                   const total = testimonials.length
                   const nextIndex = index + 1
                   const previousIndex = index - 1
+                  const minZeroMaxOne = (num: number) => clamp(num, 0, 1)
 
-                  const prevStaggered = clamp(
-                    progress - previousIndex / total,
-                    0,
-                    1
+                  const prevStaggered = minZeroMaxOne(
+                    progress - previousIndex / total
                   )
-                  const prevProgress = clamp(prevStaggered * total, 0, 1)
-
-                  const staggered = clamp(progress - index / total, 0, 1)
-                  const currentProgress = clamp(staggered * total, 0, 1)
-
-                  const nextStaggered = clamp(
-                    progress - nextIndex / total,
-                    0,
-                    1
+                  const currentStaggered = minZeroMaxOne(
+                    progress - index / total
                   )
-                  const nextProgress = clamp(nextStaggered * total, 0, 1)
+                  const nextStaggered = minZeroMaxOne(
+                    progress - nextIndex / total
+                  )
 
+                  const prevProgress = minZeroMaxOne(prevStaggered * total)
+                  const currentProgress = minZeroMaxOne(
+                    currentStaggered * total
+                  )
+                  const nextProgress = minZeroMaxOne(nextStaggered * total)
                   const transalteYFirst =
                     currentProgress * (index === 0 ? 100 : 450)
 
@@ -143,8 +142,8 @@ function AboutTestimonial() {
 
                   return (
                     <TestimonialCard
-                      index={index}
                       data-card={index}
+                      key={testimonial.name}
                       style={{
                         transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
                         opacity: prevProgress,

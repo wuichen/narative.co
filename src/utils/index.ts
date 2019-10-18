@@ -105,10 +105,8 @@ export function useResize() {
 
     const handleResize = throttle(
       () => setDimensions(getWindowDimensions()),
-      50
+      100
     )
-
-    // handleResize()
 
     window.addEventListener('resize', handleResize)
     return () => {

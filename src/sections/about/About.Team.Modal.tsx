@@ -2,36 +2,17 @@ import React, { memo, useRef } from 'react'
 import styled from 'styled-components'
 import { motion, useMotionValue } from 'framer-motion'
 
-import {
-  //   useScrollConstraints,
-  useInvertedBorderRadius,
-  //   useWheelScroll,
-} from '@utils'
+import { useInvertedBorderRadius } from '@utils'
 
-interface CardData {
-  id: string
-  category: string
-  title: string
-  pointOfInterest: number
-  handleRef: () => void
-  handleOutsideClick: () => void
-}
-
-interface Props extends CardData {
+interface AboutTeamModalProps {
   isSelected: boolean
-  history: {
-    push: (route: string) => void
-  }
+  handleRef: (ref: any) => void
 }
 
 const openSpring = { type: 'spring', stiffness: 200, damping: 30 }
 const closeSpring = { type: 'spring', stiffness: 300, damping: 35 }
 
-// Distance in pixels a user has to scroll a card down before we recognise
-// a swipe-to dismiss action.
-const dismissDistance = 25
-
-function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
+function AboutTeamModal({ isSelected, handleRef }: AboutTeamModalProps) {
   const y = useMotionValue(0)
   const zIndex = useMotionValue(isSelected ? 2 : 0)
 
@@ -40,7 +21,6 @@ function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
 
   // We'll use the opened card element to calculate the scroll constraints
   const cardRef = useRef(null)
-  //   const constraints = useScrollConstraints(cardRef, isSelected)
 
   function checkZIndex(latest) {
     if (isSelected) {
@@ -52,7 +32,6 @@ function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
 
   // When this card is selected, attach a wheel event listener
   const containerRef = useRef(null)
-  //   useWheelScroll(containerRef, y, constraints, checkSwipeToDismiss, isSelected)
 
   React.useEffect(() => {
     handleRef(containerRef)
@@ -75,11 +54,8 @@ function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
         opacity: isSelected ? 1 : 0,
       }}
     >
-      <Overlay
-        isSelected={isSelected}
-        handleOutsideClick={handleOutsideClick}
-      />
-      <CardContent isSelected={isSelected} onClick={handleOutsideClick}>
+      <Overlay isSelected={isSelected} />
+      <CardContent isSelected={isSelected}>
         <ContentContainer
           ref={cardRef}
           style={{
@@ -91,8 +67,6 @@ function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
           }}
           layoutTransition={isSelected ? openSpring : closeSpring}
           drag={isSelected ? 'y' : false}
-          //   dragConstraints={constraints}
-          //   onDrag={checkSwipeToDismiss}
           onUpdate={checkZIndex}
         ></ContentContainer>
       </CardContent>
@@ -100,7 +74,7 @@ function Card({ isSelected, handleRef, handleOutsideClick }: Props) {
   )
 }
 
-export default memo(Card)
+export default memo(AboutTeamModal)
 
 const Overlay = ({ isSelected }: { isSelected: boolean }) => (
   <OverlayContainer
@@ -125,7 +99,6 @@ const OverlayContainer = styled(motion.div)`
 
 const CardContainer = styled.div<{ isSelected: boolean }>`
   position: relative;
-  padding: 25px;
   height: 470px;
   width: 390px;
   position: fixed;
@@ -154,7 +127,6 @@ const CardContent = styled.div<{ isSelected: boolean }>`
     position: fixed;
     z-index: 1;
     overflow: hidden;
-    padding: 40px 0;
     display: flex;
     align-items: center;
   `}

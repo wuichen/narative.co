@@ -32,7 +32,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       aria-label="Link to Dribbble"
       href={settings.urls.dribbble}
     >
-      <SocialIcons.DribbleIcon fill={fill} />
+      <SocialIcons.DribbbleIcon fill={fill} />
     </SocialIconContainer>
     <SocialIconContainer
       target="_blank"
@@ -50,7 +50,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       aria-label="Link to LinkedIn"
       href={settings.urls.linkedin}
     >
-      <SocialIcons.LinkedinIcon fill={fill} />
+      <SocialIcons.LinkedInIcon fill={fill} />
     </SocialIconContainer>
   </Fragment>
 )

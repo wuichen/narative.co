@@ -55,6 +55,10 @@ export interface IAsset {
   }
 }
 
+interface IStaticImage {
+  publicUrl: string
+}
+
 interface ISharpImage {
   src: string
   base64?: string
