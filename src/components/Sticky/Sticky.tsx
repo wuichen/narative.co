@@ -1,102 +1,92 @@
-import React, { Component } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
-
 import mediaqueries from '@styles/media'
 
-interface StickyProps {
-  children: React.Children
-  height: number
-  top?: number
-  disableOnMobile?: boolean
-  render: (props: StickyState) => void
-  cover?: boolean
-}
+import { clamp } from '@utils'
 
 interface StickyState {
   position: number
   progress: number
 }
 
-class Sticky extends Component<StickyProps, StickyState> {
-  element = React.createRef()
+interface StickyProps {
+  children: React.ReactChildren
+  render: (props: StickyState) => React.ReactNode
+  height?: string
+  top?: number
+  disableOnMobile?: boolean
+  cover?: boolean
+}
 
-  state = {
-    position: 0,
-    progress: 0,
-  }
+function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
+  const [position, setPosition] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const element = useRef()
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll)
-  }
+  useEffect(() => {
+    function handleScroll() {
+      const $el = element.current as HTMLElement
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
+      if ($el) {
+        const getOffsetTop = (element: any) => {
+          let offsetTop = 0
+          while (element) {
+            offsetTop += element.offsetTop
+            element = element.offsetParent
+          }
+          return offsetTop
+        }
 
-  handleScroll = () => {
-    const $el = this.element.current
+        const scrollPosition = window.pageYOffset || window.scrollY
+        const topOfElement = getOffsetTop($el)
+        const topOfElementRelativeToDoc = $el.getBoundingClientRect().top
+        const heightOfElement = $el.getBoundingClientRect().height
 
-    const getOffsetTop = (element: any) => {
-      let offsetTop = 0
-      while (element) {
-        offsetTop += element.offsetTop
-        element = element.offsetParent
+        const scrollPositionRelativeToContainer =
+          scrollPosition - topOfElementRelativeToDoc
+
+        const viewportHeight = Math.max(
+          document.documentElement.clientHeight,
+          window.innerHeight || 0
+        )
+
+        const position =
+          scrollPositionRelativeToContainer < 0
+            ? 0
+            : scrollPositionRelativeToContainer
+
+        const progressOverElement =
+          (scrollPosition - topOfElement) /
+            (heightOfElement - viewportHeight) || 0
+
+        const progress = clamp(progressOverElement, 0, 1)
+
+        setPosition(position)
+        setProgress(progress)
       }
-      return offsetTop
     }
 
-    const scrollPosition = window.pageYOffset || window.scrollY
-    const topOfElement = getOffsetTop($el)
-    const topOfElementRelativeToDoc = $el.getBoundingClientRect().top
-    const heightOfElement = $el.getBoundingClientRect().height
+    window.addEventListener('scroll', handleScroll)
 
-    const scrollPositionRelativeToContainer =
-      scrollPosition - topOfElementRelativeToDoc
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [element])
 
-    const viewportHeight = Math.max(
-      document.documentElement.clientHeight,
-      window.innerHeight || 0
-    )
-
-    const position =
-      scrollPositionRelativeToContainer < 0
-        ? 0
-        : scrollPositionRelativeToContainer
-
-    const progressOverElement =
-      (scrollPosition - topOfElement) / (heightOfElement - viewportHeight) || 0
-
-    const progress =
-      progressOverElement > 1
-        ? 1
-        : progressOverElement < 0
-        ? 0
-        : progressOverElement
-
-    this.setState({ position, progress })
-  }
-
-  render() {
-    const { cover, height, render, top, disableOnMobile } = this.props
-
-    return (
-      <div ref={this.element} data-component="sticky">
-        <StickyDuration height={height} isDisabled={disableOnMobile}>
-          <StickyItemContainer>
-            <StickyItem top={top} isDisabled={disableOnMobile} cover={cover}>
-              {render(this.state)}
-            </StickyItem>
-          </StickyItemContainer>
-        </StickyDuration>
-      </div>
-    )
-  }
+  return (
+    <div ref={element} data-component="sticky">
+      <StickyDuration height={height}>
+        <StickyItemContainer>
+          <StickyItem top={top} cover={cover}>
+            {render({ progress, position })}
+          </StickyItem>
+        </StickyItemContainer>
+      </StickyDuration>
+    </div>
+  )
 }
 
 export default Sticky
 
-const StickyDuration = styled.div<{ height: string }>`
+const StickyDuration = styled.div<{ height?: string }>`
   height: ${p => p.height || '100vh'};
 `
 
