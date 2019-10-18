@@ -13,7 +13,7 @@ import SocialLinksDynamic from '@components/SocialLinks/SocialLinks.Dynamic'
 
 import mediaqueries from '@styles/media'
 import { scrollable } from '@utils'
-import { ExIcon } from '../../icons/ui/index'
+import { ExIcon, ChevronRightIcon } from '../../icons/ui/index'
 import { IGraphqlSharpFluidImage, IStaticImage } from '../../types/index'
 
 import AboutTeamModal from './About.Team.Modal'
@@ -186,7 +186,7 @@ function AboutTeam() {
     setChildRef(ref)
   }
 
-  function handleMouseOver(index: number) {
+  function handleSetSelectedPersonIndex(index: number) {
     if (cardRefs.current[index]) {
       setSelectedPersonIndex(index)
 
@@ -202,7 +202,7 @@ function AboutTeam() {
 
   function handleModalToggle(open: boolean, index?: number) {
     if (typeof index === 'number') {
-      handleMouseOver(index)
+      handleSetSelectedPersonIndex(index)
     }
 
     setIsOpen(open)
@@ -276,6 +276,12 @@ function AboutTeam() {
                           isSelected={selectedPersonIndex === index}
                           isOpen={isOpen}
                         >
+                          <IllustrationColored isOpen={cardIsOpen}>
+                            <Media
+                              src={person.illustration.childImageSharp.fluid}
+                              loading="eager"
+                            />
+                          </IllustrationColored>
                           <Illustration isOpen={cardIsOpen}>
                             <Media
                               src={person.illustration.childImageSharp.fluid}
@@ -311,19 +317,15 @@ function AboutTeam() {
       
       */}
       <Portal>
-        <AboutTeamModal
-          isSelected={isOpen}
-          handleRef={handleRef}
-          handleOutsideClick={
-            isOpen ? () => handleModalToggle(false) : () => {}
-          }
-        />
+        <AboutTeamModal isSelected={isOpen} handleRef={handleRef} />
         <AboutTeamModalContent
           isOpen={isOpen}
+          people={people}
           person={person}
           handleOutsideClick={
             isOpen ? () => handleModalToggle(false) : () => {}
           }
+          handleSetSelectedPersonIndex={handleSetSelectedPersonIndex}
         />
       </Portal>
     </>
@@ -369,16 +371,51 @@ function CompanyLogosRow() {
 
 function AboutTeamModalContent({
   isOpen,
+  people,
   person,
   handleOutsideClick,
+  handleSetSelectedPersonIndex,
 }: {
   isOpen: boolean
+  people: Person[]
   person: Person
   handleOutsideClick: () => void
+  handleSetSelectedPersonIndex: (index: number) => void
 }) {
   const modalStyles = isOpen
     ? { opacity: 1, transition: `opacity 0s ease 0.4s` }
     : { opacity: 0, pointerEvents: 'none' }
+
+  const activeIndex = people.findIndex(p => p.name === person.name)
+  let nextIndex = activeIndex + 1
+
+  if (activeIndex === people.length - 1) {
+    nextIndex = 0
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      function handleKeyDown(event: KeyboardEvent) {
+        switch (event.key) {
+          case 'ArrowLeft':
+            activeIndex === 0
+              ? handleSetSelectedPersonIndex(people.length - 1)
+              : handleSetSelectedPersonIndex(activeIndex - 1)
+            break
+          case 'ArrowRight':
+            activeIndex === people.length - 1
+              ? handleSetSelectedPersonIndex(0)
+              : handleSetSelectedPersonIndex(activeIndex + 1)
+            break
+          default:
+            return
+        }
+      }
+
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, activeIndex])
 
   return (
     <Modal style={modalStyles}>
@@ -388,7 +425,7 @@ function AboutTeamModalContent({
             <ExIcon fill="#fff" />
           </CloseButton>
           {isOpen && (
-            <ModalGrid>
+            <ModalGrid key={person.name}>
               <div>
                 <ModalName>{person.name}</ModalName>
                 <ModalRole>{person.role}</ModalRole>
@@ -397,26 +434,37 @@ function AboutTeamModalContent({
                     <ModalText index={index}>{text}</ModalText>
                   ))}
                 </div>
-                <SocialLinksDynamic links={person.social} />
+                <SocialAnimator>
+                  <SocialLinksDynamic links={person.social} />
+                </SocialAnimator>
                 <ModalSignature>
                   <SVG src={person.signature} />
                 </ModalSignature>
               </div>
-              <div>
+              <MediaAnimator>
                 <Media src={person.illustration.childImageSharp.fluid} />
-              </div>
+              </MediaAnimator>
             </ModalGrid>
           )}
+          <ModalNext onClick={() => handleSetSelectedPersonIndex(nextIndex)}>
+            <ChevronRightIcon />
+          </ModalNext>
         </ModalContent>
       </OutsideClickHandler>
     </Modal>
   )
 }
+
 export default AboutTeam
 
 const fadeInAndUp = keyframes`
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
 `
 
 const CloseButton = styled.button`
@@ -464,13 +512,13 @@ const ModalText = styled.p<{ index: number }>`
   margin-bottom: 25px;
   opacity: 0;
   animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
-    ${p => p.index * 100 + 400}ms forwards;
+    ${p => p.index * 100 + 300}ms forwards;
 `
 
 const ModalName = styled(Heading.h2)`
   margin-bottom: 5px;
   opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
     forwards;
 `
 
@@ -479,7 +527,13 @@ const ModalRole = styled.div`
   color: ${p => p.theme.colors.grey};
   margin-bottom: 30px;
   opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 400ms
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
+`
+
+const SocialAnimator = styled.div`
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 600ms
     forwards;
 `
 
@@ -487,6 +541,33 @@ const ModalSignature = styled.div`
   opacity: 0;
   animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 700ms
     forwards;
+`
+
+const MediaAnimator = styled.div`
+  opacity: 0;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+`
+
+const ModalNext = styled.button`
+  position: absolute;
+  right: -20px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  background: #fff;
+  border-radius: 50%;
+  transform: translateY(-50%);
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(2px);
+  }
 `
 
 const AboutTeamContainer = styled.div`
@@ -575,6 +656,17 @@ const Illustration = styled.div<{ isOpen: boolean }>`
   width: 100%;
   opacity: ${p => (p.isOpen ? 0 : 1)};
   transition: opacity 0.4s 0.3s;
+  filter: grayscale(1);
+`
+
+const IllustrationColored = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: ${p => (p.isOpen ? 0 : 1)};
+  transition: ${p => (p.isOpen ? 'opacity 0.4s 0.3s' : 'opacity 0.3s;')};
 `
 
 const Name = styled(Heading.h3)<{ isOpen: boolean }>`
@@ -607,18 +699,17 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   cursor: pointer;
   will-change: filter;
   transition: filter 0.2s, opacity 0s;
-  filter: grayscale(1);
   overflow: hidden;
   opacity: ${p => (p.isSelected && p.isOpen ? 0 : 1)};
 
   ${p => !p.isOpen && `transition-delay: 0.4s;`}
 
-  &:hover {
-    filter: grayscale(0);
-  }
-
   &:hover ${Role} {
     color: ${p => p.theme.colors.gold};
+  }
+
+  &:hover ${Illustration} {
+    opacity: 0;
   }
 `
 
