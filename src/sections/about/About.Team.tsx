@@ -500,7 +500,7 @@ const ModalContent = styled.div`
 `
 
 const ModalGrid = styled.div`
-  padding: 120px 0 80px 90px;
+  padding: 0 0 0 90px;
   display: grid;
   grid-template-columns: 480px 472px;
   grid-column-gap: 30px;

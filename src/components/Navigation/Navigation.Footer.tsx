@@ -11,7 +11,7 @@ import mediaqueries from '@styles/media'
 import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
-  { to: '/careers', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },

@@ -23,9 +23,6 @@ const shapeImagesQuery = graphql`
     shapeWithShadow: file(name: { regex: "/about-shape-with-shadow/" }) {
       publicURL
     }
-    shapeReflection: file(name: { regex: "/about-shape-reflection/" }) {
-      publicURL
-    }
     shapeBackgroundGlow: file(name: { regex: "/about-shape-glow/" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
@@ -40,7 +37,6 @@ function AboueValues() {
   const {
     shapeWithoutShadow,
     shapeWithShadow,
-    shapeReflection,
     shapeBackgroundGlow,
   } = useStaticQuery(shapeImagesQuery)
   const { toggleContact } = useContext(ContactContext)
@@ -53,7 +49,15 @@ function AboueValues() {
   useEffect(() => {
     if (shapeRef.current) {
       const shapeRect = shapeRef.current.getBoundingClientRect()
-      const scale = (shapeRect.height + height) / height + 2
+
+      let scaleMultipler = 1.25
+      if (height > 900) {
+        scaleMultipler = 1.5
+      } else if (height > 1000) {
+        scaleMultipler = 2.5
+      }
+
+      const scale = (shapeRect.height + height * scaleMultipler) / height + 2
       setScale(scale)
     }
   }, [width, height, shapeRef])
@@ -137,6 +141,9 @@ function AboueValues() {
                 <ShapeGlow style={{ opacity: 1 - fastProgress }}>
                   <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
                 </ShapeGlow>
+                <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                  <SVG src={shapeWithShadow.publicURL} />
+                </ShapeRectangleGlow>
                 <ShapeRectangle ref={shapeRef}>
                   <SVG src={shapeWithoutShadow.publicURL} />
                 </ShapeRectangle>
@@ -198,6 +205,17 @@ const ShapeRectangle = styled.figure`
   margin: 0 auto;
   z-index: 3;
   transform: translateY(-50%);
+  will-change: transform;
+`
+
+const ShapeRectangleGlow = styled.figure`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 3;
+  transform: translateY(-50%) scale(1.186);
   will-change: transform;
 `
 
