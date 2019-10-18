@@ -143,12 +143,14 @@ function AboueValues() {
                 <ShapeRectangleWithMask>
                   <SVG src={shapeWithoutShadow.publicURL} />
                 </ShapeRectangleWithMask>
-                {/* <ShapeRectangle>
-                        <SVG src={shapeWithShadow.publicURL} />
-                      </ShapeRectangle> */}
-                {/* <ShapeRectangleReflection>
-                        <SVG src={shapeReflection.publicURL} />
-                      </ShapeRectangleReflection> */}
+                <ShapeRectangleReflection
+                  style={{
+                    opacity: 1 - fastProgress - fastProgress,
+                    transform: `scale(${1 - progress * scale})`,
+                  }}
+                >
+                  <ShapeReflection />
+                </ShapeRectangleReflection>
               </ShapeContainer>
             </>
           )
@@ -231,7 +233,6 @@ const ShapeRectangleReflection = styled.figure`
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -100%;
   margin: 0 auto;
 `
 
@@ -240,7 +241,7 @@ const ShapeGlow = styled.figure`
   height: 100%;
   position: absolute;
   top: 160px;
-  z-index: 1;
+  z-index: 0;
   will-change: opacity, transform;
 `
 
@@ -286,4 +287,31 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 55px auto 0;
+`
+
+function ShapeReflection() {
+  return (
+    <ReflectionBackground>
+      <ReflectionInnerMask></ReflectionInnerMask>
+    </ReflectionBackground>
+  )
+}
+
+const ReflectionBackground = styled.div`
+  position: relative;
+  background: linear-gradient(#313338, transparent 50%);
+  filter: blur(5px);
+  width: 100%;
+  min-height: 212px;
+  transform: translateY(120%);
+  z-index: 4;
+`
+
+const ReflectionInnerMask = styled.div`
+  background: ${p => p.theme.colors.bg};
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  right: 12px;
+  bottom: 0;
 `
