@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 
-import { ButtonArrow, CopyToClipboard } from '@components'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import CopyToClipboard from '@components/CopyToClipboard'
+
 import mediaqueries from '@styles/media'
 
 const fadein = keyframes`

@@ -9,27 +9,24 @@ import mediaqueries from '@styles/media'
  * <AboutHeading />
  *
  * [This Is My Big Heading]
+ *
+ * [this is my smaller text]
+ * [this is my smaller text]
  * [this is my smaller text]
  */
 
 const AboutHeading = ({ heading, text }: { heading: string; text: string }) => (
-  <AboutHeadingSpacer data-scroll-fade={true}>
-    <Section narrow>
-      <AboutHeadingContainer>
-        <HeadingBackground>
-          <LargeHeading>{heading}</LargeHeading>
-        </HeadingBackground>
-        <Text dangerouslySetInnerHTML={{ __html: text }}></Text>
-      </AboutHeadingContainer>
-    </Section>
-  </AboutHeadingSpacer>
+  <Section narrow data-scroll-fade={true}>
+    <AboutHeadingContainer>
+      <HeadingBackground>
+        <LargeHeading>{heading}</LargeHeading>
+      </HeadingBackground>
+      <Text dangerouslySetInnerHTML={{ __html: text }}></Text>
+    </AboutHeadingContainer>
+  </Section>
 )
 
 export default AboutHeading
-
-const AboutHeadingSpacer = styled.div`
-  /* overflow-x: hidden; */
-`
 
 const AboutHeadingContainer = styled.div`
   max-width: 750px;
@@ -66,10 +63,38 @@ const LargeHeading = styled(Heading.h2)`
   font-family: ${p => p.theme.fontfamily.serif};
   background: transparent;
   color: transparent;
+
+  ${mediaqueries.desktop`
+    font-size: 60px;
+  `}
+
+  ${mediaqueries.tablet`
+    font-size: 50px;
+  `}
+
+  ${mediaqueries.phablet`
+    font-size: 40px;
+  `}
+
+  ${mediaqueries.phone_small`
+    font-size: 32px;
+  `}
 `
 
 const Text = styled.p`
   font-size: 22px;
   line-height: 1.28;
   color: #fff;
+
+  ${mediaqueries.tablet`
+    font-size: 20px;
+
+    * {
+      display: inline;
+    }
+  `}
+
+  ${mediaqueries.phablet`
+    font-size: 18px;
+  `}
 `

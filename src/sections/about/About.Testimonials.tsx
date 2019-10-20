@@ -4,9 +4,9 @@ import { graphql, useStaticQuery } from 'gatsby'
 import SVG from 'react-inlinesvg'
 
 import Section from '@components/Section'
-import Sticky from '@components/Sticky'
+import Sticky, { StickyState } from '@components/Sticky'
 import mediaqueries from '@styles/media'
-import { clamp } from '@utils'
+import { clamp, useResize } from '@utils'
 
 import AboutHeading from './About.Heading'
 
@@ -46,6 +46,7 @@ function AboutTestimonial() {
   const { BDCLogo, flowLogo, gatsbyLogo, netlifyLogo } = useStaticQuery(
     companyLogosQuery
   )
+  const { height, width } = useResize()
 
   const testimonials = [
     {
@@ -82,7 +83,7 @@ function AboutTestimonial() {
     <Sticky
       cover
       height="2400px"
-      render={({ progress }) => {
+      render={({ progress }: StickyState) => {
         const five = progress * 2.5
         const textStyles = `opacity: ${1 - five}; filter: blur(${five *
           2}px); will-change: opacity, filter;`
@@ -128,6 +129,7 @@ function AboutTestimonial() {
                     currentStaggered * total
                   )
                   const nextProgress = minZeroMaxOne(nextStaggered * total)
+
                   const transalteYFirst =
                     currentProgress * (index === 0 ? 100 : 450)
 
@@ -154,15 +156,15 @@ function AboutTestimonial() {
                           background: BACKGROUND_COLOR_BLENDS[selectedBlend],
                         }}
                       >
-                        <div>
+                        <LogoContainer>
                           <SVG src={testimonial.logo.publicURL} />
-                        </div>
+                        </LogoContainer>
                         <VerticalDivider />
                         <div>
                           <Role>
                             {testimonial.name} · {testimonial.title}
                           </Role>
-                          <div>{testimonial.testimonial}</div>
+                          <Text>{testimonial.testimonial}</Text>
                         </div>
                       </Card>
                     </TestimonialCard>
@@ -193,12 +195,18 @@ const AboutTestimonialContainer = styled.div`
     left: 0;
     bottom: 0;
     background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 70%);
+    pointer-events: none;
 
     @media (min-height: 1200px) {
       height: 45vh;
       min-height: 300px;
       background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 20%);
     }
+
+    ${mediaqueries.tablet`
+      height: 20vh;
+      min-height: 100px;
+    `}
   }
 `
 
@@ -207,10 +215,6 @@ const TestimonialCardContainer = styled.ul`
   max-width: 750px;
   margin: 90px auto 0;
   list-style: none;
-
-  ${mediaqueries.desktop`
-    flex-direction: column;
-  `};
 `
 
 const TestimonialCard = styled.li`
@@ -233,14 +237,48 @@ const Card = styled.div`
   background: #1d2128;
   padding: 40px 40px 40px 0;
   font-size: 18px;
-  color: ${p => p.theme.colors.grey};
   box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
   transition: background 0.1s;
+
+  ${mediaqueries.tablet`
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+
+    padding: 30px 30px 0;
+  `}
+
+  ${mediaqueries.phablet`
+    padding: 30px 15px 0;
+  `}
+`
+
+const LogoContainer = styled.div`
+  ${mediaqueries.tablet`
+    order: 3;
+  `}
 `
 
 const Role = styled.div`
   font-weight: 700;
   color: #fff;
+
+  ${mediaqueries.tablet`
+    margin-bottom: 25px;
+  `}
+`
+
+const Text = styled.p`
+  color: ${p => p.theme.colors.grey};
+
+  ${mediaqueries.tablet`
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(250, 250, 250, 0.05);
+  `}
+
+  ${mediaqueries.phablet`
+    font-size: 16px;
+  `}
 `
 
 const VerticalDivider = styled.div`
@@ -248,11 +286,23 @@ const VerticalDivider = styled.div`
   width: 5px;
   margin-right: 40px;
   background: rgba(250, 250, 250, 0.05);
+
+  ${mediaqueries.tablet`
+    display: none;
+  `}
 `
 
 const HeadingLineBreak = styled.div`
   h2 {
     width: 70%;
     display: block;
+
+    ${mediaqueries.tablet`
+      width: 80%;
+    `}
+
+    ${mediaqueries.phone`
+      width: 90%;
+    `}
   }
 `

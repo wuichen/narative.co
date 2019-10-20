@@ -2,17 +2,16 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
-import {
-  Button,
-  ButtonArrow,
-  Section,
-  CopyToClipboard,
-  Form,
-  SocialLinks,
-} from '@components'
+import Button from '@components/Button'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import CopyToClipboard from '@components/CopyToClipboard'
 import Heading from '@components/Heading'
 import Hidden from '@components/Hidden'
+import Form from '@components/Form'
+import Section from '@components/Section'
+import SocialLinks from '@components/SocialLinks'
 import { ContactContext } from '@components/Contact/Contact.Context'
+
 import mediaqueries from '@styles/media'
 import { apiCall, startAnimation } from '@utils'
 import { SubmittedCheckIcon } from '../../icons/ui'

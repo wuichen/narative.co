@@ -7,7 +7,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import Sticky from '@components/Sticky'
+import Sticky, { StickyState } from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
 import SocialLinksDynamic from '@components/SocialLinks/SocialLinks.Dynamic'
 
@@ -250,7 +250,7 @@ function AboutTeam() {
           cover
           height="2200px"
           disableOnMobile
-          render={({ progress: prog }) => {
+          render={({ progress: prog }: StickyState) => {
             const total = people.length
 
             const cardAnimation = {

@@ -4,7 +4,7 @@ import mediaqueries from '@styles/media'
 
 import { clamp } from '@utils'
 
-interface StickyState {
+export interface StickyState {
   position: number
   progress: number
 }

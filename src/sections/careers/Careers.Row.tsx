@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Section, Heading } from '@components'
+import Heading from '@components/Heading'
+import Section from '@components/Section'
 import mediaqueries from '@styles/media'
 
 /**

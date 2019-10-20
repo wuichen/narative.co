@@ -80,7 +80,6 @@ const Overlay = ({ isSelected }: { isSelected: boolean }) => (
   <OverlayContainer
     initial={false}
     animate={{ opacity: isSelected ? 1 : 0 }}
-    transition={{ duration: 0.2 }}
     style={{ pointerEvents: isSelected ? 'auto' : 'none' }}
   />
 )

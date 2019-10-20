@@ -2,7 +2,12 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 
-import { Section, Heading, SEO, Layout, SocialLinks } from '@components'
+import Heading from '@components/Heading'
+import Layout from '@components/Layout'
+import SEO from '@components/SEO'
+import SocialLinks from '@components/SocialLinks'
+import Section from '@components/Section'
+
 import mediaqueries from '@styles/media'
 
 function NotFound({ data, location }) {

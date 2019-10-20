@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Sticky from '@components/Sticky'
+import Sticky, { StickyState } from '@components/Sticky'
 import Section from '@components/Section'
 import mediaqueries from '@styles/media'
 
@@ -19,7 +19,7 @@ function AboutPhotographs() {
       <Sticky
         cover
         height="100vh"
-        render={({ progress }) => (
+        render={({ progress }: StickyState) => (
           <Section narrow>
             <div style={{ position: 'relative' }}>
               <ImageGrid style={{ opacity: progress < 0.8 ? 1 : 0 }}>

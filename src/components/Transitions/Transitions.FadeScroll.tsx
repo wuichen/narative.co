@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { isMobile } from 'react-device-detect'
-import { IntersectionObserver } from '@components'
+
+import IntersectionObserver from '@components/IntersectionObserver'
 
 /**
  * <TransitionsFadeScroll />

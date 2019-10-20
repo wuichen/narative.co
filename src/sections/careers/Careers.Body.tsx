@@ -2,13 +2,11 @@ import React from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
-import {
-  CareersAccordian,
-  CareersGraph,
-  CareersImages,
-  Perks,
-  Section,
-} from '@components'
+import CareersAccordian from '@components/CareersAccordian'
+import CareersGraph from '@components/CareersGraph'
+import CareersImages from '@components/CareersImages'
+import Perks from '@components/Perks'
+import Section from '@components/Section'
 import mediaqueries from '@styles/media'
 
 import CareersRow from './Careers.Row'

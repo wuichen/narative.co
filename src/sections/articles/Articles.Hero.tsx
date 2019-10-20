@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
+import Section from '@components/Section'
 import Heading from '@components/Heading'
 import ScrollIndicator from '@components/ScrollIndicator'
 import Media from '@components/Media/Media.Img'
@@ -10,7 +11,6 @@ import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Transitions from '@components/Transitions'
 
 import mediaqueries from '@styles/media'
-import { Section } from '@components'
 import { startAnimation } from '@utils'
 
 const imageQuery = graphql`

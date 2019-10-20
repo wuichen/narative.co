@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
-import { HorizontalScroll, IntersectionObserver } from '@components'
+import HorizontalScroll from '@components/HorizontalScroll'
+import IntersectionObserver from '@components/IntersectionObserver'
+
 import mediaqueries from '@styles/media'
 
 class CareersImages extends Component {

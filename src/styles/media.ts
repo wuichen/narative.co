@@ -2,8 +2,6 @@ import { css } from 'styled-components'
 
 import theme from '@styles/theme'
 
-const toEm = (size: number) => size / 16 + 'em'
-
 /**
  * All breakpoints can be found inside of theme.breakpoints.
  * Each is turned in to a min + 1 and max-width version.
@@ -35,20 +33,6 @@ const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
   }),
   {}
 )
-
-// Add media queries for touch etc.
-mediaqueries.coarse = (...args: TemplateStringsArray[]) => css`
-  @media (pointer: coarse) {
-    ${css(...args)};
-  }
-`
-
-// Add media queries for mouse and trackpad etc.
-mediaqueries.fine = (...args: TemplateStringsArray[]) => css`
-  @media (pointer: fine) {
-    ${css(...args)};
-  }
-`
 
 export const media = mediaqueries
 

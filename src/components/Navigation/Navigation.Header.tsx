@@ -4,7 +4,9 @@ import { Link, navigate } from 'gatsby'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { isMobileOnly } from 'react-device-detect'
 
-import { Section, Logo } from '@components'
+import Section from '@components/Section'
+import Logo from '@components/Logo'
+
 import mediaqueries from '@styles/media'
 import { ContactContext } from '@components/Contact/Contact.Context'
 

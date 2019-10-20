@@ -7,7 +7,7 @@ import throttle from 'lodash/throttle'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import IntersectionObserver from '@components/IntersectionObserver'
-import Sticky from '@components/Sticky'
+import Sticky, { StickyState } from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
@@ -97,9 +97,10 @@ const calculateOffset = (progress: number) => {
   if (typeof window === 'undefined') return 0
 
   if (document.getElementById('grid-value')) {
-    const $val = document.getElementById('grid-value').getBoundingClientRect()
+    const gridElement = document.getElementById('grid-value') as HTMLElement
+    const { height, top } = gridElement.getBoundingClientRect()
 
-    const total = ($val.height + 45) * 2
+    const total = (height + 45) * 2
     let offset = total * progress
 
     if (progress < 0) {
@@ -107,9 +108,9 @@ const calculateOffset = (progress: number) => {
     }
 
     return {
-      height: $val.height,
-      top: $val.y,
+      height,
       offset,
+      top,
     }
   }
 
@@ -250,8 +251,9 @@ function HomeServices() {
           />
         </Section>
         <Sticky
+          cover
           height="333vh"
-          render={({ progress }) => {
+          render={({ progress }: StickyState) => {
             const getActive = calculateActive(progress)
             const offset = calculateOffset(progress)
 

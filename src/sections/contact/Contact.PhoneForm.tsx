@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
-import { Form } from '@components'
+import Form from '@components/Form'
 import mediaqueries from '@styles/media'
 import { apiCall } from '@utils'
 import { CheckIcon } from '../../icons/ui'

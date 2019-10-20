@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 
-import { ButtonArrow, Section, Heading } from '@components'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import Heading from '@components/Heading'
+import Section from '@components/Section'
 import ScrollIndicator from '@components/ScrollIndicator'
 import ShapeShifter from '@components/ShapeShifter'
 import IntersectionObserver from '@components/IntersectionObserver'

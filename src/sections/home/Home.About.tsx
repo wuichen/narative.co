@@ -60,8 +60,8 @@ const HomeAbout = () => {
       <Gradient>
         <Grid narrow>
           <Sticky
-            height="682px"
             top={140}
+            height="682px"
             disableOnMobile
             render={() => <AboutHeading>The Narative Approach</AboutHeading>}
           />

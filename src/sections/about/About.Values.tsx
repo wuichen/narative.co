@@ -6,7 +6,7 @@ import SVG from 'react-inlinesvg'
 import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import Sticky from '@components/Sticky'
+import Sticky, { StickyState } from '@components/Sticky'
 import Media from '@components/Media/Media.Img'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
@@ -100,7 +100,7 @@ function AboueValues() {
       <Sticky
         cover
         height="1800px"
-        render={({ progress }) => {
+        render={({ progress }: StickyState) => {
           const fastProgress = progress + progress + progress + progress
 
           const valuesAnimation = {

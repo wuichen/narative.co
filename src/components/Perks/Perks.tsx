@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import IntersectionObserver from '@components/IntersectionObserver'
+
 import mediaqueries from '@styles/media'
-import { IntersectionObserver } from '@components'
 
 const perks = [
   {
