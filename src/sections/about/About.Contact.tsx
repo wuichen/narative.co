@@ -5,14 +5,17 @@ import Section from '@components/Section'
 import ButtonPill from '@components/Button/Button.Pill'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
+import media from '@styles/media'
+
 function AboutContact({ inView }: { inView: boolean }) {
   const { toggleContact } = useContext(ContactContext)
 
   return (
-    <Container>
+    <Container data-scroll-fade={true} inView={inView}>
+      >
       <Section>
-        <Heading>
-          That's our story. <Grey inView={inView}>What's yours?</Grey>
+        <Heading inView={inView}>
+          That's our story. <Grey>What's yours?</Grey>
         </Heading>
         <ButtonContainer>
           <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />
@@ -24,25 +27,36 @@ function AboutContact({ inView }: { inView: boolean }) {
 
 export default AboutContact
 
-const Container = styled.div`
+const Container = styled.div<{ inView: boolean }>`
   display: flex;
   align-items: flex-end;
   position: relative;
-  height: calc(100vh - 310px);
+  height: calc(100vh - 400px);
+  padding-top: 400px;
+  margin-bottom: -310px;
+  padding-bottom: 310px;
 
   @media (min-height: 1200px) {
     padding-top: 310px;
     align-items: center;
   }
+
+  ${p =>
+    !p.inView &&
+    `
+    button {
+      border: 1px solid #fafafa;
+    }
+  `}
 `
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 50px auto 0;
+  margin: 50px auto 6vh;
 `
 
-const Heading = styled.h2`
+const Heading = styled.h2<{ inView: boolean }>`
   font-size: 70px;
   text-align: center;
   width: 100%;
@@ -50,12 +64,19 @@ const Heading = styled.h2`
   margin: 0 auto;
   line-height: 1.05;
   letter-spacing: -0.5px;
-  color: ${p => p.theme.colors.kepler};
+  color: ${p => (p.inView ? p.theme.colors.kepler : '#fff')};
   font-family: ${p => p.theme.fontfamily.serif};
+  transition: color 1s;
+
+  ${media.tablet`
+    font-size: 60px;
+  `}
+
+  ${media.phablet`
+    font-size: 40px;
+  `}
 `
 
-const Grey = styled.div<{ inView: boolean }>`
-  color: ${p => (p.inView ? p.theme.colors.grey : p.theme.colors.kepler)};
-  transition: color 1.5s;
-  will-change: opacity;
+const Grey = styled.div`
+  color: ${p => p.theme.colors.grey};
 `

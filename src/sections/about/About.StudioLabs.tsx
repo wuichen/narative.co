@@ -7,7 +7,7 @@ import media from '@styles/media'
 function AboutStudioLabs({ inView }: { inView: boolean }) {
   return (
     <Container>
-      <Section>
+      <Section narrow>
         <Blocks>
           <Block>
             <BlockInner>
@@ -15,12 +15,13 @@ function AboutStudioLabs({ inView }: { inView: boolean }) {
               <p>Product design, development and marketing services</p>
             </BlockInner>
           </Block>
-          <Block>
+          <Block pad>
             <BlockInner>
               <NarativeLabsLogo />
               <p>Internal product incubator exploring untapped markets</p>
             </BlockInner>
           </Block>
+          <ButtonMobile>Learn more</ButtonMobile>
         </Blocks>
         <div></div>
       </Section>
@@ -35,7 +36,15 @@ const Container = styled.div`
   position: relative;
   width: 100vw;
   overflow-x: hidden;
-  padding-bottom: 150px;
+  padding-bottom: 140px;
+
+  @media (max-width: 880px) {
+    padding-bottom: 45px;
+  }
+
+  ${media.phablet`
+    padding: 100px 0;
+  `}
 `
 
 const Blocks = styled.div`
@@ -51,9 +60,23 @@ const Blocks = styled.div`
     height: 1px;
     background: ${p => p.theme.colors.purple};
   }
+
+  @media (max-width: 880px) {
+    display: block;
+    padding-left: 30px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      height: 95%;
+      top: 5%;
+      width: 1px;
+    }
+  }
 `
 
-const Block = styled.div`
+const Block = styled.div<{ pad: boolean }>`
   position: relative;
   max-width: 264px;
   background: #0a0a0d;
@@ -68,8 +91,45 @@ const Block = styled.div`
     margin-right: 20%;
   }
 
-  &:last-child {
-    padding-left: 2%;
+  ${p => p.pad && ` padding-left: 2%;`}
+
+  ${media.desktop`
+    &:first-child {
+      margin-right: 10%;
+    }
+  `}
+
+  @media (max-width: 880px) {
+    margin-bottom: 45px;
+
+    &:last-child {
+      padding-left: 0;
+    }
+
+    ${p => p.pad && ` padding-left: 0;`}
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -35px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: ${p => p.theme.colors.purple};
+      box-shadow: 0 0 0 10px #090a0d;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -34px;
+      top: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #090a0d;
+    }
   }
 `
 
@@ -93,6 +153,50 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   font-weight: 700;
+
+  ${media.desktop`
+    right: 5%;
+  `}
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+`
+
+const ButtonMobile = styled.button`
+  display: none;
+  position: relative;
+  color: ${p => p.theme.colors.purple};
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: underline;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -35px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: ${p => p.theme.colors.purple};
+    box-shadow: 0 0 0 10px #090a0d;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #090a0d;
+  }
+
+  @media (max-width: 880px) {
+    display: block;
+  }
 `
 
 const NarativeLabsLogo = () => (

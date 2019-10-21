@@ -44,6 +44,7 @@ const StyledButton = styled.button<{ mode: string }>`
   color: ${p => p.theme.colors.sirius};
   font-weight: 600;
   font-size: 18px;
+  transition: border-color 1s;
 `
 
 const blink = keyframes`

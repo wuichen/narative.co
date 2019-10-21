@@ -118,10 +118,8 @@ function AboutTeam() {
         'Phasellus aliquet mollis felis, sed vehicula urna sodales at. Cras cursus semper lorem sit amet tempor. Duis nec lacus orci.',
       ],
       social: [
-        'https://twitter.com',
-        'https://dribbble.com',
-        'https://github.com',
-        'https://linkedin.com',
+        'https://twitter.com/bradtiller',
+        'https://www.linkedin.com/in/bradtiller/',
       ],
     },
     {
@@ -426,7 +424,7 @@ function AboutTeamModalContent({
     <Modal style={modalStyles}>
       <OutsideClickHandler onOutsideClick={handleOutsideClick}>
         <ModalContent>
-          <CloseButton>
+          <CloseButton onClick={handleOutsideClick}>
             <ExIcon fill="#fff" />
           </CloseButton>
           {isOpen && (
@@ -479,10 +477,20 @@ const CloseButton = styled.button`
   position: absolute;
   top: 30px;
   left: 30px;
+  z-index: 1;
 
   ${media.phablet`
     top: 16px;
     left: 16px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -50%;
+      top: -50%;
+      width: 200%;
+      height: 200%;
+    }
   `}
 `
 
@@ -543,6 +551,7 @@ const ModalAbout = styled.div`
 
   ${media.phablet`
     padding: 40px 20px 20px;
+    pointer-events: none;
   `}
 `
 
@@ -615,7 +624,7 @@ const ModalNext = styled.button<{ isOpen: boolean }>`
   background: #fff;
   border-radius: 50%;
   opacity: ${p => (p.isOpen ? 1 : 0)};
-  transform: translate(${p => (p.isOpen ? 0 : -12)}px, -50%);
+  transform: translate(${p => (p.isOpen ? 0 : -8)}px, -50%);
   transition: all 0.4s ease 0.4s;
 
   svg {

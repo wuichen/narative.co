@@ -84,15 +84,15 @@ function AboutTestimonial() {
       cover
       height="2400px"
       render={({ progress }: StickyState) => {
-        const five = progress * 2.5
-        const textStyles = `opacity: ${1 - five}; filter: blur(${five *
-          2}px); will-change: opacity, filter;`
+        const four = progress * 2
+        const textStyles = `opacity: ${1 - four}; transform: scale(${1 -
+          progress / 4}); will-change: opacity, filter;`
 
         return (
           <AboutTestimonialContainer>
             <HeadingLineBreak>
               <AboutHeading
-                heading="Independent, but never alone"
+                heading="Independent,<br /> but never alone"
                 text={`
                   <div style="${textStyles}">
                     While we like to do things our own way, nobody can do it all
@@ -112,6 +112,7 @@ function AboutTestimonial() {
                   const total = testimonials.length
                   const nextIndex = index + 1
                   const previousIndex = index - 1
+                  const first = index === 0
                   const minZeroMaxOne = (num: number) => clamp(num, 0, 1)
 
                   const prevStaggered = minZeroMaxOne(
@@ -130,8 +131,17 @@ function AboutTestimonial() {
                   )
                   const nextProgress = minZeroMaxOne(nextStaggered * total)
 
-                  const transalteYFirst =
-                    currentProgress * (index === 0 ? 100 : 450)
+                  let offsetHeight = first ? 100 : 450
+
+                  if (width < 460 && height < 700) {
+                    offsetHeight = first ? 200 : 550
+                  }
+
+                  if (width < 460 && height < 600) {
+                    offsetHeight = first ? 230 : 580
+                  }
+
+                  const transalteYFirst = currentProgress * offsetHeight
 
                   const transalteYSecond =
                     transalteYFirst + nextProgress * 22 * (total - nextIndex)
@@ -194,20 +204,30 @@ const AboutTestimonialContainer = styled.div`
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 70%);
+    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 70%);
     pointer-events: none;
 
     @media (min-height: 1200px) {
       height: 45vh;
       min-height: 300px;
-      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 20%);
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 20%);
     }
 
     ${media.tablet`
       height: 20vh;
       min-height: 100px;
     `}
+
+    ${media.phone_small`
+      height: 10vh;
+      min-height: auto;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 70%);
+    `}
   }
+
+  ${media.phone_small`
+    padding-top: 5vh;
+  `}
 `
 
 const TestimonialCardContainer = styled.ul`

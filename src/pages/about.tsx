@@ -16,7 +16,7 @@ import AboutStudioLabs from '../sections/about/About.StudioLabs'
 import AboutContact from '../sections/about/About.Contact'
 
 function AboutPage({ data, location }) {
-  const [ref, inView] = useInView({ threshold: 1 })
+  const [ref, inView] = useInView({ threshold: 0.96 })
 
   const contentful = data.allContentfulPage.edges[0].node
   const pageBackground =
@@ -53,7 +53,6 @@ function AboutPage({ data, location }) {
       <MiddleGradient>
         <AboutValues />
       </MiddleGradient>
-      <Divider />
       <BottomGradient>
         <AboutPhotographs />
         <AboutTestimonial />
@@ -85,7 +84,7 @@ const BottomGradient = styled.div`
   position: relative;
   background: linear-gradient(#111216, #08080b);
 
-  &::after {
+  /* &::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -93,7 +92,7 @@ const BottomGradient = styled.div`
     height: 310px;
     left: 0;
     background: #08080b;
-  }
+  } */
 `
 
 const TransitionLayer = styled.div`
@@ -107,7 +106,7 @@ const TransitionLayer = styled.div`
   z-index: 1;
   transition: opacity 1s;
   will-change: opacity;
-
+  /* 
   &::after {
     content: '';
     position: absolute;
@@ -116,7 +115,7 @@ const TransitionLayer = styled.div`
     height: 310px;
     left: 0;
     background: #d8d7d8;
-  }
+  } */
 `
 
 export const pageQuery = graphql`

@@ -62,6 +62,10 @@ export default AboutPhotographs
 
 const AboutWorkContainer = styled.div`
   padding: 140px 0 calc(180px - 10vh);
+
+  ${media.tablet`
+    padding: 100px 0 calc(180px - 10vh)
+  `}
 `
 
 const Spacer = styled.div`

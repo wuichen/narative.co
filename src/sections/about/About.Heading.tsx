@@ -19,9 +19,9 @@ const AboutHeading = ({ heading, text }: { heading: string; text: string }) => (
   <Section narrow data-scroll-fade={true}>
     <AboutHeadingContainer>
       <HeadingBackground>
-        <LargeHeading>{heading}</LargeHeading>
+        <LargeHeading dangerouslySetInnerHTML={{ __html: heading }} />
       </HeadingBackground>
-      <Text dangerouslySetInnerHTML={{ __html: text }}></Text>
+      <Text dangerouslySetInnerHTML={{ __html: text }} />
     </AboutHeadingContainer>
   </Section>
 )

@@ -23,22 +23,13 @@ const shapeImagesQuery = graphql`
     shapeWithShadow: file(name: { regex: "/about-shape-with-shadow/" }) {
       publicURL
     }
-    shapeBackgroundGlow: file(name: { regex: "/about-shape-glow/" }) {
-      childImageSharp {
-        fluid(maxWidth: 1000, quality: 100) {
-          ...GatsbyImageSharpFluid_noBase64
-        }
-      }
-    }
   }
 `
 
 function AboueValues() {
-  const {
-    shapeWithoutShadow,
-    shapeWithShadow,
-    shapeBackgroundGlow,
-  } = useStaticQuery(shapeImagesQuery)
+  const { shapeWithoutShadow, shapeWithShadow } = useStaticQuery(
+    shapeImagesQuery
+  )
   const { toggleContact } = useContext(ContactContext)
   const { width, height } = useResize()
   const shapeRef = useRef()
@@ -93,7 +84,9 @@ function AboueValues() {
     <AboueValuesContainer>
       <HeadingContainer ref={headingRef}>
         <AboutHeading
-          heading="Who we choose to be"
+          heading={`
+              <span class="AboutValues__MobileBreak">Who we</span> choose to be
+          `}
           text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
         />
       </HeadingContainer>
@@ -140,9 +133,6 @@ function AboueValues() {
                   </Values>
                 </Section>
                 <ShapeContainer style={shapeScaleAnimation}>
-                  <ShapeGlow style={{ opacity: 1 - fastProgress }}>
-                    <Image src={shapeBackgroundGlow.childImageSharp.fluid} />
-                  </ShapeGlow>
                   <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
                     <SVG src={shapeWithShadow.publicURL} />
                   </ShapeRectangleGlow>
@@ -163,6 +153,11 @@ function AboueValues() {
           }}
         />
       </Desktop>
+
+      {/*
+        The mobile section doesn't have any of the animation and styles so
+        it's easier for us to return a specific mobile version for the About Values
+      */}
       <Mobile>
         <ShapeContainerMobile>
           <ShapeMobile />
@@ -209,20 +204,23 @@ const Desktop = styled.div`
 
 const Mobile = styled.div`
   display: none;
+
   ${media.desktop`
+    position: relative;
     display: block;
+    padding-top: 260px;
   `}
 `
 
 const AboueValuesContainer = styled.div`
-  padding: 0px 0 100px;
+  padding: 0px 0 10px;
 
   ${media.desktop`
     padding: 120px 0;
   `}
 
   ${media.phablet`
-    padding: 90px 0;
+    padding: 90px 0 0;
   `}
 `
 
@@ -234,6 +232,12 @@ const HeadingContainer = styled.div`
 
   ${media.desktop`
     transform: none;
+  `}
+
+  ${media.tablet`
+    .AboutValues__MobileBreak {
+      display: block; 
+    }
   `}
 `
 
@@ -254,7 +258,13 @@ const ShapeContainer = styled.div`
   will-change: transform;
 `
 
-const ShapeContainerMobile = styled.div``
+const ShapeContainerMobile = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: -40px;
+`
 
 const ShapeRectangle = styled.figure`
   position: absolute;
@@ -345,6 +355,7 @@ const ValuesGrid = styled.div`
 `
 
 const ValuesColumn = styled.div`
+  position: relative;
   top: 0;
   max-width: 750px;
 `
@@ -367,12 +378,16 @@ const ValueHeading = styled(Heading.h3)`
 const ValueText = styled.p`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
+
+  ${media.tablet`
+    font-size: 18px;
+  `}
 `
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 55px auto 0;
+  margin: 60px auto 0;
 `
 
 const ReflectionBackground = styled.div`
@@ -396,20 +411,20 @@ const ReflectionInnerMask = styled.div`
 
 const ReflectionBackgroundMobile = styled.div`
   position: relative;
-  background: linear-gradient(#313338, transparent 50%);
-  filter: blur(5px);
+  background: linear-gradient(#313338, transparent 25%);
+  filter: blur(4px);
   width: 90%;
   margin: 0 auto;
   min-height: 212px;
-  z-index: 4;
+  top: -80px;
 `
 
 const ReflectionInnerMaskMobile = styled.div`
   background: ${p => p.theme.colors.bg};
   position: absolute;
-  left: 12px;
-  top: 12px;
-  right: 12px;
+  left: 6px;
+  top: 6px;
+  right: 6px;
   bottom: 0;
 `
 
