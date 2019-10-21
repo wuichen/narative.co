@@ -65,7 +65,7 @@ function CareersHero() {
                       <Image src={heroTop.childImageSharp.fluid} />
                     </HeroImageTop>
                     <HeroImageBottom start={animateBulb}>
-                      <Media
+                      <Image
                         onLoad={() => setBulbAnimation(true)}
                         src={heroBottom.childImageSharp.fluid}
                       />
@@ -90,7 +90,7 @@ function CareersHero() {
                 <Image src={heroTop.childImageSharp.fluid} />
               </HeroImageTop>
               <HeroImageBottom>
-                <Media
+                <Image
                   src={heroBottom.childImageSharp.fluid}
                   onLoad={() => setBulbAnimation(true)}
                 />
