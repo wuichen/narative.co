@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import IntersectionObserver from '@components/IntersectionObserver'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const perks = [
   {
@@ -105,7 +105,7 @@ const PerksItem = styled.div`
   opacity: ${p => (p.animate ? 1 : 0)};
   transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) ${p => p.index * 75}ms;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     flex-direction: column;
     align-items: flex-start;
     height: auto;
@@ -114,7 +114,7 @@ const PerksItem = styled.div`
 `
 
 const PerksItemDash = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -135,7 +135,7 @@ const PerksItemLineContainer = styled.div`
   left: 0;
   bottom: 0;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     width: 100%;
   `};
 `
@@ -149,7 +149,7 @@ const PerksItemLine = styled.div`
   transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
     ${p => p.index * 70 + 1200}ms;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     background: ${p => p.theme.colors.grey};
     transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)
     ${p => p.index * 120 + 1200}ms;

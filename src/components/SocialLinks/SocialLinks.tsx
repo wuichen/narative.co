@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import settings from '../../settings'
 
 import * as SocialIcons from '../../icons/social'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
   <Fragment>
@@ -82,7 +82,7 @@ const SocialIconContainer = styled.a`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin: 0 2.2rem;
   `};
 `

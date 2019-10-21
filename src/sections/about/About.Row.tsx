@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import AboutHeading from './About.Heading'
 
@@ -209,7 +209,7 @@ const TestimonialCardContainer = styled.ul`
   margin: 90px auto 0;
   list-style: none;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     flex-direction: column;
   `};
 `

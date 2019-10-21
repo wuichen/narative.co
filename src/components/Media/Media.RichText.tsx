@@ -4,7 +4,7 @@ import { TwitterTweetEmbed } from 'react-twitter-embed'
 import styled, { css } from 'styled-components'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import { IRichText } from '@typings'
 
@@ -82,7 +82,7 @@ const articleWidth = css`
   max-width: 680px;
   margin: 0 auto;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 0 20px;
   `};
 `
@@ -167,7 +167,7 @@ const callToAction = css`
       right: -1px;
     }
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       background: ${p => p.theme.mode.preview.bg}
       box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
@@ -275,7 +275,7 @@ const Content = styled.article`
     font-size: 2.8rem;
     line-height: 1.1;
 
-    ${mediaqueries.desktop_up`
+    ${media.desktop_up`
       font-size: 4.2rem;
       margin-bottom: 2.5rem;
     `};
@@ -288,7 +288,7 @@ const Content = styled.article`
     margin-bottom: 2rem;
     padding-top: 40px;
 
-    ${mediaqueries.desktop_up`
+    ${media.desktop_up`
       font-size: 3.2rem;
       paddng-top: 65px;
       margin-bottom: 2.5rem;
@@ -301,7 +301,7 @@ const Content = styled.article`
     line-height: 1.45;
     margin-bottom: 1rem;
 
-    ${mediaqueries.desktop`
+    ${media.desktop`
       margin-top: 0;
       margin-bottom: 0.75rem;
     `};
@@ -339,7 +339,7 @@ const Content = styled.article`
       display: block;
       margin-bottom: 75px;
 
-      ${mediaqueries.tablet`
+      ${media.tablet`
         margin-bottom: 30px;
         font-size: 18px;
       `}
@@ -367,7 +367,7 @@ const Content = styled.article`
         background: ${p => p.theme.mode.text};
       }
 
-      ${mediaqueries.tablet`
+      ${media.tablet`
         margin: 15px auto 45px;
       `}
     }
@@ -383,7 +383,7 @@ const Content = styled.article`
     font-style: italic;
     ${transitionColor};
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       margin: 0 auto 30px;
       padding: 20px;
     `}
@@ -403,12 +403,12 @@ const Content = styled.article`
       position: relative;
       margin-bottom: 15px;
 
-      ${mediaqueries.tablet`
+      ${media.tablet`
           padding-left: 20px;
         `}
 
       p {
-        ${mediaqueries.tablet`
+        ${media.tablet`
           padding: 0;
         `}
       }
@@ -435,7 +435,7 @@ const Content = styled.article`
     width: 8px;
     background: ${p => p.theme.mode.text};
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       left: 0;
     `}
   }
@@ -449,7 +449,7 @@ const Content = styled.article`
     top: 0.3rem;
     font-size: 2rem;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       left: 0;
     `}
   }
@@ -476,7 +476,7 @@ const Content = styled.article`
     margin: 45px auto 85px;
     border-radius: 5px;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       margin: 10px auto 45px;
     `}
   }
@@ -493,7 +493,7 @@ const Content = styled.article`
     width: 100%;
     max-width: ${imageWidths.regular};
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       width: calc(100vw - 40px);
     `}
   }
@@ -502,7 +502,7 @@ const Content = styled.article`
     width: 100%;
     max-width: ${imageWidths.large};
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       border-radius: 0;
     `}
   }
@@ -570,7 +570,7 @@ const Content = styled.article`
     background-repeat: repeat-x;
     box-sizing: border-box;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       width: calc(100vw - 40px);
       margin: 0px auto 50px;
     `};

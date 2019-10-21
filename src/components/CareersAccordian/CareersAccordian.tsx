@@ -5,7 +5,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import ButtonArrow from '@components/Button/Button.Arrow'
 import CopyToClipboard from '@components/CopyToClipboard'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const fadein = keyframes`
   from { opacity: 0; }
@@ -171,13 +171,13 @@ const AccordianContainer = styled.div`
     padding-bottom: 3rem;
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     margin:  0 auto 15rem;
     top: -4rem;
     min-height: auto;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin:  0 auto 10rem;
     top: ${p => (p.empty ? '0rem' : '-4rem')};
     height: auto;
@@ -187,7 +187,7 @@ const AccordianContainer = styled.div`
     padding: 2rem;
   `};
 
-  ${mediaqueries.phone`
+  ${media.phone`
     top: ${p => (p.empty ? '0rem' : '-2rem')};
   `};
 `
@@ -305,7 +305,7 @@ const AccordianCareersEmail = styled.p`
     color: #fff;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 1.4rem;
     margin-top: 20px;
 
@@ -316,7 +316,7 @@ const AccordianCareersEmail = styled.p`
 `
 
 const HideOnMobile = styled.span`
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none; 
   `}
 `

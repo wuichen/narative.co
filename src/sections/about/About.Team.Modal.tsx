@@ -2,6 +2,7 @@ import React, { memo, useRef } from 'react'
 import styled from 'styled-components'
 import { motion, useMotionValue } from 'framer-motion'
 
+import media from '@styles/media'
 import { useInvertedBorderRadius } from '@utils'
 
 interface AboutTeamModalProps {
@@ -109,6 +110,11 @@ const CardContainer = styled.div<{ isSelected: boolean }>`
   transition: opacity 0s;
   ${p => !p.isSelected && `transition-delay: 0.4s;`}
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+
+  ${media.tablet`
+    height: 440px;
+    width: 90vw;
+  `}
 `
 
 const CardContent = styled.div<{ isSelected: boolean }>`
@@ -129,6 +135,10 @@ const CardContent = styled.div<{ isSelected: boolean }>`
     display: flex;
     align-items: center;
   `}
+
+  ${media.tablet`
+    padding: 0;
+  `}
 `
 
 const ContentContainer = styled(motion.div)`
@@ -142,4 +152,8 @@ const ContentContainer = styled(motion.div)`
   width: 100%;
   height: 100%;
   margin: 0 auto;
+
+  ${media.tablet`
+    width: 90vw !important;    
+  `}
 `

@@ -7,12 +7,12 @@ import Layout from '@components/Layout'
 import Section from '@components/Section'
 import Heading from '@components/Heading'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 import ScrollIndicator from '@components/ScrollIndicator'
 import Pill from '@components/Pill'
 import Transitions from '@components/Transitions'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { keyToSymbol } from '@shortcuts'
 
 import LabsPreview from '../../sections/labs/Labs.Preview'
@@ -190,7 +190,7 @@ function LabsPage({ data, location }) {
             </ContentContainer>
 
             <HeroImage>
-              <Media
+              <Image
                 onLoad={() => setShowScreen(true)}
                 src={heroBody.childImageSharp.fluid}
               />
@@ -200,13 +200,13 @@ function LabsPage({ data, location }) {
                   transition: 'opacity 1s ease 0.5s',
                 }}
               >
-                <Media src={heroScreen.childImageSharp.fluid} />
+                <Image src={heroScreen.childImageSharp.fluid} />
               </div>
             </HeroImage>
           </HeroSection>
         </LayoutHeroMobile>
         <HeroImageMobile>
-          <Media src={hero.childImageSharp.fluid} />
+          <Image src={hero.childImageSharp.fluid} />
         </HeroImageMobile>
         <LabsBody>
           <Section narrow>
@@ -306,7 +306,7 @@ const HeroSection = styled(Section)`
   justify-content: space-between;
   align-items: center;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     pointer-events: none;
   `};
 `
@@ -330,7 +330,7 @@ const HeroImage = styled.div`
     }
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 
@@ -345,7 +345,7 @@ const HeroImage = styled.div`
 const HeroImageMobile = styled(HeroImage)`
   display: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
     width: 100%;
     top: 0;
@@ -364,7 +364,7 @@ const HeroImageMobile = styled(HeroImage)`
 const TextContainer = styled.div`
   max-width: 560px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     position: relative;
     top: -50px;
   `}
@@ -376,7 +376,7 @@ const MainText = styled.p`
   color: ${p => p.theme.colors.grey};
   line-height: 1.3;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 2.2rem;
   `};
 `
@@ -390,7 +390,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: calc(100vh - 90px);
     padding: 0;
     user-select: none;
@@ -405,7 +405,7 @@ const HorizontalRule = styled.hr`
   margin-bottom: 30px;
   background: ${p => (p.dark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255,255,255,0.1)')};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 100%;
     margin: 0 auto 25px;
     background: ${p =>
@@ -444,7 +444,7 @@ const LinkToProduct = styled.a`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
     margin: 0 auto;
     color: ${p => (p.dark ? '#000' : '#fff')};

@@ -17,7 +17,7 @@ import ProgressMobile from '@components/Progress/Progress.Mobile'
 import Section from '@components/Section'
 import NavigationFooter from '@components/Navigation/Navigation.Footer'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { debounce } from '@utils'
 
 import Aside from '../../sections/article/Article.Aside'
@@ -181,7 +181,7 @@ const MobileControls = styled.div`
   transition: background 0.2s linear;
   text-align: center;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `
@@ -192,7 +192,7 @@ const Content = styled(RichText).attrs<{ textHighlightColor: string }>({})`
   background: ${p => p.theme.mode.background};
   transition: background 0.2s linear;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 60px 0 10px;
   `}
 `
@@ -211,7 +211,7 @@ const Meta = styled.div`
   color: ${p => p.theme.mode.text};
   margin-bottom: 80px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 0 20px;
     margin-bottom: 50px;
   `};
@@ -228,7 +228,7 @@ const FooterNext = styled.h3`
   font-weight: 400;
   color: ${p => p.theme.mode.text};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 50px;
   `}
 
@@ -241,15 +241,15 @@ const FooterNext = styled.h3`
     right: 0;
     top: 11px;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       width: ${(600 / 1140) * 100}%;
     `}
 
-    ${mediaqueries.phablet`
+    ${media.phablet`
       width: ${(400 / 1140) * 100}%;
     `}
 
-    ${mediaqueries.phone`
+    ${media.phone`
       width: 90px
     `}
   }

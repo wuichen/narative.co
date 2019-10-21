@@ -2,8 +2,8 @@ import React from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
-import Media from '@components/Media/Media.Img'
-import mediaqueries from '@styles/media'
+import Image from '@components/Image'
+import media from '@styles/media'
 
 const previewQuery = graphql`
   query LabsPreviewMobile {
@@ -63,7 +63,7 @@ function LabsPreviewMobile() {
     <>
       <PreviewCard style={{ background: '#0D0709' }}>
         <Heading style={{ color: '#fafafa' }}>Project Needle</Heading>
-        <Media src={needlBackground.childImageSharp.fluid} />
+        <Image src={needlBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
         <Anchor as="div" style={{ background: '#171719', color: '#515359' }}>
           Coming soon
@@ -74,7 +74,7 @@ function LabsPreviewMobile() {
         <Heading>
           <FeyLogo />
         </Heading>
-        <Media src={feyBackground.childImageSharp.fluid} />
+        <Image src={feyBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
         <Anchor
           href="https://feyapp.com"
@@ -88,7 +88,7 @@ function LabsPreviewMobile() {
 
       <PreviewCard style={{ background: '#222838' }}>
         <Heading>Narative Command</Heading>
-        <Media src={commandlineBackground.childImageSharp.fluid} />
+        <Image src={commandlineBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#161C24', color: '#444750' }}>
           Check on desktop 😏
@@ -97,7 +97,7 @@ function LabsPreviewMobile() {
 
       <PreviewCard style={{ background: '#B0CDE5' }}>
         <Heading style={{ color: '#000' }}>Novela Theme</Heading>
-        <Media src={novelaBackground.childImageSharp.fluid} />
+        <Image src={novelaBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor
           as={Link}
@@ -110,7 +110,7 @@ function LabsPreviewMobile() {
 
       <PreviewCard style={{ background: '#EFF0F4' }}>
         <Heading style={{ color: '#000' }}>Memoir Theme</Heading>
-        <Media src={memoirBackground.childImageSharp.fluid} />
+        <Image src={memoirBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#D6D9DE', color: '#A4A6AD' }}>
           Coming soon
@@ -128,7 +128,7 @@ const PreviewCard = styled.div`
   background: red;
   margin-bottom: 25px;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `

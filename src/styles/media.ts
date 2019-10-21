@@ -10,20 +10,20 @@ import theme from '@styles/theme'
  *
  * @example
  *
- *    ${mediaqueries.phone` width: 100px; `};
- *    ${mediaqueries.tablet_up` width: 200px; `};
+ *    ${media.phone` width: 100px; `};
+ *    ${media.tablet_up` width: 200px; `};
  */
 
-const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
+const media: Imedia = theme.breakpoints.reduce(
   (acc, [label, size], i) => ({
     ...acc,
-    // max-width media query e.g. mediaqueries.desktop
+    // max-width media query e.g. media.desktop
     [label]: (...args: TemplateStringsArray[]) => css`
       @media (max-width: ${size}px) {
         ${css(...args)};
       }
     `,
-    // min-width media query e.g. mediaqueries.desktop_up
+    // min-width media query e.g. media.desktop_up
     // This is the breakpoint prior's size +1
     [`${label}_up`]: (...args: TemplateStringsArray[]) => css`
       @media (min-width: ${theme.breakpoints[i - 1][1] + 1}px) {
@@ -34,6 +34,4 @@ const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
   {}
 )
 
-export const media = mediaqueries
-
-export default mediaqueries
+export default media

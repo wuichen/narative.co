@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const RadioContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
   `};
 `
@@ -29,7 +29,7 @@ const StyledLabel = styled.label`
   margin: 0;
   transition: all 200ms ${props => props.theme.transitions.easeIn};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 1.5rem;
   `};
 

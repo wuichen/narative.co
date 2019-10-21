@@ -8,10 +8,10 @@ import Heading from '@components/Heading'
 import Section from '@components/Section'
 import IntersectionObserver from '@components/IntersectionObserver'
 import Sticky, { StickyState } from '@components/Sticky'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { getWindowDimensions } from '@utils'
 
 import HomeServicesMobile from './Home.Services.Mobile'
@@ -278,15 +278,15 @@ function HomeServices() {
               <Grid>
                 <ImageSlides>
                   <ImageSlide active={firstActive}>
-                    <Media src={first.childImageSharp.fluid} />
+                    <Image src={first.childImageSharp.fluid} />
                     <Time />
                   </ImageSlide>
                   <ImageSlide active={secondActive}>
-                    <Media src={second.childImageSharp.fluid} />
+                    <Image src={second.childImageSharp.fluid} />
                     <Code />
                   </ImageSlide>
                   <ImageSlide active={thirdActive}>
-                    <Media src={third.childImageSharp.fluid} />
+                    <Image src={third.childImageSharp.fluid} />
                   </ImageSlide>
                 </ImageSlides>
                 <Column>
@@ -360,7 +360,7 @@ const HomeServicesDesktop = styled.div`
   background: #101216;
   padding-top: 60px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -446,7 +446,7 @@ const Value = styled.div`
     transition: color 0.3s var(--ease-out-quad);
   }
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     &:not(:last-child) {
       margin-bottom: 15px;
     }

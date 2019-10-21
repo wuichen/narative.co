@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  * <ArticleControls />
@@ -108,7 +108,7 @@ const IconWrapper = styled.button`
     opacity: 1;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: inline-flex;
     margin: 0 20px 0 0;
    
@@ -195,7 +195,7 @@ const MoonOrSun = styled.div`
     transform: scale(${p => (p.isDarkMode ? 1 : 0)});
     transition: all 0.35s ease;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       transform: scale(${p => (p.isDarkMode ? 0.92 : 0)});
     `}
   }

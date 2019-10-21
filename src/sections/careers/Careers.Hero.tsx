@@ -4,13 +4,13 @@ import styled, { css, keyframes } from 'styled-components'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 import ScrollIndicator from '@components/ScrollIndicator'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Pill from '@components/Pill'
 import Transitions from '@components/Transitions'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const heroQuery = graphql`
   query CareersHeroPageQuery {
@@ -62,7 +62,7 @@ function CareersHero() {
                   </LeftContainer>
                   <ImageContainer desktop>
                     <HeroImageTop>
-                      <Media src={heroTop.childImageSharp.fluid} />
+                      <Image src={heroTop.childImageSharp.fluid} />
                     </HeroImageTop>
                     <HeroImageBottom start={animateBulb}>
                       <Media
@@ -87,7 +87,7 @@ function CareersHero() {
           <Section hideOnDesktop>
             <ImageContainer>
               <HeroImageTop>
-                <Media src={heroTop.childImageSharp.fluid} />
+                <Image src={heroTop.childImageSharp.fluid} />
               </HeroImageTop>
               <HeroImageBottom>
                 <Media
@@ -118,7 +118,7 @@ const GridContainer = styled.div`
   min-height: 600px;
   width: 100%;
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     min-height: 360px;
   `};
 
@@ -126,7 +126,7 @@ const GridContainer = styled.div`
     min-height: 360px;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     height: initial
     grid-template-columns: 1fr;
     height: calc(100vh - 140px);
@@ -134,7 +134,7 @@ const GridContainer = styled.div`
     padding: 0;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: calc(100vh - 180px);
     width: 100%;
   `};
@@ -147,12 +147,12 @@ const TextContainer = styled.div`
     max-width: 470px;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     transition-delay: 0ms !important;
     transition-duration: 500ms !important;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     top: -50px;
   `}
 `
@@ -163,7 +163,7 @@ const MainText = styled.p`
   color: ${p => p.theme.colors.grey};
   line-height: 1.3;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 2.2rem;
   `};
 `
@@ -175,7 +175,7 @@ const LeftContainer = styled.div`
   align-items: center;
   max-width: 62.1rem;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     justify-content: flex-start;
     width: 100%;
     height: initial;
@@ -189,11 +189,11 @@ const ImageContainer = styled.div`
   right: -20px;
   justify-self: flex-end;
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     right: 2%;
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display:  ${p => (p.desktop ? ' none' : 'block')}
     right: 0;
     left: 0;
@@ -210,7 +210,7 @@ const HeroImageTop = styled.div`
   position: relative;
   left: -6px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 130px;
   `}
 `
@@ -237,7 +237,7 @@ const HeroImageBottom = styled.div`
       animation: ${float} 4.8s ease-in-out infinite 1.4s;
     `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     transform: none;
   `}
 `
@@ -245,7 +245,7 @@ const HeroImageBottom = styled.div`
 const Spacer = styled.div`
   height: 145px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 0;
   `};
 `

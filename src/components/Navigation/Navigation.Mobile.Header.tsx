@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 
 import SocialLinks from '@components/SocialLinks'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const mobileLinks = [
   { to: '/about', text: 'Careers' },
@@ -70,7 +70,7 @@ const Frame = styled.nav`
     padding: 40px 0;
   }
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
     visibility: hidden;
   `}

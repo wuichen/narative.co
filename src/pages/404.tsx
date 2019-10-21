@@ -8,7 +8,7 @@ import SEO from '@components/SEO'
 import SocialLinks from '@components/SocialLinks'
 import Section from '@components/Section'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 function NotFound({ data, location }) {
   const { seo } = data.allContentfulHomePage.edges[0].node
@@ -77,7 +77,7 @@ const GridContainer = styled.div`
   margin: 0 auto;
   width: 100%;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     flex-direction: column;
     height: calc(100vh - 90px);
   `};
@@ -87,7 +87,7 @@ const WelcomeHeader = styled(Heading.h1)`
   color: ${p => p.theme.colors.grey};
   margin-bottom: 2rem;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 2.2rem;
     margin-bottom: 5rem;
   `};
@@ -115,7 +115,7 @@ const TextContainer = styled.div`
   padding: 0 0 100px;
   max-width: 575px;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     padding: 170px 0 0;
     justify-content: flex-start;
     width: 100%;
@@ -134,7 +134,7 @@ const ImageContainer = styled.div`
   display: flex;
   align-items: center;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
 
     right: 0;
     height: 33rem;
@@ -156,12 +156,12 @@ const SocialLinksContainer = styled.div`
     display: inline-block;
     color: ${p => p.theme.colors.grey};
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       display: block;
    `};
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     svg {
       position: relative;
       top: 10px;

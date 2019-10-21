@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  * <AboutHeading />
@@ -32,7 +32,7 @@ const AboutHeadingContainer = styled.div`
   max-width: 750px;
   margin: 0 auto;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     flex-direction: column;
   `};
 `
@@ -64,19 +64,19 @@ const LargeHeading = styled(Heading.h2)`
   background: transparent;
   color: transparent;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 60px;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 50px;
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 40px;
   `}
 
-  ${mediaqueries.phone_small`
+  ${media.phone_small`
     font-size: 32px;
   `}
 `
@@ -86,7 +86,7 @@ const Text = styled.p`
   line-height: 1.28;
   color: #fff;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 20px;
 
     * {
@@ -94,7 +94,7 @@ const Text = styled.p`
     }
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 18px;
   `}
 `

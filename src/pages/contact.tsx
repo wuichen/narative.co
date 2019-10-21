@@ -9,7 +9,7 @@ import SEO from '@components/SEO'
 import Hidden from '@components/Hidden'
 
 import transitions from '@styles/transitions'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { startAnimation } from '@utils'
 import { ExIcon } from '../icons/ui'
 
@@ -169,7 +169,7 @@ const SlideInContainer = styled.div`
   backface-visibility: hidden;
   filter: blur(0);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     width: 100%;
     position: relative;
     top: 310px;
@@ -218,7 +218,7 @@ const PhoneFormContainer = styled.div`
   flex-direction: column;
   display: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
     padding: 13rem 0 1rem;
   `};
@@ -259,7 +259,7 @@ const CloseContainer = styled.button`
   transition: transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
     ${p => (p.animation ? '1s' : '0s')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 

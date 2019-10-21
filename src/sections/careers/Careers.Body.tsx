@@ -7,7 +7,7 @@ import CareersGraph from '@components/CareersGraph'
 import CareersImages from '@components/CareersImages'
 import Perks from '@components/Perks'
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import CareersRow from './Careers.Row'
 
@@ -122,13 +122,13 @@ const SectionCopy = styled.p`
   line-height: 1.2;
   max-width: ${props => (props.maxWidth ? props.maxWidth : '100%')};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 2.2rem;
     line-height: 1.4;
     max-width: 100%;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 1.8rem;
   `};
 `
@@ -137,7 +137,7 @@ const WhatWeDoList = styled.div`
   width: 38rem;
   list-style: none;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     width: 100%;
   `};
 `
@@ -146,7 +146,7 @@ const FlexColumn = styled.div`
   display: flex;
   justify-content: space-between;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     flex-direction: column;
   `};
 `
@@ -156,7 +156,7 @@ const WhatWeDoContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     margin-bottom: 2.5rem;
   `};
 `

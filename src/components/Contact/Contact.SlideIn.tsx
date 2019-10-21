@@ -5,7 +5,7 @@ import Transition from 'react-transition-group/Transition'
 import Hidden from '@components/Hidden'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { scrollable } from '@utils'
 import { ExIcon } from '../../icons/ui'
 import { useReduxState } from '@store'
@@ -135,7 +135,7 @@ const SlideInContainer = styled.div`
   backface-visibility: hidden;
   filter: blur(0);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
     opacity: 0;
     visibility: hidden;
@@ -172,7 +172,7 @@ const CloseContainer = styled.button`
       ${p => (p.animation ? '0.2s' : '0s')},
     opacity 0s linear ${p => (p.animation ? '0s' : '1s')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 

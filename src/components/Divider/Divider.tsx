@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 function Divider() {
   return (

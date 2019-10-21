@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Layout from '@components/Layout'
 import Logo from '@components/Logo'
 import Heading from '@components/Heading'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import Article from '../templates/posts/article.template'
 
 import settings from '../settings'
@@ -72,7 +72,7 @@ const PreviewIndicator = styled.div`
   color: #fff;
   font-weight: 600;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `

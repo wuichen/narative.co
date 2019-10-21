@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import * as Social from '../../icons/social'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 interface SocialLinksProps {
   links: string[]
@@ -61,6 +61,16 @@ const SocialIconContainer = styled.a`
   text-decoration: none;
   max-width: 16px;
 
+  &::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: -4px;
+    left: -8px;
+    cursor: pointer;
+  }
+
   &:hover {
     svg {
       &:hover * {
@@ -92,7 +102,7 @@ const SocialIconContainer = styled.a`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin: 0 2.2rem;
   `};
 `

@@ -7,10 +7,10 @@ import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky, { StickyState } from '@components/Sticky'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { useResize } from '@utils'
 
 import AboutHeading from './About.Heading'
@@ -97,80 +97,133 @@ function AboueValues() {
           text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
         />
       </HeadingContainer>
-      <Sticky
-        cover
-        height="1800px"
-        render={({ progress }: StickyState) => {
-          const fastProgress = progress + progress + progress + progress
+      <Desktop>
+        <Sticky
+          cover
+          height="2200px"
+          render={({ progress }: StickyState) => {
+            const fastProgress = progress + progress + progress + progress
 
-          const valuesAnimation = {
-            opacity: progress,
-            pointerEvents: progress > 0.5 ? 'initial' : 'none',
-          }
+            const valuesAnimation = {
+              opacity: progress,
+              pointerEvents: progress > 0.5 ? 'initial' : 'none',
+            }
 
-          const shapeScaleAnimation =
-            progress > 0
-              ? {
-                  transform: `translateY(-50%) scale(${1 + progress * scale})`,
-                  pointerEvents: progress <= 0.5 ? 'initial' : 'none',
-                }
-              : {}
+            const shapeScaleAnimation =
+              progress > 0
+                ? {
+                    transform: `translateY(-50%) scale(${1 +
+                      progress * scale})`,
+                    pointerEvents: progress <= 0.5 ? 'initial' : 'none',
+                  }
+                : {}
 
-          return (
-            <>
-              <Section narrow>
-                <Values style={valuesAnimation}>
-                  <ValuesGrid>
-                    {values.map(value => (
-                      <div key={value.heading}>
-                        <ValueIllo />
-                        <ValueHeading>{value.heading}</ValueHeading>
-                        <ValueText>{value.text}</ValueText>
-                      </div>
-                    ))}
-                  </ValuesGrid>
-                  <ButtonContainer>
-                    <ButtonPill
-                      text="Work with our team"
-                      onClick={toggleContact}
-                    />
-                  </ButtonContainer>
-                </Values>
-              </Section>
-              <ShapeContainer style={shapeScaleAnimation}>
-                <ShapeGlow style={{ opacity: 1 - fastProgress }}>
-                  <Media src={shapeBackgroundGlow.childImageSharp.fluid} />
-                </ShapeGlow>
-                <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
-                  <SVG src={shapeWithShadow.publicURL} />
-                </ShapeRectangleGlow>
-                <ShapeRectangle ref={shapeRef}>
-                  <SVG src={shapeWithoutShadow.publicURL} />
-                </ShapeRectangle>
-                <ShapeRectangleWithMask>
-                  <SVG src={shapeWithoutShadow.publicURL} />
-                </ShapeRectangleWithMask>
-                <ShapeRectangleReflection
-                  style={{
-                    opacity: 1 - fastProgress - fastProgress,
-                    transform: `scale(${1 - progress * scale})`,
-                  }}
-                >
-                  <ShapeReflection />
-                </ShapeRectangleReflection>
-              </ShapeContainer>
-            </>
-          )
-        }}
-      />
+            return (
+              <>
+                <Section narrow>
+                  <Values style={valuesAnimation}>
+                    <ValuesGrid>
+                      {values.map(value => (
+                        <div key={value.heading}>
+                          <ValueIllo />
+                          <ValueHeading>{value.heading}</ValueHeading>
+                          <ValueText>{value.text}</ValueText>
+                        </div>
+                      ))}
+                    </ValuesGrid>
+                    <ButtonContainer>
+                      <ButtonPill
+                        text="Work with our team"
+                        onClick={toggleContact}
+                      />
+                    </ButtonContainer>
+                  </Values>
+                </Section>
+                <ShapeContainer style={shapeScaleAnimation}>
+                  <ShapeGlow style={{ opacity: 1 - fastProgress }}>
+                    <Image src={shapeBackgroundGlow.childImageSharp.fluid} />
+                  </ShapeGlow>
+                  <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                    <SVG src={shapeWithShadow.publicURL} />
+                  </ShapeRectangleGlow>
+                  <ShapeRectangle ref={shapeRef}>
+                    <SVG src={shapeWithoutShadow.publicURL} />
+                  </ShapeRectangle>
+                  <ShapeRectangleWithMask>
+                    <SVG src={shapeWithoutShadow.publicURL} />
+                  </ShapeRectangleWithMask>
+                  <ShapeRectangleReflection
+                    style={{ opacity: 1 - fastProgress - fastProgress }}
+                  >
+                    <ShapeReflection />
+                  </ShapeRectangleReflection>
+                </ShapeContainer>
+              </>
+            )
+          }}
+        />
+      </Desktop>
+      <Mobile>
+        <ShapeContainerMobile>
+          <ShapeMobile />
+          <ShapeReflectionMobile />
+        </ShapeContainerMobile>
+        <Section narrow>
+          <ValuesColumn>
+            {values.map(value => (
+              <ValuesRow key={value.heading}>
+                <ValueIllo />
+                <ValueHeading>{value.heading}</ValueHeading>
+                <ValueText>{value.text}</ValueText>
+              </ValuesRow>
+            ))}
+          </ValuesColumn>
+          <ButtonContainer>
+            <ButtonPill text="Work with our team" onClick={toggleContact} />
+          </ButtonContainer>
+        </Section>
+      </Mobile>
     </AboueValuesContainer>
   )
 }
 
 export default AboueValues
 
+const ShapeReflection = () => (
+  <ReflectionBackground>
+    <ReflectionInnerMask />
+  </ReflectionBackground>
+)
+
+const ShapeReflectionMobile = () => (
+  <ReflectionBackgroundMobile>
+    <ReflectionInnerMaskMobile />
+  </ReflectionBackgroundMobile>
+)
+
+const Desktop = styled.div`
+  ${media.desktop`
+    display: none;
+  `}
+`
+
+const Mobile = styled.div`
+  display: none;
+  ${media.desktop`
+    display: block;
+  `}
+`
+
 const AboueValuesContainer = styled.div`
   padding: 0px 0 100px;
+
+  ${media.desktop`
+    padding: 120px 0;
+  `}
+
+  ${media.phablet`
+    padding: 90px 0;
+  `}
 `
 
 const HeadingContainer = styled.div`
@@ -178,6 +231,10 @@ const HeadingContainer = styled.div`
   will-change: transform, filter;
   transform: translateY(24vh);
   z-index: 1;
+
+  ${media.desktop`
+    transform: none;
+  `}
 `
 
 const ShapeContainer = styled.div`
@@ -196,6 +253,8 @@ const ShapeContainer = styled.div`
   transform: translateY(-50%);
   will-change: transform;
 `
+
+const ShapeContainerMobile = styled.div``
 
 const ShapeRectangle = styled.figure`
   position: absolute;
@@ -285,6 +344,15 @@ const ValuesGrid = styled.div`
   grid-row-gap: 45px;
 `
 
+const ValuesColumn = styled.div`
+  top: 0;
+  max-width: 750px;
+`
+
+const ValuesRow = styled.div`
+  margin-bottom: 30px;
+`
+
 const ValueIllo = styled.div`
   width: 31px;
   height: 31px;
@@ -307,14 +375,6 @@ const ButtonContainer = styled.div`
   margin: 55px auto 0;
 `
 
-function ShapeReflection() {
-  return (
-    <ReflectionBackground>
-      <ReflectionInnerMask></ReflectionInnerMask>
-    </ReflectionBackground>
-  )
-}
-
 const ReflectionBackground = styled.div`
   position: relative;
   background: linear-gradient(#313338, transparent 50%);
@@ -333,3 +393,123 @@ const ReflectionInnerMask = styled.div`
   right: 12px;
   bottom: 0;
 `
+
+const ReflectionBackgroundMobile = styled.div`
+  position: relative;
+  background: linear-gradient(#313338, transparent 50%);
+  filter: blur(5px);
+  width: 90%;
+  margin: 0 auto;
+  min-height: 212px;
+  z-index: 4;
+`
+
+const ReflectionInnerMaskMobile = styled.div`
+  background: ${p => p.theme.colors.bg};
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  right: 12px;
+  bottom: 0;
+`
+
+const ShapeMobile = () => (
+  <svg
+    width="100%"
+    viewBox="0 0 375 307"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g filter="url(#filter0_f)">
+      <rect
+        y="90"
+        width="375"
+        height="127"
+        fill="#66748D"
+        fill-opacity="0.15"
+      />
+    </g>
+    <g filter="url(#filter1_dd)">
+      <rect
+        x="23"
+        y="106"
+        width="329"
+        height="95"
+        stroke="white"
+        stroke-width="6"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_f"
+        x="-89.4344"
+        y="0.565636"
+        width="553.869"
+        height="305.869"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feGaussianBlur
+          stdDeviation="44.7172"
+          result="effect1_foregroundBlur"
+        />
+      </filter>
+      <filter
+        id="filter1_dd"
+        x="-11.302"
+        y="71.698"
+        width="397.604"
+        height="163.604"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="15.651" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow"
+        />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="2.23586" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="effect1_dropShadow"
+          result="effect2_dropShadow"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect2_dropShadow"
+          result="shape"
+        />
+      </filter>
+    </defs>
+  </svg>
+)

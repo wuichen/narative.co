@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  * blurIn
@@ -33,7 +33,7 @@ const fadeIn = css`
   transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
     ${p => (p.transitionDelay ? `${p.transitionDelay}ms` : '')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
       transition: opacity 0.6s
       ${p =>
         p.transitionDelay
@@ -68,7 +68,7 @@ const fadeUp = css`
     ${p => (p.transitionDelay ? `${p.transitionDelay}ms` : '')}
     cubic-bezier(0.694, 0, 0.335, 1);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
       transition: all 800ms
       ${p =>
         p.transitionDelay

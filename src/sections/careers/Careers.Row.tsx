@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  * <CareerRow />
@@ -40,15 +40,15 @@ const CareerRowSpacer = styled.div`
   padding-bottom: 20rem;
   overflow-x: hidden;
 
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
     padding-bottom: 15rem;
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     padding-bottom: 10rem;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-bottom: 6rem;
   `};
 `
@@ -56,7 +56,7 @@ const CareerRowSpacer = styled.div`
 const CareerRowContainer = styled.div`
   display: flex;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     flex-direction: column;
   `};
 `
@@ -71,12 +71,12 @@ const CareerRowHeader = styled(Heading.h2)`
   padding-bottom: 1rem;
   margin-right: 6.3rem;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     flex-direction: column;
     margin: 0 0 3.5rem 0;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-bottom: 0;
     margin-bottom: 1rem;
     width: 100%;

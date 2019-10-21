@@ -11,7 +11,7 @@ import Footer from '@components/Navigation/Navigation.Footer'
 import { calculateStyles } from './Layout.Hero.Mobile'
 import { ExIcon } from '../../icons/ui'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import {
   clamp,
@@ -287,11 +287,11 @@ const SiteContainer = styled.div`
 
   ${p =>
     p.navOffset &&
-    mediaqueries.tablet`
+    media.tablet`
       padding-top: 0; 
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     transform: ${p =>
       p.active ? `translateY(${p.mobileNavOffset}px)` : 'none'};
     transition: transform ${MOBILE_NAV_DURATION +
@@ -349,7 +349,7 @@ const MobileHamburger = styled.button`
     top: -50%;
   }
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
     visibility: hidden;
   `}
@@ -384,7 +384,7 @@ const MaskMobile = styled.div`
   transition: opacity 0.5s linear;
   pointer-events: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 100vh;
     position: absolute;
     top: 0;
@@ -396,7 +396,7 @@ const MaskMobile = styled.div`
 `
 
 const MobileScroll = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
   position: ${p => (p.fixed ? 'fixed' : 'absolute')};
 
     width: 100%;

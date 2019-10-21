@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import { clamp } from '@utils'
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Sticky, { StickyState } from '@components/Sticky'
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import AboutHeading from './About.Heading'
 

@@ -5,7 +5,7 @@ import SVG from 'react-inlinesvg'
 
 import Section from '@components/Section'
 import Sticky, { StickyState } from '@components/Sticky'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { clamp, useResize } from '@utils'
 
 import AboutHeading from './About.Heading'
@@ -203,7 +203,7 @@ const AboutTestimonialContainer = styled.div`
       background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #0b0c0f 20%);
     }
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       height: 20vh;
       min-height: 100px;
     `}
@@ -240,7 +240,7 @@ const Card = styled.div`
   box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
   transition: background 0.1s;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     flex-direction: column;
     text-align: center;
     height: auto;
@@ -248,13 +248,13 @@ const Card = styled.div`
     padding: 30px 30px 0;
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     padding: 30px 15px 0;
   `}
 `
 
 const LogoContainer = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
     order: 3;
   `}
 `
@@ -263,7 +263,7 @@ const Role = styled.div`
   font-weight: 700;
   color: #fff;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 25px;
   `}
 `
@@ -271,12 +271,12 @@ const Role = styled.div`
 const Text = styled.p`
   color: ${p => p.theme.colors.grey};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-bottom: 30px;
     border-bottom: 1px solid rgba(250, 250, 250, 0.05);
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 16px;
   `}
 `
@@ -287,7 +287,7 @@ const VerticalDivider = styled.div`
   margin-right: 40px;
   background: rgba(250, 250, 250, 0.05);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -297,11 +297,11 @@ const HeadingLineBreak = styled.div`
     width: 70%;
     display: block;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       width: 80%;
     `}
 
-    ${mediaqueries.phone`
+    ${media.phone`
       width: 90%;
     `}
   }
