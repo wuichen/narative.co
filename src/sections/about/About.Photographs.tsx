@@ -103,7 +103,7 @@ function AboutPhotographs() {
   const rowThreeRef = useRef()
   const rowFourRef = useRef()
 
-  const [ref, inView] = useInView({ threshold: 0.4 })
+  const [ref, inView] = useInView({ threshold: 0.3 })
   const [sectionHeight, setSectionHeight] = useState(2000)
   const [scale, setScale] = useState(1)
   const { width, height } = useResize()
@@ -304,8 +304,6 @@ export default AboutPhotographs
 
 const LightSection = styled.div`
   position: relative;
-  margin-bottom: -60vh;
-  padding-bottom: 60vh;
 `
 
 const StyledImage = styled(Image)`
