@@ -119,7 +119,7 @@ function AboutPhotographs() {
             height={`${sectionHeight}px`}
             render={({ progress }: StickyState) => {
               const scaleFirstGrid = clamp(
-                scale + progress * 4 * (1 - scale),
+                scale + progress * 4.5 * (1 - scale),
                 0,
                 1
               )
