@@ -117,7 +117,7 @@ function AboutPhotographs() {
     }
   }, [width])
 
-  const config = { mass: 4, tension: 500, friction: 100 }
+  const config = { mass: 4, tension: 500, friction: 150 }
 
   const [propsRowOne, setRowOne] = useSpring(() => ({
     offset: 1,
@@ -170,7 +170,7 @@ function AboutPhotographs() {
   }, [imageGridRef])
 
   const calcTransform = (offset: number): string =>
-    `translateY(${offset * 22}vh)`
+    `translateY(${offset * 20}vh)`
 
   const rowOneStyles = {
     transform: propsRowOne.offset.interpolate(calcTransform),
