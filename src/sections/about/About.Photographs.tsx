@@ -105,7 +105,7 @@ function AboutPhotographs() {
     setSectionHeight(box.height)
 
     if (box.width !== 1140) {
-      setScale(1140 / box.width)
+      setScale(1140 / clamp(box.width, 320, 1680))
     }
   }, [width])
 
@@ -126,7 +126,12 @@ function AboutPhotographs() {
 
               return (
                 <div
-                  style={{ width: '100%', padding: '140px 15px 0' }}
+                  style={{
+                    width: '100%',
+                    padding: '140px 15px 0',
+                    maxWidth: '2000px',
+                    margin: '0 auto',
+                  }}
                   ref={containerRef}
                 >
                   <div ref={ref}>
@@ -147,9 +152,10 @@ function AboutPhotographs() {
                           progress) *
                           20}%)`,
                         zIndex: 2,
+                        willChange: 'transform',
                       }}
                     >
-                      <Images data-scroll-fade={true}>
+                      <Images>
                         <ImageLight>
                           <StyledImage src={lightOne.childImageSharp.fluid} />
                         </ImageLight>
@@ -157,7 +163,7 @@ function AboutPhotographs() {
                           <StyledImage src={lightTwo.childImageSharp.fluid} />
                         </ImageLight>
                       </Images>
-                      <ImagesReverse data-scroll-fade={true}>
+                      <ImagesReverse>
                         <ImageLight>
                           <StyledImage src={lightThree.childImageSharp.fluid} />
                         </ImageLight>
@@ -170,9 +176,10 @@ function AboutPhotographs() {
                   <ImageGrid
                     style={{
                       transform: ` translateY(-${(1 - progress) * 20}%)`,
+                      willChange: 'transform',
                     }}
                   >
-                    <Images data-scroll-fade={true}>
+                    <Images>
                       <ImageDark>
                         <StyledImage src={darkOne.childImageSharp.fluid} />
                       </ImageDark>
@@ -180,7 +187,7 @@ function AboutPhotographs() {
                         <StyledImage src={darkTwo.childImageSharp.fluid} />
                       </ImageDark>
                     </Images>
-                    <ImagesReverse data-scroll-fade={true}>
+                    <ImagesReverse>
                       <ImageDark>
                         <StyledImage src={darkThree.childImageSharp.fluid} />
                       </ImageDark>
@@ -240,7 +247,8 @@ const LightOverlay = styled.div<{ inView: boolean }>`
 `
 
 const Spacer = styled.div`
-  height: 18vh;
+  height: 16vh;
+  max-height: 150px;
 `
 
 const ImageGrid = styled.div`
