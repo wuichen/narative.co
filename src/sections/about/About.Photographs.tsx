@@ -266,9 +266,11 @@ const ImagesReverse = styled.div`
 const ImageLight = styled.div`
   background: #e1dce1;
   height: 73.4vh;
+  max-height: 660px;
 `
 
 const ImageDark = styled.div`
   background: ${p => p.theme.colors.kepler};
   height: 73.4vh;
+  max-height: 660px;
 `
