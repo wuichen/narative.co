@@ -59,7 +59,7 @@ const LargeHeading = styled(Heading.h2)`
   font-weight: 700;
   font-size: 70px;
   letter-spacing: -0.5px;
-  line-height: 1.1;
+  line-height: 1.15;
   font-family: ${p => p.theme.fontfamily.serif};
   background: transparent;
   color: transparent;

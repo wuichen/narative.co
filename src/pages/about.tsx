@@ -76,12 +76,10 @@ const TeamGradient = styled.div`
 `
 
 const MiddleGradient = styled.div`
-  position: relative;
   background: #111216;
 `
 
 const BottomGradient = styled.div`
-  position: relative;
   background: linear-gradient(#111216, #08080b);
 
   /* &::after {

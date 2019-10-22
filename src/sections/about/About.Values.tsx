@@ -41,14 +41,21 @@ function AboueValues() {
     if (shapeRef.current) {
       const shapeRect = shapeRef.current.getBoundingClientRect()
 
-      let scaleMultipler = 1.25
+      let scaleMultipler = 1.4
       if (height >= 900) {
-        scaleMultipler = 1.6
+        scaleMultipler = 1.8
       } else if (height > 1000) {
-        scaleMultipler = 2.5
+        scaleMultipler = 4
       }
 
-      const scale = (shapeRect.height + height * scaleMultipler) / height + 2
+      let constantMultiple = 1.8
+      if (height >= 900) {
+        constantMultiple = 2.5
+      }
+
+      const scale =
+        (shapeRect.height + height * 1.4 * scaleMultipler) / height +
+        constantMultiple
       setScale(scale)
     }
   }, [width, height, shapeRef])
