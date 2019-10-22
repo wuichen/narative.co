@@ -63,6 +63,8 @@ const LargeHeading = styled(Heading.h2)`
   font-family: ${p => p.theme.fontfamily.serif};
   background: transparent;
   color: transparent;
+  transition: color 0.3s;
+
 
   ${media.desktop`
     font-size: 60px;
@@ -85,6 +87,7 @@ const Text = styled.p`
   font-size: 22px;
   line-height: 1.28;
   color: #fff;
+  transition: color 0.3s;
 
   ${media.tablet`
     font-size: 20px;

@@ -53,7 +53,7 @@ const Container = styled.div<{ inView: boolean }>`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 50px auto 6vh;
+  margin: 50px auto 3vh;
 `
 
 const Heading = styled.h2<{ inView: boolean }>`
