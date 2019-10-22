@@ -244,10 +244,19 @@ function AboutTeam() {
       const { width: cardsWidth } = $cards.getBoundingClientRect()
       const { width: cardWidth } = $cards.firstChild.getBoundingClientRect()
 
-      const offset =
-        width > 1024
-          ? cardsWidth - cardWidth - cardWidth - GAP_BETWEEN_CARDS
-          : cardsWidth - cardWidth
+      let offset = cardsWidth - cardWidth
+
+      if (width <= 768) {
+        offset = cardsWidth - cardWidth - cardWidth + GAP_BETWEEN_CARDS - 30
+      }
+
+      if (width <= 460) {
+        offset = cardsWidth - cardWidth + 10
+      }
+
+      if (width >= 1024) {
+        offset = cardsWidth - cardWidth - cardWidth - GAP_BETWEEN_CARDS
+      }
 
       setHorizontalOffset(offset)
     }
@@ -507,10 +516,14 @@ const Modal = styled.div`
 
   & > div {
     flex: 1;
-    max-width: 1140px;
+    max-width: 1100px;
     max-height: 630px;
     height: 100%;
   }
+
+  ${media.phablet`
+    padding: 15px;
+  `}
 `
 
 const ModalContent = styled.div`
@@ -526,6 +539,10 @@ const ModalContent = styled.div`
   background: #000;
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+
+  ${media.tablet`
+    overflow-y: scroll;
+  `}
 `
 
 const ModalGrid = styled.div`
@@ -553,6 +570,14 @@ const ModalAbout = styled.div`
     padding: 40px 20px 20px;
     pointer-events: none;
   `}
+
+  @media (max-height: 660px) {
+   padding-top: 20vh; 
+  }
+
+  @media (max-height: 500px) {
+   padding-top: 60vh; 
+  }
 `
 
 const ModalText = styled.p<{ index: number }>`
@@ -710,6 +735,11 @@ const TextContainer = styled.div`
   display: grid;
   grid-template-columns: 261px 361px;
   grid-column-gap: 57px;
+
+  ${media.tablet`
+    display: block;
+    max-width: 355px;
+  `}
 `
 
 const Text = styled.p`
@@ -719,6 +749,7 @@ const Text = styled.p`
 
   ${media.tablet`
     font-size: 16px;
+    margin-bottom: 20px;
   `}
 `
 
@@ -744,7 +775,7 @@ const Cards = styled.div`
   grid-template-columns: repeat(5, 390px);
   grid-column-gap: 20px;
 
-  ${media.tablet`
+  ${media.phablet`
     grid-template-columns: repeat(5, 90vw);
     grid-column-gap: 10px;
   `}
@@ -815,8 +846,17 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   }
 
   ${media.tablet`
-    height: 440px;
+    height: 66vh;
+    max-height: 550px;
     padding: 0 0 30px;
+  `}
+
+  ${media.phablet`
+    height: 440px;
+  `}
+
+  ${media.phone_small`
+    height: 380px;
   `}
 `
 

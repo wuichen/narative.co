@@ -16,7 +16,7 @@ import AboutStudioLabs from '../sections/about/About.StudioLabs'
 import AboutContact from '../sections/about/About.Contact'
 
 function AboutPage({ data, location }) {
-  const [ref, inView] = useInView({ threshold: 0.96 })
+  const [ref, inView] = useInView({ threshold: 0.9 })
 
   const contentful = data.allContentfulPage.edges[0].node
   const pageBackground =

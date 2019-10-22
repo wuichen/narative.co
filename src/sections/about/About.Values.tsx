@@ -42,8 +42,8 @@ function AboueValues() {
       const shapeRect = shapeRef.current.getBoundingClientRect()
 
       let scaleMultipler = 1.25
-      if (height > 900) {
-        scaleMultipler = 1.5
+      if (height >= 900) {
+        scaleMultipler = 1.6
       } else if (height > 1000) {
         scaleMultipler = 2.5
       }

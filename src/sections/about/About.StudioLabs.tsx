@@ -1,32 +1,143 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled, { keyframes } from 'styled-components'
+import usePortal from 'react-useportal'
+import { Link, useStaticQuery, graphql } from 'gatsby'
+import SVG from 'react-inlinesvg'
+import OutsideClickHandler from 'react-outside-click-handler'
 
+import Heading from '@components/Heading'
 import Section from '@components/Section'
-import media from '@styles/media'
+import Image from '@components/Image'
 
-function AboutStudioLabs({ inView }: { inView: boolean }) {
+import media from '@styles/media'
+import { scrollable, useResize } from '@utils'
+import { ExIcon, ExternalIcon } from '../../icons/ui/index'
+import { IGraphqlSharpFluidImage } from '../../types/index'
+
+export const labsImageQuery = graphql`
+  {
+    labsHero: file(name: { regex: "/labs-hero-phone/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1060, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+  }
+`
+
+function AboutStudioLabs() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollable('disable')
+
+      function handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          setIsOpen(false)
+          scrollable('enable')
+        }
+      }
+
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    } else {
+      scrollable('enable')
+    }
+  }, [isOpen])
+
   return (
-    <Container>
-      <Section narrow>
-        <Blocks>
-          <Block>
-            <BlockInner>
-              <NarativeStudioLogo />
-              <p>Product design, development and marketing services</p>
-            </BlockInner>
-          </Block>
-          <Block pad>
-            <BlockInner>
-              <NarativeLabsLogo />
-              <p>Internal product incubator exploring untapped markets</p>
-            </BlockInner>
-          </Block>
-          <ButtonMobile>Learn more</ButtonMobile>
-        </Blocks>
-        <div></div>
-      </Section>
-      <Button>Learn more</Button>
-    </Container>
+    <>
+      <Container>
+        <Section narrow>
+          <Blocks>
+            <Block>
+              <BlockInner>
+                <NarativeStudioLogo />
+                <p>Product design, development and marketing services</p>
+              </BlockInner>
+            </Block>
+            <Block pad>
+              <BlockInner>
+                <NarativeLabsLogo />
+                <p>Internal product incubator exploring untapped markets</p>
+              </BlockInner>
+            </Block>
+            <ButtonMobile>Learn more</ButtonMobile>
+          </Blocks>
+          <div></div>
+        </Section>
+        <Button onClick={() => setIsOpen(true)}>Learn more</Button>
+      </Container>
+      <AboutStudioLabsModal
+        isOpen={isOpen}
+        handleOutsideClick={() => setIsOpen(false)}
+      />
+    </>
+  )
+}
+
+function AboutStudioLabsModal({
+  isOpen,
+  handleOutsideClick,
+}: {
+  isOpen: boolean
+  handleOutsideClick: () => void
+}) {
+  const { Portal } = usePortal()
+  const { labsHero } = useStaticQuery(labsImageQuery)
+
+  const modalStyles = isOpen
+    ? { opacity: 1, transition: `opacity 0s ease 0.4s` }
+    : { opacity: 0, pointerEvents: 'none' }
+
+  return (
+    <>
+      {isOpen && (
+        <Portal>
+          <Modal style={modalStyles}>
+            <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+              <ModalContent>
+                <CloseButton onClick={handleOutsideClick}>
+                  <ExIcon fill="#fff" />
+                </CloseButton>
+
+                <ModalGrid>
+                  <ModalAbout>
+                    <ModalName>Labs title goes here</ModalName>
+                    <ModalRole>—</ModalRole>
+                    <ModalText index={0}>
+                      I’ve been crafting digital experiences for humans for the
+                      past ten years, having the honour to contribute on the
+                      growth of companies like Hopper, Lightspeed, Breather
+                      among others.
+                    </ModalText>
+
+                    <ModalText index={1}>
+                      During this journey I had the opportunity to meet the most
+                      talented group of people, and build a world-class team to
+                      develop startups.
+                    </ModalText>
+                    <ModalText index={2}>
+                      Phasellus aliquet mollis felis, sed vehicula urna sodales
+                      at. Cras cursus semper lorem sit amet tempor. Duis nec
+                      lacus
+                    </ModalText>
+                    <ModalLink to="/labs">
+                      See our products <InternalLinkIcon />
+                    </ModalLink>
+                  </ModalAbout>
+                  <MediaAnimator>
+                    <Image src={labsHero.childImageSharp.fluid} />
+                  </MediaAnimator>
+                </ModalGrid>
+              </ModalContent>
+            </OutsideClickHandler>
+          </Modal>
+        </Portal>
+      )}
+    </>
   )
 }
 
@@ -197,6 +308,182 @@ const ButtonMobile = styled.button`
   @media (max-width: 880px) {
     display: block;
   }
+`
+
+const fadeInAndUp = keyframes`
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 1;
+
+  ${media.phablet`
+    top: 16px;
+    left: 16px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -50%;
+      top: -50%;
+      width: 200%;
+      height: 200%;
+    }
+  `}
+`
+
+const fadeInAndUpModal = keyframes`
+  from { opacity: 0; transform:  translateY(20px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0); }
+`
+
+const Modal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  z-index: 10;
+  animation: ${fadeInAndUpModal} 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)
+    forwards;
+  backdrop-filter: blur(10px);
+
+  & > div {
+    flex: 1;
+    max-width: 1100px;
+    max-height: 630px;
+    height: 100%;
+  }
+
+  ${media.phablet`
+    padding: 15px;
+  `}
+`
+
+const ModalContent = styled.div`
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 630px;
+  max-width: 1140px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  border-radius: 5px;
+  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+
+  ${media.tablet`
+    overflow-y: scroll;
+  `}
+`
+
+const ModalGrid = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const ModalAbout = styled.div`
+  width: 100%;
+  max-width: 480px;
+  margin: 30px 0 0 25px;
+
+  ${media.desktop_small`
+    max-width: initial;
+    padding: 40px 80px;
+    margin: 0 auto;
+  `}
+  
+  ${media.tablet`
+    padding: 30px;
+  `}
+
+  ${media.phablet`
+    padding: 40px 20px 20px;
+    pointer-events: none;
+  `}
+
+  @media (max-height: 660px) {
+   padding-top: 20vh; 
+  }
+
+  @media (max-height: 500px) {
+   padding-top: 60vh; 
+  }
+`
+
+const ModalRole = styled.div`
+  font-size: 22px;
+  color: ${p => p.theme.colors.grey};
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
+
+  ${media.phablet`
+    margin-bottom: 20px;
+  `}
+`
+
+const ModalText = styled.p<{ index: number }>`
+  color: #fff;
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
+    ${p => p.index * 100 + 300}ms forwards;
+
+  ${media.phablet`
+    margin-bottom: 20px;
+  `}
+`
+
+const ModalLink = styled(Link)`
+  display: block;
+  color: ${p => p.theme.colors.gold};
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 500ms
+    forwards;
+
+  svg {
+    margin: 0 0 4px 4px;
+  }
+`
+
+const ModalName = styled(Heading.h2)`
+  margin-bottom: 5px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
+    forwards;
+`
+
+const MediaAnimator = styled.div`
+  width: 472px;
+  margin-left: 35px;
+  padding-left: 5%;
+  flex: 1;
+  opacity: 0;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+
+  ${media.desktop_small`
+    display: none;
+  `}
 `
 
 const NarativeLabsLogo = () => (
@@ -378,5 +665,20 @@ const NarativeStudioLogo = () => (
         />
       </clipPath>
     </defs>
+  </svg>
+)
+
+const InternalLinkIcon = () => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M11.25 3.75L15.75 8.25L14.685 9.315L12 6.6225L12 15L3 15L3 13.5L10.5 13.5L10.5 6.6225L7.815 9.315L6.75 8.25L11.25 3.75Z"
+      fill="#E9DAAC"
+    />
   </svg>
 )

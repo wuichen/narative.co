@@ -195,6 +195,7 @@ const AboutTestimonialContainer = styled.div`
   position: relative;
   padding-top: 10vh;
   height: 100vh;
+  width: 100%;
 
   &::after {
     content: '';

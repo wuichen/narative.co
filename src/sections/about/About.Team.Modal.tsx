@@ -42,7 +42,6 @@ function AboutTeamModal({ isSelected, handleRef }: AboutTeamModalProps) {
     ? {
         maxWidth: '1140px',
         maxHeight: '630px',
-        overflow: 'hidden',
       }
     : {}
 
@@ -144,16 +143,19 @@ const CardContent = styled.div<{ isSelected: boolean }>`
 const ContentContainer = styled(motion.div)`
   max-width: 1140px;
   max-height: 630px;
-  width: 90vw;
-  height: 90vh;
   position: relative;
   background: #000;
   overflow: hidden;
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  padding: 0 20px;
 
   ${media.tablet`
     width: 90vw !important;    
+  `}
+
+  ${media.phablet`
+    padding: 20px;
   `}
 `
