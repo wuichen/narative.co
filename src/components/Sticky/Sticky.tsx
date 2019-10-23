@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import media from '@styles/media'
+import throttle from 'lodash/throttle'
 
 import { clamp, getOffsetTop } from '@utils'
 
@@ -24,7 +24,7 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
   const element = useRef()
 
   useEffect(() => {
-    function handleScroll() {
+    const handleScroll = throttle(() => {
       const $el = element.current as HTMLElement
 
       if ($el) {
@@ -55,7 +55,7 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
         setPosition(position)
         setProgress(progress)
       }
-    }
+    }, 10)
 
     window.addEventListener('scroll', handleScroll)
 
