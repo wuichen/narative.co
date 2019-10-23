@@ -201,7 +201,7 @@ const AboutTestimonialContainer = styled.div`
     content: '';
     position: absolute;
     height: 30vh;
-    min-height: 300px;
+    min-height: 200px;
     right: 0;
     left: 0;
     bottom: 0;
