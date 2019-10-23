@@ -42,8 +42,7 @@ function AboutPage({ location }) {
   const [ref, inView] = useInView({ threshold: 1 })
 
   const contentful = allContentfulPage.edges[0].node
-  const pageBackground =
-    'linear-gradient(#08080B,rgb(17, 18, 22) 60%,#1a1e24 100%)'
+  const pageBackground = '#08080B'
 
   const navConfig = {
     offset: true,
