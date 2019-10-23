@@ -182,7 +182,7 @@ function AboutTestimonial() {
   )
 }
 
-export default React.memo(AboutTestimonial)
+export default AboutTestimonial
 
 const AboutTestimonialContainer = styled.div`
   position: relative;
