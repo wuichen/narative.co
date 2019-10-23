@@ -87,7 +87,8 @@ function AboutTestimonial() {
         const four = progress * 2
         const textStyles =
           progress > 0
-            ? `style="opacity: ${1 - four}; transform: scale(${1 -
+            ? ` style="display: block; opacity: ${1 -
+                four}; transform: scale(${1 -
                 progress / 4}); will-change: opacity, transform;"`
             : ``
 
@@ -96,7 +97,7 @@ function AboutTestimonial() {
             <HeadingLineBreak>
               <AboutHeading
                 heading="Independent,<br /> but never alone"
-                text={`While we like to do things our own way, nobody can do it all by themselves. <div style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div>`}
+                text={`<span${textStyles}>While we like to do things our own way, nobody can do it all by themselves. <div style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div></span>`}
               />
             </HeadingLineBreak>
             <Section narrow>
