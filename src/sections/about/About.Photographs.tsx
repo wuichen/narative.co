@@ -97,7 +97,7 @@ function AboutPhotographs() {
   const rowThreeRef = useRef()
   const rowFourRef = useRef()
 
-  const [ref, inView] = useInView({ threshold: 0.2 })
+  const [ref, inView] = useInView({ threshold: 0.5 })
   const [sectionHeight, setSectionHeight] = useState(2000)
   const [scale, setScale] = useState(1)
   const { width, height } = useResize()
@@ -176,40 +176,46 @@ function AboutPhotographs() {
 
             return (
               <ImageSection ref={containerRef}>
-                <LightSection ref={ref}>
+                <LightSection>
                   <AboutHeading
                     heading={`<div class="${headingClass}">Going the distance</div>`}
                     text={`<span class="${textClass}">Narative is an all-remote team, meaning we work physically apart — something that's taught us the importance of always staying in sync. We communicate constantly and transparently, with each other and with each of our partners. And when it matters most, we make sure to all get together.</span>`}
                   />
                   <Spacer />
                   <ImageGrid style={{ transform: `scale(${firstRowScale})` }}>
-                    <Images ref={rowOneRef}>
-                      <ImageWrapper>
-                        <StyledImage src={lightOne.childImageSharp.fluid} />
-                      </ImageWrapper>
-                      <ImageWrapper hideOnMobile>
-                        <StyledImage src={lightTwo.childImageSharp.fluid} />
-                      </ImageWrapper>
-                    </Images>
-                    <ImagesMobile style={rowTwoStyles}>
-                      <ImageWrapper>
-                        <StyledImage src={lightTwo.childImageSharp.fluid} />
-                      </ImageWrapper>
-                      <ImageWrapper>
-                        <StyledImage src={lightThree.childImageSharp.fluid} />
-                      </ImageWrapper>
-                    </ImagesMobile>
-
-                    <animated.div style={rowTwoStyles}>
-                      <ImagesReverse ref={rowTwoRef}>
+                    <div ref={ref}>
+                      <Images ref={rowOneRef}>
+                        <ImageWrapper>
+                          <StyledImage src={lightOne.childImageSharp.fluid} />
+                        </ImageWrapper>
                         <ImageWrapper hideOnMobile>
-                          <StyledImage src={lightThree.childImageSharp.fluid} />
+                          <StyledImage src={lightTwo.childImageSharp.fluid} />
+                        </ImageWrapper>
+                      </Images>
+                      <ImagesMobile style={rowTwoStyles}>
+                        <ImageWrapper>
+                          <StyledImage src={lightTwo.childImageSharp.fluid} />
                         </ImageWrapper>
                         <ImageWrapper>
-                          <StyledImage src={lightFour.childImageSharp.fluid} />
+                          <StyledImage src={lightThree.childImageSharp.fluid} />
                         </ImageWrapper>
-                      </ImagesReverse>
-                    </animated.div>
+                      </ImagesMobile>
+
+                      <animated.div style={rowTwoStyles}>
+                        <ImagesReverse ref={rowTwoRef}>
+                          <ImageWrapper hideOnMobile>
+                            <StyledImage
+                              src={lightThree.childImageSharp.fluid}
+                            />
+                          </ImageWrapper>
+                          <ImageWrapper>
+                            <StyledImage
+                              src={lightFour.childImageSharp.fluid}
+                            />
+                          </ImageWrapper>
+                        </ImagesReverse>
+                      </animated.div>
+                    </div>
                   </ImageGrid>
                 </LightSection>
                 <ImageGrid ref={imageGridRef}>
