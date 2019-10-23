@@ -128,7 +128,7 @@ function AboutPhotographs() {
           const getOffset = (el: HTMLElement) =>
             clamp(
               (el.getBoundingClientRect().top +
-                (el.getBoundingClientRect().height / 3) * 2) /
+                (el.getBoundingClientRect().height / 4) * 2) /
                 height,
               0,
               1
@@ -325,7 +325,7 @@ const ImageGrid = styled.div`
 
 const Images = styled.div`
   display: grid;
-  grid-template-columns: 66.5fr 33.5fr;
+  grid-template-columns: 70fr 30fr;
   grid-template-rows: 1fr;
   grid-gap: 15px;
   margin-bottom: 15px;
@@ -339,7 +339,7 @@ const Images = styled.div`
 
 const ImagesReverse = styled.div`
   display: grid;
-  grid-template-columns: 33.5fr 66.5fr;
+  grid-template-columns: 30fr 70fr;
   grid-template-rows: 1fr;
   grid-gap: 15px;
 
@@ -363,8 +363,8 @@ const ImagesMobile = styled.div`
 
 const ImageWrapper = styled.div<{ hideOnMobile?: boolean }>`
   height: 73.4vh;
-  min-height: 320px;
-  max-height: 660px;
+  min-height: 500px;
+  max-height: 540px;
 
   ${media.desktop`
     height: 62vh;
