@@ -14,7 +14,7 @@ import { ExIcon } from '../../icons/ui/index'
 
 export const labsImageQuery = graphql`
   {
-    labsHero: file(name: { regex: "/labs-floating-phone-screen" }) {
+    labsHero: file(name: { regex: "/labs-floating-phone-screen/" }) {
       childImageSharp {
         fluid(maxWidth: 1060, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
