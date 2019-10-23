@@ -63,6 +63,7 @@ const LargeHeading = styled(Heading.h2)`
   font-family: ${p => p.theme.fontfamily.serif};
   background: transparent;
   color: transparent;
+  opacity: 1;
   transition: color 0.3s;
 
 

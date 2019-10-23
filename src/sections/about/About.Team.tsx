@@ -13,7 +13,7 @@ import SocialLinksDynamic from '@components/SocialLinks/SocialLinks.Dynamic'
 
 import media from '@styles/media'
 import { scrollable, useResize } from '@utils'
-import { ExIcon, ChevronRightIcon } from '../../icons/ui/index'
+import { ExIcon, ChevronRightIcon, ChevronLeftIcon } from '../../icons/ui/index'
 import { IGraphqlSharpFluidImage, IStaticImage } from '../../types/index'
 
 import AboutTeamModal from './About.Team.Modal'
@@ -124,7 +124,7 @@ function AboutTeam() {
     },
     {
       name: 'Dennis Brotzky',
-      role: 'Software Engineering',
+      role: 'Frontend Engineering',
       illustration: illustrations.dennis,
       signature: illustrations.dennisSig.publicURL,
       about: [
@@ -142,7 +142,7 @@ function AboutTeam() {
 
     {
       name: 'Dan Le Van',
-      role: 'Software Engineering',
+      role: 'Backend Engineering',
       illustration: illustrations.dan,
       signature: illustrations.danSig.publicURL,
       about: [
@@ -308,13 +308,11 @@ function AboutTeam() {
                           <IllustrationColored isOpen={cardIsOpen}>
                             <Image
                               src={person.illustration.childImageSharp.fluid}
-                              loading="eager"
                             />
                           </IllustrationColored>
                           <Illustration isOpen={cardIsOpen}>
                             <Image
                               src={person.illustration.childImageSharp.fluid}
-                              loading="eager"
                             />
                           </Illustration>
                           <div style={{ position: 'relative' }}>
@@ -398,10 +396,15 @@ function AboutTeamModalContent({
     : { opacity: 0, pointerEvents: 'none' }
 
   const activeIndex = people.findIndex(p => p.name === person.name)
-  let nextIndex = activeIndex + 1
 
+  let nextIndex = activeIndex + 1
   if (activeIndex === people.length - 1) {
     nextIndex = 0
+  }
+
+  let prevIndex = activeIndex - 1
+  if (activeIndex === 0) {
+    prevIndex = people.length - 1
   }
 
   useEffect(() => {
@@ -459,6 +462,12 @@ function AboutTeamModalContent({
               </MediaAnimator>
             </ModalGrid>
           )}
+          <ModalPrev
+            onClick={() => handleSetSelectedPersonIndex(prevIndex)}
+            isOpen={isOpen}
+          >
+            <ChevronLeftIcon />
+          </ModalPrev>
           <ModalNext
             onClick={() => handleSetSelectedPersonIndex(nextIndex)}
             isOpen={isOpen}
@@ -559,7 +568,7 @@ const Text = styled.p`
   `}
 
   ${media.phablet`
-    font-size: 16px;
+    font-size: 18px;
   `}
 `
 
@@ -899,6 +908,45 @@ const ModalNext = styled.button<{ isOpen: boolean }>`
 
   ${media.desktop_medium`
     right: -10px;
+  `}
+
+  ${media.tablet`
+    display: none;
+  `}
+`
+
+const ModalPrev = styled.button<{ isOpen: boolean }>`
+  position: absolute;
+  left: -20px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  background: #fff;
+  border-radius: 50%;
+  opacity: ${p => (p.isOpen ? 1 : 0)};
+  transform: translate(${p => (p.isOpen ? 0 : 8)}px, -50%);
+  transition: all 0.4s ease 0.4s;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(-2px);
+  }
+
+  &:hover svg {
+    background: #fafafa;
+  }
+
+  opacity: 0;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+
+  ${media.desktop_medium`
+    left: -10px;
   `}
 
   ${media.tablet`

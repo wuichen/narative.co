@@ -53,6 +53,21 @@ export const ChevronRightIcon = ({ fill = 'black' }) => (
   </svg>
 )
 
+export const ChevronLeftIcon = ({ fill = 'black' }) => (
+  <svg
+    width="7"
+    height="11"
+    viewBox="0 0 7 11"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6.44336 1.2249L2.46075 5.2162L6.44336 9.20751L5.21727 10.4336L-0.000118086 5.2162L5.21727 -0.00118862L6.44336 1.2249Z"
+      fill={fill}
+    />
+  </svg>
+)
+
 export const ExIcon = ({ fill = 'black' }) => (
   <svg width="24" height="24" viewBox="0 0 24 24" version="1.1">
     <g fill="none">

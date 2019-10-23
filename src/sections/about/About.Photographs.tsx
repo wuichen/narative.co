@@ -301,7 +301,7 @@ const LightOverlay = styled.div<{ inView: boolean }>`
   height: 100%;
   background: ${p => p.theme.colors.sirius};
   opacity: ${p => (p.inView ? 1 : 0)};
-  transition: opacity 0.6s;
+  transition: opacity 1s;
   pointer-events: none;
 `
 

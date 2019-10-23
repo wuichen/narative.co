@@ -105,7 +105,7 @@ function AboueValues() {
           heading={`
               <span class="AboutValues__MobileBreak">Who we</span> choose to be
           `}
-          text="A company's culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
+          text="A company’s culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
         />
       </HeadingContainer>
       <Desktop>
@@ -459,7 +459,7 @@ const ShapeMobile = () => (
         width="329"
         height="95"
         stroke="white"
-        stroke-width="6"
+        strokeWidth="6"
       />
     </g>
     <defs>
@@ -470,7 +470,7 @@ const ShapeMobile = () => (
         width="553.869"
         height="305.869"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
         <feFlood flood-opacity="0" result="BackgroundImageFix" />
         <feBlend
@@ -491,7 +491,7 @@ const ShapeMobile = () => (
         width="397.604"
         height="163.604"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
         <feFlood flood-opacity="0" result="BackgroundImageFix" />
         <feColorMatrix

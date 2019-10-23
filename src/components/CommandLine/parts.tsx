@@ -34,7 +34,7 @@ function createReadingList(articles) {
   return [
     {
       name: constants.GO_TO_ARTICLES,
-      keys: ['G', 'A'],
+      keys: ['G', 'R'],
       label: ['All ', 'Articles'],
       icon: BookIcon,
     },
