@@ -96,7 +96,7 @@ function AboutTestimonial() {
             <HeadingLineBreak>
               <AboutHeading
                 heading="Independent,<br /> but never alone"
-                text={`<div ${textStyles}>While we like to do things our own way, nobody can do it all by themselves. <div style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div></div>`}
+                text={`While we like to do things our own way, nobody can do it all by themselves. <div style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</div>`}
               />
             </HeadingLineBreak>
             <Section narrow>
