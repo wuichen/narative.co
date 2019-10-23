@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import media from '@styles/media'
 
-import { clamp } from '@utils'
+import { clamp, getOffsetTop } from '@utils'
 
 export interface StickyState {
   position: number
@@ -28,15 +28,6 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
       const $el = element.current as HTMLElement
 
       if ($el) {
-        const getOffsetTop = (element: any) => {
-          let offsetTop = 0
-          while (element) {
-            offsetTop += element.offsetTop
-            element = element.offsetParent
-          }
-          return offsetTop
-        }
-
         const scrollPosition = window.pageYOffset || window.scrollY
         const topOfElement = getOffsetTop($el)
         const topOfElementRelativeToDoc = $el.getBoundingClientRect().top

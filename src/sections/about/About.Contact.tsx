@@ -30,10 +30,7 @@ const Container = styled.div<{ inView: boolean }>`
   display: flex;
   align-items: flex-end;
   position: relative;
-  height: calc(100vh - 400px);
-  padding-top: 400px;
-  margin-bottom: -310px;
-  padding-bottom: 310px;
+  height: calc(100vh - 310px);
 
   ${p =>
     !p.inView &&
@@ -49,9 +46,9 @@ const Container = styled.div<{ inView: boolean }>`
   }
 
   ${media.tablet`
-    padding-top: 300px;
-    margin-bottom: -200px;
-    padding-bottom: 200px;
+    padding-top: 0;
+    height: 100vh;
+    align-items: center;
   `}
 `
 

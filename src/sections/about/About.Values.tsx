@@ -64,7 +64,6 @@ function AboueValues() {
   useEffect(() => {
     if (mobileShapeRef.current) {
       const shapeRect = mobileShapeRef.current.getBoundingClientRect()
-      console.log(shapeRect)
 
       mobileShapeRef.current.style.top = `-${shapeRect.height / 1.15}px`
       headingRef.current.style.paddingBottom = `${shapeRect.height / 1.45}px`

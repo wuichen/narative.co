@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
-import { useInView } from 'react-intersection-observer'
 
 import Divider from '@components/Divider'
 import Layout from '@components/Layout'
 import SEO from '@components/SEO'
 
 import media from '@styles/media'
+import { getOffsetTop, useScrollPosition } from '@utils'
 
 import AboutHero from '../sections/about/About.Hero'
 import AboutTeam from '../sections/about/About.Team'
@@ -39,11 +39,21 @@ const pageQuery = graphql`
 
 function AboutPage({ location }) {
   const { allContentfulPage } = useStaticQuery(pageQuery)
-  const [ref, inView] = useInView({ threshold: 1 })
-
   const contentful = allContentfulPage.edges[0].node
+
+  const [inView, setInView] = useState(false)
+  const position = useScrollPosition()
+  const ref = useRef()
+
+  useEffect(() => {
+    const offsetTop = getOffsetTop(ref.current)
+    setInView(position + 100 > offsetTop)
+
+    console.log({ position, offsetTop })
+  }, [ref, position])
+
   const pageBackground =
-    'linear-gradient(#08080B,rgb(17, 18, 22) 60%,#1a1e24 100%)'
+    'linear-gradient(#08080B,rgb(17, 18, 22) 60%,#08080b 100%)'
 
   const navConfig = {
     offset: true,

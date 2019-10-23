@@ -523,3 +523,12 @@ export function useWheelScroll(
 
   useDomEvent(ref, 'wheel', isActive && onWheel, { passive: false })
 }
+
+export function getOffsetTop(element: any) {
+  let offsetTop = 0
+  while (element) {
+    offsetTop += element.offsetTop
+    element = element.offsetParent
+  }
+  return offsetTop
+}
