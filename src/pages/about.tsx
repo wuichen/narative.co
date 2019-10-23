@@ -7,6 +7,8 @@ import Divider from '@components/Divider'
 import Layout from '@components/Layout'
 import SEO from '@components/SEO'
 
+import media from '@styles/media'
+
 import AboutHero from '../sections/about/About.Hero'
 import AboutTeam from '../sections/about/About.Team'
 import AboutValues from '../sections/about/About.Values'
@@ -37,7 +39,7 @@ const pageQuery = graphql`
 
 function AboutPage({ location }) {
   const { allContentfulPage } = useStaticQuery(pageQuery)
-  const [ref, inView] = useInView({ threshold: 0.9 })
+  const [ref, inView] = useInView({ threshold: 1 })
 
   const contentful = allContentfulPage.edges[0].node
   const pageBackground =
@@ -90,6 +92,7 @@ export default AboutPage
 
 const HeroGradient = styled.div`
   background: linear-gradient(#08080b, #13151a);
+  overflow-x: hidden;
 `
 
 const TeamGradient = styled.div`
@@ -115,4 +118,15 @@ const TransitionLayer = styled.div`
   z-index: 1;
   transition: opacity 1s;
   will-change: opacity;
+
+  ${media.tablet`
+    &::before {
+      content: '';
+      position: absolute;
+      height: 549px;
+      bottom: -549px;
+      background: #d8d7d8;
+      z-index: 1;
+    }
+  `}
 `

@@ -152,7 +152,7 @@ function AboutTeam() {
       ],
       social: [
         'https://twitter.com/8lueberry ',
-        'https://github.com/dan-le-van',
+        'https://github.com/8lueberry',
         'https://www.instagram.com/_blu38erry/',
         'https://www.linkedin.com/in/levan/',
       ],
@@ -281,7 +281,6 @@ function AboutTeam() {
         <Sticky
           cover
           height="2200px"
-          disableOnMobile
           render={({ progress: prog }: StickyState) => {
             const cardAnimation = {
               transform: `translate3d(-${prog * horizontalOffset}px, 0 , 0)`,

@@ -35,17 +35,23 @@ const Container = styled.div<{ inView: boolean }>`
   margin-bottom: -310px;
   padding-bottom: 310px;
 
-  @media (min-height: 1200px) {
-    padding-top: 310px;
-    align-items: center;
-  }
-
   ${p =>
     !p.inView &&
     `
     button {
       border: 1px solid #fafafa;
     }
+  `}
+
+  @media (min-height: 1200px) {
+    padding-top: 310px;
+    align-items: center;
+  }
+
+  ${media.tablet`
+    padding-top: 300px;
+    margin-bottom: -200px;
+    padding-bottom: 200px;
   `}
 `
 

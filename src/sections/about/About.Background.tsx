@@ -84,7 +84,7 @@ const Text = styled.p`
 
 const CompanyLogos = styled.div`
   margin-top: 80px;
-  height: 30px;
+  height: 31px;
   display: flex;
 
   svg {

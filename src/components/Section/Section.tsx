@@ -16,6 +16,7 @@ const Section = styled.section<{
   background: ${p =>
     p.background === 'dark' ? p.theme.colors.bg : 'transparent'};
   display: ${p => (p.hideOnDesktop ? 'none' : 'block')};
+  ${p => p.hideOverflow && `overflow-x: hidden;`};
 
   ${media.desktop`
     max-width: 100%;

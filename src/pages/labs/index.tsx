@@ -170,7 +170,7 @@ function LabsPage({ data, location }) {
           pathname={location.pathname}
         />
         <LayoutHeroMobile>
-          <HeroSection>
+          <HeroSection hideOverflow>
             <ContentContainer>
               <div />
               <Transitions.CSS.FadeIn>

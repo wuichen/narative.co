@@ -116,7 +116,6 @@ const GridContainer = styled.div`
   margin: 0 auto;
   height: calc(100vh - 230px);
   min-height: 600px;
-  width: 100%;
 
   ${media.desktop_medium`
     min-height: 360px;
