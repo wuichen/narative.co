@@ -6,7 +6,7 @@ import SocialLinks from '@components/SocialLinks'
 import media from '@styles/media'
 
 const mobileLinks = [
-  { to: '/about', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
