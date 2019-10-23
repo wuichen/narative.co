@@ -91,9 +91,17 @@ const Text = styled.p`
   color: #fff;
   transition: color 0.3s;
 
+  span {
+    display: block;
+  }
+
   ${media.tablet`
     font-size: 20px;
     line-height: 1.34;
+
+    span {
+      display: inline-block;
+    }
 
     * {
       display: inline;

@@ -48,8 +48,6 @@ function AboutPage({ location }) {
   useEffect(() => {
     const offsetTop = getOffsetTop(ref.current)
     setInView(position + 100 > offsetTop)
-
-    console.log({ position, offsetTop })
   }, [ref, position])
 
   const pageBackground =
