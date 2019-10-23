@@ -83,6 +83,7 @@ function AboutPhotographs() {
     lightTwo,
     lightThree,
     lightFour,
+
     darkOne,
     darkTwo,
     darkThree,
@@ -102,7 +103,6 @@ function AboutPhotographs() {
   const { width, height } = useResize()
 
   const config = { mass: 4, tension: 500, friction: 150 }
-
   const [propsRowTwo, setRowTwo] = useSpring(() => ({ offset: 1, config }))
   const [propsRowThree, setRowThree] = useSpring(() => ({ offset: 1, config }))
   const [propsRowFour, setRowFour] = useSpring(() => ({ offset: 1, config }))

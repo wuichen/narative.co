@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import usePortal from 'react-useportal'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import SVG from 'react-inlinesvg'
 import OutsideClickHandler from 'react-outside-click-handler'
 
 import Heading from '@components/Heading'
@@ -10,9 +9,8 @@ import Section from '@components/Section'
 import Image from '@components/Image'
 
 import media from '@styles/media'
-import { scrollable, useResize } from '@utils'
-import { ExIcon, ExternalIcon } from '../../icons/ui/index'
-import { IGraphqlSharpFluidImage } from '../../types/index'
+import { scrollable } from '@utils'
+import { ExIcon } from '../../icons/ui/index'
 
 export const labsImageQuery = graphql`
   {

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { useInView } from 'react-intersection-observer'
 
 import Divider from '@components/Divider'
@@ -15,10 +15,31 @@ import AboutTestimonial from '../sections/about/About.Testimonials'
 import AboutStudioLabs from '../sections/about/About.StudioLabs'
 import AboutContact from '../sections/about/About.Contact'
 
-function AboutPage({ data, location }) {
+const pageQuery = graphql`
+  {
+    allContentfulPage(filter: { pageName: { eq: "About" } }) {
+      edges {
+        node {
+          seo {
+            title
+            description
+            image {
+              file {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+function AboutPage({ location }) {
+  const { allContentfulPage } = useStaticQuery(pageQuery)
   const [ref, inView] = useInView({ threshold: 0.9 })
 
-  const contentful = data.allContentfulPage.edges[0].node
+  const contentful = allContentfulPage.edges[0].node
   const pageBackground =
     'linear-gradient(#08080B,rgb(17, 18, 22) 60%,#1a1e24 100%)'
 
@@ -56,7 +77,7 @@ function AboutPage({ data, location }) {
       <BottomGradient>
         <AboutPhotographs />
         <AboutTestimonial />
-        <AboutStudioLabs inView={inView} />
+        <AboutStudioLabs />
         <div ref={ref} style={{ position: 'relative', zIndex: inView ? 2 : 1 }}>
           <AboutContact inView={inView} />
         </div>
@@ -81,16 +102,6 @@ const MiddleGradient = styled.div`
 
 const BottomGradient = styled.div`
   background: linear-gradient(#111216, #08080b);
-
-  /* &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    bottom: -310px;
-    height: 310px;
-    left: 0;
-    background: #08080b;
-  } */
 `
 
 const TransitionLayer = styled.div`
@@ -104,34 +115,4 @@ const TransitionLayer = styled.div`
   z-index: 1;
   transition: opacity 1s;
   will-change: opacity;
-  /* 
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    bottom: -310px;
-    height: 310px;
-    left: 0;
-    background: #d8d7d8;
-  } */
-`
-
-export const pageQuery = graphql`
-  query AboutPageQuery {
-    allContentfulPage(filter: { pageName: { eq: "About" } }) {
-      edges {
-        node {
-          seo {
-            title
-            description
-            image {
-              file {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 `

@@ -7,7 +7,6 @@ import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import Sticky, { StickyState } from '@components/Sticky'
-import Image from '@components/Image'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import media from '@styles/media'
@@ -16,7 +15,7 @@ import { useResize } from '@utils'
 import AboutHeading from './About.Heading'
 
 const shapeImagesQuery = graphql`
-  query GetShapeIllo {
+  {
     shapeWithoutShadow: file(name: { regex: "/about-shape-without-shadow/" }) {
       publicURL
     }
