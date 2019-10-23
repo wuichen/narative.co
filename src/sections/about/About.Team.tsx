@@ -607,7 +607,7 @@ const Illustration = styled.div<{ isOpen: boolean }>`
   height: 100%;
   width: 100%;
   opacity: ${p => (p.isOpen ? 0 : 1)};
-  transition: opacity 0.4s 0.3s;
+  transition: opacity 0.4s;
   filter: grayscale(1);
 `
 
