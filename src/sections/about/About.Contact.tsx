@@ -12,8 +12,7 @@ function AboutContact({ inView }: { inView: boolean }) {
 
   return (
     <Container data-scroll-fade={true} inView={inView}>
-      >
-      <Section>
+      <Section narrow>
         <Heading inView={inView}>
           That's our story. <Grey>What's yours?</Grey>
         </Heading>

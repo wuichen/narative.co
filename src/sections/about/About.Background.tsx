@@ -127,7 +127,7 @@ const CompanyLogos = styled.div`
     #logo-ritual {
       max-height: 11.28px;
       order: 4;
-      margin-right: 0;
+      margin-right: 30px;
     }
 
     #logo-unbounce {

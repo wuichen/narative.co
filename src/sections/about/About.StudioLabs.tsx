@@ -62,7 +62,9 @@ function AboutStudioLabs() {
                 <p>Internal product incubator exploring untapped markets</p>
               </BlockInner>
             </Block>
-            <ButtonMobile>Learn more</ButtonMobile>
+            <ButtonMobile onClick={() => setIsOpen(true)}>
+              Learn more
+            </ButtonMobile>
           </Blocks>
           <div></div>
         </Section>
@@ -152,7 +154,7 @@ const Container = styled.div`
   }
 
   ${media.phablet`
-    padding: 100px 0;
+    padding: 60px 0;
   `}
 `
 

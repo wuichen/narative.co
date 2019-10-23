@@ -111,6 +111,11 @@ const CardContainer = styled.div<{ isSelected: boolean }>`
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
 
   ${media.tablet`
+    height: 66vh;
+    max-height: 550px;
+`}
+
+  ${media.phablet`
     height: 440px;
     width: 90vw;
   `}
@@ -136,8 +141,24 @@ const CardContent = styled.div<{ isSelected: boolean }>`
   `}
 
   ${media.tablet`
-    padding: 0;
+
+  ${p =>
+    p.isSelected &&
+    `
+      padding: 20px;
+  
   `}
+    `}
+
+  ${media.phablet`
+
+  ${p =>
+    p.isSelected &&
+    `
+      padding: 30px 15px;
+  
+  `}
+    `}
 `
 
 const ContentContainer = styled(motion.div)`
@@ -149,13 +170,13 @@ const ContentContainer = styled(motion.div)`
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 0 20px;
 
   ${media.tablet`
-    width: 90vw !important;    
+    padding: 20px;
   `}
 
   ${media.phablet`
-    padding: 20px;
+    width: 100%;  
+
   `}
 `

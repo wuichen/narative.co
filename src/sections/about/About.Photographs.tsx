@@ -259,6 +259,10 @@ const ImageSection = styled.div`
   max-width: 1260px;
   margin: 0px auto;
   overflow: hidden;
+
+  ${media.phablet`
+    padding: 0 15px 0px;
+  `}
 `
 
 const StyledImage = styled(Image)`
@@ -273,11 +277,7 @@ const AboutWorkContainer = styled.div`
   padding: 0 0 calc(180px - 10vh);
 
   ${media.tablet`
-    padding: 100px 0 calc(180px - 10vh);
-  `}
-
-  ${media.phablet`
-  padding: 90px 0 calc(80px - 10vh);
+    padding: 100px 0 0;
   `}
 
   .Heading__InView {

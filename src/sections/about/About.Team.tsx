@@ -443,7 +443,9 @@ function AboutTeamModalContent({
                 <ModalRole>{person.role}</ModalRole>
                 <div>
                   {person.about.map((text, index) => (
-                    <ModalText index={index}>{text}</ModalText>
+                    <ModalText key={text} index={index}>
+                      {text}
+                    </ModalText>
                   ))}
                 </div>
                 <SocialAnimator>
@@ -480,200 +482,6 @@ const fadeInAndUp = keyframes`
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
-`
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 1;
-
-  ${media.phablet`
-    top: 16px;
-    left: 16px;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: -50%;
-      top: -50%;
-      width: 200%;
-      height: 200%;
-    }
-  `}
-`
-
-const Modal = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0 20px;
-
-  & > div {
-    flex: 1;
-    max-width: 1100px;
-    max-height: 630px;
-    height: 100%;
-  }
-
-  ${media.phablet`
-    padding: 15px;
-  `}
-`
-
-const ModalContent = styled.div`
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 630px;
-  max-width: 1140px;
-  height: 100%;
-  width: 100%;
-  background: #000;
-  border-radius: 5px;
-  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
-
-  ${media.tablet`
-    overflow-y: scroll;
-  `}
-`
-
-const ModalGrid = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const ModalAbout = styled.div`
-  width: 100%;
-  max-width: 480px;
-  margin: 40px 0 0 25px;
-
-  ${media.desktop_small`
-    max-width: initial;
-    padding: 40px 80px;
-    margin: 0 auto;
-  `}
-  
-  ${media.tablet`
-    padding: 30px;
-  `}
-
-  ${media.phablet`
-    padding: 40px 20px 20px;
-    pointer-events: none;
-  `}
-
-  @media (max-height: 660px) {
-   padding-top: 20vh; 
-  }
-
-  @media (max-height: 500px) {
-   padding-top: 60vh; 
-  }
-`
-
-const ModalText = styled.p<{ index: number }>`
-  color: #fff;
-  margin-bottom: 25px;
-  opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
-    ${p => p.index * 100 + 300}ms forwards;
-
-  ${media.phablet`
-    margin-bottom: 20px;
-  `}
-`
-
-const ModalName = styled(Heading.h2)`
-  margin-bottom: 5px;
-  opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
-    forwards;
-`
-
-const ModalRole = styled.div`
-  font-size: 22px;
-  color: ${p => p.theme.colors.grey};
-  margin-bottom: 30px;
-  opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
-    forwards;
-
-  ${media.phablet`
-    margin-bottom: 20px;
-  `}
-`
-
-const SocialAnimator = styled.div`
-  margin-bottom: 25px;
-  opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 600ms
-    forwards;
-`
-
-const ModalSignature = styled.div`
-  opacity: 0;
-  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 700ms
-    forwards;
-`
-
-const MediaAnimator = styled.div`
-  width: 472px;
-  margin-left: 35px;
-  flex: 1;
-  opacity: 0;
-  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
-
-  ${media.desktop_small`
-    display: none;
-  `}
-`
-
-const ModalNext = styled.button<{ isOpen: boolean }>`
-  position: absolute;
-  right: -20px;
-  height: 40px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 50%;
-  background: #fff;
-  border-radius: 50%;
-  opacity: ${p => (p.isOpen ? 1 : 0)};
-  transform: translate(${p => (p.isOpen ? 0 : -8)}px, -50%);
-  transition: all 0.4s ease 0.4s;
-
-  svg {
-    transition: transform 0.2s ease;
-  }
-
-  &:hover svg {
-    transform: translateX(2px);
-  }
-
-  &:hover svg {
-    background: #fafafa;
-  }
-
-  opacity: 0;
-  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
-
-  ${media.desktop_medium`
-    right: -10px;
-  `}
-
-  ${media.tablet`
-    display: none;
-  `}
 `
 
 const AboutTeamContainer = styled.div`
@@ -748,8 +556,11 @@ const Text = styled.p`
   color: #fafafa;
 
   ${media.tablet`
-    font-size: 16px;
     margin-bottom: 20px;
+  `}
+
+  ${media.phablet`
+    font-size: 16px;
   `}
 `
 
@@ -882,4 +693,216 @@ const Value = styled.div`
   width: 18.6%;
   height: 1px;
   background: ${p => p.theme.colors.sirius};
+`
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 1;
+
+  ${media.phablet`
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -50%;
+      top: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(0,0,0,0.33);
+      border-radius: 50%;
+      z-index: -1;
+    }
+  `}
+
+  @media (max-height: 660px) {
+    position: fixed;
+    top: 46px;
+    right: 36px;
+    left: unset;
+  }
+
+  @media (max-height: 570px) {
+    position: fixed;
+    top: 46px;
+    right: 36px;
+    left: unset;
+  }
+`
+
+const Modal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+
+  & > div {
+    flex: 1;
+    max-width: 1140px;
+    max-height: 630px;
+    height: 100%;
+  }
+
+  ${media.phablet`
+    padding: 30px 15px;
+  `}
+`
+
+const ModalContent = styled.div`
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 630px;
+  max-width: 1140px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  border-radius: 5px;
+  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+
+  ${media.tablet`
+    overflow-y: scroll;
+  `}
+`
+
+const ModalGrid = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const ModalAbout = styled.div`
+  width: 100%;
+  max-width: 480px;
+  margin: 40px 0 0 25px;
+
+  ${media.desktop_small`
+    max-width: initial;
+    padding: 40px 80px;
+    margin: 0 auto;
+  `}
+  
+  ${media.tablet`
+    padding: 30px;
+  `}
+
+  ${media.phablet`
+    padding: 60px 20px 20px;
+    pointer-events: none;
+  `}
+
+  @media (max-height: 660px) {
+   padding-top: 24vh; 
+  }
+
+  @media (max-height: 570px) {
+   padding-top: 50vh; 
+  }
+`
+
+const ModalText = styled.p<{ index: number }>`
+  color: #fff;
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
+    ${p => p.index * 100 + 300}ms forwards;
+
+  ${media.phablet`
+    margin-bottom: 20px;
+  `}
+`
+
+const ModalName = styled(Heading.h2)`
+  margin-bottom: 5px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
+    forwards;
+`
+
+const ModalRole = styled.div`
+  font-size: 22px;
+  color: ${p => p.theme.colors.grey};
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
+
+  ${media.phablet`
+    margin-bottom: 20px;
+  `}
+`
+
+const SocialAnimator = styled.div`
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 600ms
+    forwards;
+`
+
+const ModalSignature = styled.div`
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 700ms
+    forwards;
+`
+
+const MediaAnimator = styled.div`
+  width: 472px;
+  margin-left: 35px;
+  flex: 1;
+  opacity: 0;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+
+  ${media.desktop_small`
+    display: none;
+  `}
+`
+
+const ModalNext = styled.button<{ isOpen: boolean }>`
+  position: absolute;
+  right: -20px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  background: #fff;
+  border-radius: 50%;
+  opacity: ${p => (p.isOpen ? 1 : 0)};
+  transform: translate(${p => (p.isOpen ? 0 : -8)}px, -50%);
+  transition: all 0.4s ease 0.4s;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(2px);
+  }
+
+  &:hover svg {
+    background: #fafafa;
+  }
+
+  opacity: 0;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+
+  ${media.desktop_medium`
+    right: -10px;
+  `}
+
+  ${media.tablet`
+    display: none;
+  `}
 `

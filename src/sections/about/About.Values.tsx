@@ -32,6 +32,8 @@ function AboueValues() {
   const { toggleContact } = useContext(ContactContext)
   const { width, height } = useResize()
   const shapeRef = useRef()
+  const mobileShapeRef = useRef()
+  const mobileShapeReflectionRef = useRef()
   const headingRef = useRef()
 
   const [scale, setScale] = useState(1)
@@ -58,6 +60,16 @@ function AboueValues() {
       setScale(scale)
     }
   }, [width, height, shapeRef])
+
+  useEffect(() => {
+    if (mobileShapeRef.current) {
+      const shapeRect = mobileShapeRef.current.getBoundingClientRect()
+      console.log(shapeRect)
+
+      mobileShapeRef.current.style.top = `-${shapeRect.height / 1.15}px`
+      headingRef.current.style.paddingBottom = `${shapeRect.height / 1.45}px`
+    }
+  }, [width, height, mobileShapeRef])
 
   const values = [
     {
@@ -165,7 +177,7 @@ function AboueValues() {
         it's easier for us to return a specific mobile version for the About Values
       */}
       <Mobile>
-        <ShapeContainerMobile>
+        <ShapeContainerMobile ref={mobileShapeRef}>
           <ShapeMobile />
           <ShapeReflectionMobile />
         </ShapeContainerMobile>
@@ -214,7 +226,6 @@ const Mobile = styled.div`
   ${media.desktop`
     position: relative;
     display: block;
-    padding-top: 260px;
   `}
 `
 
@@ -269,7 +280,6 @@ const ShapeContainerMobile = styled.div`
   width: 100%;
   left: 0;
   right: 0;
-  top: -40px;
 `
 
 const ShapeRectangle = styled.figure`
@@ -327,15 +337,6 @@ const ShapeRectangleReflection = styled.figure`
   left: 0;
   right: 0;
   margin: 0 auto;
-`
-
-const ShapeGlow = styled.figure`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 160px;
-  z-index: 0;
-  will-change: opacity, transform;
 `
 
 const Values = styled.div`
@@ -416,22 +417,31 @@ const ReflectionInnerMask = styled.div`
 `
 
 const ReflectionBackgroundMobile = styled.div`
-  position: relative;
+  position: absolute;
   background: linear-gradient(#313338, transparent 25%);
   filter: blur(4px);
-  width: 90%;
+  width: 89%;
   margin: 0 auto;
   min-height: 212px;
-  top: -80px;
+  top: 71%;
+  left: 0;
+  right: 0;
 `
 
 const ReflectionInnerMaskMobile = styled.div`
   background: ${p => p.theme.colors.bg};
   position: absolute;
+  bottom: 0;
+  left: 12px;
+  top: 12px;
+  right: 12px;
+
+  ${media.phablet`
   left: 6px;
   top: 6px;
   right: 6px;
-  bottom: 0;
+  
+  `}
 `
 
 const ShapeMobile = () => (
@@ -440,16 +450,8 @@ const ShapeMobile = () => (
     viewBox="0 0 375 307"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ filter: `drop-shadow( 0px 2px 50px rgba(255,255,255,0.5)` }}
   >
-    <g filter="url(#filter0_f)">
-      <rect
-        y="90"
-        width="375"
-        height="127"
-        fill="#66748D"
-        fill-opacity="0.15"
-      />
-    </g>
     <g filter="url(#filter1_dd)">
       <rect
         x="23"
@@ -519,11 +521,7 @@ const ShapeMobile = () => (
           type="matrix"
           values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
         />
-        <feBlend
-          mode="normal"
-          in2="effect1_dropShadow"
-          result="effect2_dropShadow"
-        />
+
         <feBlend
           mode="normal"
           in="SourceGraphic"

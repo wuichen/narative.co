@@ -76,6 +76,7 @@ const LargeHeading = styled(Heading.h2)`
 
   ${media.phablet`
     font-size: 40px;
+    line-height: 1.05;
   `}
 
   ${media.phone_small`
@@ -91,6 +92,7 @@ const Text = styled.p`
 
   ${media.tablet`
     font-size: 20px;
+    line-height: 1.34;
 
     * {
       display: inline;

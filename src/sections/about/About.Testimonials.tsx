@@ -133,8 +133,8 @@ function AboutTestimonial() {
 
                   let offsetHeight = first ? 100 : 450
 
-                  if (width < 460 && height < 700) {
-                    offsetHeight = first ? 200 : 550
+                  if (width < 460 && height < 750) {
+                    offsetHeight = first ? 180 : 540
                   }
 
                   if (width < 460 && height < 600) {
