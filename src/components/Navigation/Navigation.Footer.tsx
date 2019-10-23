@@ -7,11 +7,11 @@ import SocialLinks from '@components/SocialLinks'
 import Logo from '@components/Logo'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
-  { to: '/careers', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
@@ -95,8 +95,9 @@ const Frame = styled.footer`
   justify-content: space-between;
   align-items: center;
   padding: 200px 0 80px;
+  z-index: 10;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     justify-content: center;
     flex-direction: column-reverse;
     padding: 80px 0;
@@ -118,7 +119,7 @@ const Frame = styled.footer`
 const Left = styled.div`
   display: flex;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -139,14 +140,14 @@ const Right = styled.div`
   display: flex;
   align-items: center;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 60px;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 100%;
   `}
 `
@@ -160,7 +161,7 @@ const LogoContainer = styled(Link)`
     opacity: 1;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 
@@ -182,11 +183,11 @@ const SocialIconsFooter = styled.div`
   align-items: center;
   margin-left: 50px;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     margin-left: 35px;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin: 0 auto;
   `}
 `
@@ -232,13 +233,13 @@ const FooterLink = styled(Link)`
     margin-right: 60px;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     &:not(:last-child) {
       margin-right: 35px;
     }
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-weight: 400;
     opacity: 1;
     font-size: 22px;
@@ -257,7 +258,7 @@ const CopyRight = styled.div`
   color: ${p => p.theme.colors.grey};
   text-align: center;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `

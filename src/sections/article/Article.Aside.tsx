@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle'
 
 import HandleOverlap from './Article.HandleOverlap'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { clamp } from '@utils'
 
 interface AsideProps {
@@ -95,7 +95,7 @@ const Frame = styled.aside`
   margin: 0 auto;
   max-width: 1140px;
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     display: none;
   `}
 `

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import OutsideClickHandler from 'react-outside-click-handler'
 
-import { Transitions } from '@components'
+import Transitions from '@components/Transitions'
 
 const InputContainer = styled.div`
   position: relative;

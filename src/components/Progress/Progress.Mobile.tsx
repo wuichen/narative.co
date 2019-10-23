@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { clamp } from '@utils'
 import { ExIcon } from '../../icons/ui'
 
@@ -123,7 +123,7 @@ const Frame = styled.div`
     transition: transform 400ms var(--ease-in-out-quad), opacity 300ms;
   `}
 
-  ${mediaqueries.desktop_large_up`
+  ${media.desktop_large_up`
     display: none;
     visibility: hidden;
     opacity: 0;
@@ -131,7 +131,7 @@ const Frame = styled.div`
 `
 
 const Content = styled(Section)`
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
     display: flex;
     justify-content: space-between;
   `}

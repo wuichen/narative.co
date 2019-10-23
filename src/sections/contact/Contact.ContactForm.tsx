@@ -2,18 +2,17 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
-import {
-  Button,
-  ButtonArrow,
-  Section,
-  CopyToClipboard,
-  Heading,
-  Form,
-  SocialLinks,
-} from '@components'
+import Button from '@components/Button'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import CopyToClipboard from '@components/CopyToClipboard'
+import Heading from '@components/Heading'
 import Hidden from '@components/Hidden'
+import Form from '@components/Form'
+import Section from '@components/Section'
+import SocialLinks from '@components/SocialLinks'
 import { ContactContext } from '@components/Contact/Contact.Context'
-import mediaqueries from '@styles/media'
+
+import media from '@styles/media'
 import { apiCall, startAnimation } from '@utils'
 import { SubmittedCheckIcon } from '../../icons/ui'
 
@@ -211,7 +210,7 @@ const FormHeader = styled(Heading.h2)`
   width: 265px;
   padding-right: ${p => (p.morePadding ? '100px' : '76px')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     width: 100%;
     padding: 0;
     margin-bottom: 5px;
@@ -223,7 +222,7 @@ const FormSection = styled.div`
   display: flex;
   margin-bottom: ${p => (p.spacing === 'large' ? '7rem' : '2.5rem')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: ${p => (p.spacing === 'large' ? '2rem' : '1rem')};
     flex-direction: column;
   `};
@@ -253,7 +252,7 @@ const MobileContactWithEmail = styled.a`
   margin-top: 40px;
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
   `};
 
@@ -290,7 +289,7 @@ const ContactWithEmail = styled.div`
     background: #c6c6c6;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -302,18 +301,18 @@ const StyledFormikForm = styled(FormikForm)`
   background: #fff;
   z-index: 99999;
 
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
     margin-left: 0;
     width: 100%;
     padding: 0 4rem 5rem;
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     margin: 0 auto;
     padding: 0 0 5rem;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 100%;
   `};
 `
@@ -332,7 +331,7 @@ const SubmittedScreen = styled.div`
   opacity: 0;
   animation: ${fadeIn} 1.2s ease forwards;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     padding-bottom: 0;
     margin: 0 auto;
     width: 100%;
@@ -379,7 +378,7 @@ const ButtonContainer = styled.div`
   padding-top: 35px;
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -389,7 +388,7 @@ const MobileButtonContainer = styled.div`
 
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
   `};
 `

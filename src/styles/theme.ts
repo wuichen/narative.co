@@ -40,6 +40,8 @@ export const theme = {
     moon,
     red,
     purple,
+    sirius: '#fafafa',
+    kepler: '#08080B',
   },
   animations: {
     flicker,
@@ -72,6 +74,7 @@ export const theme = {
     ['phone', 376],
     ['phablet', 540],
     ['tablet', 768],
+    ['desktop_small', 960],
     ['desktop', 1024],
     ['desktop_medium', 1280],
     ['desktop_large', 1440],

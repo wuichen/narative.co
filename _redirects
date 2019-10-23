@@ -13,4 +13,7 @@
 
 /novela                       https://github.com/narative/gatsby-theme-novela
 
-/jobs                         /careers
+/jobs                         /about
+/careers                      /about
+
+/irap                         https://irap.narative.co

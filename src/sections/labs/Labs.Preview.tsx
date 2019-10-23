@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Media from '@components/Media/Media.Img'
-import mediaqueries from '@styles/media'
+import Image from '@components/Image'
+import media from '@styles/media'
 
 const ArticlePreview = ({ product }) => (
   <Card background={product.backgroundColor}>
@@ -11,9 +11,9 @@ const ArticlePreview = ({ product }) => (
       <Excerpt>{product.excerpt}</Excerpt>
       {product.children}
     </Content>
-    <Image>
-      <Media src={product.background} />
-    </Image>
+    <ImageContainer>
+      <Image src={product.background} />
+    </ImageContainer>
   </Card>
 )
 
@@ -27,6 +27,7 @@ const Card = styled.div`
   background: ${p => p.background};
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  overflow: hidden;
   margin: 0 auto;
 
   &:not(:last-child) {
@@ -51,7 +52,7 @@ const Card = styled.div`
     opacity: 1;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -61,7 +62,7 @@ const Content = styled.div`
   z-index: 1;
   max-width: 371px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     text-align: center;
     margin: 0 auto;
   `}
@@ -77,26 +78,25 @@ const Excerpt = styled.p`
   color: ${p => p.theme.colors.grey};
   margin-bottom: 30px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     margin-bottom: 25px;
   `}
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div`
   position: absolute;
-  width: 100%;
   height: 100%;
+  width: 69%;
   top: 0;
-  left: 0;
+  right: 0;
   pointer-events: none;
-  border-radius: 5px;
   overflow: hidden;
 
   .gatsby-image-wrapper {
     height: 100%;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `

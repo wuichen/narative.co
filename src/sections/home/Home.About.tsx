@@ -5,9 +5,9 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Section from '@components/Section'
 import Heading from '@components/Heading'
 import Sticky from '@components/Sticky'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const aboutNarativeText = [
   `Even the most brilliant companies hit points where their focus is
@@ -54,20 +54,20 @@ const HomeAbout = () => {
       <MobileContainer>
         <Slash aria-hidden="true" />
         <MediaContainer>
-          <Media src={glow.childImageSharp.fluid} />
+          <Image src={glow.childImageSharp.fluid} />
         </MediaContainer>
       </MobileContainer>
       <Gradient>
         <Grid narrow>
           <Sticky
-            height="682px"
             top={140}
+            height="682px"
             disableOnMobile
             render={() => <AboutHeading>The Narative Approach</AboutHeading>}
           />
           <div>
-            {aboutNarativeText.map(text => (
-              <TextContainer data-scroll-fade={true}>
+            {aboutNarativeText.map((text, index) => (
+              <TextContainer data-scroll-fade={true} key={index}>
                 <Text dangerouslySetInnerHTML={{ __html: text }} />
               </TextContainer>
             ))}
@@ -86,7 +86,7 @@ const Gradient = styled.div`
   background: #08080b;
   background: linear-gradient(#08080b, #101216);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     background: linear-gradient(transparent, #101216);
   `};
 `
@@ -94,13 +94,13 @@ const Gradient = styled.div`
 const Grid = styled(Section)`
   position: relative;
   display: grid;
-  grid-template-columns: 135px 670px;
+  grid-template-columns: 144px 670px;
   grid-column-gap: 128px;
   padding-top: 100px;
   padding-bottom: 30px;
   z-index: 2;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-top: 80px;
     display: block;
     padding-bottom: 100;
@@ -113,7 +113,7 @@ const TextContainer = styled.div`
   margin-bottom: 75px;
   will-change: opacity;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 22px;
     top: 0;
     margin: 0;
@@ -125,7 +125,7 @@ const Text = styled.p`
   font-size: 32px;
   color: #fff;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 22px;
   `};
 `
@@ -141,7 +141,7 @@ const MobileContainer = styled.div`
   margin-bottom: -85%;
   overflow-x: hidden;
 
-  ${mediaqueries.tablet_up`
+  ${media.tablet_up`
     display: none;
   `}
 `

@@ -11,7 +11,7 @@ import Footer from '@components/Navigation/Navigation.Footer'
 import { calculateStyles } from './Layout.Hero.Mobile'
 import { ExIcon } from '../../icons/ui'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import {
   clamp,
@@ -27,7 +27,10 @@ interface LayoutProps {
     offset?: boolean
     theme?: string
   }
-  withFooter?: boolean
+  footer?: {
+    visible?: boolean
+    theme?: string
+  }
 }
 
 interface LayoutState {
@@ -284,16 +287,15 @@ const SiteContainer = styled.div`
 
   ${p =>
     p.navOffset &&
-    mediaqueries.tablet`
+    media.tablet`
       padding-top: 0; 
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     transform: ${p =>
       p.active ? `translateY(${p.mobileNavOffset}px)` : 'none'};
     transition: transform ${MOBILE_NAV_DURATION +
       60}ms cubic-bezier(0.52, 0.16, 0.24, 1);
-    width: 100vw;
     touch-action: ${p => (p.active ? 'none' : 'initial')};
   `}
 
@@ -332,7 +334,7 @@ const MobileHamburger = styled.button`
   z-index: 999;
   width: 30px;
   height: 30px;
-  top: 50px;
+  top: 54px;
   right: 30px;
   opacity: ${p => (p.active ? 0.5 : 1)};
   transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -346,10 +348,14 @@ const MobileHamburger = styled.button`
     top: -50%;
   }
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
     visibility: hidden;
   `}
+
+  @media screen and (min-height: 800px) {
+    top: 48px;
+  }
 `
 
 const Toggle = styled.span`
@@ -377,7 +383,7 @@ const MaskMobile = styled.div`
   transition: opacity 0.5s linear;
   pointer-events: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 100vh;
     position: absolute;
     top: 0;
@@ -389,7 +395,7 @@ const MaskMobile = styled.div`
 `
 
 const MobileScroll = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
   position: ${p => (p.fixed ? 'fixed' : 'absolute')};
 
     width: 100%;

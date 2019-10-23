@@ -6,10 +6,10 @@ import throttle from 'lodash/throttle'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import HorizontalScroll from '@components/HorizontalScroll'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
 import { services } from './Home.Services'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { clamp } from '@utils'
 
 const imageQuery = graphql`
@@ -95,12 +95,12 @@ function HomeServicesMobile() {
                         {service.link.text}
                       </CardLink>
 
-                      <Image style={progressOffset}>
-                        <Media
+                      <ImageContainer style={progressOffset}>
+                        <Image
                           style={startingOffset}
                           src={images[index].childImageSharp.fluid}
                         />
-                      </Image>
+                      </ImageContainer>
                     </Card>
                   )
                 }}
@@ -127,7 +127,7 @@ const Frame = styled.div`
   padding-bottom: 80px;
   background: linear-gradient(#0f1015, #101216);
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `
@@ -147,7 +147,7 @@ const CardHeading = styled(Heading.h3)`
   margin-bottom: 30px;
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div`
   position: absolute;
   margin: 0 auto;
   height: 60%;

@@ -4,7 +4,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby'
 import SVG from 'react-inlinesvg'
 
 import Section from '@components/Section'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const articlesQuotesQuery = graphql`
   query GetArticleQuotes {
@@ -70,7 +70,7 @@ const Gradient = styled.div`
   padding: 250px 0 150px;
   background: linear-gradient(180deg, #101216 0%, #191d23 100%);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 50px 0 115px;
   `}
 `
@@ -81,7 +81,7 @@ const Grid = styled(Section)`
   grid-template-columns: 132px 675px;
   grid-column-gap: 131px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
 
     & > span > svg {
@@ -108,7 +108,7 @@ const Blockquote = styled.blockquote`
     }
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 24px;
     margin-bottom: 45px;
   `}
@@ -153,7 +153,7 @@ const StyledLink = styled(Link)`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: flex;
     justify-content: space-between;
     align-items: center;

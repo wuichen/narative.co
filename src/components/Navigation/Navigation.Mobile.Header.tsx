@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 
 import SocialLinks from '@components/SocialLinks'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
-const footerLinks = [
-  { to: '/careers', text: 'Careers' },
+const mobileLinks = [
+  { to: '/about', text: 'Careers' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
@@ -35,7 +35,7 @@ const NavigationMobile = ({
       </SocialIconsHeader>
       <HorizontalRule active={isActive} />
       <MobileLinks active={isActive}>
-        {footerLinks.map((link, index) => (
+        {mobileLinks.map((link, index) => (
           <StyledLink
             active={isActive}
             key={link.to}
@@ -70,7 +70,7 @@ const Frame = styled.nav`
     padding: 40px 0;
   }
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
     visibility: hidden;
   `}

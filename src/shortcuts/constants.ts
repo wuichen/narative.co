@@ -9,6 +9,7 @@ export const COMMAND_LINE_OPEN_SOURCE: string = 'COMMAND_LINE_OPEN_SOURCE'
 export const GO_TO_HOME: string = 'GO_TO_HOME'
 export const GO_TO_CAREERS: string = 'GO_TO_CAREERS'
 export const GO_TO_LABS: string = 'GO_TO_LABS'
+export const GO_TO_ABOUT: string = 'GO_TO_ABOUT'
 export const GO_TO_ARTICLES: string = 'GO_TO_ARTICLES'
 export const GO_TO_ARTICLE: string = 'GO_TO_ARTICLE'
 

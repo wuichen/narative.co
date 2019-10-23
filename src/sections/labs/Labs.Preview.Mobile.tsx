@@ -1,34 +1,41 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
-import Media from '@components/Media/Media.Img'
-import mediaqueries from '@styles/media'
+import Image from '@components/Image'
+import media from '@styles/media'
 
 const previewQuery = graphql`
   query LabsPreviewMobile {
-    needlBackground: file(name: { regex: "/needl-labs-mobile/" }) {
+    needlBackground: file(name: { regex: "/labs-needl-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    feyBackground: file(name: { regex: "/fey-labs-mobile/" }) {
+    feyBackground: file(name: { regex: "/labs-fey-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    novelaBackground: file(name: { regex: "/novela-labs-mobile/" }) {
+    novelaBackground: file(name: { regex: "/labs-novela-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    commandlineBackground: file(name: { regex: "/commandline-labs-mobile/" }) {
+    memoirBackground: file(name: { regex: "/labs-memoir-mobile/" }) {
+      childImageSharp {
+        fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    commandlineBackground: file(name: { regex: "/labs-command-mobile/" }) {
       childImageSharp {
         fluid(maxWidth: 670, maxHeight: 440, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -43,6 +50,7 @@ function LabsPreviewMobile() {
     needlBackground,
     feyBackground,
     novelaBackground,
+    memoirBackground,
     commandlineBackground,
   } = useStaticQuery(previewQuery)
 
@@ -53,11 +61,20 @@ function LabsPreviewMobile() {
    */
   return (
     <>
+      <PreviewCard style={{ background: '#0D0709' }}>
+        <Heading style={{ color: '#fafafa' }}>Project Needle</Heading>
+        <Image src={needlBackground.childImageSharp.fluid} />
+        <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
+        <Anchor as="div" style={{ background: '#171719', color: '#515359' }}>
+          Coming soon
+        </Anchor>
+      </PreviewCard>
+
       <PreviewCard style={{ background: '#23232A' }}>
         <Heading>
           <FeyLogo />
         </Heading>
-        <Media src={feyBackground.childImageSharp.fluid} />
+        <Image src={feyBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
         <Anchor
           href="https://feyapp.com"
@@ -71,7 +88,7 @@ function LabsPreviewMobile() {
 
       <PreviewCard style={{ background: '#222838' }}>
         <Heading>Narative Command</Heading>
-        <Media src={commandlineBackground.childImageSharp.fluid} />
+        <Image src={commandlineBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#161C24', color: '#444750' }}>
           Check on desktop 😏
@@ -80,21 +97,20 @@ function LabsPreviewMobile() {
 
       <PreviewCard style={{ background: '#B0CDE5' }}>
         <Heading style={{ color: '#000' }}>Novela Theme</Heading>
-        <Media src={novelaBackground.childImageSharp.fluid} />
+        <Image src={novelaBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor
-          href="https://gatsby-theme-novela.netlify.com/"
-          target="_blank"
-          rel="noopener"
+          as={Link}
+          to="/labs/novela"
           style={{ background: '#7E9BB3', color: '#FAFAFA' }}
         >
-          See the live theme
+          Live preview
         </Anchor>
       </PreviewCard>
 
       <PreviewCard style={{ background: '#EFF0F4' }}>
-        <Heading style={{ color: '#000' }}>Project Needle</Heading>
-        <Media src={needlBackground.childImageSharp.fluid} />
+        <Heading style={{ color: '#000' }}>Memoir Theme</Heading>
+        <Image src={memoirBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(0,0,0,0.06)' }} />
         <Anchor as="div" style={{ background: '#D6D9DE', color: '#A4A6AD' }}>
           Coming soon
@@ -112,7 +128,7 @@ const PreviewCard = styled.div`
   background: red;
   margin-bottom: 25px;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `

@@ -10,6 +10,7 @@ module.exports.urls = {
   },
   linkedin: 'https://www.linkedin.com/company/narative',
   instagram: 'http://instagram.com/narative.co',
+  dribbble: 'http://dribbble.com/narativestudio',
   twitter: 'https://twitter.com/narative',
   facebook: 'https://www.facebook.com/narative.co',
 }

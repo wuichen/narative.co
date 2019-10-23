@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import {
   clamp,
   getWindowDimensions,
@@ -35,18 +35,22 @@ function LayoutHeroMobile({ children }) {
 export default LayoutHeroMobile
 
 const Spacer = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 100vh;
   `}
 `
 
 const Frame = styled.div`
-  ${mediaqueries.tablet`
+  overflow-x: hidden;
+
+  ${media.tablet`
     height: 100vh;
+    width: 100%;
     min-height: 550px;
     top: 90px;
     position: fixed;
     z-index: 0;
+    pointer-events: none;
 
     @media screen and (max-height: 600px) {
       padding-top: 60px;

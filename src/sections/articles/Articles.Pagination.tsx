@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Paginator from '@components/Navigation/Navigation.Paginator'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 function ArticlesPagination({ pageContext }) {
   if (pageContext.pageCount <= 1) return null
@@ -21,7 +21,7 @@ const HorizontalRule = styled.div`
   position: relative;
   color: rgba(0, 0, 0, 0.25);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 60px;
   `}
 
@@ -42,7 +42,7 @@ const HorizontalRule = styled.div`
     top: -17px;
     width: ${(230 / 1140) * 100}%;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       width: auto;
       padding-right: 20px;
     `}

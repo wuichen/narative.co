@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { Spinner } from '@components/Button/Button'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 interface ButtonArrowProps {
   as?: string | ReactNode
@@ -57,7 +57,7 @@ const ArrowButton = styled.button`
   height: 25px;
   max-width: 200px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     flex-direction: column;
   `};
 
@@ -125,7 +125,7 @@ const ArrowAnimation = styled.div`
   height: 25px;
   font-size: 1.8rem;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 0rem 3rem 0 0rem;
   `};
 
@@ -158,7 +158,7 @@ const ArrowAnimation = styled.div`
     opacity: 1;
     animation: ${animateButtonLine} 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       animation: none;
     `};
   }

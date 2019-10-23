@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 
-import { ButtonArrow, Section, Heading } from '@components'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import Heading from '@components/Heading'
+import Section from '@components/Section'
 import ScrollIndicator from '@components/ScrollIndicator'
 import ShapeShifter from '@components/ShapeShifter'
 import IntersectionObserver from '@components/IntersectionObserver'
@@ -9,7 +11,7 @@ import Transitions from '@components/Transitions'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 function HomeHero() {
   const { toggleContact } = useContext(ContactContext)
@@ -50,7 +52,7 @@ function HomeHero() {
 export default HomeHero
 
 const HomeHeroContainer = styled.div`
-  ${mediaqueries.desktop`
+  ${media.desktop`
     #mirror-mask {
       display: none;
   `}
@@ -62,7 +64,7 @@ const TextContainer = styled.div`
   max-width: 570px;
   top: 10px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     position: relative;
   `}
 `
@@ -74,7 +76,7 @@ const MainText = styled.p`
   line-height: 1.3;
   margin-bottom: 50px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 2.2rem;
   `};
 `
@@ -89,14 +91,14 @@ const ContentContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: calc(100vh - 180px);
     min-height: 100%;
     padding: 0;
     top: -40px;
   `};
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     min-height: 360px;
   `};
 

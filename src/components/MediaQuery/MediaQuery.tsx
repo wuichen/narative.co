@@ -44,7 +44,7 @@ function useWindowSize() {
  * A gateway component used to show and hide components on at different screen widths.
  * This component will show everything GREATER THAN or EQUAL to the breakpoint passed in.
  *
- * It's tied to mediaqueries set in theme.ts.
+ * It's tied to media set in theme.ts.
  */
 function MediaQuery({ maxWidth, minWidth, children }: MediaQueryProps) {
   const { width: windowWidth } = useWindowSize()

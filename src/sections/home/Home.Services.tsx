@@ -7,11 +7,11 @@ import throttle from 'lodash/throttle'
 import Heading from '@components/Heading'
 import Section from '@components/Section'
 import IntersectionObserver from '@components/IntersectionObserver'
-import Sticky from '@components/Sticky'
-import Media from '@components/Media/Media.Img'
+import Sticky, { StickyState } from '@components/Sticky'
+import Image from '@components/Image'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { getWindowDimensions } from '@utils'
 
 import HomeServicesMobile from './Home.Services.Mobile'
@@ -97,9 +97,10 @@ const calculateOffset = (progress: number) => {
   if (typeof window === 'undefined') return 0
 
   if (document.getElementById('grid-value')) {
-    const $val = document.getElementById('grid-value').getBoundingClientRect()
+    const gridElement = document.getElementById('grid-value') as HTMLElement
+    const { height, top } = gridElement.getBoundingClientRect()
 
-    const total = ($val.height + 45) * 2
+    const total = (height + 45) * 2
     let offset = total * progress
 
     if (progress < 0) {
@@ -107,9 +108,9 @@ const calculateOffset = (progress: number) => {
     }
 
     return {
-      height: $val.height,
-      top: $val.y,
+      height,
       offset,
+      top,
     }
   }
 
@@ -250,8 +251,9 @@ function HomeServices() {
           />
         </Section>
         <Sticky
+          cover
           height="333vh"
-          render={({ progress }) => {
+          render={({ progress }: StickyState) => {
             const getActive = calculateActive(progress)
             const offset = calculateOffset(progress)
 
@@ -275,16 +277,16 @@ function HomeServices() {
             return (
               <Grid>
                 <ImageSlides>
-                  <ImageSlide loading="eager" active={firstActive}>
-                    <Media src={first.childImageSharp.fluid} />
+                  <ImageSlide active={firstActive}>
+                    <Image src={first.childImageSharp.fluid} />
                     <Time />
                   </ImageSlide>
                   <ImageSlide active={secondActive}>
-                    <Media loading="eager" src={second.childImageSharp.fluid} />
+                    <Image src={second.childImageSharp.fluid} />
                     <Code />
                   </ImageSlide>
                   <ImageSlide active={thirdActive}>
-                    <Media loading="eager" src={third.childImageSharp.fluid} />
+                    <Image src={third.childImageSharp.fluid} />
                   </ImageSlide>
                 </ImageSlides>
                 <Column>
@@ -358,7 +360,7 @@ const HomeServicesDesktop = styled.div`
   background: #101216;
   padding-top: 60px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -386,7 +388,7 @@ const HeadingBackground = styled.div`
 const LargeHeading = styled.p`
   display: inline;
   font-weight: 700;
-  font-size: 80px;
+  font-size: 70px;
   letter-spacing: -0.5px;
   line-height: 1.2;
   font-family: ${p => p.theme.fontfamily.serif};
@@ -444,7 +446,7 @@ const Value = styled.div`
     transition: color 0.3s var(--ease-out-quad);
   }
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     &:not(:last-child) {
       margin-bottom: 15px;
     }

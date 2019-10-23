@@ -4,14 +4,16 @@ import { Link, navigate } from 'gatsby'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { isMobileOnly } from 'react-device-detect'
 
-import { Section, Logo } from '@components'
-import mediaqueries from '@styles/media'
+import Section from '@components/Section'
+import Logo from '@components/Logo'
+
+import media from '@styles/media'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import shortcuts, { constants, keyToSymbol } from '@shortcuts'
 
 const navLinks = [
-  { to: '/careers', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
@@ -64,6 +66,7 @@ interface NavigationState {
   active: boolean
   previousPath: string
   showPreviousPath: boolean
+  linkBackToHome: boolean
 }
 
 class Navigation extends Component<{}, NavigationState> {
@@ -73,11 +76,19 @@ class Navigation extends Component<{}, NavigationState> {
     active: false,
     previousPath: '',
     showPreviousPath: false,
+    linkBackToHome: false,
   }
 
   componentDidMount() {
     const previousPath = localStorage.getItem('previousPath')
-    this.setState({ previousPath })
+    const urlsThatUseBackButton = ['/labs/']
+
+    this.setState({
+      previousPath,
+      linkBackToHome: urlsThatUseBackButton.some(
+        pathname => window.location.pathname.indexOf(pathname) >= 0
+      ),
+    })
 
     window.addEventListener('keydown', this.handleEscKeyPress)
   }
@@ -175,7 +186,12 @@ class Navigation extends Component<{}, NavigationState> {
   }
 
   render() {
-    const { active, previousPath, showPreviousPath } = this.state
+    const {
+      active,
+      previousPath,
+      showPreviousPath,
+      linkBackToHome,
+    } = this.state
     const { nav } = this.props
     const fill = nav.theme === 'dark' ? '#000' : '#fff'
     const theme = themes[nav.theme]
@@ -192,6 +208,11 @@ class Navigation extends Component<{}, NavigationState> {
                     data-a11y="false"
                   >
                     <BackChevron />
+                  </LogoBack>
+                )}
+                {linkBackToHome && !showPreviousPath && (
+                  <LogoBack onClick={() => navigate('/')} data-a11y="false">
+                    <BackChevron fill={fill} />
                   </LogoBack>
                 )}
                 <LogoMask>
@@ -321,7 +342,7 @@ const NavFixedContainer = styled.div`
   left: 0;
   z-index: 10;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     position: ${p => (p.navFixed ? 'fixed' : 'absolute')};
   `}
 `
@@ -333,7 +354,7 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     padding-top: 50px;
   `};
 
@@ -368,7 +389,7 @@ const LogoBack = styled.button`
     border-radius: 5px;
   }
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     top: 57px;
     left: -34px;
   `}
@@ -377,7 +398,7 @@ const LogoBack = styled.button`
     top: 67px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -408,7 +429,7 @@ const LogoMask = styled.div`
   display: inline-block;
   max-width: 114px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     overflow: hidden;
   `}
 `
@@ -432,7 +453,7 @@ const ToggleContainer = styled.button`
     border-radius: 5px;
   }
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 30px;
     height: 30px;
     right: -10px;
@@ -447,7 +468,7 @@ const Toggle = styled.span`
   transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
     width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
       display: none;
     `}
 `
@@ -456,7 +477,7 @@ const LeftToggle = styled(Toggle)`
   top: 23px;
   width: ${p => (p.active ? '20px' : '15px')};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     top: 15px;
     width: 15px;
   `};
@@ -478,7 +499,7 @@ const RightToggle = styled(Toggle)`
   transform: ${p =>
     p.active ? 'translate3d(3px, 4px, 0) rotate(90deg)' : 'initial'};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     top: 9px;
     transform: initial;
   `};
@@ -505,7 +526,7 @@ const Right = styled.div`
 const DesktopNavList = styled.ul`
   list-style: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -518,7 +539,7 @@ const NavItem = styled.li`
     margin-right: 25px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-right: 40px;
 
     &:first-child {
@@ -530,7 +551,7 @@ const NavItem = styled.li`
     }
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     display: block;
     margin: 0 auto;
 
@@ -549,9 +570,9 @@ const CommandLineItem = styled.li`
   position: absolute;
   display: inline-block;
 
-  ${mediaqueries.desktop_large`
+  @media (max-width: 1340px) {
     display: none;
-  `};
+  }
 `
 
 const NavAnchor = styled.a`
@@ -602,7 +623,7 @@ const NavAnchor = styled.a`
     border-radius: 5px;
   }
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     display: none;
   `};
 `
@@ -630,7 +651,7 @@ const NavSymbols = styled.a`
     outline: none;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: none;
   `}
 `
@@ -653,7 +674,7 @@ const Symbol = styled.div`
     margin-right: 7px;
   }
 `
-const BackChevron = () => (
+const BackChevron = ({ fill = 'black' }) => (
   <svg
     width="24"
     height="24"
@@ -663,7 +684,7 @@ const BackChevron = () => (
   >
     <path
       d="M15.41 16.09L10.83 11.5L15.41 6.91L14 5.5L8 11.5L14 17.5L15.41 16.09Z"
-      fill="black"
+      fill={fill}
     />
   </svg>
 )

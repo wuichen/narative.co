@@ -15,6 +15,9 @@ export default props => (
       <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver" />
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenLite.min.js" />
       <script src={withPrefix('/scripts/MorphSVGPlugin.min.js')} />
+      <script
+        dangerouslySetInnerHTML={{ __html: `document.domain = "narative.co"` }}
+      />
       {props.headComponents}
     </head>
     <body {...props.bodyAttributes}>

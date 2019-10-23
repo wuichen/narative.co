@@ -73,18 +73,17 @@ const Microdata = ({
   }
 
   return (
-    <>
-      <SEO
-        title={title}
-        description={excerpt}
-        image={backgroundImage.seo.src}
-        canonical={canonical}
-        pathname={path}
-        readingTime={readingTime.text}
-        published={isoDateStrPublished}
-      >
-        <script type="application/ld+json">
-          {`
+    <SEO
+      title={title}
+      description={excerpt}
+      image={backgroundImage.seo.src}
+      canonical={canonical}
+      pathname={path}
+      readingTime={readingTime.text}
+      published={isoDateStrPublished}
+    >
+      <script type="application/ld+json">
+        {`
           {
             "@context": "https://schema.org",
             "@type": "Article",
@@ -111,8 +110,7 @@ const Microdata = ({
             "description": "${excerpt.replace(/"/g, '\\"')}"
           }
         `}
-        </script>
-      </SEO>
-    </>
+      </script>
+    </SEO>
   )
 }

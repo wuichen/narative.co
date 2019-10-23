@@ -6,9 +6,9 @@ import Heading from '@components/Heading'
 import IntersectionObserver from '@components/IntersectionObserver'
 import Section from '@components/Section'
 import ScrollIndicator from '@components/ScrollIndicator'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import { IArticleNode } from '@typings'
 
@@ -51,9 +51,9 @@ const ArticleHero = ({ article }: { article: IArticleNode }) => {
               <ScrollIndicator mode="dark" disableScrollAnimation />
               <ReadingTime>{article.readingTime.text}</ReadingTime>
             </RelativeSection>
-            <Image>
-              <Media loading="eager" src={article.hero.Article__Hero} />
-            </Image>
+            <ImageContainer>
+              <Image src={article.hero.Article__Hero} />
+            </ImageContainer>
           </Hero>
         )
       }}
@@ -72,7 +72,7 @@ const Hero = styled.div`
   display: flex;
   overflow: hidden;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     min-height: 100vh;
     background: linear-gradient(#191c22, #08080B 3%);
   `}
@@ -89,7 +89,7 @@ const HeroContent = styled.div`
   flex-direction: column;
   overflow: hidden;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     min-height: 100vh;
     margin-top: 10px;
     border-top-left-radius: 15px;
@@ -101,7 +101,7 @@ const HeroContent = styled.div`
 const Header = styled.header`
   max-width: 680px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 480px;
   `}
 `
@@ -112,7 +112,7 @@ const HeroTitle = styled(Heading.h1)`
   font-family: ${p => p.theme.fontfamily.serif};
   font-weight: 700;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 32px;
     line-height: 1.3;
   `}
@@ -142,7 +142,7 @@ const ReadingTime = styled.div`
   color: rgba(0, 0, 0, 0.3);
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -171,7 +171,7 @@ const Image = styled.div`
     object-position: left center !important;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
