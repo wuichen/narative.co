@@ -233,7 +233,6 @@ const TestimonialCardContainer = styled.ul`
 `
 
 const TestimonialCard = styled.li`
-  will-change: transform, opacity;
   top: 350px;
   height: 350px;
   position: absolute;

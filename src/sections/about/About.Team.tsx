@@ -581,7 +581,6 @@ const TeamCardsContainer = styled.div`
   width: 100%;
   padding: 16vh 0 0 263px;
   align-items: center;
-  will-change: transform;
   transform-style: preserve-3d;
 
   ${media.desktop`

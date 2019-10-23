@@ -87,7 +87,6 @@ const Overlay = ({ isSelected }: { isSelected: boolean }) => (
 const OverlayContainer = styled(motion.div)`
   z-index: 1;
   position: fixed;
-  will-change: opacity;
   top: 0;
   bottom: 0;
   left: 0;

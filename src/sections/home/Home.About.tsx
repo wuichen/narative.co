@@ -111,7 +111,6 @@ const TextContainer = styled.div`
   position: relative;
   padding-top: 0;
   margin-bottom: 75px;
-  will-change: opacity;
 
   ${media.tablet`
     font-size: 22px;

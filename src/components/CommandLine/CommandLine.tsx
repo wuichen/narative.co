@@ -129,7 +129,6 @@ const Background = styled.div`
   pointer-events: none;
   user-select: none;
   background: rgba(0, 0, 0, 0.66);
-  will-change: opacity;
   animation: ${fadeIn} 0.25s forwards;
 `
 const Header = styled.header`

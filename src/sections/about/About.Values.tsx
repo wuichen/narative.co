@@ -242,7 +242,6 @@ const AboueValuesContainer = styled.div`
 
 const HeadingContainer = styled.div`
   position: relative;
-  will-change: transform, filter;
   transform: translateY(24vh);
   z-index: 1;
 
@@ -271,7 +270,6 @@ const ShapeContainer = styled.div`
   max-width: 750px;
   position: absolute;
   transform: translateY(-50%);
-  will-change: transform;
 `
 
 const ShapeContainerMobile = styled.div`
@@ -289,7 +287,6 @@ const ShapeRectangle = styled.figure`
   margin: 0 auto;
   z-index: 3;
   transform: translateY(-50%);
-  will-change: transform;
 `
 
 const ShapeRectangleGlow = styled.figure`
@@ -300,7 +297,6 @@ const ShapeRectangleGlow = styled.figure`
   margin: 0 auto;
   z-index: 3;
   transform: translateY(-50%) scale(1.186);
-  will-change: transform;
 `
 
 const ShapeRectangleWithMask = styled.figure`
@@ -308,7 +304,6 @@ const ShapeRectangleWithMask = styled.figure`
   width: 100%;
   top: 50%;
   transform: translateY(-50%);
-  will-change: transform;
 
   &::before {
     content: '';
@@ -344,7 +339,6 @@ const Values = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  will-change: transform, filter;
   background: #111216;
 `
 

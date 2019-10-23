@@ -91,7 +91,6 @@ export default AboutPage
 
 const HeroGradient = styled.div`
   background: linear-gradient(#08080b, #13151a);
-  overflow-x: hidden;
 `
 
 const TeamGradient = styled.div`
@@ -116,7 +115,7 @@ const TransitionLayer = styled.div`
   background: #d8d7d8;
   z-index: 1;
   transition: opacity 1s;
-  will-change: opacity;
+
   ${media.tablet`
     &::before {
       content: '';

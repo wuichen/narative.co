@@ -214,8 +214,6 @@ const TestimonialCardContainer = styled.ul`
   `};
 `
 const TestimonialCard = styled.li`
-  will-change: transform, opacity;
-
   top: calc(30vh + 200px);
   height: 350px;
   position: sticky;
