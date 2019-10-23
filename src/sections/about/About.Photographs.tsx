@@ -107,7 +107,9 @@ function AboutPhotographs() {
   const [propsRowThree, setRowThree] = useSpring(() => ({ offset: 1, config }))
   const [propsRowFour, setRowFour] = useSpring(() => ({ offset: 1, config }))
 
-  const calcTransform = (offset: number) => `translateY(${offset * 20}vh)`
+  // We want to disable the offset on mobile
+  const calcTransform = (offset: number) =>
+    width > 768 && `translateY(${offset * 20}vh)`
 
   const rowTwoStyles = {
     transform: propsRowTwo.offset.interpolate(calcTransform),
@@ -120,26 +122,28 @@ function AboutPhotographs() {
   }
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
-      if (imageGridRef.current) {
-        const getOffset = (el: HTMLElement) =>
-          clamp(
-            (el.getBoundingClientRect().top +
-              (el.getBoundingClientRect().height / 3) * 2) /
-              height,
-            0,
-            1
-          )
+    if (width >= 768) {
+      const handleScroll = throttle(() => {
+        if (imageGridRef.current) {
+          const getOffset = (el: HTMLElement) =>
+            clamp(
+              (el.getBoundingClientRect().top +
+                (el.getBoundingClientRect().height / 3) * 2) /
+                height,
+              0,
+              1
+            )
 
-        setRowTwo({ offset: getOffset(rowOneRef.current) })
-        setRowThree({ offset: getOffset(rowTwoRef.current) })
-        setRowFour({ offset: getOffset(rowThreeRef.current) })
-      }
-    }, 10)
+          setRowTwo({ offset: getOffset(rowOneRef.current) })
+          setRowThree({ offset: getOffset(rowTwoRef.current) })
+          setRowFour({ offset: getOffset(rowThreeRef.current) })
+        }
+      }, 10)
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [imageGridRef])
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
+  }, [imageGridRef, width])
 
   useEffect(() => {
     const {
@@ -187,7 +191,7 @@ function AboutPhotographs() {
                         <StyledImage src={lightTwo.childImageSharp.fluid} />
                       </ImageWrapper>
                     </Images>
-                    <ImagesMobile>
+                    <ImagesMobile style={rowTwoStyles}>
                       <ImageWrapper>
                         <StyledImage src={lightTwo.childImageSharp.fluid} />
                       </ImageWrapper>
@@ -327,17 +331,6 @@ const Images = styled.div`
   `}
 `
 
-const ImagesMobile = styled.div`
-  display: none;
-
-  ${media.tablet`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-    margin-bottom: 10px;
-  `}
-`
-
 const ImagesReverse = styled.div`
   display: grid;
   grid-template-columns: 33.5fr 66.5fr;
@@ -351,20 +344,32 @@ const ImagesReverse = styled.div`
   `}
 `
 
+const ImagesMobile = styled.div`
+  display: none;
+
+  ${media.tablet`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 10px;
+  `}
+`
+
 const ImageWrapper = styled.div<{ hideOnMobile?: boolean }>`
   height: 73.4vh;
   min-height: 320px;
   max-height: 660px;
 
   ${media.desktop`
-    height: 60vh;
+    height: 62vh;
   `}
 
   ${media.tablet`
+    ${p => p.hideOnMobile && `display: none;`}
+  `}
+
+  ${media.phablet`
     height: 33vh;
     min-height: 260px;
-
-
-    ${p => p.hideOnMobile && `display: none;`}
   `}
 `
