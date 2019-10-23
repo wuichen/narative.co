@@ -145,7 +145,7 @@ export default AboutStudioLabs
 
 const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
   padding-bottom: 140px;
 
@@ -167,8 +167,8 @@ const Blocks = styled.div`
     position: absolute;
     left: 0;
     top: 15px;
-    width: 100vw;
     height: 1px;
+    width: 200%;
     background: ${p => p.theme.colors.purple};
   }
 

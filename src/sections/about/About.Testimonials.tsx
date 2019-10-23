@@ -86,7 +86,7 @@ function AboutTestimonial() {
       render={({ progress }: StickyState) => {
         const four = progress * 2
         const textStyles = `opacity: ${1 - four}; transform: scale(${1 -
-          progress / 4}); will-change: opacity, filter;`
+          progress / 4}); will-change: opacity, transform;`
 
         return (
           <AboutTestimonialContainer>

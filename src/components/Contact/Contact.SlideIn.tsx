@@ -119,7 +119,7 @@ const Mask = styled.div`
 `
 
 const SlideInContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 40px);
   top: 0px;
   right: 0px;

@@ -296,7 +296,6 @@ const SiteContainer = styled.div`
       p.active ? `translateY(${p.mobileNavOffset}px)` : 'none'};
     transition: transform ${MOBILE_NAV_DURATION +
       60}ms cubic-bezier(0.52, 0.16, 0.24, 1);
-    width: 100vw;
     touch-action: ${p => (p.active ? 'none' : 'initial')};
   `}
 

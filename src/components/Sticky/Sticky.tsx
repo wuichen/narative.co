@@ -103,6 +103,6 @@ const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
   ${p => p.cover && 'overflow-y: hidden;'};
 `
