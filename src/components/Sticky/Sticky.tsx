@@ -24,7 +24,7 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
   const element = useRef()
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
+    function handleScroll() {
       const $el = element.current as HTMLElement
 
       if ($el) {
@@ -55,7 +55,7 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
         setPosition(position)
         setProgress(progress)
       }
-    }, 10)
+    }
 
     window.addEventListener('scroll', handleScroll)
 

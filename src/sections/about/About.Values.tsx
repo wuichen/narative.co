@@ -112,12 +112,12 @@ function AboueValues() {
           cover
           height="1800px"
           render={({ progress }: StickyState) => {
-            const fastProgress = progress + progress + progress + progress
+            const fastProgress = progress * 10
 
             const valuesAnimation = {
               opacity: progress,
               pointerEvents: progress > 0.5 ? 'initial' : 'none',
-              willChange: 'opacity',
+              willChange: 'transform',
             }
 
             const shapeScaleAnimation =
@@ -152,20 +152,20 @@ function AboueValues() {
                   </Values>
                 </Section>
                 <ShapeContainer style={shapeScaleAnimation}>
-                  {/* <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                  <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
                     <SVG src={shapeWithShadow.publicURL} />
-                  </ShapeRectangleGlow> */}
+                  </ShapeRectangleGlow>
                   <ShapeRectangle ref={shapeRef}>
                     <SVG src={shapeWithoutShadow.publicURL} />
                   </ShapeRectangle>
-                  {/* <ShapeRectangleWithMask>
+                  <ShapeRectangleWithMask>
                     <SVG src={shapeWithoutShadow.publicURL} />
                   </ShapeRectangleWithMask>
                   <ShapeRectangleReflection
-                    style={{ opacity: 1 - fastProgress - fastProgress }}
+                    style={{ opacity: 1 - fastProgress }}
                   >
                     <ShapeReflection />
-                  </ShapeRectangleReflection> */}
+                  </ShapeRectangleReflection>
                 </ShapeContainer>
               </>
             )
