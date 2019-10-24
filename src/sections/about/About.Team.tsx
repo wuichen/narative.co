@@ -299,8 +299,8 @@ function AboutTeam() {
                   defaultStyle={{ offset: 0 }}
                   style={{
                     offset: spring(prog * horizontalOffset, {
-                      stiffness: 460,
-                      damping: 100,
+                      stiffness: 380,
+                      damping: 80,
                     }),
                   }}
                 >
