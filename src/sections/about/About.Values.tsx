@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
 import SVG from 'react-inlinesvg'
+import { Motion, spring } from 'react-motion'
 
 import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
@@ -112,7 +113,7 @@ function AboueValues() {
           cover
           height="1800px"
           render={({ progress }: StickyState) => {
-            const fastProgress = progress * 10
+            const fastProgress = progress * 20
 
             const valuesAnimation = {
               opacity: progress,
@@ -120,12 +121,11 @@ function AboueValues() {
               willChange: 'transform',
             }
 
-            const shapeScaleAnimation =
-              progress > 0
+            const shapeScaleAnimation = p =>
+              p > 0
                 ? {
-                    transform: `translateY(-50%) scale(${1 +
-                      progress * scale})`,
-                    pointerEvents: progress <= 0.5 ? 'initial' : 'none',
+                    transform: `translateY(-50%) scale(${1 + p * scale})`,
+                    pointerEvents: p <= 0.5 ? 'initial' : 'none',
                     willChange: 'transform',
                   }
                 : {}
@@ -151,22 +151,34 @@ function AboueValues() {
                     </ButtonContainer>
                   </Values>
                 </Section>
-                <ShapeContainer style={shapeScaleAnimation}>
-                  <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
-                    <SVG src={shapeWithShadow.publicURL} />
-                  </ShapeRectangleGlow>
-                  <ShapeRectangle ref={shapeRef}>
-                    <SVG src={shapeWithoutShadow.publicURL} />
-                  </ShapeRectangle>
-                  <ShapeRectangleWithMask>
-                    <SVG src={shapeWithoutShadow.publicURL} />
-                  </ShapeRectangleWithMask>
-                  <ShapeRectangleReflection
-                    style={{ opacity: 1 - fastProgress }}
-                  >
-                    <ShapeReflection />
-                  </ShapeRectangleReflection>
-                </ShapeContainer>
+                <Motion
+                  defaultStyle={{ offset: 0 }}
+                  style={{
+                    offset: spring(progress, {
+                      stiffness: 500,
+                      damping: 80,
+                    }),
+                  }}
+                >
+                  {({ offset }) => (
+                    <ShapeContainer style={shapeScaleAnimation(offset)}>
+                      <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                        <SVG src={shapeWithShadow.publicURL} />
+                      </ShapeRectangleGlow>
+                      <ShapeRectangle ref={shapeRef}>
+                        <SVG src={shapeWithoutShadow.publicURL} />
+                      </ShapeRectangle>
+                      <ShapeRectangleWithMask>
+                        <SVG src={shapeWithoutShadow.publicURL} />
+                      </ShapeRectangleWithMask>
+                      <ShapeRectangleReflection
+                        style={{ opacity: 1 - fastProgress }}
+                      >
+                        <ShapeReflection />
+                      </ShapeRectangleReflection>
+                    </ShapeContainer>
+                  )}
+                </Motion>
               </>
             )
           }}
