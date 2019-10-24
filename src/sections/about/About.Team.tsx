@@ -281,7 +281,7 @@ function AboutTeam() {
         </AboutRow>
         <Sticky
           cover
-          height="3000px"
+          height="2400px"
           render={({ progress: prog }: StickyState) => {
             const cardAnimation = offset => ({
               transform: `translate3d(-${offset}px, 0 , 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`,
@@ -300,7 +300,7 @@ function AboutTeam() {
                   style={{
                     offset: spring(prog * horizontalOffset, {
                       stiffness: 500,
-                      damping: 20,
+                      damping: 100,
                     }),
                   }}
                 >
