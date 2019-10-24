@@ -50,7 +50,11 @@ function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
           (scrollPosition - topOfElement) /
             (heightOfElement - viewportHeight) || 0
 
-        const progress = clamp(progressOverElement, 0, 1)
+        const progress = clamp(
+          Math.round(100 * progressOverElement) / 100,
+          0,
+          1
+        )
 
         setPosition(position)
         setProgress(progress)
