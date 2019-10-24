@@ -18,7 +18,7 @@ interface StickyProps {
   cover?: boolean
 }
 
-function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
+function Sticky({ cover, height, render, top }: StickyProps) {
   const [position, setPosition] = useState(0)
   const [progress, setProgress] = useState(0)
   const element = useRef()
