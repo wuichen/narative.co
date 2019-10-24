@@ -1,36 +1,55 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import throttle from 'lodash/throttle'
 
 import Section from '@components/Section'
 import ButtonPill from '@components/Button/Button.Pill'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import media from '@styles/media'
+import { getOffsetTop } from '@utils'
 
-function AboutContact({ inView }: { inView: boolean }) {
+function AboutContact() {
+  const [inView, setInView] = useState(false)
   const { toggleContact } = useContext(ContactContext)
+  const ref = useRef()
 
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      setInView(window.pageYOffset + 100 > getOffsetTop(ref.current))
+    }, 50)
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [ref])
   return (
-    <Container data-scroll-fade={true} inView={inView}>
-      <Section narrow>
-        <Heading inView={inView}>
-          That's our story. <Grey>What's yours?</Grey>
-        </Heading>
-        <ButtonContainer>
-          <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />
-        </ButtonContainer>
-      </Section>
-    </Container>
+    <>
+      <LightLayer style={{ opacity: inView ? 1 : 0 }} />
+      <Container data-scroll-fade={true} inView={inView} ref={ref}>
+        <Section narrow>
+          <Heading inView={inView}>
+            That's our story. <Grey>What's yours?</Grey>
+          </Heading>
+          <ButtonContainer>
+            <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />
+          </ButtonContainer>
+        </Section>
+      </Container>
+    </>
   )
 }
 
 export default AboutContact
 
 const Container = styled.div<{ inView: boolean }>`
+  position: relative;
   display: flex;
   align-items: flex-end;
   position: relative;
   height: calc(100vh - 310px);
+  z-index: 2;
 
   ${p =>
     !p.inView &&
@@ -47,7 +66,7 @@ const Container = styled.div<{ inView: boolean }>`
 
   ${media.tablet`
     padding-top: 0;
-    height: 100vh;
+    height: 90vh;
     align-items: center;
   `}
 `
@@ -81,4 +100,27 @@ const Heading = styled.h2<{ inView: boolean }>`
 
 const Grey = styled.div`
   color: ${p => p.theme.colors.grey};
+`
+
+const LightLayer = styled.div`
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #d8d7d8;
+  z-index: 1;
+  transition: opacity 1s;
+
+  ${media.tablet`
+    &::before {
+      content: '';
+      position: absolute;
+      height: 549px;
+      bottom: -549px;
+      background: #d8d7d8;
+      z-index: 1;
+    }
+  `}
 `

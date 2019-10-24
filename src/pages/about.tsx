@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
-import { useInView } from 'react-intersection-observer'
 
 import Divider from '@components/Divider'
 import Layout from '@components/Layout'
@@ -39,7 +38,6 @@ const pageQuery = graphql`
 
 function AboutPage({ location }) {
   const { allContentfulPage } = useStaticQuery(pageQuery)
-  const [ref, inView] = useInView({ threshold: 1 })
 
   const contentful = allContentfulPage.edges[0].node
   const pageBackground = '#08080B'
@@ -71,7 +69,6 @@ function AboutPage({ location }) {
         <AboutTeam />
         <Divider />
       </TeamGradient>
-      <TransitionLayer style={{ opacity: inView ? 1 : 0 }} />
       <MiddleGradient>
         <AboutValues />
       </MiddleGradient>
@@ -79,9 +76,7 @@ function AboutPage({ location }) {
         <AboutPhotographs />
         <AboutTestimonial />
         <AboutStudioLabs />
-        <div ref={ref} style={{ position: 'relative', zIndex: inView ? 2 : 1 }}>
-          <AboutContact inView={inView} />
-        </div>
+        <AboutContact />
       </BottomGradient>
     </Layout>
   )
