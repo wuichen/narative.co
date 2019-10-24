@@ -284,6 +284,7 @@ function AboutTeam() {
           render={({ progress: prog }: StickyState) => {
             const cardAnimation = {
               transform: `translate3d(-${prog * horizontalOffset}px, 0 , 0)`,
+              willChange: 'transform',
             }
 
             const scrollProgressAnimation = {
@@ -868,7 +869,7 @@ const MediaAnimator = styled.div`
   margin-left: 35px;
   flex: 1;
   opacity: 0;
-  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms forwards;
+  animation: ${fadeIn} 1s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms forwards;
 
   ${media.desktop_small`
     display: none;

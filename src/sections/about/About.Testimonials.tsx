@@ -153,6 +153,7 @@ function AboutTestimonial() {
                       style={{
                         transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
                         opacity: prevProgress,
+                        willChange: 'transform, opacity',
                       }}
                     >
                       <Card

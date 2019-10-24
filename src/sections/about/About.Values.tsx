@@ -117,6 +117,7 @@ function AboueValues() {
             const valuesAnimation = {
               opacity: progress,
               pointerEvents: progress > 0.5 ? 'initial' : 'none',
+              willChange: 'opacity',
             }
 
             const shapeScaleAnimation =
@@ -125,6 +126,7 @@ function AboueValues() {
                     transform: `translateY(-50%) scale(${1 +
                       progress * scale})`,
                     pointerEvents: progress <= 0.5 ? 'initial' : 'none',
+                    willChange: 'transform',
                   }
                 : {}
 
@@ -150,20 +152,20 @@ function AboueValues() {
                   </Values>
                 </Section>
                 <ShapeContainer style={shapeScaleAnimation}>
-                  <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                  {/* <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
                     <SVG src={shapeWithShadow.publicURL} />
-                  </ShapeRectangleGlow>
+                  </ShapeRectangleGlow> */}
                   <ShapeRectangle ref={shapeRef}>
                     <SVG src={shapeWithoutShadow.publicURL} />
                   </ShapeRectangle>
-                  <ShapeRectangleWithMask>
+                  {/* <ShapeRectangleWithMask>
                     <SVG src={shapeWithoutShadow.publicURL} />
                   </ShapeRectangleWithMask>
                   <ShapeRectangleReflection
                     style={{ opacity: 1 - fastProgress - fastProgress }}
                   >
                     <ShapeReflection />
-                  </ShapeRectangleReflection>
+                  </ShapeRectangleReflection> */}
                 </ShapeContainer>
               </>
             )
