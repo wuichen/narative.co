@@ -320,7 +320,7 @@ function AboutTeam() {
                               isSelected={selectedPersonIndex === index}
                               isOpen={isOpen}
                             >
-                              {/* <IllustrationColored isOpen={cardIsOpen}>
+                              <IllustrationColored isOpen={cardIsOpen}>
                                 <Image
                                   src={
                                     person.illustration.childImageSharp.fluid
@@ -337,7 +337,7 @@ function AboutTeam() {
                               <div style={{ position: 'relative' }}>
                                 <Name isOpen={cardIsOpen}>{person.name}</Name>
                                 <Role isOpen={cardIsOpen}>{person.role}</Role>
-                              </div> */}
+                              </div>
                             </Card>
                           )
                         })}
@@ -640,7 +640,6 @@ const Illustration = styled.div<{ isOpen: boolean }>`
   width: 100%;
   opacity: ${p => (p.isOpen ? 0 : 1)};
   transition: opacity 0.4s;
-  filter: grayscale(1);
 `
 
 const IllustrationColored = styled.div<{ isOpen: boolean }>`
