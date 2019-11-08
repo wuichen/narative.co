@@ -115,6 +115,8 @@ const Blockquote = styled.blockquote`
 `
 
 const StyledLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
   position: relative;
   font-weight: 600;
   font-size: 18px;
