@@ -314,11 +314,11 @@ function AboutTeam() {
 
                           return (
                             <Card
+                              isOpen={isOpen}
                               key={person.name}
                               ref={cardRefs.current[index]}
-                              onClick={() => handleModalToggle(true, index)}
                               isSelected={selectedPersonIndex === index}
-                              isOpen={isOpen}
+                              onClick={() => handleModalToggle(true, index)}
                             >
                               <IllustrationColored isOpen={cardIsOpen}>
                                 <Image
