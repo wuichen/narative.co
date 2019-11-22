@@ -105,24 +105,26 @@ function AboutStudioLabsModal({
 
                 <ModalGrid>
                   <ModalAbout>
-                    <ModalName>Labs title goes here</ModalName>
+                    <ModalName>About Narative Labs</ModalName>
                     <ModalRole>—</ModalRole>
                     <ModalText index={0}>
-                      I’ve been crafting digital experiences for humans for the
-                      past ten years, having the honour to contribute on the
-                      growth of companies like Hopper, Lightspeed, Breather
-                      among others.
+                      Alongside partnering with select companies to help design,
+                      develop, and market their products, we’re also building a
+                      few things of our very own. Some are open-source
+                      experiments; others are full-fledged consumer products,
+                      coming to market soon.
                     </ModalText>
 
                     <ModalText index={1}>
-                      During this journey I had the opportunity to meet the most
-                      talented group of people, and build a world-class team to
-                      develop startups.
+                      Why do things this way? To start, we just can’t help it;
+                      we love to tinker. It also provides us with real revenue,
+                      while allowing us to retain control of our company.
                     </ModalText>
                     <ModalText index={2}>
-                      Phasellus aliquet mollis felis, sed vehicula urna sodales
-                      at. Cras cursus semper lorem sit amet tempor. Duis nec
-                      lacus
+                      But most importantly, it continuously exposes us to new
+                      technologies and ideas, heightening the quality and
+                      potential of everything we create — no matter who it’s
+                      for.
                     </ModalText>
                     <ModalLink to="/labs">
                       See our products <InternalLinkIcon />

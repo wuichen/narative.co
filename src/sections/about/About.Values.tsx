@@ -6,6 +6,7 @@ import { Motion, spring } from 'react-motion'
 
 import ButtonPill from '@components/Button/Button.Pill'
 import Heading from '@components/Heading'
+import Image from '@components/Image'
 import Section from '@components/Section'
 import Sticky, { StickyState } from '@components/Sticky'
 import { ContactContext } from '@components/Contact/Contact.Context'
@@ -23,18 +24,50 @@ const shapeImagesQuery = graphql`
     shapeWithShadow: file(name: { regex: "/about-shape-with-shadow/" }) {
       publicURL
     }
+    kind: file(name: { regex: "/value-kind/" }) {
+      childImageSharp {
+        fluid(maxWidth: 224, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    creative: file(name: { regex: "/value-creative/" }) {
+      childImageSharp {
+        fluid(maxWidth: 224, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    adaptable: file(name: { regex: "/value-adaptable/" }) {
+      childImageSharp {
+        fluid(maxWidth: 224, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    yourself: file(name: { regex: "/value-yourself/" }) {
+      childImageSharp {
+        fluid(maxWidth: 224, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
   }
 `
 
 function AboueValues() {
-  const { shapeWithoutShadow, shapeWithShadow } = useStaticQuery(
-    shapeImagesQuery
-  )
+  const {
+    shapeWithoutShadow,
+    shapeWithShadow,
+    kind,
+    creative,
+    adaptable,
+    yourself,
+  } = useStaticQuery(shapeImagesQuery)
   const { toggleContact } = useContext(ContactContext)
   const { width, height } = useResize()
   const shapeRef = useRef()
   const mobileShapeRef = useRef()
-  const mobileShapeReflectionRef = useRef()
   const headingRef = useRef()
 
   const [scale, setScale] = useState(1)
@@ -76,25 +109,25 @@ function AboueValues() {
       heading: 'Be kind',
       text:
         'Communicate honestly but sensitively; act with positive intent; and trust others to do the same.',
-      illullstration: '',
+      illullstration: kind.childImageSharp.fluid,
     },
     {
       heading: 'Be creative',
       text:
         'Push beyond best practices and by-the-numbers design to discover valuable new ideas',
-      illullstration: '',
+      illullstration: creative.childImageSharp.fluid,
     },
     {
       heading: 'Be adaptable',
       text:
         'Strive to grow from every challenge and change, even when it means changing your mind.',
-      illullstration: '',
+      illullstration: adaptable.childImageSharp.fluid,
     },
     {
       heading: 'Be yourself',
       text:
         'Work and live the way that uniquely suits you, free of rigid hierarchies and arbitrary expectations.',
-      illullstration: '',
+      illullstration: yourself.childImageSharp.fluid,
     },
   ]
 
@@ -137,7 +170,9 @@ function AboueValues() {
                     <ValuesGrid>
                       {values.map(value => (
                         <div key={value.heading}>
-                          <ValueIllo />
+                          <ValueIllo>
+                            <Image src={value.illullstration} />
+                          </ValueIllo>
                           <ValueHeading>{value.heading}</ValueHeading>
                           <ValueText>{value.text}</ValueText>
                         </div>
@@ -198,7 +233,9 @@ function AboueValues() {
           <ValuesColumn>
             {values.map(value => (
               <ValuesRow key={value.heading}>
-                <ValueIllo />
+                <ValueIllo>
+                  <Image src={value.illullstration} />
+                </ValueIllo>
                 <ValueHeading>{value.heading}</ValueHeading>
                 <ValueText>{value.text}</ValueText>
               </ValuesRow>
@@ -372,6 +409,7 @@ const ValuesColumn = styled.div`
   position: relative;
   top: 0;
   max-width: 750px;
+  text-align: center;
 `
 
 const ValuesRow = styled.div`
@@ -379,22 +417,24 @@ const ValuesRow = styled.div`
 `
 
 const ValueIllo = styled.div`
-  width: 31px;
-  height: 31px;
-  background: #93c3ea;
-  margin-bottom: 15px;
+  width: 112px;
+  margin: 0 auto 15px;
 `
 
 const ValueHeading = styled(Heading.h3)`
   margin-bottom: 15px;
+  text-align: center;
 `
 
 const ValueText = styled.p`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
+  text-align: center;
 
   ${media.tablet`
     font-size: 18px;
+    text-align: center;
+
   `}
 `
 

@@ -290,7 +290,7 @@ function AboutTeam() {
             })
 
             const scrollProgressAnimation = offset => ({
-              transform: `translateX(${offset * 437}%)`,
+              transform: `translate3d(${offset * 437}%, 0, 0)`,
               willChange: 'transform',
             })
 
