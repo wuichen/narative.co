@@ -82,7 +82,7 @@ function AboutTestimonial() {
   return (
     <Sticky
       cover
-      height={width < 767 ? `1800px` : `2200px`}
+      height={width < 767 ? `1800px` : `2600px`}
       render={({ progress }: StickyState) => {
         const four = progress * 2
         const textStyles =

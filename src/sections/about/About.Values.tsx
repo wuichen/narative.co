@@ -418,7 +418,7 @@ const ValuesRow = styled.div`
 
 const ValueIllo = styled.div`
   width: 112px;
-  margin: 0 auto 15px;
+  margin: 0 auto 5px;
 `
 
 const ValueHeading = styled(Heading.h3)`
@@ -430,6 +430,7 @@ const ValueText = styled.p`
   font-size: 22px;
   color: ${p => p.theme.colors.grey};
   text-align: center;
+  line-height: 1.35;
 
   ${media.tablet`
     font-size: 18px;
@@ -442,6 +443,10 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 60px auto 0;
+
+  button {
+    max-width: 750px;
+  }
 `
 
 const ReflectionBackground = styled.div`

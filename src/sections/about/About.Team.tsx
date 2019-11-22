@@ -336,7 +336,9 @@ function AboutTeam() {
                               </Illustration>
                               <div style={{ position: 'relative' }}>
                                 <Name isOpen={cardIsOpen}>{person.name}</Name>
-                                <Role isOpen={cardIsOpen}>{person.role}</Role>
+                                <Role isOpen={cardIsOpen}>
+                                  {person.role} <ArrowIcon />
+                                </Role>
                               </div>
                             </Card>
                           )
@@ -660,12 +662,39 @@ const Name = styled(Heading.h2)<{ isOpen: boolean }>`
 `
 
 const Role = styled.div<{ isOpen: boolean }>`
+  display: inline-block;
+  position: relative;
   color: ${p => p.theme.colors.grey};
   font-size: 22px;
   transform: translateY(${p => (p.isOpen ? 0 : -8)}px);
   opacity: ${p => (p.isOpen ? 0 : 1)};
   transition: transform 0.5s 0.475s, opacity 0.4s 0.475s, color 0.4s;
+
+  svg {
+    position: absolute;
+    right: -24px;
+    top: 30%;
+    transform: translateY(-30%);
+    opacity: 0;
+    transform: translateX(-3px);
+    transition: opaicty 0.3s, transform 0.3s ease;
+  }
 `
+
+const ArrowIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.00008 2.66602L7.06008 3.60602L10.7801 7.33268H2.66675V8.66602H10.7801L7.06008 12.3927L8.00008 13.3327L13.3334 7.99935L8.00008 2.66602Z"
+      fill="#E9DAAC"
+    />
+  </svg>
+)
 
 const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   position: relative;
@@ -675,7 +704,7 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   justify-content: flex-end;
   height: 470px;
   background: #000;
-  /* box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   text-align: center;
   padding: 0 0 44px;
@@ -686,6 +715,11 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   opacity: ${p => (p.isSelected && p.isOpen ? 0 : 1)};
 
   ${p => !p.isOpen && `transition-delay: 0.4s;`}
+
+  &:hover svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   &:hover ${Role} {
     color: ${p => p.theme.colors.gold};

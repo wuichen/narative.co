@@ -123,7 +123,7 @@ function AboutPhotographs() {
 
   useEffect(() => {
     if (width >= 768) {
-      const handleScroll = throttle(() => {
+      const handleScroll = () => {
         if (imageGridRef.current) {
           const getOffset = (el: HTMLElement) =>
             clamp(
@@ -138,7 +138,7 @@ function AboutPhotographs() {
           setRowThree({ offset: getOffset(rowTwoRef.current) })
           setRowFour({ offset: getOffset(rowThreeRef.current) })
         }
-      }, 10)
+      }
 
       window.addEventListener('scroll', handleScroll)
       return () => window.removeEventListener('scroll', handleScroll)
@@ -169,7 +169,7 @@ function AboutPhotographs() {
             const headingClass = inView ? 'Heading__InView' : ''
             const textClass = inView ? 'Text__InView' : ''
             const firstRowScale = clamp(
-              scale + progress * 6 * (1 - scale),
+              scale + progress * 5 * (1 - scale),
               0,
               1
             )
