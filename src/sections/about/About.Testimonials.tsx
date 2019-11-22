@@ -27,9 +27,9 @@ const BACKGROUND_COLOR_BLENDS = [
 
 const companyLogosQuery = graphql`
   {
-    BDCLogo: file(name: { regex: "/testimonial-company-logo-bdc/" }) {
-      publicURL
-    }
+    # BDCLogo: file(name: { regex: "/testimonial-company-logo-bdc/" }) {
+    #   publicURL
+    # }
     flowLogo: file(name: { regex: "/testimonial-company-logo-flow/" }) {
       publicURL
     }
@@ -43,9 +43,12 @@ const companyLogosQuery = graphql`
 `
 
 function AboutTestimonial() {
-  const { BDCLogo, flowLogo, gatsbyLogo, netlifyLogo } = useStaticQuery(
-    companyLogosQuery
-  )
+  const {
+    // BDCLogo,
+    flowLogo,
+    gatsbyLogo,
+    netlifyLogo,
+  } = useStaticQuery(companyLogosQuery)
   const { height, width } = useResize()
 
   const testimonials = [
@@ -56,13 +59,13 @@ function AboutTestimonial() {
         "Our mission at Gatsby is to empower digital creators to build fast, responsive experiences — and Narative does so in ways that are consistently beautiful and inspiring. We're always excited to see what they build, and grateful for their contributions to the Gatsby community.",
       logo: gatsbyLogo,
     },
-    {
-      name: 'David Lorem',
-      title: '[title]',
-      testimonial:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in lectus at augue feugiat imperdiet et quis erat. Fusce placerat, nulla in dapibus bibendum, nunc ex dignissim urna, sed aliquam felis. Phasellus in lectus at augue feugiat imperdiet et quis erat.',
-      logo: BDCLogo,
-    },
+    // {
+    //   name: 'David Lorem',
+    //   title: '[title]',
+    //   testimonial:
+    //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in lectus at augue feugiat imperdiet et quis erat. Fusce placerat, nulla in dapibus bibendum, nunc ex dignissim urna, sed aliquam felis. Phasellus in lectus at augue feugiat imperdiet et quis erat.',
+    //   logo: BDCLogo,
+    // },
     {
       name: 'Shawn Wang',
       title: 'Developer Experience',
