@@ -41,8 +41,6 @@ const Spacer = styled.div`
 `
 
 const Frame = styled.div`
-  overflow-x: hidden;
-
   ${media.tablet`
     height: 100vh;
     width: 100%;
