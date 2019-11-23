@@ -69,8 +69,7 @@ function AboutTestimonial() {
     {
       name: 'Shawn Wang',
       title: 'Developer Experience',
-      testimonial:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in lectus at augue feugiat imperdiet et quis erat. Fusce placerat, nulla in dapibus bibendum, nunc ex dignissim urna, sed aliquam felis. Phasellus in lectus at augue feugiat imperdiet et quis erat.',
+      testimonial: `Narative's work is more than just beautifully designed — their code is beautifully clear and well-documented, too. Their contributions to the open source community are among the most polished that I’ve seen.`,
       logo: netlifyLogo,
     },
     {
@@ -206,10 +205,10 @@ const AboutTestimonialContainer = styled.div`
     background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 70%);
     pointer-events: none;
 
-    @media (min-height: 1200px) {
+    @media (min-height: 1050px) {
       height: 45vh;
-      min-height: 300px;
-      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 20%);
+      min-height: 400px;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 40%);
     }
 
     ${media.tablet`

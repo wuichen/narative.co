@@ -23,6 +23,7 @@ import AboutBackground from './About.Background'
 interface Person {
   name: string
   role: string
+  illustrationInactive: IGraphqlSharpFluidImage
   illustration: IGraphqlSharpFluidImage
   signature: IStaticImage
   about: string[]
@@ -31,7 +32,16 @@ interface Person {
 
 export const illustrationQuery = graphql`
   query GetIllustrations {
-    brad: file(name: { regex: "/portrait-illustration-brad/" }) {
+    brad: file(name: { regex: "/portrait-illustration-brad-active/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    bradInactive: file(
+      name: { regex: "/portrait-illustration-brad-inactive/" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1170, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -41,7 +51,14 @@ export const illustrationQuery = graphql`
     bradSig: file(name: { regex: "/brad-signature/" }) {
       publicURL
     }
-    dan: file(name: { regex: "/portrait-illustration-dan/" }) {
+    dan: file(name: { regex: "/portrait-illustration-dan-active/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    danInactive: file(name: { regex: "/portrait-illustration-dan-inactive/" }) {
       childImageSharp {
         fluid(maxWidth: 1170, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -51,7 +68,16 @@ export const illustrationQuery = graphql`
     danSig: file(name: { regex: "/dan-signature/" }) {
       publicURL
     }
-    dennis: file(name: { regex: "/portrait-illustration-dennis/" }) {
+    dennis: file(name: { regex: "/portrait-illustration-dennis-active/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    dennisInactive: file(
+      name: { regex: "/portrait-illustration-dennis-inactive/" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1170, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -61,7 +87,16 @@ export const illustrationQuery = graphql`
     dennisSig: file(name: { regex: "/dennis-signature/" }) {
       publicURL
     }
-    mack: file(name: { regex: "/portrait-illustration-mack/" }) {
+    mack: file(name: { regex: "/portrait-illustration-mack-active/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    mackInactive: file(
+      name: { regex: "/portrait-illustration-mack-inactive/" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1170, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -71,7 +106,16 @@ export const illustrationQuery = graphql`
     mackSig: file(name: { regex: "/mack-signature/" }) {
       publicURL
     }
-    thiago: file(name: { regex: "/portrait-illustration-thiago/" }) {
+    thiago: file(name: { regex: "/portrait-illustration-thiago-active/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1170, quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    thiagoInactive: file(
+      name: { regex: "/portrait-illustration-thiago-inactive/" }
+    ) {
       childImageSharp {
         fluid(maxWidth: 1170, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
@@ -94,6 +138,7 @@ function AboutTeam() {
     {
       name: `Thiago Costa`,
       role: `Brand and Design`,
+      illustrationInactive: illustrations.thiagoInactive,
       illustration: illustrations.thiago,
       signature: illustrations.thiagoSig.publicURL,
       about: [
@@ -111,6 +156,7 @@ function AboutTeam() {
     {
       name: `Brad Tiller`,
       role: `Marketing and Growth`,
+      illustrationInactive: illustrations.bradInactive,
       illustration: illustrations.brad,
       signature: illustrations.bradSig.publicURL,
       about: [
@@ -126,6 +172,7 @@ function AboutTeam() {
     {
       name: `Dennis Brotzky`,
       role: `Frontend Engineering`,
+      illustrationInactive: illustrations.dennisInactive,
       illustration: illustrations.dennis,
       signature: illustrations.dennisSig.publicURL,
       about: [
@@ -144,6 +191,7 @@ function AboutTeam() {
     {
       name: `Dan Le Van`,
       role: `Backend Engineering`,
+      illustrationInactive: illustrations.danInactive,
       illustration: illustrations.dan,
       signature: illustrations.danSig.publicURL,
       about: [
@@ -161,6 +209,7 @@ function AboutTeam() {
     {
       name: `Mack Mansouri`,
       role: `Operations and Partnerships`,
+      illustrationInactive: illustrations.mackInactive,
       illustration: illustrations.mack,
       signature: illustrations.mackSig.publicURL,
       about: [
@@ -300,8 +349,8 @@ function AboutTeam() {
                   defaultStyle={{ offset: 0 }}
                   style={{
                     offset: spring(prog * horizontalOffset, {
-                      stiffness: 600,
-                      damping: 80,
+                      stiffness: 800,
+                      damping: 100,
                     }),
                   }}
                 >
@@ -330,7 +379,8 @@ function AboutTeam() {
                               <Illustration isOpen={cardIsOpen}>
                                 <Image
                                   src={
-                                    person.illustration.childImageSharp.fluid
+                                    person.illustrationInactive.childImageSharp
+                                      .fluid
                                   }
                                 />
                               </Illustration>
@@ -353,7 +403,7 @@ function AboutTeam() {
                     style={{
                       offset: spring(prog, {
                         stiffness: 600,
-                        damping: 80,
+                        damping: 100,
                       }),
                     }}
                   >
@@ -471,7 +521,7 @@ function AboutTeamModalContent({
       <OutsideClickHandler onOutsideClick={handleOutsideClick}>
         <ModalContent>
           <CloseButton onClick={handleOutsideClick}>
-            <ExIcon fill="#fff" />
+            <ExIcon fill="#73737D" />
           </CloseButton>
           {isOpen && (
             <ModalGrid key={person.name}>
@@ -642,6 +692,7 @@ const Illustration = styled.div<{ isOpen: boolean }>`
   width: 100%;
   opacity: ${p => (p.isOpen ? 0 : 1)};
   transition: opacity 0.4s;
+  will-change: opacity;
 `
 
 const IllustrationColored = styled.div<{ isOpen: boolean }>`
@@ -652,6 +703,7 @@ const IllustrationColored = styled.div<{ isOpen: boolean }>`
   width: 100%;
   opacity: ${p => (p.isOpen ? 0 : 1)};
   transition: ${p => (p.isOpen ? 'opacity 0.4s 0.3s' : 'opacity 0.3s;')};
+  will-change: opacity;
 `
 
 const Name = styled(Heading.h2)<{ isOpen: boolean }>`
@@ -777,7 +829,8 @@ const CloseButton = styled.button`
   ${media.phablet`
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
+    left: unset;
 
     &::before {
       content: '';
@@ -857,8 +910,8 @@ const ModalGrid = styled.div`
 
 const ModalAbout = styled.div`
   width: 100%;
-  max-width: 480px;
-  margin: 40px 0 0 25px;
+  max-width: 520px;
+  margin: 40px 0 0 75px;
 
   ${media.desktop_small`
     max-width: initial;
@@ -871,7 +924,7 @@ const ModalAbout = styled.div`
   `}
 
   ${media.phablet`
-    padding: 60px 20px 20px;
+    padding: 140px 20px 20px;
     pointer-events: none;
   `}
 

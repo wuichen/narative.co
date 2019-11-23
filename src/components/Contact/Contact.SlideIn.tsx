@@ -48,7 +48,11 @@ function ContactSlideIn() {
   }, [name])
 
   return (
-    <Frame tabIndex={showContact ? 0 : -1} aria-hidden={!showContact}>
+    <Frame
+      tabIndex={showContact ? 0 : -1}
+      aria-hidden={!showContact}
+      showContact={showContact}
+    >
       {' '}
       <Mask isActive={showContact} onClick={toggleContact} />
       <CloseContainer
@@ -98,9 +102,12 @@ const SlideIn = ({ in: inProp, children }) => (
   </Transition>
 )
 
-const Frame = styled.div`
+const Frame = styled.div<{ showContact: boolean }>`
   position: relative;
   z-index: 11;
+  opacity: ${p => (p.showContact ? 1 : 0)};
+  transition: opacity 0;
+  ${p => !p.showContact && `transition-delay: 0.7s`}
 `
 
 const Mask = styled.div`

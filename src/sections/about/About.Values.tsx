@@ -414,6 +414,11 @@ const ValuesColumn = styled.div`
 
 const ValuesRow = styled.div`
   margin-bottom: 30px;
+
+  ${media.phablet`
+  margin: 0 auto 30px;
+    max-width: 295px;
+  `}
 `
 
 const ValueIllo = styled.div`
@@ -524,7 +529,7 @@ const ShapeMobile = () => (
         filterUnits="userSpaceOnUse"
         colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend
           mode="normal"
           in="SourceGraphic"
@@ -545,7 +550,7 @@ const ShapeMobile = () => (
         filterUnits="userSpaceOnUse"
         colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
