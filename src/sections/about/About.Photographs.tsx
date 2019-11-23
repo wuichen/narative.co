@@ -15,56 +15,56 @@ import AboutHeading from './About.Heading'
 
 export const galleryQuery = graphql`
   {
-    lightOne: file(name: { regex: "/placeholder-light-1/" }) {
+    lightOne: file(name: { regex: "/light-1-frontend-backend" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    lightTwo: file(name: { regex: "/placeholder-light-2/" }) {
+    lightTwo: file(name: { regex: "/light-2-trust/" }) {
       childImageSharp {
         fluid(maxWidth: 500, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    lightThree: file(name: { regex: "/placeholder-light-3/" }) {
+    lightThree: file(name: { regex: "/light-3-focus/" }) {
       childImageSharp {
         fluid(maxWidth: 500, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    lightFour: file(name: { regex: "/placeholder-light-4/" }) {
+    lightFour: file(name: { regex: "/light-4-meeting/" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    darkOne: file(name: { regex: "/placeholder-dark-1/" }) {
+    darkOne: file(name: { regex: "/dark-1-support/" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    darkTwo: file(name: { regex: "/placeholder-dark-2/" }) {
+    darkTwo: file(name: { regex: "/dark-2-collaboration/" }) {
       childImageSharp {
         fluid(maxWidth: 500, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    darkThree: file(name: { regex: "/placeholder-dark-3/" }) {
+    darkThree: file(name: { regex: "/dark-3-teamwork/" }) {
       childImageSharp {
         fluid(maxWidth: 500, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
-    darkFour: file(name: { regex: "/placeholder-dark-4/" }) {
+    darkFour: file(name: { regex: "/dark-4-adaptability/" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
