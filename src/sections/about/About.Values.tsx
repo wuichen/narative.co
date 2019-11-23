@@ -190,8 +190,8 @@ function AboueValues() {
                   defaultStyle={{ offset: 0 }}
                   style={{
                     offset: spring(progress, {
-                      stiffness: 500,
-                      damping: 80,
+                      stiffness: 800,
+                      damping: 100,
                     }),
                   }}
                 >
