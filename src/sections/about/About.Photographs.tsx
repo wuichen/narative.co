@@ -15,7 +15,7 @@ import AboutHeading from './About.Heading'
 
 export const galleryQuery = graphql`
   {
-    lightOne: file(name: { regex: "/light-1-frontend-backend" }) {
+    lightOne: file(name: { regex: "/light-1-frontend-backend/" }) {
       childImageSharp {
         fluid(maxWidth: 1000, quality: 100) {
           ...GatsbyImageSharpFluid_noBase64
