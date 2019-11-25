@@ -125,7 +125,7 @@ const Frame = styled.div`
   z-index: 3;
   padding-top: 110px;
   padding-bottom: 80px;
-  background: linear-gradient(#0f1015, #101216);
+  background: linear-gradient(#101216, #101216);
 
   ${media.desktop_up`
     display: none;

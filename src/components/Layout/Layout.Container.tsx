@@ -297,6 +297,7 @@ const SiteContainer = styled.div`
     transition: transform ${MOBILE_NAV_DURATION +
       60}ms cubic-bezier(0.52, 0.16, 0.24, 1);
     touch-action: ${p => (p.active ? 'none' : 'initial')};
+    width: 100vw;
   `}
 
   &::after {
