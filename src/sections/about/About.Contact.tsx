@@ -30,7 +30,7 @@ function AboutContact() {
       <Container data-scroll-fade={true} inView={inView} ref={ref}>
         <Section narrow>
           <Heading inView={inView}>
-            That's our story. <Grey>What's yours?</Grey>
+            That’s our story. <Grey>What's yours?</Grey>
           </Heading>
           <ButtonContainer>
             <ButtonPill text="Contact us" onClick={toggleContact} mode="dark" />

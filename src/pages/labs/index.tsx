@@ -38,7 +38,7 @@ function LabsPage({ data, location }) {
   } = data
   const { seo } = allContentfulPage.edges[0].node
   const pageBackground =
-    'linear-gradient(180deg, #08080b 15%, #111216 50%, #191D23 100%)'
+    'linear-gradient(180deg, #08070B 15%, #111216 50%, #191D23 100%)'
   const navConfig = {
     fixed: true,
     theme: 'light',

@@ -25,7 +25,7 @@ function IndexPage({ data, location }) {
     <Layout
       nav={navConfig}
       location={location}
-      background="#08080b"
+      background="#08070B"
       withFooter={false}
     >
       <>

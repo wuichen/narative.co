@@ -40,7 +40,7 @@ function AboutPage({ location }) {
   const { allContentfulPage } = useStaticQuery(pageQuery)
 
   const contentful = allContentfulPage.edges[0].node
-  const pageBackground = '#08080B'
+  const pageBackground = '#08070B'
 
   const navConfig = {
     offset: true,

@@ -329,7 +329,7 @@ function AboutTeam() {
         </AboutRow>
         <Sticky
           cover
-          height="3000px"
+          height="3300px"
           render={({ progress: prog }: StickyState) => {
             return (
               <Section narrow>

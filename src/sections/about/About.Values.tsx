@@ -149,7 +149,7 @@ function AboueValues() {
       <Desktop>
         <Sticky
           cover
-          height="1800px"
+          height="3000px"
           render={({ progress }: StickyState) => {
             const fastProgress = progress * 20
 
@@ -159,11 +159,12 @@ function AboueValues() {
               willChange: 'transform',
             }
 
-            const shapeScaleAnimation = p =>
-              p > 0
+            const shapeAnimation =
+              progress > 0
                 ? {
-                    transform: `translateY(-50%) scale(${1 + p * scale})`,
-                    pointerEvents: p <= 0.5 ? 'initial' : 'none',
+                    transform: `translateY(-50%) scale(${1 +
+                      progress * scale})`,
+                    pointerEvents: progress <= 0.5 ? 'initial' : 'none',
                     willChange: 'transform',
                   }
                 : {}
@@ -191,34 +192,22 @@ function AboueValues() {
                     </ButtonContainer>
                   </Values>
                 </Section>
-                <Motion
-                  defaultStyle={{ offset: 0 }}
-                  style={{
-                    offset: spring(progress, {
-                      stiffness: 800,
-                      damping: 100,
-                    }),
-                  }}
-                >
-                  {({ offset }) => (
-                    <ShapeContainer style={shapeScaleAnimation(offset)}>
-                      <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
-                        <SVG src={shapeWithShadow.publicURL} />
-                      </ShapeRectangleGlow>
-                      <ShapeRectangle ref={shapeRef}>
-                        <SVG src={shapeWithoutShadow.publicURL} />
-                      </ShapeRectangle>
-                      <ShapeRectangleWithMask>
-                        <SVG src={shapeWithoutShadow.publicURL} />
-                      </ShapeRectangleWithMask>
-                      <ShapeRectangleReflection
-                        style={{ opacity: 1 - fastProgress }}
-                      >
-                        <ShapeReflection />
-                      </ShapeRectangleReflection>
-                    </ShapeContainer>
-                  )}
-                </Motion>
+                <ShapeContainer style={shapeAnimation}>
+                  <ShapeRectangleGlow style={{ opacity: 1 - fastProgress }}>
+                    <SVG src={shapeWithShadow.publicURL} />
+                  </ShapeRectangleGlow>
+                  <ShapeRectangle ref={shapeRef}>
+                    <SVG src={shapeWithoutShadow.publicURL} />
+                  </ShapeRectangle>
+                  <ShapeRectangleWithMask>
+                    <SVG src={shapeWithoutShadow.publicURL} />
+                  </ShapeRectangleWithMask>
+                  <ShapeRectangleReflection
+                    style={{ opacity: 1 - fastProgress }}
+                  >
+                    <ShapeReflection />
+                  </ShapeRectangleReflection>
+                </ShapeContainer>
               </>
             )
           }}
