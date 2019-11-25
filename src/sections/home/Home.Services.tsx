@@ -200,7 +200,7 @@ function Code() {
 }
 
 function HomeServices() {
-  const config = { mass: 1, tension: 400, friction: 50 }
+  const config = { mass: 1, tension: 1000, friction: 100 }
 
   const [props, set] = useSpring(() => ({
     offset: 1,

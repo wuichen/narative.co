@@ -41,6 +41,8 @@ const Spacer = styled.div`
 `
 
 const Frame = styled.div`
+  background: #08070b;
+
   ${media.tablet`
     height: 100vh;
     width: 100%;

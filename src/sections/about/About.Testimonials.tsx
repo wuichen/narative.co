@@ -206,7 +206,7 @@ const AboutTestimonialContainer = styled.div`
     pointer-events: none;
 
     @media (min-height: 1050px) {
-      height: 45vh;
+      height: 55vh;
       min-height: 400px;
       background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 40%);
     }

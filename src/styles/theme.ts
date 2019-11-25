@@ -42,6 +42,7 @@ export const theme = {
     purple,
     sirius: '#fafafa',
     kepler: '#08080B',
+    hero: '#08070B',
   },
   animations: {
     flicker,

@@ -242,6 +242,17 @@ function AboutTeam() {
     setChildRef(ref)
   }
 
+  const cardAnimation = offset => ({
+    transform: `translate3d(-${offset}px, 0 , 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`,
+    transformStyle: 'preserve-3d',
+    willChange: 'transform',
+  })
+
+  const scrollProgressAnimation = offset => ({
+    transform: `translate3d(${offset * 437}%, 0, 0)`,
+    willChange: 'transform',
+  })
+
   function handleSetSelectedPersonIndex(index: number) {
     if (cardRefs.current[index]) {
       setSelectedPersonIndex(index)
@@ -332,17 +343,6 @@ function AboutTeam() {
           cover
           height="2000px"
           render={({ progress: prog }: StickyState) => {
-            const cardAnimation = offset => ({
-              transform: `translate3d(-${offset}px, 0 , 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`,
-              transformStyle: 'preserve-3d',
-              willChange: 'transform',
-            })
-
-            const scrollProgressAnimation = offset => ({
-              transform: `translate3d(${offset * 437}%, 0, 0)`,
-              willChange: 'transform',
-            })
-
             return (
               <Section narrow>
                 <Motion
@@ -673,7 +673,7 @@ const TeamCardsContainer = styled.div`
   `}
 `
 
-const Cards = styled.div`
+const Cards = React.memo(styled.div`
   display: grid;
   grid-template-columns: repeat(5, 390px);
   grid-column-gap: 20px;
@@ -682,7 +682,7 @@ const Cards = styled.div`
     grid-template-columns: repeat(5, 90vw);
     grid-column-gap: 10px;
   `}
-`
+`)
 
 const Illustration = styled.div<{ isOpen: boolean }>`
   position: absolute;

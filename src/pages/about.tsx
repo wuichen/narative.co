@@ -62,9 +62,7 @@ function AboutPage({ location }) {
         pathname={location.pathname}
       />
 
-      <HeroGradient>
-        <AboutHero />
-      </HeroGradient>
+      <AboutHero />
       <TeamGradient>
         <AboutTeam />
         <Divider />
@@ -84,12 +82,12 @@ function AboutPage({ location }) {
 
 export default AboutPage
 
-const HeroGradient = styled.div`
-  background: linear-gradient(#08080b, #13151a);
-`
-
 const TeamGradient = styled.div`
-  background: linear-gradient(#13151a 75%, #191d23);
+  background: linear-gradient(
+    ${p => p.theme.colors.hero},
+    #101217 70%,
+    #191d23
+  );
 `
 
 const MiddleGradient = styled.div`

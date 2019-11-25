@@ -242,6 +242,7 @@ const HeroImageBottom = styled.div<{ start: boolean }>`
 `
 
 const Spacer = styled.div`
+  background: ${p => p.theme.colors.hero};
   height: 145px;
 
   ${media.desktop`

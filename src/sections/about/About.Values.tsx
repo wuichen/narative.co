@@ -138,7 +138,7 @@ function AboueValues() {
           heading={`
               <span class="AboutValues__MobileBreak">Who we</span> choose to be
           `}
-          text="A company’s culture isn’t something to be passed down as commandments, or enforced like law. It's the choices we make every day that defines who we are — as individuals, and as a team. These are our choices."
+          text="A company’s culture isn’t something we think should be passed down as commandments, or enforced like law. It’s the choices we make every day that define who we are — as individuals, and as a team. These are our choices."
         />
       </HeadingContainer>
       <Desktop>
@@ -330,7 +330,7 @@ const ShapeContainerMobile = styled.div`
   right: 0;
 `
 
-const ShapeRectangle = styled.figure`
+const ShapeRectangle = React.memo(styled.figure`
   position: absolute;
   top: 50%;
   left: 0;
@@ -338,9 +338,9 @@ const ShapeRectangle = styled.figure`
   margin: 0 auto;
   z-index: 3;
   transform: translateY(-50%);
-`
+`)
 
-const ShapeRectangleGlow = styled.figure`
+const ShapeRectangleGlow = React.memo(styled.figure`
   position: absolute;
   top: 50%;
   left: 0;
@@ -348,9 +348,9 @@ const ShapeRectangleGlow = styled.figure`
   margin: 0 auto;
   z-index: 3;
   transform: translateY(-50%) scale(1.186);
-`
+`)
 
-const ShapeRectangleWithMask = styled.figure`
+const ShapeRectangleWithMask = React.memo(styled.figure`
   position: absolute;
   width: 100%;
   top: 50%;
@@ -375,7 +375,7 @@ const ShapeRectangleWithMask = styled.figure`
     bottom: -50vh;
     left: 0;
   }
-`
+`)
 
 const ShapeRectangleReflection = styled.figure`
   position: absolute;
@@ -384,26 +384,30 @@ const ShapeRectangleReflection = styled.figure`
   margin: 0 auto;
 `
 
-const Values = styled.div`
+const Values = React.memo(styled.div`
   position: absolute;
   width: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #111216;
-`
+`)
 
-const ValuesGrid = styled.div`
+const ValuesGrid = React.memo(styled.div`
   top: 0;
   max-width: 750px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 337px 337px;
+  grid-template-columns: 320px 320px;
   grid-template-rows: 1fr 1fr;
   grid-column-gap: 1fr;
   justify-content: space-between;
   grid-row-gap: 45px;
-`
+
+  @media (max-height: 700px) {
+    grid-row-gap: 25px;
+  }
+`)
 
 const ValuesColumn = styled.div`
   position: relative;
@@ -424,11 +428,19 @@ const ValuesRow = styled.div`
 const ValueIllo = styled.div`
   width: 112px;
   margin: 0 auto 5px;
+
+  @media (max-height: 700px) {
+    margin: 0 auto;
+  }
 `
 
 const ValueHeading = styled(Heading.h3)`
   margin-bottom: 15px;
   text-align: center;
+
+  @media (max-height: 700px) {
+    margin-bottom: 5px;
+  }
 `
 
 const ValueText = styled.p`
@@ -447,10 +459,14 @@ const ValueText = styled.p`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 60px auto 0;
+  margin: 100px auto 0;
 
   button {
     max-width: 750px;
+  }
+
+  @media (max-height: 700px) {
+    margin: 40px auto 0;
   }
 `
 
