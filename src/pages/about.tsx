@@ -85,7 +85,7 @@ export default AboutPage
 const TeamGradient = styled.div`
   background: linear-gradient(
     ${p => p.theme.colors.hero},
-    #101217 70%,
+    #101217 80%,
     #191d23
   );
 `

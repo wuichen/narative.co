@@ -58,7 +58,6 @@ function Sticky({ cover, height, render, top }: StickyProps) {
     }
 
     window.addEventListener('scroll', handleScroll)
-
     return () => window.removeEventListener('scroll', handleScroll)
   }, [element])
 

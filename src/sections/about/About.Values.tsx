@@ -12,9 +12,10 @@ import Sticky, { StickyState } from '@components/Sticky'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
 import media from '@styles/media'
-import { useResize } from '@utils'
+import { useResize, useReduced } from '@utils'
 
 import AboutHeading from './About.Heading'
+import AboutValuesReduced from './About.Values.Reduced'
 
 const shapeImagesQuery = graphql`
   {
@@ -103,6 +104,10 @@ function AboueValues() {
       headingRef.current.style.paddingBottom = `${shapeRect.height / 1.45}px`
     }
   }, [width, height, mobileShapeRef])
+
+  if (useReduced()) {
+    return <AboutValuesReduced />
+  }
 
   const values = [
     {

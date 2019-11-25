@@ -118,6 +118,30 @@ export function useResize() {
 }
 
 /**
+ * In some instances we want to render a reduced (static) version of a page, section,
+ * or component in the browser. Because this is a static site and we don't have too much
+ * control on the server we're using this to check on the client if we should serve
+ * a reduced version.
+ */
+export function useReduced() {
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    const isFirefox = typeof InstallTrigger !== 'undefined'
+    const motionPreference = window.matchMedia(
+      '(prefers-reduced-motion: no-preference)'
+    )
+    const hasAPreferenceOnMotion = !motionPreference.matches
+
+    if (isFirefox || hasAPreferenceOnMotion) {
+      setReduced(true)
+    }
+  }, [])
+
+  return reduced
+}
+
+/**
  * Enable or disable scrolling behavior. Particularly useful for mobile interactions
  * and toggling of different drawers.
  *

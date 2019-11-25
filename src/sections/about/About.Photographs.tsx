@@ -284,6 +284,7 @@ const StyledImage = styled(Image)`
 `
 const AboutWorkContainer = styled.div`
   position: relative;
+  z-index: 2;
   padding: 0 0 calc(180px - 10vh);
 
   ${media.tablet`
@@ -305,6 +306,7 @@ const LightOverlay = styled.div<{ inView: boolean }>`
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   background: ${p => p.theme.colors.sirius};
   opacity: ${p => (p.inView ? 1 : 0)};
   transition: opacity 1s;

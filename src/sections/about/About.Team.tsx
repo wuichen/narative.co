@@ -4,7 +4,6 @@ import usePortal from 'react-useportal'
 import { useStaticQuery, graphql } from 'gatsby'
 import SVG from 'react-inlinesvg'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { Motion, spring } from 'react-motion'
 
 import Heading from '@components/Heading'
 import Section from '@components/Section'
@@ -242,17 +241,6 @@ function AboutTeam() {
     setChildRef(ref)
   }
 
-  const cardAnimation = offset => ({
-    transform: `translate3d(-${offset}px, 0 , 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`,
-    transformStyle: 'preserve-3d',
-    willChange: 'transform',
-  })
-
-  const scrollProgressAnimation = offset => ({
-    transform: `translate3d(${offset * 437}%, 0, 0)`,
-    willChange: 'transform',
-  })
-
   function handleSetSelectedPersonIndex(index: number) {
     if (cardRefs.current[index]) {
       setSelectedPersonIndex(index)
@@ -341,76 +329,56 @@ function AboutTeam() {
         </AboutRow>
         <Sticky
           cover
-          height="2000px"
+          height="3000px"
           render={({ progress: prog }: StickyState) => {
             return (
               <Section narrow>
-                <Motion
-                  defaultStyle={{ offset: 0 }}
+                <TeamCardsContainer
                   style={{
-                    offset: spring(prog * horizontalOffset, {
-                      stiffness: 1200,
-                      damping: 100,
-                    }),
+                    transform: `translate3d(-${prog *
+                      horizontalOffset}px, 0, 0)`,
                   }}
                 >
-                  {({ offset }) => (
-                    <TeamCardsContainer style={cardAnimation(offset)}>
-                      <Cards ref={cardsRef}>
-                        {people.map((person, index) => {
-                          const cardIsOpen =
-                            isOpen && selectedPersonIndex === index
+                  <Cards ref={cardsRef}>
+                    {people.map((person, index) => {
+                      const cardIsOpen = isOpen && selectedPersonIndex === index
 
-                          return (
-                            <Card
-                              isOpen={isOpen}
-                              key={person.name}
-                              ref={cardRefs.current[index]}
-                              isSelected={selectedPersonIndex === index}
-                              onClick={() => handleModalToggle(true, index)}
-                            >
-                              <IllustrationColored isOpen={cardIsOpen}>
-                                <Image
-                                  src={
-                                    person.illustration.childImageSharp.fluid
-                                  }
-                                />
-                              </IllustrationColored>
-                              <Illustration isOpen={cardIsOpen}>
-                                <Image
-                                  src={
-                                    person.illustrationInactive.childImageSharp
-                                      .fluid
-                                  }
-                                />
-                              </Illustration>
-                              <div style={{ position: 'relative' }}>
-                                <Name isOpen={cardIsOpen}>{person.name}</Name>
-                                <Role isOpen={cardIsOpen}>
-                                  {person.role} <ArrowIcon />
-                                </Role>
-                              </div>
-                            </Card>
-                          )
-                        })}
-                      </Cards>
-                    </TeamCardsContainer>
-                  )}
-                </Motion>
+                      return (
+                        <Card
+                          isOpen={isOpen}
+                          key={person.name}
+                          ref={cardRefs.current[index]}
+                          isSelected={selectedPersonIndex === index}
+                          onClick={() => handleModalToggle(true, index)}
+                        >
+                          <IllustrationColored isOpen={cardIsOpen}>
+                            <Image
+                              src={person.illustration.childImageSharp.fluid}
+                            />
+                          </IllustrationColored>
+                          <Illustration isOpen={cardIsOpen}>
+                            <Image
+                              src={
+                                person.illustrationInactive.childImageSharp
+                                  .fluid
+                              }
+                            />
+                          </Illustration>
+                          <div style={{ position: 'relative' }}>
+                            <Name isOpen={cardIsOpen}>{person.name}</Name>
+                            <Role isOpen={cardIsOpen}>
+                              {person.role} <ArrowIcon />
+                            </Role>
+                          </div>
+                        </Card>
+                      )
+                    })}
+                  </Cards>
+                </TeamCardsContainer>
                 <Progress>
-                  <Motion
-                    defaultStyle={{ offset: 0 }}
-                    style={{
-                      offset: spring(prog, {
-                        stiffness: 1200,
-                        damping: 100,
-                      }),
-                    }}
-                  >
-                    {({ offset }) => (
-                      <Value style={scrollProgressAnimation(offset)} />
-                    )}
-                  </Motion>
+                  <Value
+                    style={{ transform: `translate3d(${prog * 437}%, 0, 0)` }}
+                  />
                 </Progress>
               </Section>
             )
@@ -657,7 +625,7 @@ const Text = styled.p`
   `}
 `
 
-const TeamCardsContainer = styled.div`
+const TeamCardsContainer = React.memo(styled.div`
   display: flex;
   color: ${p => p.theme.colors.grey};
   width: 20rem;
@@ -666,12 +634,13 @@ const TeamCardsContainer = styled.div`
   width: 100%;
   padding: 16vh 0 0 263px;
   align-items: center;
+  will-change: transform;
   transform-style: preserve-3d;
 
   ${media.desktop`
     padding: 16vh 0 0 0;
   `}
-`
+`)
 
 const Cards = React.memo(styled.div`
   display: grid;
