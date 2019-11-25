@@ -14,8 +14,8 @@ export function calculateStyles(position: number): {} {
   const breakpoint = getBreakpointFromTheme('tablet')
 
   const styles = {
-    opacity: 1 - position / height / 0.8,
-    transform: `translateY(-${position * 0.22}px)`,
+    opacity: 1 - position / height / 1,
+    transform: `translateY(-${position * 0.11}px)`,
   }
 
   return width > breakpoint || position <= 0 ? {} : styles
@@ -51,6 +51,7 @@ const Frame = styled.div`
     position: fixed;
     z-index: 0;
     pointer-events: none;
+    background: transparent;
 
     @media screen and (max-height: 600px) {
       padding-top: 60px;

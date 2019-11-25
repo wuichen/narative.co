@@ -65,7 +65,7 @@ function LabsPreviewMobile() {
         <Heading style={{ color: '#fafafa' }}>Project Needle</Heading>
         <Image src={needlBackground.childImageSharp.fluid} />
         <Border style={{ background: 'rgba(255,255,255,0.06)' }} />
-        <Anchor as="div" style={{ background: '#171719', color: '#515359' }}>
+        <Anchor as="div" style={{ background: '#070202', color: '#515359' }}>
           Coming soon
         </Anchor>
       </PreviewCard>

@@ -84,7 +84,7 @@ function AboutHero() {
             we hide the Bulb illustration from the hero and want
             it to scroll up over the fixed hero on mobile.
           */}
-          <Section hideOnDesktop>
+          <MobileSection hideOnDesktop relative>
             <ImageContainer>
               <HeroImageTop>
                 <Image src={heroTop.childImageSharp.fluid} />
@@ -96,7 +96,7 @@ function AboutHero() {
                 />
               </HeroImageBottom>
             </ImageContainer>
-          </Section>
+          </MobileSection>
 
           <Spacer />
         </>
@@ -193,7 +193,8 @@ const ImageContainer = styled.div`
   `};
 
   ${media.desktop`
-    display:  ${p => (p.desktop ? ' none' : 'block')}
+    display:  ${p => (p.desktop ? ' none' : 'block')};
+    background: #08070b;
     right: 0;
     left: 0;
     position: relative;
@@ -248,4 +249,8 @@ const Spacer = styled.div`
   ${media.desktop`
     height: 0;
   `};
+`
+
+const MobileSection = styled(Section)`
+  background: #08070b;
 `

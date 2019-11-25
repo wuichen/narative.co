@@ -389,7 +389,7 @@ const MaskMobile = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    background: ${p => (p.theme !== 'dark' ? '#08080b' : '#fff')};
+    background: ${p => (p.theme !== 'dark' ? '#08070b' : '#fff')};
     z-index: 9; 
   `}
 `

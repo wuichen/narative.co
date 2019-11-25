@@ -9,6 +9,7 @@ const Section = styled.section<{
   narrow?: boolean
 }>`
   position: ${p => (p.relative ? 'relative' : 'static')};
+  ${p => p.relative && 'z-index: 1;'};
   width: 100%;
   max-width: 1220px;
   margin: 0 auto;

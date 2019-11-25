@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
 
+import media from '@styles/media'
 import { clamp, getOffsetTop } from '@utils'
 
 export interface StickyState {
@@ -18,7 +18,7 @@ interface StickyProps {
   cover?: boolean
 }
 
-function Sticky({ cover, height, render, top }: StickyProps) {
+function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
   const [position, setPosition] = useState(0)
   const [progress, setProgress] = useState(0)
   const element = useRef()
@@ -63,9 +63,9 @@ function Sticky({ cover, height, render, top }: StickyProps) {
 
   return (
     <div ref={element} data-component="sticky">
-      <StickyDuration height={height}>
+      <StickyDuration height={height} isDisabled={disableOnMobile}>
         <StickyItemContainer>
-          <StickyItem top={top} cover={cover}>
+          <StickyItem top={top} cover={cover} isDisabled={disableOnMobile}>
             {render({ progress, position })}
           </StickyItem>
         </StickyItemContainer>
@@ -78,6 +78,10 @@ export default Sticky
 
 const StickyDuration = styled.div<{ height?: string }>`
   height: ${p => p.height || '100vh'};
+
+  ${media.tablet`
+    height: ${p => (p.isDisabled ? '100%' : p.height)};
+  `}
 `
 
 const StickyItemContainer = styled.div`
@@ -95,4 +99,9 @@ const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   overflow-x: hidden;
   width: 100%;
   ${p => p.cover && 'overflow-y: hidden;'};
+
+  ${media.tablet`
+    position: ${p => (p.isDisabled ? 'static' : 'sticky')};
+    display: ${p => (p.isDisabled ? 'block' : 'flex')};
+  `}
 `
