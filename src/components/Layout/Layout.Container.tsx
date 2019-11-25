@@ -277,7 +277,7 @@ const SiteContainer = styled.div`
   position: ${p => (p.active || p.mask ? 'fixed' : 'relative')};
   background: ${p =>
     p.background ||
-    `linear-gradient(180deg, ${p.colors.hero} 0%, #0b0b0e 44.18%, #111216 100%)`};
+    `linear-gradient(180deg, ${p.theme.colors.hero} 0%, #0b0b0e 44.18%, #111216 100%)`};
   min-height: 100vh;
 
   ${p =>
