@@ -1,5 +1,4 @@
 const globalHistory = require('@reach/router').globalHistory
-const throttle = require('lodash/throttle')
 const getWindowDimensions = require('../src/utils/index').getWindowDimensions
 
 function handleAccessibilityFocus() {
@@ -37,7 +36,7 @@ function handleAccessibilityFocus() {
 function handleFadeInAndOutOnScroll() {
   const clamp = value => Math.min(Math.max(value, 0), 1)
 
-  const handleScroll = throttle(() => {
+  const handleScroll = () => {
     const { height } = getWindowDimensions()
     const elements = Array.from(document.querySelectorAll('[data-scroll-fade]'))
 
@@ -54,7 +53,7 @@ function handleFadeInAndOutOnScroll() {
         element.style.opacity = clamp((1 - box.top / height) * 1.66)
       }
     })
-  }, 15)
+  }
 
   window.addEventListener('scroll', handleScroll)
 }
