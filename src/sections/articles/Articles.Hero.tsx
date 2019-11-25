@@ -11,7 +11,6 @@ import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Transitions from '@components/Transitions'
 
 import media from '@styles/media'
-import { startAnimation } from '@utils'
 
 const imageQuery = graphql`
   query ArticlesHeroQuery {
