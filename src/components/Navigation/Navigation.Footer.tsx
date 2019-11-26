@@ -203,8 +203,8 @@ const FooterLink = styled(Link)<{ mobileOnly: boolean }>`
   color: ${p => p.color};
   transition: opacity 0.3s cubic-bezier(0.3, 0.46, 0.45, 0.9);
 
-  ${media.desktop_up`
-    display: none;
+  ${media.desktop_small_up`
+    ${p => p.mobileOnly && `display: none;`}
   `}
 
   &[data-active='true'] {
@@ -266,7 +266,7 @@ const CopyRight = styled.div`
   color: ${p => p.theme.colors.grey};
   text-align: center;
 
-  ${media.desktop_up`
+  ${media.desktop_small_up`
     display: none;
   `}
 `
