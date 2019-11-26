@@ -1079,7 +1079,7 @@ const ModalPrev = styled.button<{ isOpen: boolean }>`
 `
 
 const Desktop = styled.div`
-  ${media.desktop`
+  ${media.phablet`
     display: none;
   `}
 `
@@ -1088,7 +1088,7 @@ const Mobile = styled.div`
   display: none;
   margin: 50px auto 80px;
 
-  ${media.desktop`
+  ${media.phablet`
     position: relative;
     display: block;
   `}
