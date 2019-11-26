@@ -186,18 +186,30 @@ function AboutPhotographs() {
                     <div ref={ref}>
                       <Images ref={rowOneRef}>
                         <ImageWrapper>
-                          <StyledImage src={lightOne.childImageSharp.fluid} />
+                          <StyledImage
+                            loading="eager"
+                            src={lightOne.childImageSharp.fluid}
+                          />
                         </ImageWrapper>
                         <ImageWrapper hideOnMobile>
-                          <StyledImage src={lightTwo.childImageSharp.fluid} />
+                          <StyledImage
+                            loading="eager"
+                            src={lightTwo.childImageSharp.fluid}
+                          />
                         </ImageWrapper>
                       </Images>
                       <ImagesMobile style={rowTwoStyles}>
                         <ImageWrapper>
-                          <StyledImage src={lightTwo.childImageSharp.fluid} />
+                          <StyledImage
+                            loading="eager"
+                            src={lightTwo.childImageSharp.fluid}
+                          />
                         </ImageWrapper>
                         <ImageWrapper>
-                          <StyledImage src={lightThree.childImageSharp.fluid} />
+                          <StyledImage
+                            loading="eager"
+                            src={lightThree.childImageSharp.fluid}
+                          />
                         </ImageWrapper>
                       </ImagesMobile>
 
@@ -205,11 +217,13 @@ function AboutPhotographs() {
                         <ImagesReverse ref={rowTwoRef}>
                           <ImageWrapper hideOnMobile>
                             <StyledImage
+                              loading="eager"
                               src={lightThree.childImageSharp.fluid}
                             />
                           </ImageWrapper>
                           <ImageWrapper>
                             <StyledImage
+                              loading="eager"
                               src={lightFour.childImageSharp.fluid}
                             />
                           </ImageWrapper>
@@ -222,28 +236,46 @@ function AboutPhotographs() {
                   <animated.div style={rowThreeStyles}>
                     <Images ref={rowThreeRef}>
                       <ImageWrapper>
-                        <StyledImage src={darkOne.childImageSharp.fluid} />
+                        <StyledImage
+                          loading="eager"
+                          src={darkOne.childImageSharp.fluid}
+                        />
                       </ImageWrapper>
                       <ImageWrapper hideOnMobile>
-                        <StyledImage src={darkTwo.childImageSharp.fluid} />
+                        <StyledImage
+                          loading="eager"
+                          src={darkTwo.childImageSharp.fluid}
+                        />
                       </ImageWrapper>
                     </Images>
                   </animated.div>
                   <ImagesMobile>
                     <ImageWrapper>
-                      <StyledImage src={darkTwo.childImageSharp.fluid} />
+                      <StyledImage
+                        loading="eager"
+                        src={darkTwo.childImageSharp.fluid}
+                      />
                     </ImageWrapper>
                     <ImageWrapper>
-                      <StyledImage src={darkThree.childImageSharp.fluid} />
+                      <StyledImage
+                        loading="eager"
+                        src={darkThree.childImageSharp.fluid}
+                      />
                     </ImageWrapper>
                   </ImagesMobile>
                   <animated.div style={rowFourStyles}>
                     <ImagesReverse ref={rowFourRef}>
                       <ImageWrapper hideOnMobile>
-                        <StyledImage src={darkThree.childImageSharp.fluid} />
+                        <StyledImage
+                          loading="eager"
+                          src={darkThree.childImageSharp.fluid}
+                        />
                       </ImageWrapper>
                       <ImageWrapper>
-                        <StyledImage src={darkFour.childImageSharp.fluid} />
+                        <StyledImage
+                          loading="eager"
+                          src={darkFour.childImageSharp.fluid}
+                        />
                       </ImageWrapper>
                     </ImagesReverse>
                   </animated.div>
