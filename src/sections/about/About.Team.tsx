@@ -337,6 +337,7 @@ function AboutTeam() {
                   style={{
                     transform: `translate3d(-${prog *
                       horizontalOffset}px, 0, 0)`,
+                    width: `${horizontalOffset}px`,
                   }}
                 >
                   <Cards ref={cardsRef}>
