@@ -109,7 +109,6 @@ function HomeCallToAction() {
                 Contact Us <ChevronDownIcon aria-hidden="true" />
               </CTAText>
             </CallToAction>
-            <MobileCopy>More about Narative</MobileCopy>
           </Frame>
         )}
       />
@@ -367,25 +366,6 @@ const MobileAction = styled(Link)`
   ${media.desktop_up`
     display: none;
   `}
-`
-
-const MobileCopy = styled.div`
-  ${media.tablet_up`
-    display: none;
-  `}
-
-  max-width: 184px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -85px;
-  margin: 0 auto;
-  text-align: center;
-  background: #101216;
-  padding: 10px 15px;
-  z-index: 1;
-  font-size: 18px;
-  color: ${p => p.theme.colors.grey};
 `
 
 const LogoContainer = styled.div`
