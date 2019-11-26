@@ -11,6 +11,7 @@ import media from '@styles/media'
 import shortcuts, { constants } from '@shortcuts'
 
 const footerLinks = [
+  { to: '/', text: 'Home', mobileOnly: true },
   { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
@@ -68,12 +69,15 @@ const Footer = ({ mode = 'dark' }: { mode?: string }) => {
 
             return (
               <FooterLink
+                mobileOnly={link.mobileOnly}
                 key={link.to}
                 color={color}
                 to={link.to}
                 data-a11y="false"
-                getProps={({ isPartiallyCurrent }) =>
-                  isPartiallyCurrent ? { ['data-active']: 'true' } : null
+                getProps={({ isPartiallyCurrent, isCurrent }) =>
+                  isPartiallyCurrent && isCurrent
+                    ? { ['data-active']: 'true' }
+                    : null
                 }
                 onClick={handleShortcutReset}
               >
@@ -192,12 +196,16 @@ const SocialIconsFooter = styled.div`
   `}
 `
 
-const FooterLink = styled(Link)`
+const FooterLink = styled(Link)<{ mobileOnly: boolean }>`
   position: relative;
   font-weight: 600;
   font-size: 18px;
   color: ${p => p.color};
   transition: opacity 0.3s cubic-bezier(0.3, 0.46, 0.45, 0.9);
+
+  ${media.desktop_up`
+    display: none;
+  `}
 
   &[data-active='true'] {
     &::after {
