@@ -133,7 +133,7 @@ function AboutTestimonial() {
                     offsetHeight = first ? 180 : 540
                   }
 
-                  if (width < 460 && height < 600) {
+                  if (width < 460 && height < 668) {
                     offsetHeight = first ? 230 : 580
                   }
 
