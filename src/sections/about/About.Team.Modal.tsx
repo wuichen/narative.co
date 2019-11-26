@@ -115,8 +115,12 @@ const CardContainer = styled.div<{ isSelected: boolean }>`
 `}
 
   ${media.phablet`
-    height: 440px;
-    width: 90vw;
+    height: 410px;
+    width: calc(100vw - 40px);
+  `}
+
+  ${media.phone_small`
+    height: 380px;
   `}
 `
 

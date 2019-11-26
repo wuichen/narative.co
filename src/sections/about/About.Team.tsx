@@ -327,64 +327,99 @@ function AboutTeam() {
             </Text>
           </TextContainer>
         </AboutRow>
-        <Sticky
-          cover
-          height="3300px"
-          render={({ progress: prog }: StickyState) => {
-            return (
-              <Section narrow>
-                <TeamCardsContainer
-                  style={{
-                    transform: `translate3d(-${prog *
-                      horizontalOffset}px, 0, 0)`,
-                    width: `${horizontalOffset}px`,
-                  }}
-                >
-                  <Cards ref={cardsRef}>
-                    {people.map((person, index) => {
-                      const cardIsOpen = isOpen && selectedPersonIndex === index
+        <Desktop>
+          <Sticky
+            cover
+            height="3300px"
+            render={({ progress: prog }: StickyState) => {
+              return (
+                <Section narrow>
+                  <TeamCardsContainer
+                    style={{
+                      transform: `translate3d(-${prog *
+                        horizontalOffset}px, 0, 0)`,
+                      width: `${horizontalOffset}px`,
+                    }}
+                  >
+                    <Cards ref={cardsRef}>
+                      {people.map((person, index) => {
+                        const cardIsOpen =
+                          isOpen && selectedPersonIndex === index
 
-                      return (
-                        <Card
-                          isOpen={isOpen}
-                          key={person.name}
-                          ref={cardRefs.current[index]}
-                          isSelected={selectedPersonIndex === index}
-                          onClick={() => handleModalToggle(true, index)}
-                        >
-                          <IllustrationColored isOpen={cardIsOpen}>
-                            <Image
-                              src={person.illustration.childImageSharp.fluid}
-                            />
-                          </IllustrationColored>
-                          <Illustration isOpen={cardIsOpen}>
-                            <Image
-                              src={
-                                person.illustrationInactive.childImageSharp
-                                  .fluid
-                              }
-                            />
-                          </Illustration>
-                          <div style={{ position: 'relative' }}>
-                            <Name isOpen={cardIsOpen}>{person.name}</Name>
-                            <Role isOpen={cardIsOpen}>
-                              {person.role} <ArrowIcon />
-                            </Role>
-                          </div>
-                        </Card>
-                      )
-                    })}
-                  </Cards>
-                </TeamCardsContainer>
-                <Progress>
-                  <Value
-                    style={{ transform: `translate3d(${prog * 437}%, 0, 0)` }}
-                  />
-                </Progress>
-              </Section>
-            )
-          }}
-        />
+                        return (
+                          <Card
+                            isOpen={isOpen}
+                            key={person.name}
+                            ref={cardRefs.current[index]}
+                            isSelected={selectedPersonIndex === index}
+                            onClick={() => handleModalToggle(true, index)}
+                          >
+                            <IllustrationColored isOpen={cardIsOpen}>
+                              <Image
+                                src={person.illustration.childImageSharp.fluid}
+                              />
+                            </IllustrationColored>
+                            <Illustration isOpen={cardIsOpen}>
+                              <Image
+                                src={
+                                  person.illustrationInactive.childImageSharp
+                                    .fluid
+                                }
+                              />
+                            </Illustration>
+                            <div style={{ position: 'relative' }}>
+                              <Name isOpen={cardIsOpen}>{person.name}</Name>
+                              <Role isOpen={cardIsOpen}>
+                                {person.role} <ArrowIcon />
+                              </Role>
+                            </div>
+                          </Card>
+                        )
+                      })}
+                    </Cards>
+                  </TeamCardsContainer>
+                  <Progress>
+                    <Value
+                      style={{ transform: `translate3d(${prog * 437}%, 0, 0)` }}
+                    />
+                  </Progress>
+                </Section>
+              )
+            }}
+          />
+        </Desktop>
+        <Mobile>
+          <Section narrow>
+            {people.map((person, index) => {
+              const cardIsOpen = isOpen && selectedPersonIndex === index
+
+              return (
+                <Card
+                  isOpen={isOpen}
+                  key={person.name}
+                  ref={cardRefs.current[index]}
+                  isSelected={selectedPersonIndex === index}
+                  onClick={() => handleModalToggle(true, index)}
+                >
+                  <IllustrationColored isOpen={cardIsOpen}>
+                    <Image src={person.illustration.childImageSharp.fluid} />
+                  </IllustrationColored>
+                  <Illustration isOpen={cardIsOpen}>
+                    <Image
+                      src={person.illustrationInactive.childImageSharp.fluid}
+                    />
+                  </Illustration>
+                  <div style={{ position: 'relative' }}>
+                    <Name isOpen={cardIsOpen}>{person.name}</Name>
+                    <Role isOpen={cardIsOpen}>
+                      {person.role} <ArrowIcon />
+                    </Role>
+                  </div>
+                </Card>
+              )
+            })}
+          </Section>
+        </Mobile>
 
         <AboutBackground />
       </AboutTeamContainer>
@@ -758,7 +793,8 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   `}
 
   ${media.phablet`
-    height: 440px;
+    height: 410px;
+    margin-bottom: 20px;
   `}
 
   ${media.phone_small`
@@ -1039,5 +1075,21 @@ const ModalPrev = styled.button<{ isOpen: boolean }>`
 
   ${media.tablet`
     display: none;
+  `}
+`
+
+const Desktop = styled.div`
+  ${media.desktop`
+    display: none;
+  `}
+`
+
+const Mobile = styled.div`
+  display: none;
+  margin: 50px auto 80px;
+
+  ${media.desktop`
+    position: relative;
+    display: block;
   `}
 `
