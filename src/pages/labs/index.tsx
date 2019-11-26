@@ -346,6 +346,7 @@ const HeroImageMobile = styled(HeroImage)`
   display: none;
 
   ${media.tablet`
+    box-shadow: 0px -40px 40px rgba(8, 7, 11, 0.8);
     display: block;
     width: 100%;
     top: 0;

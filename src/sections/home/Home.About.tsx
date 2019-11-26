@@ -140,6 +140,7 @@ const MobileContainer = styled.div`
   margin-bottom: -85%;
   overflow-x: hidden;
   background: #08070b;
+  box-shadow: 0px -40px 40px rgba(8, 7, 11, 0.8);
 
   ${media.tablet_up`
     display: none;
@@ -280,6 +281,7 @@ const Slash = () => (
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
         />
         <feOffset />
+        <feGaussianBlur stdDeviation="35" />
         <feColorMatrix
           type="matrix"
           values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
@@ -295,11 +297,16 @@ const Slash = () => (
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
         />
         <feOffset />
+        <feGaussianBlur stdDeviation="5" />
         <feColorMatrix
           type="matrix"
           values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
         />
-
+        <feBlend
+          mode="normal"
+          in2="effect1_dropShadow"
+          result="effect2_dropShadow"
+        />
         <feBlend
           mode="normal"
           in="SourceGraphic"

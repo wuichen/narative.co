@@ -14,7 +14,7 @@ export function calculateStyles(position: number): {} {
   const breakpoint = getBreakpointFromTheme('tablet')
 
   const styles = {
-    opacity: 1 - position / height / 0.9,
+    opacity: position > height ? 0 : 1,
     transform: `translateY(-${position * 0.11}px)`,
   }
 

@@ -73,6 +73,7 @@ const LargeHeading = styled(Heading.h2)`
 
   ${media.tablet`
     font-size: 50px;
+    color: #cfd3de;
   `}
 
   ${media.phablet`

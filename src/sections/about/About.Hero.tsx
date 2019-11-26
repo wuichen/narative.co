@@ -199,7 +199,7 @@ const ImageContainer = styled.div`
     left: 0;
     position: relative;
     margin: 0 auto;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
     width: 100%;
   `};
 `
@@ -253,4 +253,5 @@ const Spacer = styled.div`
 
 const MobileSection = styled(Section)`
   background: #08070b;
+  box-shadow: 0px -40px 40px rgba(8, 7, 11, 0.8);
 `
