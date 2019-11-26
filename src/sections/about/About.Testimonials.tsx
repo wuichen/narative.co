@@ -82,107 +82,144 @@ function AboutTestimonial() {
   ]
 
   return (
-    <Sticky
-      cover
-      height={width < 767 ? `1800px` : `2600px`}
-      render={({ progress }: StickyState) => {
-        const four = progress * 2
-        const textStyles =
-          progress > 0
-            ? ` style="display: block; opacity: ${1 -
-                four}; transform: scale(${1 -
-                progress / 4}); will-change: opacity, transform;"`
-            : ``
+    <>
+      <Desktop>
+        <Sticky
+          cover
+          height={width < 767 ? `1800px` : `2600px`}
+          render={({ progress }: StickyState) => {
+            const four = progress * 2
+            const textStyles =
+              progress > 0
+                ? ` style="display: block; opacity: ${1 -
+                    four}; transform: scale(${1 -
+                    progress / 4}); will-change: opacity, transform;"`
+                : ``
 
-        return (
-          <AboutTestimonialContainer>
-            <HeadingLineBreak>
-              <AboutHeading
-                heading="Independent,<br /> but never alone"
-                text={`<span${textStyles}>While we like to do things our own way, nobody can do it all by themselves. <span style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</span></span>`}
-              />
-            </HeadingLineBreak>
-            <Section narrow>
-              <TestimonialCardContainer>
-                {testimonials.map((testimonial, index) => {
-                  const total = testimonials.length
-                  const nextIndex = index + 1
-                  const previousIndex = index - 1
-                  const first = index === 0
-                  const minZeroMaxOne = (num: number) => clamp(num, 0, 1)
+            return (
+              <AboutTestimonialContainer>
+                <HeadingLineBreak>
+                  <AboutHeading
+                    heading="Independent,<br /> but never alone"
+                    text={`<span${textStyles}>While we like to do things our own way, nobody can do it all by themselves. <span style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</span></span>`}
+                  />
+                </HeadingLineBreak>
+                <Section narrow>
+                  <TestimonialCardContainer>
+                    {testimonials.map((testimonial, index) => {
+                      const total = testimonials.length
+                      const nextIndex = index + 1
+                      const previousIndex = index - 1
+                      const first = index === 0
+                      const minZeroMaxOne = (num: number) => clamp(num, 0, 1)
 
-                  const prevStaggered = minZeroMaxOne(
-                    progress - previousIndex / total
-                  )
-                  const currentStaggered = minZeroMaxOne(
-                    progress - index / total
-                  )
-                  const nextStaggered = minZeroMaxOne(
-                    progress - nextIndex / total
-                  )
+                      const prevStaggered = minZeroMaxOne(
+                        progress - previousIndex / total
+                      )
+                      const currentStaggered = minZeroMaxOne(
+                        progress - index / total
+                      )
+                      const nextStaggered = minZeroMaxOne(
+                        progress - nextIndex / total
+                      )
 
-                  const prevProgress = minZeroMaxOne(prevStaggered * total)
-                  const currentProgress = minZeroMaxOne(
-                    currentStaggered * total
-                  )
-                  const nextProgress = minZeroMaxOne(nextStaggered * total)
+                      const prevProgress = minZeroMaxOne(prevStaggered * total)
+                      const currentProgress = minZeroMaxOne(
+                        currentStaggered * total
+                      )
+                      const nextProgress = minZeroMaxOne(nextStaggered * total)
 
-                  let offsetHeight = first ? 100 : 450
+                      let offsetHeight = first ? 100 : 450
 
-                  if (width < 460 && height < 750) {
-                    offsetHeight = first ? 180 : 540
-                  }
+                      if (width < 460 && height < 750) {
+                        offsetHeight = first ? 180 : 540
+                      }
 
-                  if (width < 460 && height < 668) {
-                    offsetHeight = first ? 230 : 580
-                  }
+                      if (width < 460 && height < 668) {
+                        offsetHeight = first ? 230 : 580
+                      }
 
-                  const transalteYFirst = currentProgress * offsetHeight
+                      const transalteYFirst = currentProgress * offsetHeight
 
-                  const transalteYSecond =
-                    transalteYFirst + nextProgress * 22 * (total - nextIndex)
+                      const transalteYSecond =
+                        transalteYFirst +
+                        nextProgress * 22 * (total - nextIndex)
 
-                  const scaleCurve = 1 - nextStaggered * 0.25
+                      const scaleCurve = 1 - nextStaggered * 0.25
 
-                  const selectedBlend = Math.round(
-                    ((((1 - scaleCurve) * 100) / 9) * 10) / 2
-                  )
+                      const selectedBlend = Math.round(
+                        ((((1 - scaleCurve) * 100) / 9) * 10) / 2
+                      )
 
-                  return (
-                    <TestimonialCard
-                      data-card={index}
-                      key={testimonial.name}
-                      style={{
-                        transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
-                        opacity: prevProgress,
-                        willChange: 'transform, opacity',
-                      }}
-                    >
-                      <Card
-                        style={{
-                          background: BACKGROUND_COLOR_BLENDS[selectedBlend],
-                        }}
-                      >
-                        <LogoContainer>
-                          <SVG src={testimonial.logo.publicURL} />
-                        </LogoContainer>
-                        <VerticalDivider />
-                        <div>
-                          <Role>
-                            {testimonial.name} · {testimonial.title}
-                          </Role>
-                          <Text>{testimonial.testimonial}</Text>
-                        </div>
-                      </Card>
-                    </TestimonialCard>
-                  )
-                })}
-              </TestimonialCardContainer>
-            </Section>
-          </AboutTestimonialContainer>
-        )
-      }}
-    />
+                      return (
+                        <TestimonialCard
+                          data-card={index}
+                          key={testimonial.name}
+                          style={{
+                            transform: `translateY(-${transalteYSecond}px) scale(${scaleCurve})`,
+                            opacity: prevProgress,
+                            willChange: 'transform, opacity',
+                          }}
+                        >
+                          <Card
+                            style={{
+                              background:
+                                BACKGROUND_COLOR_BLENDS[selectedBlend],
+                            }}
+                          >
+                            <LogoContainer>
+                              <SVG src={testimonial.logo.publicURL} />
+                            </LogoContainer>
+                            <VerticalDivider />
+                            <div>
+                              <Role>
+                                {testimonial.name} · {testimonial.title}
+                              </Role>
+                              <Text>{testimonial.testimonial}</Text>
+                            </div>
+                          </Card>
+                        </TestimonialCard>
+                      )
+                    })}
+                  </TestimonialCardContainer>
+                </Section>
+              </AboutTestimonialContainer>
+            )
+          }}
+        />
+      </Desktop>
+
+      <Mobile>
+        <HeadingLineBreak>
+          <AboutHeading
+            heading="Independent,<br /> but never alone"
+            text={`While we like to do things our own way, nobody can do it all by themselves. <span style="color:#73737D">Narative believes in building ongoing partnerships based on trust, and in contributing our ideas and work to the open source community. When we do honest work, good word spreads, and we can all build ever-greater things.</span></span>`}
+          />
+        </HeadingLineBreak>
+        <Section narrow>
+          <TestimonialCardContainer>
+            {testimonials.map(testimonial => {
+              return (
+                <TestimonialCard key={testimonial.name}>
+                  <Card>
+                    <LogoContainer>
+                      <SVG src={testimonial.logo.publicURL} />
+                    </LogoContainer>
+                    <VerticalDivider />
+                    <div>
+                      <Role>
+                        {testimonial.name} · {testimonial.title}
+                      </Role>
+                      <Text>{testimonial.testimonial}</Text>
+                    </div>
+                  </Card>
+                </TestimonialCard>
+              )
+            })}
+          </TestimonialCardContainer>
+        </Section>
+      </Mobile>
+    </>
   )
 }
 
@@ -233,6 +270,10 @@ const TestimonialCardContainer = styled.ul`
   max-width: 750px;
   margin: 90px auto 0;
   list-style: none;
+
+  ${media.desktop`
+    margin: 50px auto 0;
+  `}
 `
 
 const TestimonialCard = styled.li`
@@ -243,6 +284,13 @@ const TestimonialCard = styled.li`
   &:first-child {
     top: 0;
   }
+
+  ${media.desktop`
+    position: relative;
+    top: 0;
+    height: auto;
+    margin-bottom: 20px;
+  `}
 `
 
 const Card = styled.div`
@@ -322,4 +370,24 @@ const HeadingLineBreak = styled.div`
       width: 90%;
     `}
   }
+`
+
+const Desktop = styled.div`
+  ${media.desktop`
+    display: none;
+  `}
+`
+
+const Mobile = styled.div`
+  display: none;
+
+  ${media.desktop`
+    position: relative;
+    display: block;
+    margin: 50px auto 160px;
+  `}
+
+  ${media.phablet`
+    margin: 50px auto;
+  `}
 `

@@ -407,14 +407,21 @@ const ValuesColumn = styled.div`
   position: relative;
   top: 0;
   max-width: 750px;
+  margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  ${media.tablet`
+    display: block;
+  `}
 `
 
 const ValuesRow = styled.div`
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
+  max-width: 320px;
 
   ${media.phablet`
-  margin: 0 auto 30px;
     max-width: 295px;
   `}
 `
