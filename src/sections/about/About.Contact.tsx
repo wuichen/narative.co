@@ -48,7 +48,7 @@ const Container = styled.div<{ inView: boolean }>`
   display: flex;
   align-items: flex-end;
   position: relative;
-  height: calc(100vh - 310px);
+  height: calc(100vh - 290px);
   z-index: 2;
 
   ${p =>
