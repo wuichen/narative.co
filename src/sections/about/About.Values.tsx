@@ -517,8 +517,16 @@ const ShapeMobile = () => (
     viewBox="0 0 375 307"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ filter: `drop-shadow( 0px 2px 50px rgba(255,255,255,0.5)` }}
   >
+    <g filter="url(#filter0_f)">
+      <rect
+        y="90"
+        width="375"
+        height="127"
+        fill="#66748D"
+        fill-opacity="0.15"
+      />
+    </g>
     <g filter="url(#filter1_dd)">
       <rect
         x="23"
@@ -526,7 +534,7 @@ const ShapeMobile = () => (
         width="329"
         height="95"
         stroke="white"
-        strokeWidth="6"
+        stroke-width="6"
       />
     </g>
     <defs>
@@ -537,9 +545,9 @@ const ShapeMobile = () => (
         width="553.869"
         height="305.869"
         filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
+        color-interpolation-filters="sRGB"
       >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
         <feBlend
           mode="normal"
           in="SourceGraphic"
@@ -558,9 +566,9 @@ const ShapeMobile = () => (
         width="397.604"
         height="163.604"
         filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
+        color-interpolation-filters="sRGB"
       >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -588,7 +596,11 @@ const ShapeMobile = () => (
           type="matrix"
           values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
         />
-
+        <feBlend
+          mode="normal"
+          in2="effect1_dropShadow"
+          result="effect2_dropShadow"
+        />
         <feBlend
           mode="normal"
           in="SourceGraphic"
