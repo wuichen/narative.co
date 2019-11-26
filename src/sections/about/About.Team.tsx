@@ -235,6 +235,7 @@ function AboutTeam() {
   const { Portal } = usePortal()
   const { width } = useResize()
 
+  const isDesktop = width > 540
   const person = people[selectedPersonIndex]
 
   function handleRef(ref: any) {
@@ -299,8 +300,8 @@ function AboutTeam() {
         offset = cardsWidth - cardWidth - cardWidth + GAP_BETWEEN_CARDS - 30
       }
 
-      if (width <= 460) {
-        offset = cardsWidth - cardWidth + 10
+      if (width <= 540) {
+        offset = 20
       }
 
       if (width >= 1024) {
@@ -327,7 +328,7 @@ function AboutTeam() {
             </Text>
           </TextContainer>
         </AboutRow>
-        <Desktop>
+        {isDesktop ? (
           <Sticky
             cover
             height="3300px"
@@ -387,8 +388,7 @@ function AboutTeam() {
               )
             }}
           />
-        </Desktop>
-        <Mobile>
+        ) : (
           <Section narrow>
             {people.map((person, index) => {
               const cardIsOpen = isOpen && selectedPersonIndex === index
@@ -419,7 +419,7 @@ function AboutTeam() {
               )
             })}
           </Section>
-        </Mobile>
+        )}
 
         <AboutBackground />
       </AboutTeamContainer>
@@ -795,6 +795,14 @@ const Card = styled.div<{ isSelected: boolean; isOpen: boolean }>`
   ${media.phablet`
     height: 410px;
     margin-bottom: 20px;
+
+    &:first-child {
+      margin-top: 40px
+    }
+
+    &:last-child {
+      margin-bottom: 70px
+    }
   `}
 
   ${media.phone_small`
@@ -864,6 +872,12 @@ const CloseButton = styled.button`
     right: 36px;
     left: unset;
   }
+
+  @media (min-height: 750px) {
+    position: fixed;
+    left: 25px;
+    top: 25px;
+  }
 `
 
 const Modal = styled.div`
@@ -930,7 +944,7 @@ const ModalAbout = styled.div`
   `}
 
   ${media.phablet`
-    padding: 140px 20px 20px;
+    padding: 140px 20px 40px;
     pointer-events: none;
   `}
 

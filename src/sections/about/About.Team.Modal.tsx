@@ -4,6 +4,7 @@ import { motion, useMotionValue } from 'framer-motion'
 
 import media from '@styles/media'
 import { useInvertedBorderRadius } from '@utils'
+import { scrollable } from '@utils'
 
 interface AboutTeamModalProps {
   isSelected: boolean
