@@ -91,7 +91,7 @@ function HomeCallToAction() {
               </NavLinks>
             </Nav>
             <TextContainer>
-              <TextBackground visiblePercentage={visiblePercentage}>
+              <TextBackground>
                 <Text>
                   Together, let’s discover what your company is truly capable
                   of.

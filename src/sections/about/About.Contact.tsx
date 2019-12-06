@@ -29,6 +29,9 @@ function AboutContact() {
       <LightLayer style={{ opacity: inView ? 1 : 0 }} />
       <Container data-scroll-fade={true} inView={inView} ref={ref}>
         <Section narrow>
+          <MobileLogoContainer style={{ opacity: inView ? 1 : 0 }}>
+            <MobileLogo aria-hidden="true" />
+          </MobileLogoContainer>
           <Heading inView={inView}>
             That’s our story. <Grey>What's yours?</Grey>
           </Heading>
@@ -66,8 +69,9 @@ const Container = styled.div<{ inView: boolean }>`
 
   ${media.tablet`
     padding-top: 0;
-    height: 90vh;
+    height: 80vh;
     align-items: center;
+    padding: 0;
   `}
 `
 
@@ -75,6 +79,10 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 50px auto 3vh;
+
+  ${media.phablet`
+    margin: 70px auto 3vh;
+  `}
 `
 
 const Heading = styled.h2<{ inView: boolean }>`
@@ -124,3 +132,53 @@ const LightLayer = styled.div`
     }
   `}
 `
+
+const MobileLogoContainer = styled.div`
+  text-align: center;
+  margin-bottom: 70px;
+  transition: opacity 1s;
+
+  ${media.tablet_up`
+    display: none;
+  `}
+`
+
+const MobileLogo = () => (
+  <svg
+    width="23px"
+    height="30px"
+    viewBox="0 0 23 30"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title>Narative</title>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0 30H22.9091V26.4595H0V30Z"
+      fill="black"
+      fillOpacity="0.25"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0.00610352 24.7176L7.01994 19.7873L7.01909 15.2965L0.00610352 10.3745V24.7176Z"
+      fill="black"
+      fillOpacity="0.25"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M22.8919 0L15.8494 4.87412V9.29375L22.8941 14.2569L22.892 0H22.8919Z"
+      fill="black"
+      fillOpacity="0.25"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0.0065918 0V8.62637L22.8961 24.7297L22.8948 16.0316L0.0065918 0Z"
+      fill="black"
+      fillOpacity="0.25"
+    />
+  </svg>
+)

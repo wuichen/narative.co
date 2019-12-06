@@ -38,9 +38,10 @@ const AboutHeadingContainer = styled.div`
 `
 
 const HeadingBackground = styled.div`
-  position: relative;
   -webkit-background-clip: text;
   background-clip: text;
+  padding-top: 200px;
+  margin-top: -200px;
   background-repeat: no-repeat;
   background-image: linear-gradient(
     92.07deg,
@@ -50,18 +51,19 @@ const HeadingBackground = styled.div`
     #9facac 79.92%,
     #e0dbce 93.48%
   );
+  background-size: cover;
   color: transparent !important;
+  background-position: 0 120px;
   margin-bottom: 15px;
 `
 
 const LargeHeading = styled(Heading.h2)`
-  display: block;
+  display: inline;
   font-weight: 700;
   font-size: 70px;
   letter-spacing: -0.5px;
   line-height: 1.15;
   font-family: ${p => p.theme.fontfamily.serif};
-  background: transparent;
   color: transparent;
   opacity: 1;
   transition: color 0.3s;
