@@ -360,8 +360,7 @@ const Modal = styled.div`
   height: 100%;
   padding: 0 20px;
   z-index: 10;
-  animation: ${fadeInAndUpModal} 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)
-    forwards;
+
   backdrop-filter: blur(10px);
 
   & > div {
@@ -389,6 +388,8 @@ const ModalContent = styled.div`
   background: #000;
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+  animation: ${fadeInAndUpModal} 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)
+    forwards;
 
   ${media.tablet`
     overflow-y: scroll;

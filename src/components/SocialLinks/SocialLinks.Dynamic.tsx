@@ -13,7 +13,6 @@ const icons = {
   dribbble: Social.DribbbleIcon,
   linkedin: Social.LinkedInIcon,
   twitter: Social.TwitterIcon,
-  facebook: Social.FacebookIcon,
   instagram: Social.InstagramIcon,
   github: Social.GithubIcon,
 }

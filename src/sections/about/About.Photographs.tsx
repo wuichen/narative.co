@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useInView } from 'react-intersection-observer'
 import { useSpring, animated } from 'react-spring'
-import throttle from 'lodash/throttle'
 
 import Image from '@components/Image'
 import Sticky, { StickyState } from '@components/Sticky'
@@ -271,7 +270,7 @@ const ImageSection = styled.div`
   overflow: hidden;
 
   ${media.phablet`
-    padding: 0 15px 0px;
+    padding: 0px;
   `}
 `
 
@@ -315,7 +314,7 @@ const LightOverlay = styled.div<{ inView: boolean }>`
 
 const Spacer = styled.div`
   height: 10vh;
-  max-height: 30px;
+  max-height: 50px;
 `
 
 const ImageGrid = styled.div`
@@ -323,6 +322,10 @@ const ImageGrid = styled.div`
   margin: 15px 0;
   will-change: transform;
   z-index: 2;
+
+  ${media.phablet`
+    padding: 0 10px;
+  `}
 `
 
 const Images = styled.div`

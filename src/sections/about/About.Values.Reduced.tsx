@@ -217,6 +217,10 @@ const ButtonContainer = styled.div`
   @media (max-height: 700px) {
     margin: 40px auto 0;
   }
+
+  ${media.phablet`
+    margin: 50px auto 0;
+  `}
 `
 
 const ReflectionBackground = styled.div`

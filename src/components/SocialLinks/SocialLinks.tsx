@@ -11,15 +11,6 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       target="_blank"
       rel="noopener"
       data-a11y="false"
-      aria-label="Link to Facebook"
-      href={settings.urls.facebook}
-    >
-      <SocialIcons.FacebookIcon fill={fill} />
-    </SocialIconContainer>
-    <SocialIconContainer
-      target="_blank"
-      rel="noopener"
-      data-a11y="false"
       aria-label="Link to Twitter"
       href={settings.urls.twitter}
     >

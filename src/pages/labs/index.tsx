@@ -158,7 +158,7 @@ function LabsPage({ data, location }) {
         </>
       ),
     },
-  ]
+  ].reverse()
 
   return (
     <Layout nav={navConfig} background={pageBackground} footer={footerConfig}>

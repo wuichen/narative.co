@@ -5,6 +5,7 @@ import SVG from 'react-inlinesvg'
 
 import Section from '@components/Section'
 import Sticky, { StickyState } from '@components/Sticky'
+import HorizontalScroll from '@components/HorizontalScroll'
 import media from '@styles/media'
 import { clamp, useResize } from '@utils'
 
@@ -27,9 +28,9 @@ const BACKGROUND_COLOR_BLENDS = [
 
 const companyLogosQuery = graphql`
   {
-    # BDCLogo: file(name: { regex: "/testimonial-company-logo-bdc/" }) {
-    #   publicURL
-    # }
+    hopperLogo: file(name: { regex: "/testimonial-company-logo-hopper/" }) {
+      publicURL
+    }
     flowLogo: file(name: { regex: "/testimonial-company-logo-flow/" }) {
       publicURL
     }
@@ -43,33 +44,24 @@ const companyLogosQuery = graphql`
 `
 
 function AboutTestimonial() {
-  const {
-    // BDCLogo,
-    flowLogo,
-    gatsbyLogo,
-    netlifyLogo,
-  } = useStaticQuery(companyLogosQuery)
+  const { hopperLogo, flowLogo, gatsbyLogo, netlifyLogo } = useStaticQuery(
+    companyLogosQuery
+  )
   const { height, width } = useResize()
 
   const testimonials = [
     {
       name: 'Kyle Mathews',
-      title: 'CEO',
+      title: 'CEO & Founder',
       testimonial:
         "Our mission at Gatsby is to empower digital creators to build fast, responsive experiences — and Narative does so in ways that are consistently beautiful and inspiring. We're always excited to see what they build, and grateful for their contributions to the Gatsby community.",
       logo: gatsbyLogo,
     },
-    // {
-    //   name: 'David Lorem',
-    //   title: '[title]',
-    //   testimonial:
-    //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in lectus at augue feugiat imperdiet et quis erat. Fusce placerat, nulla in dapibus bibendum, nunc ex dignissim urna, sed aliquam felis. Phasellus in lectus at augue feugiat imperdiet et quis erat.',
-    //   logo: BDCLogo,
-    // },
     {
       name: 'Shawn Wang',
       title: 'Developer Experience',
-      testimonial: `Narative's work is more than just beautifully designed — their code is beautifully clear and well-documented, too. Their contributions to the open source community are among the most polished that I’ve seen.`,
+      testimonial:
+        "Narative's work is more than just beautifully designed — their code is beautifully clear and well-documented, too. Their contributions to the open source community are among the most polished that I’ve seen.",
       logo: netlifyLogo,
     },
     {
@@ -78,6 +70,13 @@ function AboutTestimonial() {
       testimonial:
         'I never hesitate to recommend that startups at any stage reach out and talk to the Narative team. Not only are they brilliant professionals in each of their fields, they approach every conversation with thoughtfulness and sincerity.',
       logo: flowLogo,
+    },
+    {
+      name: 'Pierre-Etienne Corriveau',
+      title: 'Product Design Lead',
+      testimonial:
+        "Narative took a personal and hands-on approach to building the new Hopper.com, meeting with many Hopper Humans to understand what makes us unique to create a digital destination that truly represents us. I'd be more than happy to collaborate with Narative, again and again.",
+      logo: hopperLogo,
     },
   ]
 
@@ -198,24 +197,29 @@ function AboutTestimonial() {
         </HeadingLineBreak>
         <Section narrow>
           <TestimonialCardContainer>
-            {testimonials.map(testimonial => {
-              return (
-                <TestimonialCard key={testimonial.name}>
-                  <Card>
-                    <LogoContainer>
-                      <SVG src={testimonial.logo.publicURL} />
-                    </LogoContainer>
-                    <VerticalDivider />
-                    <div>
-                      <Role>
-                        {testimonial.name} · {testimonial.title}
-                      </Role>
-                      <Text>{testimonial.testimonial}</Text>
-                    </div>
-                  </Card>
-                </TestimonialCard>
-              )
-            })}
+            <HorizontalScroll
+              list={testimonials}
+              name="testimonial"
+              narrow
+              render={({ testimonial }: any) => {
+                return (
+                  <TestimonialCard key={testimonial.name} as="div">
+                    <Card>
+                      <LogoContainer>
+                        <SVG src={testimonial.logo.publicURL} />
+                      </LogoContainer>
+                      <VerticalDivider />
+                      <div style={{ width: '100%' }}>
+                        <Role>
+                          {testimonial.name} · {testimonial.title}
+                        </Role>
+                        <Text>{testimonial.testimonial}</Text>
+                      </div>
+                    </Card>
+                  </TestimonialCard>
+                )
+              }}
+            />
           </TestimonialCardContainer>
         </Section>
       </Mobile>
@@ -234,12 +238,12 @@ const AboutTestimonialContainer = styled.div`
   &::after {
     content: '';
     position: absolute;
-    height: 30vh;
+    height: 20vh;
     min-height: 200px;
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 70%);
+    background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 80%);
     pointer-events: none;
 
     @media (min-height: 1050px) {
@@ -307,6 +311,7 @@ const Card = styled.div`
 
   ${media.tablet`
     flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     height: auto;
 
@@ -315,11 +320,14 @@ const Card = styled.div`
 
   ${media.phablet`
     padding: 30px 15px 0;
+    min-height: 350px;
   `}
 `
 
 const LogoContainer = styled.div`
   ${media.tablet`
+  width: 100%;
+  border-top: 1px solid rgba(250, 250, 250, 0.05);
     order: 3;
   `}
 `
@@ -330,6 +338,7 @@ const Role = styled.div`
 
   ${media.tablet`
     margin-bottom: 25px;
+    white-space: pre-wrap;
   `}
 `
 
@@ -338,11 +347,11 @@ const Text = styled.p`
 
   ${media.tablet`
     padding-bottom: 30px;
-    border-bottom: 1px solid rgba(250, 250, 250, 0.05);
   `}
 
   ${media.phablet`
     font-size: 16px;
+    white-space: pre-wrap;
   `}
 `
 
@@ -384,10 +393,10 @@ const Mobile = styled.div`
   ${media.desktop`
     position: relative;
     display: block;
-    margin: 50px auto 160px;
+    margin: 100px auto 160px;
   `}
 
   ${media.phablet`
-    margin: 50px auto;
+    margin: 100px auto;
   `}
 `

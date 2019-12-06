@@ -8,71 +8,22 @@ export const SlashToSquare = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
-    <g filter="url(#filter0_dd)">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
-        fill="white"
-        id="start"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M355 94H82V367H355V94ZM70 82V379H367V82H70Z"
-        fill="white"
-        id="end"
-        data-shape="square"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_dd"
-        x="0.000244141"
-        y="0"
-        width="437"
-        height="460.877"
-        filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="35" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="5" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect2_dropShadow"
-          result="shape"
-        />
-      </filter>
-    </defs>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
+      fill="white"
+      id="start"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M355 94H82V367H355V94ZM70 82V379H367V82H70Z"
+      fill="white"
+      id="end"
+      data-shape="square"
+    />
   </svg>
 )
 
@@ -84,72 +35,23 @@ export const SlashToCircle = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
-    <g filter="url(#filter0_dd)">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
-        fill="white"
-        id="start"
-        data-shape="slash"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M218.5 368C293.887 368 355 306.887 355 231.5C355 156.113 293.887 95 218.5 95C143.113 95 82 156.113 82 231.5C82 306.887 143.113 368 218.5 368ZM218.5 380C300.514 380 367 313.514 367 231.5C367 149.486 300.514 83 218.5 83C136.486 83 70 149.486 70 231.5C70 313.514 136.486 380 218.5 380Z"
-        fill="white"
-        id="end"
-        data-shape="circle"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_dd"
-        x="0.000244141"
-        y="0"
-        width="437"
-        height="460.877"
-        filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="35" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="5" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect2_dropShadow"
-          result="shape"
-        />
-      </filter>
-    </defs>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
+      fill="white"
+      id="start"
+      data-shape="slash"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M218.5 368C293.887 368 355 306.887 355 231.5C355 156.113 293.887 95 218.5 95C143.113 95 82 156.113 82 231.5C82 306.887 143.113 368 218.5 368ZM218.5 380C300.514 380 367 313.514 367 231.5C367 149.486 300.514 83 218.5 83C136.486 83 70 149.486 70 231.5C70 313.514 136.486 380 218.5 380Z"
+      fill="white"
+      id="end"
+      data-shape="circle"
+    />
   </svg>
 )
 
@@ -161,7 +63,6 @@ export const SlashMirror = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
     <path
       fillRule="evenodd"
@@ -191,73 +92,24 @@ export const Square = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
-    <g filter="url(#filter0_dd)">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M355 94H82V367H355V94ZM70 82V379H367V82H70Z"
-        fill="white"
-        id="start"
-        data-shape="square"
-      />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M355 94H82V367H355V94ZM70 82V379H367V82H70Z"
+      fill="white"
+      id="start"
+      data-shape="square"
+    />
 
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
-        fill="white"
-        id="end"
-        data-shape="slash"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_dd"
-        x="0.000244141"
-        y="0"
-        width="437"
-        height="460.877"
-        filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="35" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="5" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect2_dropShadow"
-          result="shape"
-        />
-      </filter>
-    </defs>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
+      fill="white"
+      id="end"
+      data-shape="slash"
+    />
   </svg>
 )
 
@@ -269,7 +121,6 @@ export const SquareMirror = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
     <path
       fillRule="evenodd"
@@ -298,7 +149,6 @@ export const CircleMorphMirror = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
     <path
       fillRule="evenodd"
@@ -328,73 +178,24 @@ export const CircleMorph = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
-    style={{ filter: `drop-shadow( 0px 2px 20px rgba(255,255,255,0.3)` }}
   >
-    <g filter="url(#filter0_dd)">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M218.5 368C293.887 368 355 306.887 355 231.5C355 156.113 293.887 95 218.5 95C143.113 95 82 156.113 82 231.5C82 306.887 143.113 368 218.5 368ZM218.5 380C300.514 380 367 313.514 367 231.5C367 149.486 300.514 83 218.5 83C136.486 83 70 149.486 70 231.5C70 313.514 136.486 380 218.5 380Z"
-        fill="white"
-        id="start"
-        data-shape="circle"
-      />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M218.5 368C293.887 368 355 306.887 355 231.5C355 156.113 293.887 95 218.5 95C143.113 95 82 156.113 82 231.5C82 306.887 143.113 368 218.5 368ZM218.5 380C300.514 380 367 313.514 367 231.5C367 149.486 300.514 83 218.5 83C136.486 83 70 149.486 70 231.5C70 313.514 136.486 380 218.5 380Z"
+      fill="white"
+      id="start"
+      data-shape="circle"
+    />
 
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
-        fill="white"
-        id="end"
-        data-shape="slash"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_dd"
-        x="0"
-        y="12"
-        width="437"
-        height="437"
-        filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="35" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="5" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect2_dropShadow"
-          result="shape"
-        />
-      </filter>
-    </defs>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M82.0002 175.701L354.997 367.76L354.985 284.263L82.0002 93.056V175.701ZM70.0002 70V181.93L367 390.877L366.984 278.016L70.0002 70Z"
+      fill="white"
+      id="end"
+      data-shape="slash"
+    />
   </svg>
 )
 

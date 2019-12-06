@@ -9,6 +9,9 @@ import { AboutRow } from './About.Team'
 
 export const companyLogosQuery = graphql`
   query GetCompanyLogosQuery {
+    allLogos: file(name: { regex: "/company-logo-all/" }) {
+      publicURL
+    }
     breatherLogo: file(name: { regex: "/company-logo-breather/" }) {
       publicURL
     }
@@ -35,6 +38,7 @@ export const companyLogosQuery = graphql`
 
 function AboutBackground() {
   const {
+    allLogos,
     breatherLogo,
     hopperLogo,
     lightspeedLogo,
@@ -53,20 +57,41 @@ function AboutBackground() {
           ambitions, and help promising companies to pursue theirs.
         </Text>
       </TextContainer>
-      <CompanyLogos>
-        <SVG src={ubisoftLogo.publicURL} />
-        <SVG src={hopperLogo.publicURL} />
-        <SVG src={lightspeedLogo.publicURL} />
-        <SVG src={yellowpagesLogo.publicURL} />
-        <SVG src={breatherLogo.publicURL} />
-        <SVG src={unbounceLogo.publicURL} />
-        <SVG src={ritualLogo.publicURL} />
-      </CompanyLogos>
+      <Desktop>
+        <CompanyLogos>
+          <SVG src={ubisoftLogo.publicURL} />
+          <SVG src={hopperLogo.publicURL} />
+          <SVG src={lightspeedLogo.publicURL} />
+          <SVG src={yellowpagesLogo.publicURL} />
+          <SVG src={breatherLogo.publicURL} />
+          <SVG src={unbounceLogo.publicURL} />
+          <SVG src={ritualLogo.publicURL} />
+        </CompanyLogos>
+      </Desktop>
+      <Mobile>
+        <SVG src={allLogos.publicURL} />
+      </Mobile>
     </AboutRow>
   )
 }
 
 export default AboutBackground
+
+const Desktop = styled.div`
+  ${media.phablet`
+    display: none;
+  `}
+`
+
+const Mobile = styled.div`
+  display: none;
+
+  ${media.phablet`
+    position: relative;
+    display: block;
+    margin-top: 45px;
+  `}
+`
 
 const TextContainer = styled.div`
   max-width: 681px;
@@ -78,7 +103,7 @@ const Text = styled.p`
   color: #fafafa;
 
   ${media.tablet`
-    font-size: 16px;
+    font-size: 18px;
   `}
 `
 

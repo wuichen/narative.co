@@ -313,10 +313,13 @@ const SiteContainer = styled.div`
     box-shadow: 0px -20px 40px rgba(0, 0, 0, 0.2);
   }
 
+  ${p =>
+    p.active &&
+    `
   &::before {
     content: '';
     position: absolute;
-    top: ${p => (p.low ? '11px' : '-21px')};
+    top: ${p.low ? '11px' : '-21px'};
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -327,7 +330,7 @@ const SiteContainer = styled.div`
       rgba(255, 255, 255, 0.25) 0%,
       rgba(255, 255, 255, 0.02) 100%
     );
-  }
+  }`}
 `
 
 const MobileHamburger = styled.button`

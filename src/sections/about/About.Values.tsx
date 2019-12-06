@@ -219,11 +219,8 @@ function AboueValues() {
         it's easier for us to return a specific mobile version for the About Values
       */}
       <Mobile>
-        <ShapeContainerMobile ref={mobileShapeRef}>
-          <ShapeMobile />
-          <ShapeReflectionMobile />
-        </ShapeContainerMobile>
         <Section narrow>
+          <ShapeMobile />
           <ValuesColumn>
             {values.map(value => (
               <ValuesRow key={value.heading}>
@@ -250,12 +247,6 @@ const ShapeReflection = () => (
   <ReflectionBackground>
     <ReflectionInnerMask />
   </ReflectionBackground>
-)
-
-const ShapeReflectionMobile = () => (
-  <ReflectionBackgroundMobile>
-    <ReflectionInnerMaskMobile />
-  </ReflectionBackgroundMobile>
 )
 
 const Desktop = styled.div`
@@ -315,13 +306,6 @@ const ShapeContainer = styled.div`
   max-width: 750px;
   position: absolute;
   transform: translateY(-50%);
-`
-
-const ShapeContainerMobile = styled.div`
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
 `
 
 const ShapeRectangle = React.memo(styled.figure`
@@ -469,6 +453,10 @@ const ButtonContainer = styled.div`
   @media (max-height: 700px) {
     margin: 40px auto 0;
   }
+
+  ${media.phablet`
+    margin: 50px auto 0;
+  `}
 `
 
 const ReflectionBackground = styled.div`
@@ -518,103 +506,11 @@ const ReflectionInnerMaskMobile = styled.div`
   `}
 `
 
-const ShapeMobile = () => (
-  <svg
-    width="100%"
-    viewBox="0 0 375 307"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g filter="url(#filter0_f)">
-      <rect
-        y="90"
-        width="375"
-        height="127"
-        fill="#66748D"
-        fill-opacity="0.15"
-      />
-    </g>
-    <g filter="url(#filter1_dd)">
-      <rect
-        x="23"
-        y="106"
-        width="329"
-        height="95"
-        stroke="white"
-        stroke-width="6"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_f"
-        x="-89.4344"
-        y="0.565636"
-        width="553.869"
-        height="305.869"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="44.7172"
-          result="effect1_foregroundBlur"
-        />
-      </filter>
-      <filter
-        id="filter1_dd"
-        x="-11.302"
-        y="71.698"
-        width="397.604"
-        height="163.604"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="15.651" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.399641 0 0 0 0 0.453299 0 0 0 0 0.554653 0 0 0 0.6 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="2.23586" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="effect1_dropShadow"
-          result="effect2_dropShadow"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect2_dropShadow"
-          result="shape"
-        />
-      </filter>
-    </defs>
-  </svg>
-)
+const ShapeMobile = styled.div`
+  margin: 80px auto;
+  height: 12px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 0px 31.302px rgba(102, 116, 141, 0.6),
+    0px 0px 4.47172px rgba(255, 255, 255, 0.2);
+`
