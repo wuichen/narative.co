@@ -88,6 +88,15 @@ const TeamGradient = styled.div`
     #101217 85%,
     #191d23
   );
+
+  ${media.phablet`
+    background: linear-gradient(
+      ${p => p.theme.colors.hero},
+      #101217 20%,
+      #101217 85%,
+      #191d23
+    );
+  `}
 `
 
 const MiddleGradient = styled.div`
