@@ -102,7 +102,6 @@ function AboutStudioLabsModal({
                 <CloseButton onClick={handleOutsideClick}>
                   <ExIcon fill="#fff" />
                 </CloseButton>
-
                 <ModalGrid>
                   <ModalAbout>
                     <ModalName>About Narative Labs</ModalName>
@@ -325,6 +324,8 @@ const fadeIn = keyframes`
 
 const CloseButton = styled.button`
   position: absolute;
+  width: 24px;
+  height: 24px;
   top: 30px;
   left: 30px;
   z-index: 1;
@@ -333,15 +334,22 @@ const CloseButton = styled.button`
     top: 16px;
     left: 16px;
 
-    &::after {
+    &::before {
       content: '';
       position: absolute;
       left: -50%;
       top: -50%;
       width: 200%;
       height: 200%;
+      background: #000;
+      border-radius: 50%;
+      z-index: 0;
     }
   `}
+
+  svg {
+    position: relative;
+  }
 `
 
 const fadeInAndUpModal = keyframes`
@@ -366,7 +374,7 @@ const Modal = styled.div`
   & > div {
     flex: 1;
     max-width: 1100px;
-    max-height: 88vh;
+    max-height: 92vh;
     height: 100%;
   }
 
@@ -392,7 +400,7 @@ const ModalContent = styled.div`
     forwards;
 
   ${media.tablet`
-    max-height: 88vh;
+    max-height: 92vh;
   `}
 `
 
@@ -403,6 +411,7 @@ const ModalGrid = styled.div`
 `
 
 const ModalAbout = styled.div`
+  max-height: 92vh;
   width: 100%;
   max-width: 480px;
   margin: 30px 0 0 25px;
@@ -415,19 +424,12 @@ const ModalAbout = styled.div`
   
   ${media.tablet`
     padding: 30px;
+    overflow: scroll;
   `}
 
   ${media.phablet`
-    padding: 40px 20px 20px;
+    padding: 60px 20px;
   `}
-
-  @media (max-height: 660px) {
-   padding-top: 20vh; 
-  }
-
-  @media (max-height: 500px) {
-   padding-top: 60vh; 
-  }
 `
 
 const ModalRole = styled.div`
