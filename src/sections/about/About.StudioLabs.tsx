@@ -374,12 +374,15 @@ const Modal = styled.div`
   & > div {
     flex: 1;
     max-width: 1100px;
-    max-height: 92vh;
+    max-height: 630px;
     height: 100%;
   }
 
   ${media.phablet`
     padding: 15px;
+    & > div {
+      max-height: 92vh;
+    }
   `}
 `
 
