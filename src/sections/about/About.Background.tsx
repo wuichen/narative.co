@@ -15,7 +15,7 @@ export const companyLogosQuery = graphql`
     breatherLogo: file(name: { regex: "/company-logo-breather/" }) {
       publicURL
     }
-    hopperLogo: file(name: { regex: "/company-logo-hopper/" }) {
+    hopperLogo: file(name: { regex: "/company-logo-hopper-about/" }) {
       publicURL
     }
     lightspeedLogo: file(name: { regex: "/company-logo-lightspeed/" }) {
