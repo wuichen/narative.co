@@ -165,7 +165,6 @@ function AboueValues() {
                     transform: `translateY(-50%) scale(${1 +
                       progress * (progress * 8) * scale})`,
                     pointerEvents: progress <= 0.5 ? 'initial' : 'none',
-                    willChange: 'transform',
                   }
                 : {}
 
@@ -306,6 +305,7 @@ const ShapeContainer = styled.div`
   max-width: 750px;
   position: absolute;
   transform: translateY(-50%);
+  will-change: transform;
 `
 
 const ShapeRectangle = React.memo(styled.figure`
