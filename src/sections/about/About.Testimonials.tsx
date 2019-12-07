@@ -72,7 +72,7 @@ function AboutTestimonial() {
       logo: flowLogo,
     },
     {
-      name: 'Pierre-Etienne Corriveau',
+      name: 'Pec',
       title: 'Product Design Lead',
       testimonial:
         "Narative took a personal and hands-on approach to building the new Hopper.com, meeting with many Hopper Humans to understand what makes us unique to create a digital destination that truly represents us. I'd be more than happy to collaborate with Narative, again and again.",
@@ -332,7 +332,7 @@ const Card = styled.div`
 
   ${media.phablet`
     padding: 30px 15px 0;
-    min-height: 350px;
+    min-height: 325px;
   `}
 `
 
