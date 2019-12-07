@@ -947,6 +947,7 @@ const ModalAbout = styled.div`
   width: 100%;
   max-width: 520px;
   margin: 40px 0 0 75px;
+  max-height: 92vh;
 
   ${media.desktop_small`
     max-width: initial;
@@ -959,17 +960,10 @@ const ModalAbout = styled.div`
   `}
 
   ${media.phablet`
-    padding: 18vh 20px 40px;
+    padding: 80px 20px;
     pointer-events: none;
   `}
 
-  @media (max-height: 700px) {
-   padding-top: 36vh; 
-  }
-
-  @media (max-height: 570px) {
-   padding-top: 60vh; 
-  }
 `
 
 const ModalText = styled.p<{ index: number }>`
@@ -1015,6 +1009,10 @@ const ModalSignature = styled.div`
   opacity: 0;
   animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 700ms
     forwards;
+
+  ${media.phablet`
+    padding-bottom: 40px;
+  `}
 `
 
 const MediaAnimator = styled.div`
