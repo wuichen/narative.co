@@ -12,7 +12,13 @@ import Image from '@components/Image'
 import SocialLinksDynamic from '@components/SocialLinks/SocialLinks.Dynamic'
 
 import media from '@styles/media'
-import { scrollable, useResize } from '@utils'
+import {
+  scrollable,
+  useResize,
+  getBreakpointFromTheme,
+  getWindowDimensions,
+} from '@utils'
+
 import { ExIcon, ChevronRightIcon, ChevronLeftIcon } from '../../icons/ui/index'
 import { IGraphqlSharpFluidImage, IStaticImage } from '../../types/index'
 
@@ -479,6 +485,27 @@ function AboutTeamModalContent({
   handleOutsideClick: () => void
   handleSetSelectedPersonIndex: (index: number) => void
 }) {
+  const [buttonPlacement, setButtonPlacement] = useState({ top: 0, right: 0 })
+  const modalRef = useRef(document.createElement('div'))
+  const { width } = useResize()
+
+  useEffect(() => {
+    const { top, right, left } = modalRef.current.getBoundingClientRect()
+    const tablet = getBreakpointFromTheme('tablet')
+
+    if (width > tablet) {
+      setButtonPlacement({
+        top: `${top + 20}px`,
+        left: `${left + 20}px`,
+      })
+    } else {
+      setButtonPlacement({
+        top: `${top + 20}px`,
+        left: `${right - 50}px`,
+      })
+    }
+  }, [isOpen, modalRef, setButtonPlacement, width])
+
   const modalStyles = isOpen
     ? { opacity: 1, transition: `opacity 0s ease 0.4s` }
     : { opacity: 0, pointerEvents: 'none' }
@@ -522,9 +549,13 @@ function AboutTeamModalContent({
   return (
     <Modal style={modalStyles}>
       <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-        <ModalContent>
-          <CloseButton onClick={handleOutsideClick}>
-            <ExIcon fill="#73737D" />
+        <ModalContent ref={modalRef}>
+          <CloseButton
+            onClick={handleOutsideClick}
+            style={buttonPlacement}
+            isOpen={isOpen}
+          >
+            <ExIcon fill="#fff" />
           </CloseButton>
           {isOpen && (
             <ModalGrid key={person.name}>
@@ -833,16 +864,16 @@ const Value = styled.div`
   background: ${p => p.theme.colors.sirius};
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled.button<{ isOpen: boolean }>`
   position: absolute;
   top: 30px;
   left: 30px;
   z-index: 1;
+  opacity: ${p => (p.isOpen ? 1 : 0)};
+  transition: opacity 0.4s ease 0.4s;
 
   ${media.phablet`
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: fixed;
     left: unset;
 
     &::before {
@@ -852,7 +883,7 @@ const CloseButton = styled.button`
       top: -50%;
       width: 200%;
       height: 200%;
-      background: rgba(0,0,0,0.33);
+      background: black;
       border-radius: 50%;
       z-index: -1;
     }
@@ -943,16 +974,16 @@ const ModalAbout = styled.div`
   `}
 
   ${media.phablet`
-    padding: 140px 20px 40px;
+    padding: 18vh 20px 40px;
     pointer-events: none;
   `}
 
   @media (max-height: 660px) {
-   padding-top: 24vh; 
+   padding-top: 33vh; 
   }
 
   @media (max-height: 570px) {
-   padding-top: 50vh; 
+   padding-top: 90vh; 
   }
 `
 
