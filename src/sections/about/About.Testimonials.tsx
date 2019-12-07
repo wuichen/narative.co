@@ -72,7 +72,7 @@ function AboutTestimonial() {
       logo: flowLogo,
     },
     {
-      name: 'Pec',
+      name: 'Pierre-Etienne Corriveau',
       title: 'Product Design Lead',
       testimonial:
         "Narative took a personal and hands-on approach to building the new Hopper.com, meeting with many Hopper Humans to understand what makes us unique to create a digital destination that truly represents us. I'd be more than happy to collaborate with Narative, again and again.",
@@ -171,9 +171,9 @@ function AboutTestimonial() {
                             </LogoContainer>
                             <VerticalDivider />
                             <div>
-                              <Role>
+                              <Title>
                                 {testimonial.name} · {testimonial.title}
-                              </Role>
+                              </Title>
                               <Text>{testimonial.testimonial}</Text>
                             </div>
                           </Card>
@@ -210,9 +210,8 @@ function AboutTestimonial() {
                       </LogoContainer>
                       <VerticalDivider />
                       <div style={{ width: '100%' }}>
-                        <Role>
-                          {testimonial.name} · {testimonial.title}
-                        </Role>
+                        <Name>{testimonial.name}</Name>
+                        <Title>{testimonial.title}</Title>
                         <Text>{testimonial.testimonial}</Text>
                       </div>
                     </Card>
@@ -332,7 +331,7 @@ const Card = styled.div`
 
   ${media.phablet`
     padding: 30px 15px 0;
-    min-height: 325px;
+    min-height: 335px;
   `}
 `
 
@@ -344,12 +343,19 @@ const LogoContainer = styled.div`
   `}
 `
 
-const Role = styled.div`
+const Name = styled.div`
+  font-weight: 700;
+  color: #fff;
+  white-space: pre-wrap;
+`
+
+const Title = styled.div`
   font-weight: 700;
   color: #fff;
 
   ${media.tablet`
-    margin-bottom: 25px;
+  font-weight: 400;
+    margin-bottom: 22px;
     white-space: pre-wrap;
   `}
 `
@@ -364,6 +370,7 @@ const Text = styled.p`
   ${media.phablet`
     font-size: 16px;
     white-space: pre-wrap;
+    padding-bottom: 0;
   `}
 `
 

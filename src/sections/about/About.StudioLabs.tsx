@@ -366,7 +366,7 @@ const Modal = styled.div`
   & > div {
     flex: 1;
     max-width: 1100px;
-    max-height: 630px;
+    max-height: 88vh;
     height: 100%;
   }
 
@@ -392,7 +392,7 @@ const ModalContent = styled.div`
     forwards;
 
   ${media.tablet`
-    overflow-y: scroll;
+    max-height: 88vh;
   `}
 `
 
@@ -419,7 +419,6 @@ const ModalAbout = styled.div`
 
   ${media.phablet`
     padding: 40px 20px 20px;
-    pointer-events: none;
   `}
 
   @media (max-height: 660px) {

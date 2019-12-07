@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import { motion, useMotionValue } from 'framer-motion'
 
 import media from '@styles/media'
-import { useInvertedBorderRadius } from '@utils'
+import {
+  useInvertedBorderRadius,
+  useResize,
+  getBreakpointFromTheme,
+} from '@utils'
 
 interface AboutTeamModalProps {
   isSelected: boolean
@@ -16,6 +20,8 @@ const closeSpring = { type: 'spring', stiffness: 300, damping: 35 }
 function AboutTeamModal({ isSelected, handleRef }: AboutTeamModalProps) {
   const y = useMotionValue(0)
   const zIndex = useMotionValue(isSelected ? 2 : 0)
+  const { width } = useResize()
+  const tablet = getBreakpointFromTheme('tablet')
 
   // Maintain the visual border radius when we perform the layoutTransition by inverting its scaleX/Y
   const inverted = useInvertedBorderRadius(5)
@@ -41,7 +47,7 @@ function AboutTeamModal({ isSelected, handleRef }: AboutTeamModalProps) {
   const openCardContent = isSelected
     ? {
         maxWidth: '1140px',
-        maxHeight: '630px',
+        maxHeight: width > tablet ? '630px' : '92vh',
       }
     : {}
 

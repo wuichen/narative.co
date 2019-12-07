@@ -500,8 +500,8 @@ function AboutTeamModalContent({
       })
     } else {
       setButtonPlacement({
-        top: `${top + 20}px`,
-        left: `${right - 50}px`,
+        top: `${top + 30}px`,
+        left: `${left + 20}px`,
       })
     }
   }, [isOpen, modalRef, setButtonPlacement, width])
@@ -612,7 +612,7 @@ const fadeIn = keyframes`
 `
 
 const AboutTeamContainer = styled.div`
-  margin: 0 0 240px;
+  padding: 0 0 240px;
 
   ${media.desktop`
     padding: 0 0 200px;
@@ -930,6 +930,10 @@ const Modal = styled.div`
 
   ${media.phablet`
     padding: 30px 15px;
+   
+    & > div {
+      max-height: 92vh;
+    }
   `}
 `
 
@@ -939,7 +943,6 @@ const ModalContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 630px;
   max-width: 1140px;
   height: 100%;
   width: 100%;
@@ -949,6 +952,7 @@ const ModalContent = styled.div`
 
   ${media.tablet`
     overflow-y: scroll;
+    max-height: 92vh;
   `}
 `
 
@@ -978,12 +982,12 @@ const ModalAbout = styled.div`
     pointer-events: none;
   `}
 
-  @media (max-height: 660px) {
-   padding-top: 33vh; 
+  @media (max-height: 700px) {
+   padding-top: 42vh; 
   }
 
   @media (max-height: 570px) {
-   padding-top: 90vh; 
+   padding-top: 80vh; 
   }
 `
 
