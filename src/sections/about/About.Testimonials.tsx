@@ -331,14 +331,14 @@ const Card = styled.div`
 
   ${media.phablet`
     padding: 30px 15px 0;
-    min-height: 335px;
+    min-height: 355px;
   `}
 `
 
 const LogoContainer = styled.div`
   ${media.tablet`
-  width: 100%;
-  border-top: 1px solid rgba(250, 250, 250, 0.05);
+    width: 100%;
+    border-top: 1px solid rgba(250, 250, 250, 0.05);
     order: 3;
   `}
 `
@@ -370,7 +370,7 @@ const Text = styled.p`
   ${media.phablet`
     font-size: 16px;
     white-space: pre-wrap;
-    padding-bottom: 0;
+    padding-bottom: 20px;
   `}
 `
 

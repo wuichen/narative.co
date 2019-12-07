@@ -437,7 +437,6 @@ const ValueText = styled.p`
   ${media.tablet`
     font-size: 18px;
     text-align: center;
-
   `}
 `
 
