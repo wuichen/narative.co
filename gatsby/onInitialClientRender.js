@@ -1,5 +1,6 @@
 const globalHistory = require('@reach/router').globalHistory
 const getWindowDimensions = require('../src/utils/index').getWindowDimensions
+const throttle = require('lodash/throttle')
 
 function handleAccessibilityFocus() {
   const elementsWithA11yFocus = Array.from(
@@ -36,7 +37,7 @@ function handleAccessibilityFocus() {
 function handleFadeInAndOutOnScroll() {
   const clamp = value => Math.min(Math.max(value, 0), 1)
 
-  const handleScroll = () => {
+  const handleScroll = throttle(() => {
     const { height } = getWindowDimensions()
     const elements = Array.from(document.querySelectorAll('[data-scroll-fade]'))
 
@@ -53,7 +54,7 @@ function handleFadeInAndOutOnScroll() {
         element.style.opacity = clamp((1 - box.top / height) * 1.66)
       }
     })
-  }
+  }, 20)
 
   window.addEventListener('scroll', handleScroll)
 }
@@ -74,8 +75,11 @@ module.exports = async () => {
   }
 
   // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-  window.addEventListener('resize', () => {
-    let vh = window.innerHeight * 0.01
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
-  })
+  window.addEventListener(
+    'resize',
+    throttle(() => {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }, 100)
+  )
 }
