@@ -325,12 +325,13 @@ const fadeIn = keyframes`
 const CloseButton = styled.button`
   position: absolute;
   width: 24px;
-  height: 24px;
+  height: 0;
   top: 30px;
   left: 30px;
   z-index: 1;
 
   ${media.phablet`
+    position: relative;
     top: 16px;
     left: 16px;
 
@@ -338,9 +339,9 @@ const CloseButton = styled.button`
       content: '';
       position: absolute;
       left: -50%;
-      top: -50%;
-      width: 200%;
-      height: 200%;
+      top: -12px;
+      width: 48px;
+      height: 48px;
       background: #000;
       border-radius: 50%;
       z-index: 0;
@@ -404,6 +405,9 @@ const ModalContent = styled.div`
 
   ${media.tablet`
     max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   `}
 `
 
