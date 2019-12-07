@@ -246,10 +246,22 @@ const AboutTestimonialContainer = styled.div`
     background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 80%);
     pointer-events: none;
 
-    @media (min-height: 1050px) {
-      height: 55vh;
+    @media (min-height: 800px) {
+      height: 25vh;
+      min-height: 300px;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 60%);
+    }
+
+    @media (min-height: 950px) {
+      height: 35vh;
       min-height: 400px;
-      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 40%);
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 50%);
+    }
+
+    @media (min-height: 1050px) {
+      height: 40vh;
+      min-height: 400px;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 0%, #090a0d 30%);
     }
 
     ${media.tablet`
