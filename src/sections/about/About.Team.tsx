@@ -868,13 +868,14 @@ const CloseButton = styled.button<{ isOpen: boolean }>`
   position: absolute;
   top: 30px;
   left: 30px;
+  height: 24px;
+  width: 24px;
   z-index: 1;
   opacity: ${p => (p.isOpen ? 1 : 0)};
   transition: opacity 0.4s ease 0.4s;
 
   ${media.phablet`
     position: fixed;
-    left: unset;
 
     &::before {
       content: '';
@@ -888,26 +889,6 @@ const CloseButton = styled.button<{ isOpen: boolean }>`
       z-index: -1;
     }
   `}
-
-  @media (max-height: 660px) {
-    position: fixed;
-    top: 46px;
-    right: 36px;
-    left: unset;
-  }
-
-  @media (max-height: 570px) {
-    position: fixed;
-    top: 46px;
-    right: 36px;
-    left: unset;
-  }
-
-  @media (min-height: 750px) {
-    position: fixed;
-    left: 25px;
-    top: 25px;
-  }
 `
 
 const Modal = styled.div`
@@ -983,11 +964,11 @@ const ModalAbout = styled.div`
   `}
 
   @media (max-height: 700px) {
-   padding-top: 42vh; 
+   padding-top: 36vh; 
   }
 
   @media (max-height: 570px) {
-   padding-top: 80vh; 
+   padding-top: 60vh; 
   }
 `
 
