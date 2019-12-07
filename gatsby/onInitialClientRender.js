@@ -58,7 +58,7 @@ function handleFadeInAndOutOnScroll() {
   window.addEventListener('scroll', handleScroll)
 }
 
-module.exports = () => {
+module.exports = async () => {
   handleAccessibilityFocus()
   handleFadeInAndOutOnScroll()
 
@@ -67,4 +67,9 @@ module.exports = () => {
    * See https://github.com/gatsbyjs/gatsby/issues/8357 for more details
    */
   globalHistory._onTransitionComplete()
+
+  if (typeof IntersectionObserver === 'undefined') {
+    await import('intersection-observer')
+    console.log('IntersectionObserver polyfilled ;)')
+  }
 }

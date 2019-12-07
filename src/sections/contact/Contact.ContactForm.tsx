@@ -30,7 +30,7 @@ const validate = values => {
   }
 
   if (!values.details) {
-    errors.details = 'Entice us!'
+    errors.details = 'Could be anything, really.'
   }
   if (values.details.length > 289) {
     errors.details = 'Short and sweet, please!'
@@ -82,7 +82,7 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
           <SubmittedCheckIcon />
           <SubmittedHeader>Thank you, {firstName}</SubmittedHeader>
           <SubmittedText>
-            Our business development team will get back to you shortly.
+            A member of the Narative team will be in touch with you soon.
           </SubmittedText>
           <SubmittedBackButton onClick={toggleContact}>
             Go back
@@ -133,10 +133,10 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
                   </span>
                 </FormSection>
                 <FormSection animation={animation} delay={baseDelay + 480}>
-                  <FormHeader>Tell us about your idea</FormHeader>
+                  <FormHeader>What’s on your mind?</FormHeader>
                   <Field
                     component={Form.Textarea}
-                    label="give us a short description"
+                    label="let us know what you’d like to discuss"
                     name="details"
                     rows={1}
                   />
@@ -145,15 +145,18 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
                   <ButtonArrow
                     isSubmitting={props.isSubmitting}
                     color="black"
-                    text="Submit"
                     type="submit"
+                    text="Send to narative"
                   />
                 </ButtonContainer>
                 <MobileButtonContainer
                   animation={animation}
                   delay={baseDelay + 610}
                 >
-                  <Button isSubmitting={props.isSubmitting} text="Submit" />
+                  <Button
+                    isSubmitting={props.isSubmitting}
+                    text="Send to narative"
+                  />
                 </MobileButtonContainer>
                 <ContactByEmail animation={animation} delay={baseDelay + 610} />
               </StyledFormikForm>
@@ -317,6 +320,11 @@ const StyledFormikForm = styled(FormikForm)`
   `};
 `
 
+const fadeInAndScale = keyframes`
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+`
+
 const SubmittedScreen = styled.div`
   width: 46rem;
   padding-bottom: 10rem;
@@ -340,12 +348,23 @@ const SubmittedScreen = styled.div`
 
   svg {
     margin-bottom: 3rem;
+    opacity: 0;
+    animation: ${fadeInAndScale} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
+      forwards;
   }
+`
+
+const fadeInAndUp = keyframes`
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 `
 
 const SubmittedHeader = styled(Heading.h2)`
   margin-bottom: 3rem;
   color: #000;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms
+    forwards;
 `
 
 const SubmittedText = styled.p`
@@ -353,11 +372,17 @@ const SubmittedText = styled.p`
   font-size: 2.2rem;
   max-width: 275px;
   margin-bottom: 3rem;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
+    forwards;
 `
 
 const SubmittedBackButton = styled.button`
   font-size: 18px;
   font-weight: 600;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
 `
 
 const SocialLinksContainer = styled.div`
@@ -366,11 +391,17 @@ const SocialLinksContainer = styled.div`
   display: flex;
   margin: 100px auto 50px;
   justify-content: space-between;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 400ms
+    forwards;
 `
 
 const CopyRightContainer = styled.div`
   font-size: 16px;
   color: ${p => p.theme.colors.grey};
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 500ms
+    forwards;
 `
 
 const ButtonContainer = styled.div`
