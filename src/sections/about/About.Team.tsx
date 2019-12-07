@@ -914,6 +914,7 @@ const Modal = styled.div`
    
     & > div {
       max-height: 92vh;
+      max-height: calc(var(--vh, 1vh) * 92);
     }
   `}
 `
@@ -934,6 +935,7 @@ const ModalContent = styled.div`
   ${media.tablet`
     overflow-y: scroll;
     max-height: 92vh;
+    max-height: calc(var(--vh, 1vh) * 92);
   `}
 `
 
@@ -948,6 +950,7 @@ const ModalAbout = styled.div`
   max-width: 520px;
   margin: 40px 0 0 75px;
   max-height: 92vh;
+  max-height: calc(var(--vh, 1vh) * 92);
 
   ${media.desktop_small`
     max-width: initial;

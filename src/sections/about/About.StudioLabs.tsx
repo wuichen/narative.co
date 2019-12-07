@@ -383,6 +383,7 @@ const Modal = styled.div`
     padding: 15px;
     & > div {
       max-height: 92vh;
+      max-height: calc(var(--vh, 1vh) * 92);
     }
   `}
 `
@@ -405,6 +406,7 @@ const ModalContent = styled.div`
 
   ${media.tablet`
     max-height: 92vh;
+    max-height: calc(var(--vh, 1vh) * 92);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -419,6 +421,7 @@ const ModalGrid = styled.div`
 
 const ModalAbout = styled.div`
   max-height: 92vh;
+  max-height: calc(var(--vh, 1vh) * 92);
   width: 100%;
   max-width: 480px;
   margin: 30px 0 0 25px;
