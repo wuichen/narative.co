@@ -420,7 +420,6 @@ function AboutTeam() {
             })}
           </Section>
         )}
-
         <AboutBackground />
       </AboutTeamContainer>
 
@@ -582,7 +581,7 @@ const fadeIn = keyframes`
 `
 
 const AboutTeamContainer = styled.div`
-  padding: 0 0 240px;
+  margin: 0 0 240px;
 
   ${media.desktop`
     padding: 0 0 200px;

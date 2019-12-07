@@ -40,8 +40,6 @@ const AboutHeadingContainer = styled.div`
 const HeadingBackground = styled.div`
   -webkit-background-clip: text;
   background-clip: text;
-  padding-top: 200px;
-  margin-top: -200px;
   background-repeat: no-repeat;
   background-image: linear-gradient(
     92.07deg,
@@ -53,7 +51,6 @@ const HeadingBackground = styled.div`
   );
   background-size: cover;
   color: transparent !important;
-  background-position: 0 120px;
   margin-bottom: 15px;
 `
 
