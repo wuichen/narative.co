@@ -169,13 +169,11 @@ const Slash = () => (
         strokeWidth="12"
       />
     </g>
-    <g filter="url(#filter1_dd)">
-      <path
-        d="M329.998 379.319L45 178.816V81.528L329.984 281.14L329.998 379.319Z"
-        stroke="white"
-        strokeWidth="12"
-      />
-    </g>
+    <path
+      d="M329.998 379.319L45 178.816V81.528L329.984 281.14L329.998 379.319Z"
+      stroke="white"
+      strokeWidth="12"
+    />
     <rect
       x="35.5"
       y="66.5"
