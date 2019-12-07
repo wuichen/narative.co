@@ -485,7 +485,7 @@ function AboutTeamModalContent({
   handleOutsideClick: () => void
   handleSetSelectedPersonIndex: (index: number) => void
 }) {
-  const [buttonPlacement, setButtonPlacement] = useState({ top: 0, right: 0 })
+  const [buttonPlacement, setButtonPlacement] = useState({})
   const modalRef = useRef(document.createElement('div'))
   const { width } = useResize()
 
@@ -493,12 +493,7 @@ function AboutTeamModalContent({
     const { top, right, left } = modalRef.current.getBoundingClientRect()
     const tablet = getBreakpointFromTheme('tablet')
 
-    if (width > tablet) {
-      setButtonPlacement({
-        top: `${top + 20}px`,
-        left: `${left + 20}px`,
-      })
-    } else {
+    if (width < tablet) {
       setButtonPlacement({
         top: `${top + 30}px`,
         left: `${left + 20}px`,
