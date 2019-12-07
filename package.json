@@ -17,7 +17,10 @@
     "serve": "./node_modules/.bin/gatsby serve",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf .cache/"
+    "clean": "rm -rf .cache/",
+    "contentful:export": "contentful space export --config contentful.json --skip-content --skip-roles --skip-webhooks",
+    "contentful:export:model": "contentful space export --config contentful.json",
+    "contentful:import": "contentful space import --config contentful.json"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^13.0.0",
