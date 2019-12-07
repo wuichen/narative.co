@@ -331,7 +331,7 @@ const Card = styled.div`
 
   ${media.phablet`
     padding: 30px 15px 0;
-    min-height: 355px;
+    min-height: 357px;
   `}
 `
 
