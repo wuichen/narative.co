@@ -17,13 +17,14 @@ function AboutContact() {
   useEffect(() => {
     const handleScroll = throttle(() => {
       setInView(window.pageYOffset + 100 > getOffsetTop(ref.current))
-    }, 50)
+    }, 100)
     window.addEventListener('scroll', handleScroll)
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [ref])
+
   return (
     <>
       <LightLayer style={{ opacity: inView ? 1 : 0 }} />
@@ -62,8 +63,8 @@ const Container = styled.div<{ inView: boolean }>`
     }
   `}
 
-  @media (min-height: 1200px) {
-    padding-top: 310px;
+  @media (min-height: 901px) {
+    padding-top: 260px;
     align-items: center;
   }
 
