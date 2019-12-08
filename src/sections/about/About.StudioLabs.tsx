@@ -72,7 +72,7 @@ function AboutStudioLabsModal({
 }) {
   const { Portal } = usePortal()
   const { labsHero } = useStaticQuery(labsImageQuery)
-  const modalRef = useRef(document.createElement('div'))
+  const modalRef = useRef()
 
   useEffect(() => {
     if (isOpen) {
