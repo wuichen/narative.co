@@ -164,6 +164,7 @@ export const scrollable = (action: string) => {
 
 // If scrollable is not enough... you can use this lib
 export const bodyScroll = (element: HTMLElement, action: string) => {
+  console.log({ element, action })
   if (action.toLowerCase() === 'disable') {
     disableBodyScroll(element)
   } else {

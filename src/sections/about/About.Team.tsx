@@ -276,7 +276,7 @@ function AboutTeam() {
 
       setTimeout(() => {
         document.body.style.pointerEvents = ''
-        bodyScroll(document.createElement('div'), 'disable')
+        bodyScroll(modalRef.current, 'disable')
       }, 460)
     }
   }
