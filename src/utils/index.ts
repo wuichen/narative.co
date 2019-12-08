@@ -167,6 +167,7 @@ export const bodyScroll = (element: HTMLElement, action: string) => {
   if (action.toLowerCase() === 'disable') {
     disableBodyScroll(element)
   } else {
+    console.log('CLEAR ALL')
     clearAllBodyScrollLocks()
   }
 }

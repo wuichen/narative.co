@@ -273,9 +273,10 @@ function AboutTeam() {
       bodyScroll(modalRef.current, 'enable')
     } else {
       document.body.style.pointerEvents = 'none'
+
       setTimeout(() => {
         document.body.style.pointerEvents = ''
-        bodyScroll(modalRef.current, 'disable')
+        bodyScroll(document.createElement('div'), 'disable')
       }, 460)
     }
   }
