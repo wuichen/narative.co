@@ -76,19 +76,19 @@ function AboutStudioLabsModal({
 
   useEffect(() => {
     if (isOpen) {
-      bodyScroll(modalRef.current, 'disable')
+      bodyScroll('disable', modalRef.current)
 
       function handleKeyDown(event: KeyboardEvent) {
         if (event.key === 'Escape') {
           setIsOpen(false)
-          bodyScroll(modalRef.current, 'enable')
+          bodyScroll('enable')
         }
       }
 
-      window.addEventListener('keydown', handleKeyDown)
-      return () => window.removeEventListener('keydown', handleKeyDown)
+      window.addEventListener('keydown', handleKeyDown, true)
+      return () => window.removeEventListener('keydown', handleKeyDown, true)
     } else {
-      bodyScroll(modalRef.current, 'enable')
+      bodyScroll('enable')
     }
   }, [isOpen, modalRef])
 

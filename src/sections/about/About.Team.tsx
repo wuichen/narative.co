@@ -270,13 +270,13 @@ function AboutTeam() {
     setIsOpen(open)
 
     if (isOpen) {
-      bodyScroll(modalRef.current, 'enable')
+      bodyScroll('disable', modalRef.current)
     } else {
       document.body.style.pointerEvents = 'none'
 
       setTimeout(() => {
         document.body.style.pointerEvents = ''
-        bodyScroll(modalRef.current, 'disable')
+        bodyScroll('disable', modalRef.current)
       }, 460)
     }
   }
@@ -286,12 +286,12 @@ function AboutTeam() {
       if (event.key === 'Escape') {
         handleModalToggle(false)
         document.body.style.pointerEvents = ''
-        bodyScroll(modalRef.current, 'disable')
+        bodyScroll('enable')
       }
     }
 
-    window.addEventListener('keydown', handleEscKeyPress)
-    return () => window.removeEventListener('keydown', handleEscKeyPress)
+    window.addEventListener('keydown', handleEscKeyPress, true)
+    return () => window.removeEventListener('keydown', handleEscKeyPress, true)
   }, [modalRef])
 
   useEffect(() => {
