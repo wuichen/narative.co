@@ -12,12 +12,7 @@ import Image from '@components/Image'
 import SocialLinksDynamic from '@components/SocialLinks/SocialLinks.Dynamic'
 
 import media from '@styles/media'
-import {
-  scrollable,
-  useResize,
-  getBreakpointFromTheme,
-  getWindowDimensions,
-} from '@utils'
+import { bodyScroll, useResize, getBreakpointFromTheme } from '@utils'
 
 import { ExIcon, ChevronRightIcon, ChevronLeftIcon } from '../../icons/ui/index'
 import { IGraphqlSharpFluidImage, IStaticImage } from '../../types/index'
@@ -231,6 +226,7 @@ function AboutTeam() {
   ]
 
   const [childRef, setChildRef] = useState()
+  const [modalRef, setModalRef] = useState()
   const cardsRef = useRef()
   const cardRefs = useRef([...Array(people.length)].map(() => createRef()))
 
@@ -246,6 +242,10 @@ function AboutTeam() {
 
   function handleRef(ref: any) {
     setChildRef(ref)
+  }
+
+  function handleModalRef(ref: any) {
+    setModalRef(ref)
   }
 
   function handleSetSelectedPersonIndex(index: number) {
@@ -269,14 +269,13 @@ function AboutTeam() {
 
     setIsOpen(open)
 
-    if (open) {
-      scrollable('disable')
+    if (isOpen) {
+      bodyScroll(modalRef.current, 'enable')
     } else {
       document.body.style.pointerEvents = 'none'
-
       setTimeout(() => {
         document.body.style.pointerEvents = ''
-        scrollable('enable')
+        bodyScroll(modalRef.current, 'disable')
       }, 460)
     }
   }
@@ -443,6 +442,7 @@ function AboutTeam() {
           isOpen={isOpen}
           people={people}
           person={person}
+          handleModalRef={handleModalRef}
           handleOutsideClick={
             isOpen ? () => handleModalToggle(false) : () => {}
           }
@@ -476,12 +476,14 @@ function AboutTeamModalContent({
   isOpen,
   people,
   person,
+  handleModalRef,
   handleOutsideClick,
   handleSetSelectedPersonIndex,
 }: {
   isOpen: boolean
   people: Person[]
   person: Person
+  handleModalRef: () => void
   handleOutsideClick: () => void
   handleSetSelectedPersonIndex: (index: number) => void
 }) {
@@ -490,7 +492,11 @@ function AboutTeamModalContent({
   const { width } = useResize()
 
   useEffect(() => {
-    const { top, right, left } = modalRef.current.getBoundingClientRect()
+    handleModalRef(modalRef)
+  }, [])
+
+  useEffect(() => {
+    const { top, left } = modalRef.current.getBoundingClientRect()
     const tablet = getBreakpointFromTheme('tablet')
 
     if (width > tablet) {
@@ -928,6 +934,7 @@ const ModalContent = styled.div`
   background: #000;
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
+  -webkit-overflow-scrolling: touch;
 
   ${media.tablet`
     overflow-y: scroll;

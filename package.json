@@ -29,6 +29,7 @@
     "@reach/router": "^1.2.1",
     "@types/styled-components": "^4.1.11",
     "babel-plugin-styled-components": "^1.10.0",
+    "body-scroll-lock": "^2.6.4",
     "formik": "^0.11.11",
     "framer-motion": "^1.6.12",
     "fuse.js": "^3.4.4",

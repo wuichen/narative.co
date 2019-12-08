@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import usePortal from 'react-useportal'
 import { Link, useStaticQuery, graphql } from 'gatsby'
@@ -9,7 +9,7 @@ import Section from '@components/Section'
 import Image from '@components/Image'
 
 import media from '@styles/media'
-import { scrollable } from '@utils'
+import { bodyScroll } from '@utils'
 import { ExIcon } from '../../icons/ui/index'
 
 export const labsImageQuery = graphql`
@@ -26,24 +26,6 @@ export const labsImageQuery = graphql`
 
 function AboutStudioLabs() {
   const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollable('disable')
-
-      function handleKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-          setIsOpen(false)
-          scrollable('enable')
-        }
-      }
-
-      window.addEventListener('keydown', handleKeyDown)
-      return () => window.removeEventListener('keydown', handleKeyDown)
-    } else {
-      scrollable('enable')
-    }
-  }, [isOpen])
 
   return (
     <>
@@ -72,6 +54,7 @@ function AboutStudioLabs() {
       </Container>
       <AboutStudioLabsModal
         isOpen={isOpen}
+        setIsOpen={setIsOpen}
         handleOutsideClick={() => setIsOpen(false)}
       />
     </>
@@ -80,13 +63,34 @@ function AboutStudioLabs() {
 
 function AboutStudioLabsModal({
   isOpen,
+  setIsOpen,
   handleOutsideClick,
 }: {
   isOpen: boolean
+  setIsOpen: (open: boolean) => void
   handleOutsideClick: () => void
 }) {
   const { Portal } = usePortal()
   const { labsHero } = useStaticQuery(labsImageQuery)
+  const modalRef = useRef(document.createElement('div'))
+
+  useEffect(() => {
+    if (isOpen) {
+      bodyScroll(modalRef.current, 'disable')
+
+      function handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          setIsOpen(false)
+          bodyScroll(modalRef.current, 'enable')
+        }
+      }
+
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    } else {
+      bodyScroll(modalRef.current, 'enable')
+    }
+  }, [isOpen, modalRef])
 
   const modalStyles = isOpen
     ? { opacity: 1, transition: `opacity 0s ease 0.4s` }
@@ -103,7 +107,7 @@ function AboutStudioLabsModal({
                   <ExIcon fill="#fff" />
                 </CloseButton>
                 <ModalGrid>
-                  <ModalAbout>
+                  <ModalAbout ref={modalRef}>
                     <ModalName>About Narative Labs</ModalName>
                     <ModalRole>—</ModalRole>
                     <ModalText index={0}>
@@ -425,6 +429,7 @@ const ModalAbout = styled.div`
   width: 100%;
   max-width: 480px;
   margin: 30px 0 0 25px;
+  -webkit-overflow-scrolling: touch;
 
   ${media.desktop_small`
     max-width: initial;

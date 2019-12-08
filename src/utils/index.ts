@@ -6,6 +6,7 @@ import { useMotionValue, useInvertedScale } from 'framer-motion'
 import { useDomEvent, MotionValue } from 'framer-motion'
 import { spring } from 'popmotion'
 import { mix } from '@popmotion/popcorn'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 export { apiCall }
 
 /**
@@ -153,11 +154,20 @@ export function useReduced() {
  */
 export const scrollable = (action: string) => {
   if (action.toLowerCase() === 'enable') {
-    document.body.style.cssText = null
+    document.body.style.cssText = ''
   } else {
     document.body.style.overflow = 'hidden'
     document.body.style.height = '100%'
     document.body.style.position = 'relative'
+  }
+}
+
+// If scrollable is not enough... you can use this lib
+export const bodyScroll = (element: HTMLElement, action: string) => {
+  if (action.toLowerCase() === 'disable') {
+    disableBodyScroll(element)
+  } else {
+    clearAllBodyScrollLocks()
   }
 }
 
