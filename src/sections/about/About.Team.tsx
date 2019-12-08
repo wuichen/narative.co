@@ -936,7 +936,6 @@ const ModalContent = styled.div`
   background: #000;
   border-radius: 5px;
   box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.2);
-  -webkit-overflow-scrolling: touch;
 
   ${media.tablet`
     overflow-y: scroll;
@@ -957,6 +956,7 @@ const ModalAbout = styled.div`
   margin: 40px 0 0 75px;
   max-height: 92vh;
   max-height: calc(var(--vh, 1vh) * 92);
+  -webkit-overflow-scrolling: touch;
 
   ${media.desktop_small`
     max-width: initial;
