@@ -325,13 +325,12 @@ const Card = styled.div`
     justify-content: space-between;
     text-align: center;
     height: auto;
-
     padding: 30px 30px 0;
   `}
 
   ${media.phablet`
     padding: 30px 15px 0;
-    min-height: 357px;
+    min-height: 365px;
   `}
 `
 

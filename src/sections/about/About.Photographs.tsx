@@ -178,7 +178,7 @@ function AboutPhotographs() {
                 <LightSection>
                   <AboutHeading
                     heading={`<span class="${headingClass}">Going the distance</span>`}
-                    text={`<span class="${textClass}">Narative is an all-remote team, meaning we work physically apart — something that’s taught us the importance of always staying in sync. We communicate constantly and transparently, with each other and with each of our partners. And when it matters most, we make sure to all get together.</span>`}
+                    text={`<span class="${textClass}">Narative is a remote team, meaning we’re used to working together from often very far apart. We stay close through constant, transparent communication, both within our team and with each of our clients. And when it matters most, we make sure to all get together.</span>`}
                   />
                   <Spacer />
                   <ImageGrid style={{ transform: `scale(${firstRowScale})` }}>

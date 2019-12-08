@@ -54,12 +54,6 @@ const shortcuts = [
     icon: icons.LaptopIcon,
   },
   {
-    name: constants.GO_TO_CAREERS,
-    keys: ['G', 'C'],
-    label: ['Go to ', 'Careers'],
-    icon: icons.LightbulbIcon,
-  },
-  {
     name: constants.GO_TO_HOME,
     keys: ['G', 'H'],
     label: ['Go to ', 'Home'],

@@ -163,7 +163,7 @@ function AboueValues() {
               progress > 0
                 ? {
                     transform: `translateY(-50%) scale(${1 +
-                      progress * (progress * 8) * scale})`,
+                      progress * scale})`,
                     pointerEvents: progress <= 0.5 ? 'initial' : 'none',
                   }
                 : {}

@@ -49,12 +49,12 @@ function AboutHero() {
                       <TextContainer>
                         <Pill text="About" />
                         <Heading.h2 styles="h1">
-                          Narative is a tight-knit team from across the world
-                          building great things.
+                          Narative is a tight-knit team with senior experience
+                          in every digital discipline.
                         </Heading.h2>
                         <MainText>
-                          We’re enthusiastic about partnering with and creating
-                          brands worth believing in.
+                          We partner with companies to bring products to life,
+                          and businesses to scale.
                         </MainText>
                       </TextContainer>
                     </Transitions.CSS.FadeIn>
