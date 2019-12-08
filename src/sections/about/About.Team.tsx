@@ -489,11 +489,12 @@ function AboutTeamModalContent({
   handleSetSelectedPersonIndex: (index: number) => void
 }) {
   const [buttonPlacement, setButtonPlacement] = useState({ top: 0, right: 0 })
-  const modalRef = useRef(document.createElement('div'))
+  const modalRef = useRef()
+  const modalScrollRef = useRef()
   const { width } = useResize()
 
   useEffect(() => {
-    handleModalRef(modalRef)
+    handleModalRef(modalScrollRef)
   }, [])
 
   useEffect(() => {
@@ -563,7 +564,7 @@ function AboutTeamModalContent({
           </CloseButton>
           {isOpen && (
             <ModalGrid key={person.name}>
-              <ModalAbout>
+              <ModalAbout ref={modalScrollRef}>
                 <ModalName>{person.name}</ModalName>
                 <ModalRole>{person.role}</ModalRole>
                 <div>
