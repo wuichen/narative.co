@@ -92,9 +92,7 @@ const TeamGradient = styled.div`
   ${media.phablet`
     background: linear-gradient(
       ${p => p.theme.colors.hero},
-      #191d23 20%,
-      #191d23 90%,
-      #292e35
+      #191d23,
     );
   `}
 `

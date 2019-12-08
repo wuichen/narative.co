@@ -285,12 +285,14 @@ function AboutTeam() {
     function handleEscKeyPress(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         handleModalToggle(false)
+        document.body.style.pointerEvents = ''
+        bodyScroll(modalRef.current, 'disable')
       }
     }
 
     window.addEventListener('keydown', handleEscKeyPress)
     return () => window.removeEventListener('keydown', handleEscKeyPress)
-  }, [])
+  }, [modalRef])
 
   useEffect(() => {
     if (cardsRef.current) {
