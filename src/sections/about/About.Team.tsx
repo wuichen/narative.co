@@ -267,18 +267,18 @@ function AboutTeam() {
       handleSetSelectedPersonIndex(index)
     }
 
-    setIsOpen(open)
-
-    if (isOpen) {
+    if (open) {
       bodyScroll('disable', modalRef.current)
     } else {
       document.body.style.pointerEvents = 'none'
 
       setTimeout(() => {
         document.body.style.pointerEvents = ''
-        bodyScroll('disable', modalRef.current)
+        bodyScroll('enable')
       }, 460)
     }
+
+    setIsOpen(open)
   }
 
   useEffect(() => {
