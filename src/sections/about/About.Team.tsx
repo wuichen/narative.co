@@ -494,7 +494,7 @@ function AboutTeamModalContent({
   const { width } = useResize()
 
   useEffect(() => {
-    handleModalRef(modalScrollRef)
+    handleModalRef(modalRef)
   }, [])
 
   useEffect(() => {
@@ -564,7 +564,7 @@ function AboutTeamModalContent({
           </CloseButton>
           {isOpen && (
             <ModalGrid key={person.name}>
-              <ModalAbout ref={modalScrollRef}>
+              <ModalAbout>
                 <ModalName>{person.name}</ModalName>
                 <ModalRole>{person.role}</ModalRole>
                 <div>
@@ -941,6 +941,7 @@ const ModalContent = styled.div`
     overflow-y: scroll;
     max-height: 92vh;
     max-height: calc(var(--vh, 1vh) * 92);
+    -webkit-overflow-scrolling: touch;
   `}
 `
 
@@ -956,7 +957,6 @@ const ModalAbout = styled.div`
   margin: 40px 0 0 75px;
   max-height: 92vh;
   max-height: calc(var(--vh, 1vh) * 92);
-  -webkit-overflow-scrolling: touch;
 
   ${media.desktop_small`
     max-width: initial;
