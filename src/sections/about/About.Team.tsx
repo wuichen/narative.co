@@ -366,6 +366,7 @@ function AboutTeam() {
                             <IllustrationColored isOpen={cardIsOpen}>
                               <Image
                                 src={person.illustration.childImageSharp.fluid}
+                                loading="eager"
                               />
                             </IllustrationColored>
                             <Illustration isOpen={cardIsOpen}>
@@ -374,6 +375,7 @@ function AboutTeam() {
                                   person.illustrationInactive.childImageSharp
                                     .fluid
                                 }
+                                loading="eager"
                               />
                             </Illustration>
                             <div style={{ position: 'relative' }}>
@@ -410,11 +412,15 @@ function AboutTeam() {
                   onClick={() => handleModalToggle(true, index)}
                 >
                   <IllustrationColored isOpen={cardIsOpen}>
-                    <Image src={person.illustration.childImageSharp.fluid} />
+                    <Image
+                      src={person.illustration.childImageSharp.fluid}
+                      loading="eager"
+                    />
                   </IllustrationColored>
                   <Illustration isOpen={cardIsOpen}>
                     <Image
                       src={person.illustrationInactive.childImageSharp.fluid}
+                      loading="eager"
                     />
                   </Illustration>
                   <div style={{ position: 'relative' }}>
