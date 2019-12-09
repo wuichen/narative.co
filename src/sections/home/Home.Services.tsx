@@ -379,7 +379,7 @@ const HeadingBackground = styled.div`
     #e0dbce 93.48%
   );
   color: transparent !important;
-  max-width: 900px;
+  max-width: 800px;
   padding-bottom: 400px;
   margin-bottom: -250px;
   z-index: 4;
