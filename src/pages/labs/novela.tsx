@@ -6,9 +6,9 @@ import Layout from '@components/Layout'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Section from '@components/Section'
 import SEO from '@components/SEO'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  * The home page of Narative.co!
@@ -168,7 +168,7 @@ function NovealPage({ data, location }) {
           <Mobile>
             <Section narrow>
               <MediaContainer>
-                <Media src={data.novelaDesktop.childImageSharp.fluid} />
+                <Image src={data.novelaDesktop.childImageSharp.fluid} />
               </MediaContainer>
             </Section>
             <Section>
@@ -223,15 +223,15 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
   margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
   padding: 0;
 
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
     margin: ${p => (p.isMobile ? '35px auto -65px' : '65px auto -65px')};
   `}
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     margin: ${p => (p.isMobile ? '35px auto -65px' : '15px auto -65px')};
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 0px;
     visibility: hidden;
     opacity: 0;
@@ -251,7 +251,7 @@ const PreviewContainer = styled.div<{ isMobile: boolean }>`
     background: rgba(0, 0, 0, 0.24);
     filter: blur(120px);
 
-    ${mediaqueries.tablet`
+    ${media.tablet`
       background: rgba(0, 0, 0, 0.1);
       filter: blur(100px);
     `}
@@ -302,7 +302,7 @@ const Controls = styled.div<{ isMobile: boolean }>`
   align-items: center;
   z-index: 10;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -340,7 +340,7 @@ const Anchor = styled.a`
 `
 
 const Mobile = styled.div`
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `

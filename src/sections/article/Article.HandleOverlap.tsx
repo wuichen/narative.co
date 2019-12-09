@@ -1,6 +1,5 @@
 import React, { Component, ReactNode } from 'react'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
 
 interface OverlapProps {
   children: ReactNode[]
@@ -45,25 +44,23 @@ class HandleOverlap extends Component<OverlapProps, OverlapState> {
     const nodesToNotOverlap = [...ctas, ...images]
     const noNodesAreVisible = !nodesToNotOverlap.some(this.isVisible)
 
-    nodesToNotOverlap.forEach(
-      (node: HTMLElement): void | null => {
-        const isOverlapping = this.collide(this.asideRef.current, node)
+    nodesToNotOverlap.forEach((node: HTMLElement): void | null => {
+      const isOverlapping = this.collide(this.asideRef.current, node)
 
-        if (noNodesAreVisible) {
-          return this.setState({ isOverlapping })
-        }
-        /**
-         * If the node is not in the viewport don't fire state events for it,
-         * otherwise we run into issues with multiple nodes on the page.
-         */
-        if (!this.isVisible(node)) {
-          this.ticking = false
-          return null
-        }
-
-        this.setState({ isOverlapping })
+      if (noNodesAreVisible) {
+        return this.setState({ isOverlapping })
       }
-    )
+      /**
+       * If the node is not in the viewport don't fire state events for it,
+       * otherwise we run into issues with multiple nodes on the page.
+       */
+      if (!this.isVisible(node)) {
+        this.ticking = false
+        return null
+      }
+
+      this.setState({ isOverlapping })
+    })
   }
 
   // Is the current element within the window's frame? that’s all we care about!

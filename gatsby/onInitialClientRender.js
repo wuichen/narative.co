@@ -1,6 +1,6 @@
 const globalHistory = require('@reach/router').globalHistory
-const throttle = require('lodash/throttle')
 const getWindowDimensions = require('../src/utils/index').getWindowDimensions
+const throttle = require('lodash/throttle')
 
 function handleAccessibilityFocus() {
   const elementsWithA11yFocus = Array.from(
@@ -54,12 +54,12 @@ function handleFadeInAndOutOnScroll() {
         element.style.opacity = clamp((1 - box.top / height) * 1.66)
       }
     })
-  }, 15)
+  }, 20)
 
   window.addEventListener('scroll', handleScroll)
 }
 
-module.exports = () => {
+module.exports = async () => {
   handleAccessibilityFocus()
   handleFadeInAndOutOnScroll()
 
@@ -68,4 +68,18 @@ module.exports = () => {
    * See https://github.com/gatsbyjs/gatsby/issues/8357 for more details
    */
   globalHistory._onTransitionComplete()
+
+  if (typeof IntersectionObserver === 'undefined') {
+    await import('intersection-observer')
+    console.log('IntersectionObserver polyfilled ;)')
+  }
+
+  // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+  window.addEventListener(
+    'resize',
+    throttle(() => {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }, 100)
+  )
 }

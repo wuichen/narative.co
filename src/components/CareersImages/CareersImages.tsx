@@ -2,8 +2,10 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
-import { HorizontalScroll, IntersectionObserver } from '@components'
-import mediaqueries from '@styles/media'
+import HorizontalScroll from '@components/HorizontalScroll'
+import IntersectionObserver from '@components/IntersectionObserver'
+
+import media from '@styles/media'
 
 class CareersImages extends Component {
   state = {
@@ -148,7 +150,7 @@ const CareersImagesContainer = styled.div`
   max-width: 70rem;
   margin-top: 7rem;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     display: none;
   `};
 `
@@ -156,7 +158,7 @@ const CareersImagesContainer = styled.div`
 const CareersImagesContainerMobile = styled.div`
   display: none;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     display: block;
     width: 100%;
     margin: 3rem 0;
@@ -227,7 +229,7 @@ const ImageContainer = styled.div`
         : ``};
   }
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 28rem;
   `};
 `
@@ -238,7 +240,7 @@ const ImageContainerMobile = styled.div`
   width: 34rem;
   filter: grayscale(100);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     width: 100%;
   `};
 `
@@ -281,7 +283,7 @@ const GalleryControl = styled.button`
     border-radius: 50%;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     ${p => {
       if (p.left) {
         return `left: -26.3rem;`
@@ -293,7 +295,7 @@ const GalleryControl = styled.button`
     }};
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     ${p => {
       if (p.left) {
         return `left: -5rem;`

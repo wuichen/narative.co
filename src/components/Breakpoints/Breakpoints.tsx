@@ -2,7 +2,7 @@ import React, { ReactText } from 'react'
 import styled from 'styled-components'
 
 import { theme } from '@styles/theme'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 function Breakpoints() {
   if (process.env.NODE_ENV !== 'development') {
@@ -43,7 +43,7 @@ const Container = styled.div<{ largest: ReactText }>`
   text-align: center;
   display: none;
 
-  ${p => mediaqueries[p.largest]`
+  ${p => media[p.largest]`
     display: block;
   `}
 `
@@ -59,7 +59,7 @@ const ShowBreakpoint = styled.div<{ breakpoint: ReactText }>`
   color: #fff;
   display: none;
 
-  ${p => mediaqueries[p.breakpoint]`
+  ${p => media[p.breakpoint]`
     display: block;
   `}
 `

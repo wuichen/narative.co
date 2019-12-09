@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 
 import Heading from '@components/Heading'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import { IArticleNode } from '@typings'
 
@@ -50,9 +50,9 @@ const GridItem = ({
   return (
     <ArticleLink to={`/articles/${article.slug}`} data-a11y="false">
       <Item>
-        <Image background={article.backgroundColor}>
-          <Media src={article.backgroundImage.fluid} />
-        </Image>
+        <ImageContainer background={article.backgroundColor}>
+          <Image src={article.backgroundImage.fluid} />
+        </ImageContainer>
         <Title dark hasOverflow={hasOverflow}>
           {article.title}
         </Title>
@@ -77,7 +77,7 @@ const limitToTwoLines = css`
   white-space: normal;
   overflow: hidden;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     -webkit-line-clamp: 3;
   `}
 `
@@ -89,16 +89,16 @@ const Grid = styled.div`
   grid-template-rows: 2;
   column-gap: 30px;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     grid-template-columns: 1fr 1fr;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     grid-template-columns: 1fr;
   `}
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div`
   position: relative;
   height: 280px;
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, ${p => (p.narrow ? 0.22 : 0.3)}),
@@ -114,7 +114,7 @@ const Image = styled.div`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 240px;
     margin-bottom: 0;
     box-shadow: none;
@@ -122,7 +122,7 @@ const Image = styled.div`
     border-bottom-left-radius: 0;
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: 200px;
   `}
 `
@@ -130,7 +130,7 @@ const Image = styled.div`
 const Item = styled.div`
   position: relative;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 40px;
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -146,7 +146,7 @@ const Title = styled(Heading.h3)`
   transition: color 0.3s ease-in-out;
   ${limitToTwoLines};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 30px 20px 0;
     margin-bottom: 10px;
     -webkit-line-clamp: 3;
@@ -161,11 +161,11 @@ const Excerpt = styled.p`
   display: ${p => (p.hasOverflow ? 'none' : 'box')};
   max-width: ${p => (p.narrow ? '415px' : '515px')};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: -webkit-box;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 100%;
     padding:  0 20px;
     margin-bottom: 20px;
@@ -179,7 +179,7 @@ const TimeToRead = styled.div`
   color: ${p => p.theme.mode.text};
   opacity: 0.25;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 100%;
     padding:  0 20px 30px;
   `}
@@ -197,7 +197,7 @@ const ArticleLink = styled(Link)`
   transition: transform 0.33s var(--ease-out-quart);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
-  &:hover ${Image} {
+  &:hover ${ImageContainer} {
     transform: translateY(-1px);
     box-shadow: 0 50px 80px -20px rgba(0, 0, 0, 0.27),
       0 30px 50px -30px rgba(0, 0, 0, 0.3);
@@ -220,8 +220,8 @@ const ArticleLink = styled(Link)`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
-    &:hover ${Image} {
+  ${media.tablet`
+    &:hover ${ImageContainer} {
       box-shadow: none;
     }
 

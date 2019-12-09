@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
-import { Form } from '@components'
-import mediaqueries from '@styles/media'
+import Form from '@components/Form'
+import media from '@styles/media'
 import { apiCall } from '@utils'
 import { CheckIcon } from '../../icons/ui'
 
@@ -86,11 +86,11 @@ const StyledFormikForm = styled(FormikForm)`
   position: relative;
   width: 36rem;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     width: 100%;
   `};
 
-  ${mediaqueries.phone`
+  ${media.phone`
     max-width: 100%;
   `};
 `
@@ -109,7 +109,7 @@ const SubmittedTextContainer = styled.div`
   margin-bottom: 7.8rem;
   animation: 200ms ${fadeIn} ${props => props.theme.transitions.in};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     padding: 2rem 0 4rem;
     margin-bottom: 0;
   `};

@@ -2,18 +2,17 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Formik, Form as FormikForm, Field } from 'formik'
 
-import {
-  Button,
-  ButtonArrow,
-  Section,
-  CopyToClipboard,
-  Heading,
-  Form,
-  SocialLinks,
-} from '@components'
+import Button from '@components/Button'
+import ButtonArrow from '@components/Button/Button.Arrow'
+import CopyToClipboard from '@components/CopyToClipboard'
+import Heading from '@components/Heading'
 import Hidden from '@components/Hidden'
+import Form from '@components/Form'
+import Section from '@components/Section'
+import SocialLinks from '@components/SocialLinks'
 import { ContactContext } from '@components/Contact/Contact.Context'
-import mediaqueries from '@styles/media'
+
+import media from '@styles/media'
 import { apiCall, startAnimation } from '@utils'
 import { SubmittedCheckIcon } from '../../icons/ui'
 
@@ -31,7 +30,7 @@ const validate = values => {
   }
 
   if (!values.details) {
-    errors.details = 'Entice us!'
+    errors.details = 'Could be anything, really.'
   }
   if (values.details.length > 289) {
     errors.details = 'Short and sweet, please!'
@@ -83,7 +82,7 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
           <SubmittedCheckIcon />
           <SubmittedHeader>Thank you, {firstName}</SubmittedHeader>
           <SubmittedText>
-            Our business development team will get back to you shortly.
+            A member of the Narative team will be in touch with you soon.
           </SubmittedText>
           <SubmittedBackButton onClick={toggleContact}>
             Go back
@@ -134,10 +133,10 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
                   </span>
                 </FormSection>
                 <FormSection animation={animation} delay={baseDelay + 480}>
-                  <FormHeader>Tell us about your idea</FormHeader>
+                  <FormHeader>What’s on your mind?</FormHeader>
                   <Field
                     component={Form.Textarea}
-                    label="give us a short description"
+                    label="let us know what you’d like to discuss"
                     name="details"
                     rows={1}
                   />
@@ -146,15 +145,18 @@ function ContactForm({ baseDelay }: { baseDelay: number }) {
                   <ButtonArrow
                     isSubmitting={props.isSubmitting}
                     color="black"
-                    text="Submit"
                     type="submit"
+                    text="Send to narative"
                   />
                 </ButtonContainer>
                 <MobileButtonContainer
                   animation={animation}
                   delay={baseDelay + 610}
                 >
-                  <Button isSubmitting={props.isSubmitting} text="Submit" />
+                  <Button
+                    isSubmitting={props.isSubmitting}
+                    text="Send to narative"
+                  />
                 </MobileButtonContainer>
                 <ContactByEmail animation={animation} delay={baseDelay + 610} />
               </StyledFormikForm>
@@ -211,7 +213,7 @@ const FormHeader = styled(Heading.h2)`
   width: 265px;
   padding-right: ${p => (p.morePadding ? '100px' : '76px')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     width: 100%;
     padding: 0;
     margin-bottom: 5px;
@@ -223,7 +225,7 @@ const FormSection = styled.div`
   display: flex;
   margin-bottom: ${p => (p.spacing === 'large' ? '7rem' : '2.5rem')};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: ${p => (p.spacing === 'large' ? '2rem' : '1rem')};
     flex-direction: column;
   `};
@@ -253,7 +255,7 @@ const MobileContactWithEmail = styled.a`
   margin-top: 40px;
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
   `};
 
@@ -290,7 +292,7 @@ const ContactWithEmail = styled.div`
     background: #c6c6c6;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -302,20 +304,25 @@ const StyledFormikForm = styled(FormikForm)`
   background: #fff;
   z-index: 99999;
 
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
     margin-left: 0;
     width: 100%;
     padding: 0 4rem 5rem;
   `};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     margin: 0 auto;
     padding: 0 0 5rem;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 100%;
   `};
+`
+
+const fadeInAndScale = keyframes`
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 `
 
 const SubmittedScreen = styled.div`
@@ -332,7 +339,7 @@ const SubmittedScreen = styled.div`
   opacity: 0;
   animation: ${fadeIn} 1.2s ease forwards;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     padding-bottom: 0;
     margin: 0 auto;
     width: 100%;
@@ -341,12 +348,23 @@ const SubmittedScreen = styled.div`
 
   svg {
     margin-bottom: 3rem;
+    opacity: 0;
+    animation: ${fadeInAndScale} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1)
+      forwards;
   }
+`
+
+const fadeInAndUp = keyframes`
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 `
 
 const SubmittedHeader = styled(Heading.h2)`
   margin-bottom: 3rem;
   color: #000;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 100ms
+    forwards;
 `
 
 const SubmittedText = styled.p`
@@ -354,11 +372,17 @@ const SubmittedText = styled.p`
   font-size: 2.2rem;
   max-width: 275px;
   margin-bottom: 3rem;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms
+    forwards;
 `
 
 const SubmittedBackButton = styled.button`
   font-size: 18px;
   font-weight: 600;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 300ms
+    forwards;
 `
 
 const SocialLinksContainer = styled.div`
@@ -367,11 +391,17 @@ const SocialLinksContainer = styled.div`
   display: flex;
   margin: 100px auto 50px;
   justify-content: space-between;
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 400ms
+    forwards;
 `
 
 const CopyRightContainer = styled.div`
   font-size: 16px;
   color: ${p => p.theme.colors.grey};
+  opacity: 0;
+  animation: ${fadeInAndUp} 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) 500ms
+    forwards;
 `
 
 const ButtonContainer = styled.div`
@@ -379,7 +409,7 @@ const ButtonContainer = styled.div`
   padding-top: 35px;
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `};
 `
@@ -389,7 +419,7 @@ const MobileButtonContainer = styled.div`
 
   ${fadeUpAnimation}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
   `};
 `

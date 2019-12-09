@@ -11,7 +11,7 @@ import { useReduxState } from '@store'
 import { CloseIcon } from '../../icons/ui'
 import { scrollable, getBreakpointFromTheme, useResize } from '@utils'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 /**
  *      __                                                 _     __
@@ -114,7 +114,7 @@ const Frame = styled.div`
   animation: ${fadeInAndUp} 0.15s forwards;
   overflow: hidden;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: none;
   `}
 `
@@ -129,7 +129,6 @@ const Background = styled.div`
   pointer-events: none;
   user-select: none;
   background: rgba(0, 0, 0, 0.66);
-  will-change: opacity;
   animation: ${fadeIn} 0.25s forwards;
 `
 const Header = styled.header`

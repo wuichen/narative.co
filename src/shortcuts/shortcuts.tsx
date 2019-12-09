@@ -42,16 +42,16 @@ const shortcuts = [
     icon: icons.OpenSourceIcon,
   },
   {
+    name: constants.GO_TO_ABOUT,
+    keys: ['G', 'A'],
+    label: ['Go to', ' About'],
+    icon: icons.LaptopIcon,
+  },
+  {
     name: constants.GO_TO_LABS,
     keys: ['G', 'L'],
     label: ['Go to', ' Labs'],
     icon: icons.LaptopIcon,
-  },
-  {
-    name: constants.GO_TO_CAREERS,
-    keys: ['G', 'C'],
-    label: ['Go to ', 'Careers'],
-    icon: icons.LightbulbIcon,
   },
   {
     name: constants.GO_TO_HOME,
@@ -61,7 +61,7 @@ const shortcuts = [
   },
   {
     name: constants.GO_TO_ARTICLES,
-    keys: ['G', 'A'],
+    keys: ['G', 'R'],
     label: ['Go to ', 'Articles'],
     icon: icons.BookIcon,
   },

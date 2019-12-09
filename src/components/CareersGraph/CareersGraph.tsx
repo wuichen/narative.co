@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle'
 import IntersectionObserver from '@components/IntersectionObserver'
 import Hidden from '@components/Hidden'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const createArrayWithLegth = length =>
   Array.apply(null, { length }).map(Number.call, Number)
@@ -106,20 +106,20 @@ const CareersGraphContainer = styled.div`
   top: -12rem;
   margin-bottom: 10rem;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     top: -4rem;
     margin-bottom: 14rem;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     top: 0rem;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     margin-bottom: 11rem;
   `};
 
-  ${mediaqueries.phone`
+  ${media.phone`
     top: -1rem;
     margin-bottom: 10rem;
   `};
@@ -130,7 +130,7 @@ const CareersGraphGrid = styled.div`
   height: 361px;
   width: 100%;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: 120px;
   `};
 `
@@ -159,12 +159,12 @@ const XLabels = styled.div`
   width: 3.5rem;
   color: ${p => p.theme.colors.grey};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 1.4rem;
     bottom: -5rem;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 0.8rem;
     bottom: -3rem;
   `};
@@ -175,18 +175,18 @@ const YLabels = styled.div`
   left: 8rem;
   bottom: 0;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 1.4rem;
     left: 2rem;
     bottom: -0.4rem;
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 1.4rem;
     left: 1rem;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 0.8rem;
   `};
 `
@@ -197,7 +197,7 @@ const YLabs = styled.div`
   left: 1.1rem;
   color: #fff;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     top: 0.4rem;
   `};
 `
@@ -207,7 +207,7 @@ const YStudio = styled.div`
   top: 1rem;
   color: #e9daac;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     top: 0.5rem;
     left: 0.5rem;
   `};
@@ -240,10 +240,10 @@ const CareersGraphGridColumnContainer = styled.div`
   opacity: ${p => (p.animate ? 1 : 0)};
   transition: opacity 0.5s ease-out 3000ms;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     left: -1rem;
   `};
-  ${mediaqueries.phone`
+  ${media.phone`
     left: -0.5rem;
   `};
 `

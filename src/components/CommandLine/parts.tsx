@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import shortcuts, { constants } from '@shortcuts'
-import { ViewIcon, BookIcon, ExternalIcon } from '../../icons/ui'
+import { ViewIcon, BookIcon } from '../../icons/ui'
 
 /**
  * Command Line Parts
@@ -34,7 +34,7 @@ function createReadingList(articles) {
   return [
     {
       name: constants.GO_TO_ARTICLES,
-      keys: ['G', 'A'],
+      keys: ['G', 'R'],
       label: ['All ', 'Articles'],
       icon: BookIcon,
     },
@@ -78,13 +78,6 @@ function createOpenSourceList() {
       icon: ViewIcon,
       external: true,
     },
-    // {
-    //   name: constants.GO_TO_HOPPER_MEDIA,
-    //   keys: [],
-    //   label: ['Hopper Media Center design'],
-    //   icon: ViewIcon,
-    //   external: true,
-    // },
   ]
 }
 

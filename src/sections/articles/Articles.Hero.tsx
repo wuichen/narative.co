@@ -2,16 +2,15 @@ import React, { useEffect, useState, useRef } from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
+import Section from '@components/Section'
 import Heading from '@components/Heading'
 import ScrollIndicator from '@components/ScrollIndicator'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 import Pill from '@components/Pill'
 import LayoutHeroMobile from '@components/Layout/Layout.Hero.Mobile'
 import Transitions from '@components/Transitions'
 
-import mediaqueries from '@styles/media'
-import { Section } from '@components'
-import { startAnimation } from '@utils'
+import media from '@styles/media'
 
 const imageQuery = graphql`
   query ArticlesHeroQuery {
@@ -75,7 +74,7 @@ function ArticlesHero() {
               <ScrollIndicator />
             </ContentContainer>
             <HeroImage>
-              <Media
+              <Image
                 src={heroImage.childImageSharp.fluid}
                 onLoad={() => setImageLoaded(true)}
               />
@@ -107,11 +106,11 @@ const HeroImage = styled.div`
   top: 42%;
   transform: translateY(-50%);
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     display: none;
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     width: 100%;
     margin-bottom: 60px;
   `};
@@ -168,7 +167,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  ${mediaqueries.desktop_medium`
+  ${media.desktop_medium`
     min-height: 360px;
   `};
 
@@ -176,7 +175,7 @@ const ContentContainer = styled.div`
     min-height: 360px;
   }
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: calc(100vh - 90px);
     padding: 0;
   `};
@@ -185,7 +184,7 @@ const ContentContainer = styled.div`
 const TextContainer = styled.div`
   max-width: 570px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     position: relative;
     top: -50px;
   `};
@@ -197,7 +196,7 @@ const MainText = styled.p`
   color: ${p => p.theme.colors.grey};
   line-height: 1.3;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 2.2rem;
   `};
 `

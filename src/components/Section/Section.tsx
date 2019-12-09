@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const Section = styled.section<{
   relative?: string
@@ -9,6 +9,7 @@ const Section = styled.section<{
   narrow?: boolean
 }>`
   position: ${p => (p.relative ? 'relative' : 'static')};
+  ${p => p.relative && 'z-index: 1;'};
   width: 100%;
   max-width: 1220px;
   margin: 0 auto;
@@ -16,18 +17,19 @@ const Section = styled.section<{
   background: ${p =>
     p.background === 'dark' ? p.theme.colors.bg : 'transparent'};
   display: ${p => (p.hideOnDesktop ? 'none' : 'block')};
+  ${p => p.hideOverflow && `overflow-x: hidden;`};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     max-width: 100%;
     display: ${p => (p.hideOnDesktop ? 'none' : 'block')};
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: block;
     padding: ${p => (p.narrow ? '0 2rem' : '0 4rem')};
   `};
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     max-width: 100%;
     ${p => p.hideOverflow && `overflow: hidden`};
   `};

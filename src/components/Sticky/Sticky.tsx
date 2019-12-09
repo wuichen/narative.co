@@ -1,89 +1,85 @@
-import React, { Component } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
+import { clamp, getOffsetTop } from '@utils'
 
-interface StickyProps {
-  children: React.Children
-  height: number
-  top?: number
-  disableOnMobile?: boolean
-}
-
-interface StickyState {
+export interface StickyState {
   position: number
   progress: number
 }
 
-class Sticky extends Component<StickyProps, StickyState> {
-  element = React.createRef()
+interface StickyProps {
+  children: React.ReactChildren
+  render: (props: StickyState) => React.ReactNode
+  height?: string
+  top?: number
+  disableOnMobile?: boolean
+  cover?: boolean
+}
 
-  state = {
-    position: 0,
-    progress: 0,
-  }
+function Sticky({ cover, height, render, top, disableOnMobile }: StickyProps) {
+  const [position, setPosition] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const element = useRef()
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll)
-  }
+  useEffect(() => {
+    function handleScroll() {
+      const $el = element.current as HTMLElement
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
+      if ($el) {
+        const scrollPosition = window.pageYOffset || window.scrollY
+        const topOfElement = getOffsetTop($el)
+        const topOfElementRelativeToDoc = $el.getBoundingClientRect().top
+        const heightOfElement = $el.getBoundingClientRect().height
 
-  handleScroll = throttle(() => {
-    const $el = this.element.current
+        const scrollPositionRelativeToContainer =
+          scrollPosition - topOfElementRelativeToDoc
 
-    const scrollPosition = window.pageYOffset || window.scrollY
-    const topOfElement = $el.offsetTop
-    const topOfElementRelativeToDoc = $el.getBoundingClientRect().top
-    const heightOfElement = $el.getBoundingClientRect().height
+        const viewportHeight = Math.max(
+          document.documentElement.clientHeight,
+          window.innerHeight || 0
+        )
 
-    const scrollPositionRelativeToContainer =
-      scrollPosition - topOfElementRelativeToDoc
+        const position =
+          scrollPositionRelativeToContainer < 0
+            ? 0
+            : scrollPositionRelativeToContainer
 
-    const viewportHeight = Math.max(
-      document.documentElement.clientHeight,
-      window.innerHeight || 0
-    )
+        const progressOverElement =
+          (scrollPosition - topOfElement) /
+            (heightOfElement - viewportHeight) || 0
 
-    const position =
-      scrollPositionRelativeToContainer < 0
-        ? 0
-        : scrollPositionRelativeToContainer
+        const progress = clamp(progressOverElement, 0, 1)
 
-    const progressOverElement =
-      (scrollPosition - topOfElement) / (heightOfElement - viewportHeight) || 0
+        setPosition(position)
+        setProgress(progress)
+      }
+    }
 
-    const progress = progressOverElement > 1 ? 1 : progressOverElement
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [element])
 
-    this.setState({ position, progress })
-  }, 14)
-
-  render() {
-    const { height, render, top, disableOnMobile } = this.props
-
-    return (
-      <div ref={this.element} data-component="sticky">
-        <StickyDuration height={height} isDisabled={disableOnMobile}>
-          <StickyItemContainer>
-            <StickyItem top={top} isDisabled={disableOnMobile}>
-              {render(this.state)}
-            </StickyItem>
-          </StickyItemContainer>
-        </StickyDuration>
-      </div>
-    )
-  }
+  return (
+    <div ref={element} data-component="sticky">
+      <StickyDuration height={height} isDisabled={disableOnMobile}>
+        <StickyItemContainer>
+          <StickyItem top={top} cover={cover} isDisabled={disableOnMobile}>
+            {render({ progress, position })}
+          </StickyItem>
+        </StickyItemContainer>
+      </StickyDuration>
+    </div>
+  )
 }
 
 export default Sticky
 
-const StickyDuration = styled.div`
+const StickyDuration = styled.div<{ height?: string }>`
   height: ${p => p.height || '100vh'};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: ${p => (p.isDisabled ? '100%' : p.height)};
   `}
 `
@@ -92,16 +88,19 @@ const StickyItemContainer = styled.div`
   height: 100%;
 `
 
-const StickyItem = styled.div`
+const StickyItem = styled.div<{ top?: number; cover?: boolean }>`
   position: sticky;
-  z-index: 1;
   top: ${p => p.top || 0}px;
   min-height: initial;
+  height: ${p => (p.cover ? '100vh' : 'initial')};
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
+  width: 100%;
+  ${p => p.cover && 'overflow-y: hidden;'};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     position: ${p => (p.isDisabled ? 'static' : 'sticky')};
     display: ${p => (p.isDisabled ? 'block' : 'flex')};
   `}

@@ -3,19 +3,10 @@ import styled from 'styled-components'
 import settings from '../../settings'
 
 import * as SocialIcons from '../../icons/social'
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
   <Fragment>
-    <SocialIconContainer
-      target="_blank"
-      rel="noopener"
-      data-a11y="false"
-      aria-label="Link to Facebook"
-      href={settings.urls.facebook}
-    >
-      <SocialIcons.FacebookIcon fill={fill} />
-    </SocialIconContainer>
     <SocialIconContainer
       target="_blank"
       rel="noopener"
@@ -32,7 +23,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       aria-label="Link to Dribbble"
       href={settings.urls.dribbble}
     >
-      <SocialIcons.DribbleIcon fill={fill} />
+      <SocialIcons.DribbbleIcon fill={fill} />
     </SocialIconContainer>
     <SocialIconContainer
       target="_blank"
@@ -50,7 +41,7 @@ const SocialLinks = ({ fill = 'white' }: { fill: string }) => (
       aria-label="Link to LinkedIn"
       href={settings.urls.linkedin}
     >
-      <SocialIcons.LinkedinIcon fill={fill} />
+      <SocialIcons.LinkedInIcon fill={fill} />
     </SocialIconContainer>
   </Fragment>
 )
@@ -82,7 +73,7 @@ const SocialIconContainer = styled.a`
     border-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin: 0 2.2rem;
   `};
 `

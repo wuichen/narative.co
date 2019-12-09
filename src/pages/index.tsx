@@ -6,7 +6,7 @@ import SEO from '@components/SEO'
 
 import HomeHero from '../sections/home/Home.Hero'
 import HomeAbout from '../sections/home/Home.About'
-import HomeCallToAction from '../sections/home/Home.CallToAction'
+import HomeContact from '../sections/home/Home.Contact'
 import HomeTestimonial from '../sections/home/Home.Testimonial'
 import HomeServices from '../sections/home/Home.Services'
 
@@ -25,7 +25,7 @@ function IndexPage({ data, location }) {
     <Layout
       nav={navConfig}
       location={location}
-      background="#08080b"
+      background="#08070B"
       withFooter={false}
     >
       <>
@@ -39,7 +39,7 @@ function IndexPage({ data, location }) {
         <HomeAbout />
         <HomeServices />
         <HomeTestimonial />
-        <HomeCallToAction />
+        <HomeContact />
       </>
     </Layout>
   )

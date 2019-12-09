@@ -5,9 +5,9 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Section from '@components/Section'
 import Heading from '@components/Heading'
 import Sticky from '@components/Sticky'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const aboutNarativeText = [
   `Even the most brilliant companies hit points where their focus is
@@ -54,14 +54,14 @@ const HomeAbout = () => {
       <MobileContainer>
         <Slash aria-hidden="true" />
         <MediaContainer>
-          <Media src={glow.childImageSharp.fluid} />
+          <Image src={glow.childImageSharp.fluid} />
         </MediaContainer>
       </MobileContainer>
       <Gradient>
         <Grid narrow>
           <Sticky
-            height="682px"
             top={140}
+            height="682px"
             disableOnMobile
             render={() => <AboutHeading>The Narative Approach</AboutHeading>}
           />
@@ -86,7 +86,7 @@ const Gradient = styled.div`
   background: #08080b;
   background: linear-gradient(#08080b, #101216);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     background: linear-gradient(transparent, #101216);
   `};
 `
@@ -94,13 +94,13 @@ const Gradient = styled.div`
 const Grid = styled(Section)`
   position: relative;
   display: grid;
-  grid-template-columns: 135px 670px;
+  grid-template-columns: 144px 670px;
   grid-column-gap: 128px;
   padding-top: 100px;
   padding-bottom: 30px;
   z-index: 2;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-top: 80px;
     display: block;
     padding-bottom: 100;
@@ -111,9 +111,8 @@ const TextContainer = styled.div`
   position: relative;
   padding-top: 0;
   margin-bottom: 75px;
-  will-change: opacity;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 22px;
     top: 0;
     margin: 0;
@@ -125,7 +124,7 @@ const Text = styled.p`
   font-size: 32px;
   color: #fff;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     font-size: 22px;
   `};
 `
@@ -140,8 +139,10 @@ const MobileContainer = styled.div`
   max-width: 100vw;
   margin-bottom: -85%;
   overflow-x: hidden;
+  background: #08070b;
+  box-shadow: 0px -40px 40px rgba(8, 7, 11, 0.8);
 
-  ${mediaqueries.tablet_up`
+  ${media.tablet_up`
     display: none;
   `}
 `
@@ -168,13 +169,11 @@ const Slash = () => (
         strokeWidth="12"
       />
     </g>
-    <g filter="url(#filter1_dd)">
-      <path
-        d="M329.998 379.319L45 178.816V81.528L329.984 281.14L329.998 379.319Z"
-        stroke="white"
-        strokeWidth="12"
-      />
-    </g>
+    <path
+      d="M329.998 379.319L45 178.816V81.528L329.984 281.14L329.998 379.319Z"
+      stroke="white"
+      strokeWidth="12"
+    />
     <rect
       x="35.5"
       y="66.5"

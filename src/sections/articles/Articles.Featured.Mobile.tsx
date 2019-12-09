@@ -3,10 +3,9 @@ import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 
 import Heading from '@components/Heading'
-import ButtonArrow from '@components/Button/Button.Arrow'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
-import mediaqueries, { media } from '@styles/media'
+import media from '@styles/media'
 
 import { IArticleNode } from '@typings'
 
@@ -28,10 +27,10 @@ const GridItem = ({ article }) => {
   return (
     <ArticleLink to={`/articles/${article.slug}`}>
       <Item>
-        <Image background={article.backgroundColor}>
-          <Media src={article.backgroundImage.fluid} />
+        <ImageContainer background={article.backgroundColor}>
+          <Image src={article.backgroundImage.fluid} />
           <FeaturedPill>Featured</FeaturedPill>
-        </Image>
+        </ImageContainer>
         <Title dark hasOverflow={hasOverflow}>
           {article.title}
         </Title>
@@ -55,7 +54,7 @@ const limitToTwoLines = css`
   white-space: normal;
   overflow: hidden;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     -webkit-line-clamp: 3;
   `}
 `
@@ -70,21 +69,21 @@ const Grid = styled.div`
   padding-top: 80px;
   margin-bottom: 80px;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     grid-template-columns: 1fr 1fr;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     grid-template-columns: 1fr;
     margin-bottom: 0;
   `}
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div<{ backgorund: string }>`
   position: relative;
   height: 240px;
 
@@ -98,13 +97,13 @@ const Image = styled.div`
     border-top-right-radius: 5px;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 240px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: 200px;
   `}
 `
@@ -138,7 +137,7 @@ const Title = styled(Heading.h2)`
   color: #fff;
   ${limitToTwoLines};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding: 30px 20px 0;
     margin-bottom: 10px;
     -webkit-line-clamp: 3;
@@ -153,11 +152,11 @@ const Excerpt = styled.p`
   display: ${p => (p.hasOverflow ? 'none' : 'box')};
   max-width: ${p => (p.narrow ? '415px' : '515px')};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: -webkit-box;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 100%;
     padding:  0 20px;
     margin-bottom: 20px;
@@ -171,7 +170,7 @@ const TimeToRead = styled.div`
   color: ${p => p.theme.colors.grey};
   opacity: 0.5;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     max-width: 100%;
     padding:  0 20px 30px;
   `}
@@ -194,7 +193,7 @@ const ArticleLink = styled(Link)`
       0 30px 50px -30px rgba(0, 0, 0, 0.3);
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     &:hover ${Image} {
       box-shadow: none;
     }

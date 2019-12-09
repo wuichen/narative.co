@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const LogoSymbolContainer = styled.div`
   height: 30px;
   width: 23px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     height: 25px;
     width: 19.09px;
   `};

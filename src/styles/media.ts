@@ -2,8 +2,6 @@ import { css } from 'styled-components'
 
 import theme from '@styles/theme'
 
-const toEm = (size: number) => size / 16 + 'em'
-
 /**
  * All breakpoints can be found inside of theme.breakpoints.
  * Each is turned in to a min + 1 and max-width version.
@@ -12,20 +10,20 @@ const toEm = (size: number) => size / 16 + 'em'
  *
  * @example
  *
- *    ${mediaqueries.phone` width: 100px; `};
- *    ${mediaqueries.tablet_up` width: 200px; `};
+ *    ${media.phone` width: 100px; `};
+ *    ${media.tablet_up` width: 200px; `};
  */
 
-const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
+const media: Imedia = theme.breakpoints.reduce(
   (acc, [label, size], i) => ({
     ...acc,
-    // max-width media query e.g. mediaqueries.desktop
+    // max-width media query e.g. media.desktop
     [label]: (...args: TemplateStringsArray[]) => css`
       @media (max-width: ${size}px) {
         ${css(...args)};
       }
     `,
-    // min-width media query e.g. mediaqueries.desktop_up
+    // min-width media query e.g. media.desktop_up
     // This is the breakpoint prior's size +1
     [`${label}_up`]: (...args: TemplateStringsArray[]) => css`
       @media (min-width: ${theme.breakpoints[i - 1][1] + 1}px) {
@@ -36,20 +34,4 @@ const mediaqueries: IMediaqueries = theme.breakpoints.reduce(
   {}
 )
 
-// Add media queries for touch etc.
-mediaqueries.coarse = (...args: TemplateStringsArray[]) => css`
-  @media (pointer: coarse) {
-    ${css(...args)};
-  }
-`
-
-// Add media queries for mouse and trackpad etc.
-mediaqueries.fine = (...args: TemplateStringsArray[]) => css`
-  @media (pointer: fine) {
-    ${css(...args)};
-  }
-`
-
-export const media = mediaqueries
-
-export default mediaqueries
+export default media

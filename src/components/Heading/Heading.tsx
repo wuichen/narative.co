@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 const commonStyles = (marginBottom = 0, fontWeight = 700) => css`
   font-weight: ${fontWeight};
@@ -44,14 +44,14 @@ const constants = {
   },
   h2: {
     fontsize: '3.2rem',
-    fontsizeMobile: '2.3rem',
+    fontsizeMobile: '2.4rem',
     fontFamily: "'ff-meta-serif-web-pro', serif",
     lineheight: 1.2,
   },
   h3: {
     fontsize: '2.4rem',
     fontFamily: "'ff-meta-serif-web-pro', serif",
-    fontsizeMobile: '2.4rem',
+    fontsizeMobile: '2.2rem',
     lineheight: 1.45,
   },
   h4: {
@@ -76,15 +76,15 @@ const styles = {
     font-size: ${constants.blockquote.fontsize};
     line-height: ${constants.blockquote.lineheight};
 
-    ${commonStyles(0, 400)} ${mediaqueries.phablet` font-size: ${
-      constants.blockquote.fontsizeMobile
-    }; `};
+    ${commonStyles(0, 400)};
+    ${media.phablet` font-size: ${constants.blockquote.fontsizeMobile}; `};
   `,
   h1: css`
     font-size: ${constants.h1.fontsize};
     line-height: ${constants.h1.lineheight};
 
-    ${commonStyles(1, 400)} ${mediaqueries.phablet`
+    ${commonStyles(1, 400)};
+    ${media.phablet`
       font-size: ${constants.h1.fontsizeMobile};
       line-height: ${constants.h1.lineheightMobile};
     `};
@@ -94,39 +94,34 @@ const styles = {
     line-height: ${constants.h2.lineheight};
     font-family: ${constants.h2.fontFamily};
 
-    ${commonStyles(2)} ${mediaqueries.phablet` font-size: ${
-      constants.h2.fontsizeMobile
-    }; `};
+    ${commonStyles(2)};
+    ${media.phablet` font-size: ${constants.h2.fontsizeMobile}; `};
   `,
   h3: css`
     font-size: ${constants.h3.fontsize};
     line-height: ${constants.h3.lineheight};
     font-family: ${constants.h2.fontFamily};
 
-    ${commonStyles(0.5)} ${mediaqueries.phablet` font-size: ${
-      constants.h3.fontsizeMobile
-    }; `};
+    ${commonStyles(0.5)};
+    ${media.phablet` font-size: ${constants.h3.fontsizeMobile}; `};
   `,
   h4: css`
     font-size: ${constants.h4.fontsize};
 
-    ${commonStyles()} ${mediaqueries.phablet` font-size: ${
-      constants.h4.fontsizeMobile
-    }; `};
+    ${commonStyles()};
+    ${media.phablet` font-size: ${constants.h4.fontsizeMobile}; `};
   `,
   h5: css`
     font-size: ${constants.h5.fontsize};
 
-    ${commonStyles()} ${mediaqueries.phablet` font-size: ${
-      constants.h5.fontsizeMobile
-    }; `};
+    ${commonStyles()};
+    ${media.phablet` font-size: ${constants.h5.fontsizeMobile}; `};
   `,
   h6: css`
     font-size: ${constants.h6.fontsize};
 
-    ${commonStyles()} ${mediaqueries.phablet` font-size: ${
-      constants.h6.fontsizeMobile
-    }; `};
+    ${commonStyles()};
+    ${media.phablet` font-size: ${constants.h6.fontsizeMobile}; `};
   `,
 }
 
@@ -151,7 +146,7 @@ export default {
     margin-top: 2.5rem;
     display: inline-block;
 
-    ${mediaqueries.phablet`
+    ${media.phablet`
       margin-top: 1.5rem;
     `};
   `,

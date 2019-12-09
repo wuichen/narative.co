@@ -11,7 +11,7 @@ import Footer from '@components/Navigation/Navigation.Footer'
 import { calculateStyles } from './Layout.Hero.Mobile'
 import { ExIcon } from '../../icons/ui'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import {
   clamp,
@@ -277,7 +277,7 @@ const SiteContainer = styled.div`
   position: ${p => (p.active || p.mask ? 'fixed' : 'relative')};
   background: ${p =>
     p.background ||
-    `linear-gradient(180deg, #08080b 0%, #0b0b0e 44.18%, #111216 100%)`};
+    `linear-gradient(180deg, #08070B 0%, #0b0b0e 44.18%, #111216 100%)`};
   min-height: 100vh;
 
   ${p =>
@@ -287,17 +287,17 @@ const SiteContainer = styled.div`
 
   ${p =>
     p.navOffset &&
-    mediaqueries.tablet`
+    media.tablet`
       padding-top: 0; 
   `};
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     transform: ${p =>
       p.active ? `translateY(${p.mobileNavOffset}px)` : 'none'};
     transition: transform ${MOBILE_NAV_DURATION +
       60}ms cubic-bezier(0.52, 0.16, 0.24, 1);
-    width: 100vw;
     touch-action: ${p => (p.active ? 'none' : 'initial')};
+    width: 100vw;
   `}
 
   &::after {
@@ -313,10 +313,13 @@ const SiteContainer = styled.div`
     box-shadow: 0px -20px 40px rgba(0, 0, 0, 0.2);
   }
 
+  ${p =>
+    p.active &&
+    `
   &::before {
     content: '';
     position: absolute;
-    top: ${p => (p.low ? '11px' : '-21px')};
+    top: ${p.low ? '11px' : '-21px'};
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -327,7 +330,7 @@ const SiteContainer = styled.div`
       rgba(255, 255, 255, 0.25) 0%,
       rgba(255, 255, 255, 0.02) 100%
     );
-  }
+  }`}
 `
 
 const MobileHamburger = styled.button`
@@ -349,7 +352,7 @@ const MobileHamburger = styled.button`
     top: -50%;
   }
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
     visibility: hidden;
   `}
@@ -384,19 +387,19 @@ const MaskMobile = styled.div`
   transition: opacity 0.5s linear;
   pointer-events: none;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    background: ${p => (p.theme !== 'dark' ? '#08080b' : '#fff')};
+    background: ${p => (p.theme !== 'dark' ? '#08070b' : '#fff')};
     z-index: 9; 
   `}
 `
 
 const MobileScroll = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
   position: ${p => (p.fixed ? 'fixed' : 'absolute')};
 
     width: 100%;

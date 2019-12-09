@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Media from '@components/Media/Media.Img'
-import mediaqueries from '@styles/media'
+import Image from '@components/Image'
+import media from '@styles/media'
 
 const ArticlePreview = ({ product }) => (
   <Card background={product.backgroundColor}>
@@ -11,9 +11,9 @@ const ArticlePreview = ({ product }) => (
       <Excerpt>{product.excerpt}</Excerpt>
       {product.children}
     </Content>
-    <Image>
-      <Media src={product.background} />
-    </Image>
+    <ImageContainer>
+      <Image src={product.background} />
+    </ImageContainer>
   </Card>
 )
 
@@ -52,7 +52,7 @@ const Card = styled.div`
     opacity: 1;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -62,7 +62,7 @@ const Content = styled.div`
   z-index: 1;
   max-width: 371px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     text-align: center;
     margin: 0 auto;
   `}
@@ -78,12 +78,12 @@ const Excerpt = styled.p`
   color: ${p => p.theme.colors.grey};
   margin-bottom: 30px;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     margin-bottom: 25px;
   `}
 `
 
-const Image = styled.div`
+const ImageContainer = styled.div`
   position: absolute;
   height: 100%;
   width: 69%;
@@ -96,7 +96,7 @@ const Image = styled.div`
     height: 100%;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import { range } from '@utils'
 
 import { IPaginator } from '@typings'
@@ -159,7 +159,7 @@ const paginationItemMixin = css`
   justify-content: center;
   font-variant-numeric: tabular-nums;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: block;
     width: auto;
     height: auto;
@@ -213,11 +213,11 @@ const Frame = styled.nav`
   justify-content: space-between;
   align-items: center;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     .Paginator__pageLink, ${Spacer} { display: none; }
   `}
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     justify-content: flex-start;
     ${MobileReference} { display: none; }
   `}

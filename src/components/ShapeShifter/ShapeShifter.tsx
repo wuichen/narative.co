@@ -22,8 +22,8 @@ import throttle from 'lodash/throttle'
 import { useStaticQuery, graphql } from 'gatsby'
 import { isSafari, isFireFox } from 'react-device-detect'
 
-import Media from '@components/Media/Media.Img'
-import mediaqueries from '@styles/media'
+import Image from '@components/Image'
+import media from '@styles/media'
 
 // The SVG shapes and data required to properly morph and place them
 import shapes from './Shapes'
@@ -572,7 +572,7 @@ function ShapeShifter() {
       <ShapesContainer>
         <Relative ref={rel} style={activeStyles}>
           <ShapeGlow ref={glow} animate={animate}>
-            <Media src={glowImage.childImageSharp.fixed} />
+            <Image src={glowImage.childImageSharp.fixed} />
           </ShapeGlow>
           <ShapeContainer
             style={activeStyles}
@@ -644,7 +644,7 @@ const Frame = styled.div`
   animation: ${scaleIn} 3.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards,
     ${fadeIn} 3s 0.3s forwards;
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: none;
   `}
 
@@ -759,7 +759,7 @@ const ShapeGlow = styled.div`
   top: -50px;
   transform: scale(1.8, 2.2);
 
-  ${mediaqueries.desktop_large`
+  ${media.desktop_large`
       transform: scale(1.4, 2.4);
   `}
 `

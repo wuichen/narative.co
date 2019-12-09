@@ -9,11 +9,11 @@ import Section from '@components/Section'
 import MediaQuery from '@components/MediaQuery'
 import { ContactContext } from '@components/Contact/Contact.Context'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 import shortcuts, { constants } from '@shortcuts'
 
 const ctaLinks = [
-  { to: '/careers', text: 'Careers' },
+  { to: '/about', text: 'About' },
   { to: '/labs', text: 'Labs' },
   { to: '/articles', text: 'Articles' },
   { to: '/contact', text: 'Contact' },
@@ -91,7 +91,7 @@ function HomeCallToAction() {
               </NavLinks>
             </Nav>
             <TextContainer>
-              <TextBackground visiblePercentage={visiblePercentage}>
+              <TextBackground>
                 <Text>
                   Together, let’s discover what your company is truly capable
                   of.
@@ -109,7 +109,6 @@ function HomeCallToAction() {
                 Contact Us <ChevronDownIcon aria-hidden="true" />
               </CTAText>
             </CallToAction>
-            <MobileCopy>More about Narative</MobileCopy>
           </Frame>
         )}
       />
@@ -146,7 +145,7 @@ const Frame = styled.div`
     );
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     min-height: 88vh;
     overflow: visible;
   `}
@@ -171,11 +170,11 @@ const Nav = styled(Section)`
     padding-top: 50px;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: flex;
   `}
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     justify-content: center;
     padding-top: 90px;
 
@@ -188,7 +187,7 @@ const Nav = styled(Section)`
 `
 
 const NavLinks = styled.div`
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
     visibility: hidden;
     opacity: 0;
@@ -222,7 +221,7 @@ const TextContainer = styled.div`
   flex-direction: column;
   padding: 0 20px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     padding-top: 100px;
     text-align: center;
   `}
@@ -262,11 +261,11 @@ const Text = styled.h2`
     font-size: 72px;
   }
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     font-size: 60px;
   `}
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     font-size: 39.29px;
     line-height: 1.2;
     text-align: center;
@@ -288,7 +287,7 @@ const CallToAction = styled.div`
   color: #000;
   cursor: pointer;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
     visibility: hidden;
     opacity: 0;
@@ -364,34 +363,15 @@ const MobileAction = styled(Link)`
   font-weight: 600;
   margin-top: 75px;
 
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
-`
-
-const MobileCopy = styled.div`
-  ${mediaqueries.tablet_up`
-    display: none;
-  `}
-
-  max-width: 184px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -85px;
-  margin: 0 auto;
-  text-align: center;
-  background: #101216;
-  padding: 10px 15px;
-  z-index: 1;
-  font-size: 18px;
-  color: ${p => p.theme.colors.grey};
 `
 
 const LogoContainer = styled.div`
   max-width: 114px;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
     position: relative;
     left: 60px;
@@ -401,7 +381,7 @@ const LogoContainer = styled.div`
 `
 
 const MobileLogoContainer = styled.div`
-  ${mediaqueries.desktop_up`
+  ${media.desktop_up`
     display: none;
   `}
 `

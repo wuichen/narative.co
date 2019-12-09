@@ -4,11 +4,11 @@ import { Link, navigate } from 'gatsby'
 
 import Heading from '@components/Heading'
 import ButtonArrow from '@components/Button/Button.Arrow'
-import Media from '@components/Media/Media.Img'
+import Image from '@components/Image'
 
 import ArticlesFeaturedMobile from './Articles.Featured.Mobile'
 
-import mediaqueries from '@styles/media'
+import media from '@styles/media'
 
 import { IArticleNode } from '@typings'
 
@@ -34,7 +34,7 @@ const ArticlesFeatured = ({ article }: { article: IArticleNode }) => (
           />
         </Left>
         <Right>
-          <Media src={article.hero.Article__Featured} />
+          <Image src={article.hero.Article__Featured} />
         </Right>
       </StyledLink>
     </Frame>
@@ -53,7 +53,7 @@ const limitToTwoLines = css`
   white-space: normal;
   overflow: hidden;
 
-  ${mediaqueries.phablet`
+  ${media.phablet`
     -webkit-line-clamp: 3;
   `}
 `
@@ -64,7 +64,7 @@ const Frame = styled.div`
   padding: 60px 0 100px;
   align-items: center;
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -105,7 +105,7 @@ const Right = styled.div`
   right: -8%;
   transform: scale(1.088);
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     display: none;
   `}
 `
@@ -128,7 +128,7 @@ const SuperScript = styled.h2`
     background: #000;
   }
 
-  ${mediaqueries.tablet`
+  ${media.tablet`
     margin-bottom: 60px;
   `}
 `
@@ -141,7 +141,7 @@ const Excerpt = styled.p`
   display: ${p => (p.hasOverflow ? 'none' : 'box')};
   max-width: ${p => (p.narrow ? '415px' : '515px')};
 
-  ${mediaqueries.desktop`
+  ${media.desktop`
     display: box;
   `}
 `
