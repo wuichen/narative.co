@@ -44,7 +44,12 @@ const StyledButton = styled.button<{ mode: string }>`
   color: ${p => p.theme.colors.sirius};
   font-weight: 600;
   font-size: 18px;
-  transition: border-color 1s;
+  transition: border-color 1s, background 0.2s ease;
+
+  &:hover {
+    background: ${p =>
+      p.mode === 'dark' ? p.theme.colors.kepler : 'rgba(255,255,255,0.02)'};
+  }
 `
 
 const blink = keyframes`

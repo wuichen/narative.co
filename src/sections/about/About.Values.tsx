@@ -149,7 +149,7 @@ function AboueValues() {
       <Desktop>
         <Sticky
           cover
-          height="3000px"
+          height="2600px"
           render={({ progress }: StickyState) => {
             const fastProgress = progress * 20
 

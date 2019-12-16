@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import usePortal from 'react-useportal'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Link, useStaticQuery, graphql, navigate } from 'gatsby'
 import OutsideClickHandler from 'react-outside-click-handler'
 
 import Heading from '@components/Heading'
@@ -74,6 +74,11 @@ function AboutStudioLabsModal({
   const { labsHero } = useStaticQuery(labsImageQuery)
   const modalRef = useRef()
 
+  function handleLabsLink() {
+    bodyScroll('enable')
+    navigate('/labs')
+  }
+
   useEffect(() => {
     if (isOpen) {
       bodyScroll('disable', modalRef.current)
@@ -129,7 +134,7 @@ function AboutStudioLabsModal({
                       potential of everything we create — no matter who it’s
                       for.
                     </ModalText>
-                    <ModalLink to="/labs">
+                    <ModalLink onClick={handleLabsLink}>
                       See our products <InternalLinkIcon />
                     </ModalLink>
                   </ModalAbout>
@@ -472,7 +477,7 @@ const ModalText = styled.p<{ index: number }>`
   `}
 `
 
-const ModalLink = styled(Link)`
+const ModalLink = styled.button`
   display: block;
   color: ${p => p.theme.colors.gold};
   font-size: 18px;
