@@ -33,7 +33,7 @@
     "formik": "^0.11.11",
     "framer-motion": "^1.6.12",
     "fuse.js": "^3.4.4",
-    "gatsby": "^2.18.7",
+    "gatsby": "^2.18.17",
     "gatsby-image": "^2.2.34",
     "gatsby-paginate": "^1.0.17",
     "gatsby-plugin-catch-links": "^2.1.19",
